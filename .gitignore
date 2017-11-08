@@ -1,0 +1,9 @@
+*.xls
+*.xlsx
+*.csv
+*.ipynb
+*.ipynb_checkpoints
+__pycache__
+*.pyc
+thesis-data.dmg
+
