@@ -11,8 +11,7 @@ df = pd.read_csv(csv_path, dtype={'INTERNAL_ID': str, 'SPECIALTY': str, 'BENCH_P
 
 def add_HRG_columns(df):
     
-    """ Adds an HRG Chapter column and an HRG Subchapter column to 
-        the dataframe just before the HRG column.
+    """ Adds  an HRG Subchapter column to the dataframe.
     """
     
     # Subchapter is given by the irst and second letter of HRG
@@ -24,7 +23,7 @@ def add_HRG_columns(df):
 def remove_extra_columns(df):
     
     """ Removes extra columns added after collection: PODHRG, LogLOS, 
-        LogNetCost, binary columns for age and DotW.
+        LogNetCost, binary columns for age and days of the week.
     """
 
     daysoftheweek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 
