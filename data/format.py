@@ -1,13 +1,10 @@
 import pandas as pd
 import numpy as np
-import os
 import sys
 
 csv_path = str(sys.argv[1])
 
-df = pd.read_csv(csv_path, dtype={'INTERNAL_ID': str, 'SPECIALTY': str, 'BENCH_PERIOD': str, 'PERIOD': str}, low_memory=False)
-
-os.rename(csv_path, 'unformatted_' + csv_path)
+df = pd.read_csv(csv_path, dtype={'INTERNAL_ID': str, 'SPECIALTY': str, 'BENCH_PERIOD': str, 'PERIOD': str, 'SEX': str}, low_memory=False)
 
 ### Formatting ###
 
@@ -34,17 +31,14 @@ def remove_extra_columns(df):
                      'Friday', 'Saturday', 'Sunday']
     procedure_on = [f'Procedure on {day}' for day in daysoftheweek]
     
-    extra_columns = ['PODHRG', 'LogLOS', 'LogNetCost']
-                     + daysoftheweek + procedure_on + 
-                     ['Age 1-18', 'Age 19-25', 'Age 26-35', 'Age 36-45', 
-                      'Age 46-55', 'Age 56-75', 'Age 76-90', 'Age >90']
+    extra_columns = ['PODHRG', 'LogLOS', 'LogNetCost'] + daysoftheweek + procedure_on + ['Age 1-18', 'Age 19-25', 'Age 26-35', 'Age 36-45', 'Age 46-55', 'Age 56-75', 'Age 76-90', 'Age >90']
     
     for col in extra_columns:
         if col in df.columns:
             df.drop(col, axis=1, inplace=True)
 
 
-def format_periods()f):
+def format_periods(df):
     
     """ Reformats the PERIOD/BENCH_PERIOD columns from 201310 
         to 2013-10 (for example)
@@ -80,10 +74,10 @@ def format_sex(df):
     
     """ Reformats SEX column from 1 or 2 to M or F, respectively, and NaN otherwise.
     """
-    
-    df.loc[df.Sex == 1, 'Sex'] = 'M'
-    df.loc[df.Sex == 2, 'Sex'] = 'F'
-    df.loc[(df.Sex != 1) & (df.Sex != 2) & (df.Sex != 'M') & (df.Sex != 'F'), 'Sex'] = np.nan
+ 
+    df.loc[df.SEX == '1', 'SEX'] = 'M'
+    df.loc[df.SEX == '2', 'SEX'] = 'F'
+    df.loc[(df.SEX != '1') & (df.SEX != '2') & (df.SEX != 'M') & (df.SEX != 'F'), 'SEX'] = np.nan
 
 
 add_HRG_columns(df)
@@ -91,4 +85,4 @@ remove_extra_columns(df)
 format_periods(df)
 format_sex(df)
 
-df.to_csv(csv_path, header=True, index=False)
+df.to_csv(csv_path[:21] + csv_path[33:], header=True, index=False)
