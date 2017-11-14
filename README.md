@@ -1,4 +1,4 @@
-# Understanding the factors which lead to cost variability within the NHS
+# Utilising machine learning to understand cost variability in the NHS
 A private repo for my thesis at Cardiff University with the Cwm Taf University Health Board
 
 This work can be separated into three (mostly non-chronological) parts:
