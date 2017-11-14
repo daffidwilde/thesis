@@ -1,9 +1,10 @@
 *.xls
 *.xlsx
 *.csv
-*.ipynb
+./*.ipynb
+./*/*.ipynb
 *.ipynb_checkpoints
 __pycache__
 *.pyc
 thesis-data.dmg
-
+*.bib.sav
