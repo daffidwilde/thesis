@@ -1,0 +1,366 @@
+\documentclass{article}
+
+% Setting up the page
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{fullpage}
+
+% Writing mathematics and code
+\usepackage{mathtools}
+\usepackage{amsmath}
+\usepackage{amssymb}
+%\usepackage{minted}
+
+% Importing images, tables and referencing
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{float}
+
+% For indexing sections, etc.
+\usepackage{amsthm}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{theorem}{Theorem}
+\newtheorem{example}{Example}
+\newtheorem*{remark}{Remark}
+
+% Bibliography
+\usepackage[backend=bibtex]{biblatex}
+\addbibresource{thesis.bib}
+
+\title{Comparing established initialisation processes for the $k$-modes algorithm, and an alternative process utilising the hospital-resident assignment problem}
+\author{Henry Wilde}
+
+\begin{document}
+
+\maketitle
+
+
+
+\section{The $k$-modes algorithm}\label{section:kmodes}
+
+The $k$-modes algorithm is a part of the family of clustering algorithms known as `prototype-based clustering', and is an extension of the $k$-means algorithm for categorical data as set out in \cite{Huang98}. This work will outline the key differences between the two algorithms and then aim to examine how the initial cluster selection process has an impact on the efficiency and quality of the $k$-modes algorithm. \\
+
+
+\subsection{Notation}\label{subsection:notation}
+
+We will use the following notation throughout this work to describe our data set, points, clusters and representative points:
+
+\begin{itemize}
+\item All data is drawn from a universe $\textbf{U}$ described by a set of $m$ attributes $ \textbf{A} = A_1, \ldots, A_m$.
+
+\item Our data set is a subset of our universe of size $N$, denoted by $\textbf{X} = \{X_1, \ldots, X_N\} \subseteq \textbf{U}$. Each data point $X_i$ can be represented as a vector:
+\[
+X_i = [A_1 = x_{i,1}, A_2 = x_{i,2}, \ldots, A_m = x_{i,m}], \ \ i=1, \ldots, N
+\]
+
+where $x_{i,j}$ is the value of the $j^{th}$ attribute of the $i^{th}$ data point, $X_i$.
+
+\item We are aiming to partition $\textbf{X}$ into a set of $k$ distinct clusters $\textbf{C} = \{C_1, \ldots, C_k\}$. Each cluster $C_l$ has a representative point associated with it $\bar{\mu_l} = [\mu_{l,1}, \ldots, \mu_{l,m}]$.
+\end{itemize}
+
+
+\subsection{Dissimilarity measure}\label{subsection:dissim}
+
+The most immediate difference between $k$-means and $k$-modes is that they deal with different types of data, and so the metric used to define the distance between two points in our space will likely be different. With $k$-means, where our data set has all-numeric attributes, the Euclidean distance is often used. However, we do not have this sense of distance with categorical data. Instead, we utilise a dissimilarity measure - defined below - as our metric. It can be easily checked that this is indeed a distance measure. \\
+
+
+\begin{definition}\label{def:dissim}
+Let $\textbf{X}$ be a categorical data set and consider $X_1, X_2\in \textbf{X}$. We define the dissimilarity between $X_1$ and $X_2$ to be
+
+\[
+d(X_1, X_2) = \sum_{j=1}^{j=m} \delta(x_{1,j}, x_{2,j}) \ \ \text{where} \ \ \delta(x, y) = \begin{cases}
+																																	0, & x = y \\
+                                                                                                    								1, & \text{else}
+                                                                                               									 \end{cases}
+\]
+\end{definition}
+
+
+\subsection{Representative points}\label{subsection:rep points}
+
+Now that we have defined a metric on our space, we can turn our attention to what we mean by the representative point $\bar{\mu_l}$ of a cluster $C_l$. In $k$-means, we call $\mu_l$ a `centroid' and define it to be the average of all points $X_i \in C_l$ by Euclidean distance. With categorical data, we use our revised distance measure defined in \ref*{def:dissim} to specify a representative point. We call such a point a mode of \textbf{X}. \\
+
+\begin{definition}\label{def:mode}
+We define a mode of our set \textbf{X} to be any vector $\bar{\mu} = [\mu_1, \ldots, \mu_m] \in \textbf{U}$ that minimises
+
+	\begin{equation}
+		D(\textbf{X}, \bar{\mu}) = \sum_{i=1}^{i=n} d(X_i, \bar{\mu})
+	\end{equation}
+
+NB: $\bar{\mu}$ is not necessarily in \textbf{X}.
+\end{definition}
+
+
+\begin{theorem}\label{theorem:1}
+Let $f_r(A_j = c_{s,j}) = \frac{n_{c_{s,j}}}{N}$ denote the relative frequency of category $c_{s,j}$ in \textbf{X} where $n_{c_{s,j}}$ is the number of points in \textbf{X} which take the $s^{th}$ category $c_{s,j}$ of the $j^{th}$ attribute $A_j$. Then \\
+
+The function $D(\textbf{X}, \bar{\mu})$ is minimised $\iff f_r(A_j = \mu_j | \textbf{X}) \geq f_r(A_j = c_{s,j} | \textbf{X})$ for $\mu_j \neq c_{s,j} \ \forall j = 1, \ldots, m$. \\
+\end{theorem}
+
+A proof of this theorem can be found in the Appendix of \cite{Huang98}. \\
+
+
+\subsection{The cost function}\label{subsection:cost}
+
+We can use these two definitions to determine a cost function for our algorithm. Let $\textbf{M} = \{\bar{\mu_1}, \ldots, \bar{\mu_k}\}$ be a set of $k$ modes of \textbf{X}, and let $W = (w_{i,l})$ be an $n \times k$ matrix such that:
+
+\[ 
+w_{i,l} = \begin{cases}
+                1, & X_i \in C_l \\
+                0, & otherwise
+          	 \end{cases}
+\] \\
+
+Then we define our cost function to be the summed within-cluster dissimilarity:
+
+\begin{equation}
+	C(W, \textbf{M}) = \sum_{l=1}^{l=k}\sum_{i=1}^{i=n}\sum_{j=1}^{j=m} w_{i,l} \delta(x_{i,j}, \mu_{l,j}) 
+\end{equation}
+
+
+\subsection{The $k$-modes algorithm}\label{subsection:kmodes}
+
+Below is a practical implementation of the $k$-modes algorithm \cite{Huang98}:
+
+\begin{enumerate}
+	\item Select $k$ initial modes. The processes by which these are selected will be detailed in Section \ref*{section:init}.
+
+	\item Allocate a point to the cluster whose mode is nearest according to \ref*{def:dissim}. Update the mode of the cluster after each allocation.
+	
+	\item When all points have been allocated, re-evaluate the dissimilarity of each point against the current modes. Reallocate points to the appropriate cluster if they are found to be less dissimilar to another mode. Update the modes of both the original and new clusters after each point is reallocated.
+	
+	\item Go to 3 until no points move after a full cycle through the data set.
+\end{enumerate}
+
+
+
+\section{Initialisation processes}\label{section:init}
+
+It has been shown that the initial choice of clusters impacts the final solution of the $k$-modes algorithm. This is typically controlled either by considering an alternative dissimilarity measure  \cite{Ng07} or by changing the way that the $k$ initial representative points are chosen \cite{Huang98} \cite{Cao09}. Two established methods of selecting these initial points are defined below. \\
+
+
+\subsection{The Huang method}\label{subsection:huang}
+
+In the most basic form of the $k$-modes algorithm, the $k$ initial modes are chosen at random from $\textbf{X}$. Below is an alternative method of selecting these modes to force diversity between them, as described in \cite{Huang98}:
+
+\begin{enumerate}	
+	\item Calculate the frequencies $f(c_{s, j})$ of all categories for each attribute $A_1, \ldots, A_m$ and arrange the categories $c_{s, j}$ in a matrix in descending order of frequency, breaking ties arbitrarily.
+	
+	\item Assign the most frequent categories equally amongst $k$ virtual modes $\bar{\mu_1}, \ldots, \bar{\mu_k}$.
+	
+	\item Go through these modes in numerical order and select the record $X_i$ most similar to $\bar{\mu_l}$. Replace $\bar{\mu_l}$ with $X_i$. Continue in this way until $\bar{\mu_k}$ is replaced. In these selections we maintain that $\bar{\mu_l} \ne \bar{\mu_t}$ for $l \ne t$ so as to avoid empty clusters.
+\end{enumerate}
+
+A small example of this method is given below. \\
+
+
+\begin{example}	
+	Below are the first five rows of a random sample of 250 records from a data set used to determine the acceptability of a car. This dataset was chosen primarily for its number of attributes. However, it should be noted that one downfall of this particular data set is that some of the attributes could be considered as ordinal rather than purely categorical since there are clearly established and easily understandable differences between "high" and "low" prices, for instance. \\
+	
+	\begin{table}[H]
+		\centering
+			\begin{tabular}{c|c|c|c|c|c}\label{table:1}
+			Price & Maintenance & Doors & Passengers & Luggage & Safety \\
+			\hline
+			low &               vhigh &            2 &                  5+ &              med &          med \\
+        	vhigh &             high &            2 &                  4 &              big &          med \\
+        	high &             med &            2 &                  2 &              small &          low \\          
+        	vhigh &              med &            3 &                  2 &            big &          low \\         
+        	low &             med &            5+ &                  2 &              big &           low \\
+			\end{tabular}
+	\end{table}
+	
+	The frequencies of our attributes' categories are given below: \\
+	
+	\begin{table}[H]
+		\centering
+		\begin{tabular}{c|c|c|c|c|c}\label{table:2}
+    		Price	&	Maintenance	&	Doors	&	Passenger	&	Luggage &	Safety	\\
+    		\hline
+    		$ f(c_{\text{low}}) = 61 $		&	$ f(c_{\text{low}}) = 53 $		&	$ f(c_{2}) = 71 $	   	&	$ f(c_{2}) = 81 $		&	$ f(c_{\text{small}}) = 88 $		&	$ f(c_{\text{low}}) = 76 $	\\
+    		$ f(c_{\text{med}}) = 63 $		&	$ f(c_{\text{med}}) = 66 $		&	$ f(c_{3}) = 71 $		& 	$ f(c_{4}) = 85 $		&	$ f(c_{\text{med}}) = 78 $	&	$ f(c_{\text{med}}) = 91 $	\\
+    		$ f(c_{\text{high}}) = 63 $		 &	 $ f(c_{\text{high}}) = 50 $		  &	  $ f(c_{4}) = 53 $	   &	$ f(c_{5+}) = 84 $	&	$ f(c_{\text{big}}) = 84 $	  &		$ f(c_{\text{high}}) = 83 $	\\
+    		$ f(c_{\text{vhigh}}) = 63 $	&	$ f(c_{\text{vhigh}}) = 81 $	&	$ f(c_{5+}) = 55 $		&				{}					&					{}						&						{}					\\
+		\end{tabular}
+		\caption{Frequencies of all attribute categories, $f(c_{s,j})$}
+	\end{table}
+
+	Thus, from Table \ref{table:2} we see that our category matrix is:
+	
+	\[
+	\begin{pmatrix}		
+		\text{vhigh}	&	\text{vhigh}	&	3	&	4	&	\text{small}	&	\text{med}	\\
+		\text{high}		&	\text{med}		&	2	&	5+	&	\text{big}	&	\text{high}		\\
+		\text{med}		&	\text{low}		&	5+	&	2	&	\text{med}	&	\text{low}		\\
+		\text{low}		&	\text{high}		&	4	&	{}	&			{}			&			{}			\\
+	\end{pmatrix}
+	\] \\
+	
+	
+	Acceptability is an attribute of this data which has been removed but indicates whether a car is one of `very good', `good', `acceptable' or `unacceptable'. From this we can suppose that we are looking for $k = 4$ clusters, and so, by distributing the most frequent categories `equally' our initial set of modes is:
+	
+	\begin{equation}
+	\begin{aligned}
+	 \textbf{M }={} & \{\bar{\mu_1} = [\text{vhigh}, \text{med}, 5+, 4, \text{big}, \text{low}], \ \ \bar{\mu_2} = [\text{high}, \text{low}, 4, 5+, \text{med}, \text{med}], \\
+						  & \ \ \bar{\mu_3} = [\text{med}, \text{high}, 3, 2, \text{small}, \text{high}], \ \ \bar{\mu_4} = [\text{low}, \text{vhigh}, 2, 4, \text{big}, \text{med}] \} \\
+	\end{aligned}
+	\end{equation} \\
+	
+	Now we would select the least dissimilar point in our data set to replace each $\bar{\mu_l} \in \textbf{M}$ in numerical order according to Def \ref{def:dissim} and continue with the rest of the algorithm. \\
+\end{example}
+
+
+\subsection{The Cao method}\label{subsection:cao}
+
+Cao's method selects representative points by the average density of a point in the dataset as opposed to relative frequency of the dataset's attribute values. This algorithm is considered deterministic as there is no random element - unlike the standard or Huang methods - and so results are completely reproducible.
+
+
+\begin{definition}\label{def:density}	
+	Consider a data set $\textbf{X}$ with attribute set $\textbf{A}$. Then the average density of any point $X_i \in \textbf{X} \text{ with respect to } \textbf{A}$ is defined as:
+	
+	\[
+	\text{Dens}(X_i) = \frac{\sum_{a \in \textbf{A}} \text{Dens}_{a}(X_i)}{|\textbf{A}|}, \ \ \
+	\text{where \ Dens}_{a}(X_i) = \frac{|\{X_j \in \textbf{X} : x_{i,a} = x_{j,a}\}|}{|\textbf{X}|}
+	\] \\		
+\end{definition} 
+
+\begin{remark}
+	Note that we have $ \frac{1}{|\textbf{X}|} \leq \text{Dens}(X_i) \leq 1$, since for any $a \in \textbf{A}$:		
+
+	\begin{itemize}	
+		\item If $|\{X_j \in \textbf{X} : x_{i,a} = x_{j,a}\}| = 1,$ then Dens$(X_i) = \frac{\sum_{a \in \textbf{A}} \frac{1}{|\textbf{X}|}}{|\textbf{A}|} = \frac{|\textbf{A}|}{|\textbf{A}||\textbf{X}|} = \frac{1}{|\textbf{X}|}$.
+			
+		\item If $|\{X_j \in \textbf{X} : x_{i,a} = x_{j,a}\}| = |\textbf{X}|,$ then Dens$(X_i) = \frac{|\textbf{A}|}{|\textbf{A}|} = 1$.	
+	\end{itemize}
+\end{remark}
+
+
+\noindent The Cao selection process is as follows:
+
+\begin{enumerate}
+	\item Set $ = \emptyset$ and calculate Dens$(X)$ for each $X \in \textbf{X}$.
+	
+	\item Add to  the point $X_{i_1} \in \textbf{X}$ which satisfies $\text{max}_{i=1}^{|\textbf{X}|} \{ \text{Dens}(X_{i_1}) \}$.
+	
+	\item To find the second cluster point, select and add to  the point $X_{i_2} \in \textbf{X}$ which satisfies:
+	 $$
+	 d(X_{i_2}, X_m) \times \text{Dens}(X_{i_2}) = \text{max}_{i=1}^{|\textbf{X}|} \{ d(X_{i}, X_m) \times \text{Dens}(X_{i}) | X_m \in  \}
+	 $$
+	
+	\item If $|| < k$ go to 5. Otherwise, end.
+	
+	\item Select any point $X_{i_j} \in \textbf{X}$ such that:
+	 $$
+	 d(X_{i_j}, X_m) \times \text{Dens}(X_{i_j}) = \text{max} \{ \text{min}_{X_m \in }  \{d(X_{i}, X_m) \times \text{Dens}(X_i) | X_i \in \textbf{X} \}\}
+	 $$
+	 Add this point to  and go to 4.
+\end{enumerate}
+
+
+
+\section{The Gale-Shapley algorithm}\label{section:galeshapley}
+
+In this work, we will consider the initial set of virtual modes  found by the Huang method together with some subset $\tilde{\textbf{X}} \subset \textbf{X}$ as a matching game.
+
+\begin{definition}\label{def:matching-game}
+	A matching game of size $N$ is defined by two disjoint sets, $S$ and $R$, each of size $N$. Each element of $S$ and $R$ has associated with it a preference list of the other set's elements. Any bijection $M$ between $S$ and $R$ is called a matching. If the pair $(s,r)$ are matched by $M$ then we write $M(s) = r$.
+\end{definition} 
+
+\begin{definition}\label{def:blocking-pair}	
+	A pair $(s,r)$ blocks $M$ if $M(s) \ne r$ but $s$ prefers $r$ to $M(s)$ and $r$ prefers $s$ to $M^{-1}(r)$.
+\end{definition}
+
+\begin{definition}\label{def:stable-matching}
+	A matching with no blocking pairs is said to be stable.
+\end{definition}
+
+The Gale-Shapley algorithm is known to find a unique stable matching of a game of size $N$ which is considered to be suitor-optimal. In this method we do not necessarily have equally sized sets for suitors and reviewers, and though we don't allow reviewers to be matched to multiple suitors, an extension to the standard algorithm must be used. This extension is based on that used by the National Resident Matching Program (see: \url{http://www.nrmp.org/matching-algorithm/}) to solve the hospital-resident assignment problem.  \\
+
+\subsection{The capacitated Gale-Shapley algorithm for the hospital-resident problem}\label{subsection:capacitated-galeshapley}
+
+Given a set of $k$ hospitals $H$ - with respective capacities $c_{h_1}, \ldots, c_{h_k} \in \mathbb{Z}_+$ - and a set of $N \ge k$ residents $R$, let each $h \in H, r \in R$ have ranked preferences of their complementary set's elements. Then we solve this capacitated matching game with the following algorithm:
+
+\begin{enumerate}
+	\item Set all hospitals and residents to be unmatched, i.e. $M = \{\}$.
+	
+	\item Take any unmatched resident, $r$, and their most preferred hospital, $h$. If $r$'s preference list is empty, remove them from consideration.
+	
+		\begin{itemize}
+			\item If $h$ has space, i.e. $|M(h)| < c_h$, then append $r$ to $M(h)$.
+			
+			\item Otherwise, for each resident currently matched with $h$, $\tilde{r} \in M(h)$, if $r \notin M(h)$:
+			
+				\begin{itemize}
+					\item If $h$ prefers $r$ to $\tilde{r}$, remove $\tilde{r}$ from $M[h]$  so it is unmatched and append $r$ to $M[h]$.
+					
+					\item If not, remove $h$ from $r$'s preference list and leave $r$ unmatched.								
+				\end{itemize}	
+		\end{itemize}
+
+	\item Go to 2 until there are no unmatched residents up for consideration.
+\end{enumerate}
+
+\begin{remark}
+	This implementation requires all residents to be ranked by all hospitals, and will produce a matching such that no hospital is left without at least one resident.
+\end{remark}
+
+
+
+\section{The proposed method}\label{section:new-method}
+
+With the algorithm described above, we can build an alternative initialisation process for the $k$-modes algorithm. \\
+
+Let \textbf{X} be a dataset with attribute set \textbf{A}, and let \textbf{M} be the set of virtual modes found by the Huang method up to Step 3. Then we construct the following capacitated matching game:
+
+\begin{itemize}
+	\item The set of hospitals $H$ is \textbf{M}, and each hospital has capacity $1$.
+
+	\item The set of residents, $R$, is made up of the $k$ least dissimilar points $X_{l,1}, \ldots, X_{l,k} \in \textbf{X}$ to each $\bar{\mu_l} \in \textbf{M}$.
+
+	\item Each hospital's preference list is simply their addition to the set of residents in descending order of similarity.
+	
+	\item The preference lists of the residents is more complicated. In this initial implementation, we take their preference list to be the set of hospitals in ascending order with respect to dissimilarity. Though, as will be seen in Section \ref{section:results}, other ways of generating these lists (such as randomly) can provide different results.
+\end{itemize}
+
+Now, by applying the capacitated Gale-Shapley algorithm to this game, we find a resident-optimal matching $M$. Let our set of modes $\textbf{M} := M^{-1}(H)$. That is, the $l^{th}$ mode is the resident matched with $\bar{\mu_l}$ when the algorithm concludes.
+
+
+
+\section{Experimental results}\label{section:results}
+
+To give comparative results on the quality of the initialisation processes defined in Sections \ref{section:init} \& \ref{section:new-method}, four well-known, categorical, labelled datasets - soybean, mushroom, breast cancer, and zoo - will be clustered with the $k$-modes algorithm. Then the typical performance measures of accuracy, precision, and recall will be calculated and summarised below. As a general rule, each algorithm will be trained on approximately two thirds of the respective dataset and tested against the final third.
+
+\begin{definition}
+	Let a dataset \textbf{X} have $k$ classes $C_1, \ldots, C_k$, let the number of objects correctly assigned to $C_i$ be denoted $tp_i$, let $fp_i$ denote the number of objects incorrectly assigned to $C_i$, and let $fn_i$ denote the number of objects incorrectly not assigned to $C_i$. Then our performance measures are defined as follows: \\
+		
+		\centering
+		\begin{tabular}{ccc}
+			$\emph{Accuracy}: \ \ \frac{\sum_{i=1}^{k}{tp_i}}{|\textbf{X}|}$, &
+			
+			$\emph{Precision}: \ \ \frac{\sum_{i=1}^{k} \frac{tp_i}{tp_i + fp_i}}{k}$, &
+			
+			$\emph{Recall}: \ \ \frac{\sum_{i=1}^{k} \frac{tp_i}{tp_i + fn_i}}{k}$ \\
+		\end{tabular}
+\end{definition}
+
+
+\subsection{The datasets}\label{subsection:datasets}
+
+A bit on the structure of each dataset and links to access them.
+
+
+\subsection{Results}\label{subsection:results}
+
+Tables of results for each dataset and each initialisation process. Credit to \url{https://github.com/nicodv/kmodes} for the Python implementation of both the Huang and Cao processes, as well as the $k$-modes algorithm itself.
+
+\section{Resident preference lists}\label{section:preferences}
+
+Some examples and hopefully some mathematical reasoning to justify that certain choices of preference lists reduce down to near equivalent results of the Huang method (or others). This then suggests the proposed method is in fact a generalisation of the other method(s).
+
+
+\printbibliography
+
+\end{document}
