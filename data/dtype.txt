@@ -1,0 +1,8 @@
+dtype={'ADM_MET': 'object', 'DIS_MET': 'object', 
+    'MAIN_SPEC': 'object', 'NON_NHS_FLAG': 'object', 
+    'OPCS_12': 'object', 'OPCS_13': 'object', 
+    'DayofMainProc': 'object', 'SEX': 'object', 
+    'consultant': 'object', 'end_ward': 'object', 
+    'pasid': 'object', 'practice_code': 'object', 
+    'procedure_code': 'object', 'procedure_date_dt': 'object', 
+    'site1': 'object', 'south_north': 'object', 'start_ward': 'object'}
