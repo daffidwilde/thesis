@@ -1,0 +1,109 @@
+\documentclass{article}
+
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{fullpage}
+
+\usepackage{mathtools}
+\usepackage{amsmath}
+
+\usepackage{graphicx}
+
+\usepackage{biblatex}
+\addbibresource{thesis.bib}
+
+\title{An elementary analysis of the health board data}
+\author{Henry Wilde}
+
+\begin{document}
+
+\maketitle
+
+
+
+
+\section{Introduction}\label{section:intro}
+
+The contents of this document forms a basis for much of the data analysis and
+mining techniques to come in the writing of this thesis. The data itself is
+provided by the cwm taf university health board and is comprised of patient
+records from across several nhs trusts in south wales. \\
+
+As of dec 2017, the dataset contains 2,447,475 patient records described by 259
+attributes. These attributes are a mix of categorical, numerical, binary and
+datetime variables that include: personal identifiers like age and gender; cost
+components; clinical variables like current diagnoses, severity of diagnoses,
+treatment site, length of stay, and procedures undertaken.
+
+This analysis is themed largely on costs as this is the primary focus of the
+thesis. As such, many of the plots will be against cost components, net costs,
+or attributes known to have a strong correlation with cost of treatment like
+length of stay. However, before any analysis is done, it is important to 
+understand the data we are dealing with. In this section, we will define the 
+attributes which describe the dataset, as well as how the data has been cleaned
+to make it relatively uniform. 
+
+
+\subsection{Attributes}\label{subsection:attributes}
+
+Of the 259 attributes, 104 of them are indicators of the presence of numerous
+conditions as well as Charlson index scores to measure severity of a
+comorbidity. As there are several thousand different primary diagnoses present, 
+belonging to roughly one thousand HRGs, and no immediate way of grouping those
+together in a sensible way, we will not be considering any comparative analysis
+between conditions or procedures except for those documented in the existing
+literature.
+
+The remaining 155 attributes are made up of roughly 30 attributes for various
+component costs of treating a patient (ward costs, imaging, critical care,
+etc.), and the rest are either personal identifiers (age, gender, ID numbers) or
+more general clinical attributes such as start and end wards, length of stay,
+treatment site, consultant, registered GP practice, or admission method. These
+are the attributes we will focus this elementary analysis on.
+
+
+\subsection{Formatting the data}\label{subsection:formatting}
+
+After receiving the dataset, a substantial amount of preprocessing was done to
+make certain attributes -- and groups of attributes -- consistent, as well as
+removing a number of extra attributes which were added after data collection
+that provided no additional information.
+
+A bit on what was actually done and why.
+
+
+\section{Summative statistics}\label{section:summative}
+
+Identify the key attributes from the literature, and the limitations of using
+all the attributes here.
+
+\subsection{Summative statistics of key attributes}\label{subsection:summative}
+
+A few tables showing means, standard deviations, variances. Talk about them.
+
+\subsection{Correlation \& Covariances}\label{subsection:corr-cov}
+
+Summary of relations between attributes. PLOTS, PLOTS, PLOTS.
+
+
+
+
+\section{Known areas of interests}\label{section:known}
+
+From the literature surrounding cost variability and by works done previously
+with the health board, we know that the following...
+
+\subsection{Diabetes}\label{subsection:diabetes}
+
+Can we see immediately what separates patients with diabetes (primary or
+secondary) from those without? Do clusters exist in costs for those with and
+without?
+
+\subsection{Ward}\label{subsection:ward}
+
+Are the results from the paper reproducible with our data?
+
+
+%\printbibliography
+\end{document}

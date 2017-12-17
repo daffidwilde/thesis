@@ -13,7 +13,6 @@ __pycache__
 
 
 # LaTeX stuff
-./latex/*
-!./latex/*.tex
-!./latex/*.bib
-!./latex/*.pdf
+/latex/*
+!/latex/*.tex
+!/latex/*.bib
