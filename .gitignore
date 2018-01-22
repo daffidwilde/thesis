@@ -14,14 +14,15 @@ __pycache__
 
 # Images
 tex/img/*.pdf
+tex/img/*.png
 
 # LaTeX stuff
 main.pdf
 main.aux
-main.pcf
+main.bcf
 main.log
 main.run.xml
-tex/
-!/tex/img/
-!/tex/*.tex
-!/tex/*.bib
+tex/*.aux
+tex/*.pdf
+tex/*.log
+tex/*.bcf
