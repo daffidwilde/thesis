@@ -1,0 +1,120 @@
+\documentclass{article}
+
+\usepackage[margin=1.5cm, includefoot, footskip=30pt]{geometry}
+
+\usepackage{tikz}
+\usetikzlibrary{positioning,chains,fit,shapes,calc}
+\definecolor{myblue}{RGB}{80,80,160}
+\definecolor{mygreen}{RGB}{80,160,80}
+
+\usepackage{amsmath}
+\usepackage{enumerate}
+\usepackage{caption}
+
+\usepackage{amsthm}
+\theoremstyle{definition} \newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+
+\title{Optimising quasi-bipartite graphs}
+
+\begin{document}
+\maketitle
+
+\section{Introduction and definitions}\label{sec:intro}
+
+Let \(X\) be a set of \(N\) points described by \(m\) attribute sets \(A_1,
+\ldots, A_m\). That is,
+\[
+    X \subseteq A_1 \times \cdots \times A_m.
+\]
+
+We write each point \(x \in X\) as an \(m\)-dimensional vector:
+\[
+    x = (x_1, \ldots, x_m), \ \text{where} \ x_j \in A_j \ \text{for all} \ j = 
+    1, \ldots, m.\\
+\]
+
+Suppose that the \(m^{th}\) attribute is in some way of interest to us, and we 
+wish to partition the elements of \(X\) into two parts on some value, 
+\(\alpha \in A_m\), that this attribute can take. Then we define the following 
+sets:
+\[
+    \bar{X} = \{ x \in X | x_m = \alpha \} \quad \tilde{X} = \{ x \in X | x_m 
+    \neq \alpha \}\\
+\]
+
+Observe that \(\bar{X} \cap \tilde{X} = \emptyset\), i.e.\ \(\bar{X}\) and
+\(\tilde{X}\) are disjoint, and that we have \(X = \bar{X} \cup \tilde{X}\). 
+Also, it should be noted that we do not (necessarily) have that \(\bar{X}\) and 
+\(\tilde{X}\) are the same size.\\
+
+\begin{definition}
+    Let \(G\) be a graph with vertex set \(V\). Any subset of vertices \(V' 
+    \subseteq V\) where no two elements \(u', v' \in V'\) are connected by an 
+    edge is called an \emph{independent} set of vertices.\\
+\end{definition}
+
+\begin{definition}
+    A graph \(G\) is considered \emph{bipartite} if it satisfies both of the 
+    following conditions:
+    \begin{enumerate}[(i)]
+        \item The vertices of \(G\) can be partitioned into two disjoint and
+            independent sets, \(U, V\).
+        \item All vertices in \(U\) are connected by an edge to at least one
+            vertex in \(V\), and vice versa.\\
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}
+    A graph \(G\) is considered \emph{quasi-bipartite} if it satisfies condition
+    (i), but not (ii). That is, \(G\) is considered quasi-bipartite if its 
+    vertices can be divided into two disjoint and independent sets but not all
+    of the vertices in either of these sets are connected by an edge.\\
+
+    Note that any quasi-bipartite graph \(G\) contains a subgraph \(G'\) which 
+    is bipartite, where its vertex sets \(U' \subset U, V' \subset V\)
+    consist of those vertices with an edge to (or from) them in \(G\).\\
+\end{definition}
+
+
+\section{Formulation and motivation}\label{sec:formulation}
+
+Let \(G\) be a quasi-bipartite graph with vertex sets \(\bar{X}, 
+\tilde{X}\), and consider \(\bar{x} \in \bar{X}, \tilde{x} \in \tilde{X}\). We 
+specify that an edge exists between \(\bar{x}\) and \(\tilde{x}\) only if we
+have:
+\[
+    \phi(\bar{x}, \tilde{x}) > \beta, \ \text{for some} \ 0 < \beta < 1 \
+    \text{and} \ \phi: X \times X \to [0, 1]
+\]
+
+where \(\phi\) is some metric used to measure the similarity between two points.
+We denote by \textbf{E} the number of edges in \(G\).\\
+
+\begin{figure}[h]
+\centering
+\begin{minipage}{.75\textwidth}
+    \centering
+    \input{quasi-example.tex}
+    \captionof{figure}{An example of a quasi-bipartite graph on 
+    \(X~=~\bar{X}~\cup~\tilde{X}\).\\}\label{fig:quasi-example}
+\end{minipage}
+\begin{minipage}{.75\textwidth}
+    \centering
+    \input{bipartite-example.tex}
+    \captionof{figure}{The bipartite subgraph with vertex sets 
+    \(\bar{X'}~=~\{\bar{x}_1,~\bar{x}_3,~\bar{x}_4,~\bar{x}_5\}\) and 
+    \(\tilde{X'}~=~\{\tilde{x}_2,~\tilde{x}_4,~\tilde{x}_6\}\).}
+    \label{fig:bipartite-subgraph}
+\end{minipage}
+\end{figure}
+
+Our objective is to identify and understand the factors which lead to two or
+more similar points in our set \(X\) to be split by attribute \(A_m\). With this
+formulation, we can achieve this by studying pairs, or subsets, of vertices that
+are connected by edges. However, we arrive at a dilemma: the number of pairs to
+study requires us to maximise the number of edges \textbf{E} in \(G\), but in
+doing so we force the quality of these pairings to be diminished by decreasing
+\(\beta\). Ideally, we aim to optimise both of these variables by defining an
+objective function in terms of \textbf{E} and \(\beta\) over our set \(X\).
+\end{document}
