@@ -20,7 +20,7 @@ def get_sample(X, seed, size):
     """ Take a random sample of `size` rows from a dataframe object, specified
     by a random number generator `seed`. """
 
-    frac = sample_size / len(X)
+    frac = size / len(X)
     sample = X.sample(frac, random_state=seed)
 
     return sample
@@ -29,12 +29,12 @@ def get_sample(X, seed, size):
 def build_matrices(X, Y, beta, size):
     """ Return two matrices: a dissimilarity and an adjacency matrix. The latter
     is formed from the first, and they are defined as follows:
-    
+
     dissim_matrix[i, j] = dissim(X[i], Y[j])
-    
+
     adjacency_matrix[i, j] = {1 if dissim_matrix[i, j] <= beta;
                              {0, otherwise
-    
+
     Parameters
     ----------
     X, Y : dataframe
@@ -53,13 +53,13 @@ def build_matrices(X, Y, beta, size):
         Dissimilarity matrix. Each row is the dissimilarity of Y with X[i]
     """
 
-    X_arr = X.values.compute()
-    Y_arr = Y.values.compute()
-    
-    dissim_matrix = np.empty((sample_size, sample_size))
+    x_arr = X.values.compute()
+    y_arr = Y.values.compute()
 
-    for i, x_row in enumerate(X_arr):
-        dissim_matrix[i, :] = dissim(Y_arr, x_row)
+    dissim_matrix = np.empty((size, size))
+
+    for i, x_row in enumerate(x_arr):
+        dissim_matrix[i, :] = dissim(y_arr, x_row)
 
     adjacency_matrix = np.where(dissim_matrix <= beta, 1, 0)
 
@@ -69,26 +69,27 @@ def build_matrices(X, Y, beta, size):
 @delayed
 def build_dataframe(X, Y, adjacency_matrix, dissim_matrix,
                     idxs, sample_idx, seed, beta, size):
-    
-    X_idx = X.index.compute()[idxs[0]]
-    Y_idx = X.index.compute()[idxs[1]]
+    """ Return a dataframe object for a pair of points given by idxs. """
+
+    x_idx = X.index.compute()[idxs[0]]
+    y_idx = Y.index.compute()[idxs[1]]
 
     result_df = pd.DataFrame({
         'sample_idx': sample_idx, 'seed': seed, 'beta': beta,
         'dissim': dissim_matrix[idxs[0], idxs[1]],
-        f'{X}_idx': X_idx, f'{Y}_idx': Y_idx, 'sample_size': size
+        f'{X}_idx': x_idx, f'{Y}_idx': y_idx, 'sample_size': size
     }, index=[''])
-    
+
     return result_df
 
 
-def build_dataframe(X, Y, sample_idx, seed, beta, size):
-    """ Return a dask dataframe detailing all the similar pairs found between X
-    and Y, and the details of this run.
-    
+def concat_dataframes(X, Y, sample_idx, seed, beta, size):
+    """ Return a dask dataframe detailing all the similar pairs found between
+    the two sets, X and Y, and the details of this run.
+
     Parameters
     ----------
-    X, Y : dataframe
+    X, Y : dask.dataframe
         Dask dataframe samples
     sample_idx : int
         Identifier for sample run
@@ -101,8 +102,8 @@ def build_dataframe(X, Y, sample_idx, seed, beta, size):
 
     Returns
     -------
-    df : dataframe
-        Dask result dataframe
+    dataframe : dataframe
+        Result dataframe
     """
 
     adjacency_matrix, dissim_matrix = build_matrices(X, Y, beta, size)
@@ -112,15 +113,11 @@ def build_dataframe(X, Y, sample_idx, seed, beta, size):
 
     dfs = []
     for idxs in idx_pairs:
-        X_idx = X.index.compute()[idxs[0]]
-        Y_idx = X.index.compute()[idxs[1]]
-
-        result_df = pd.DataFrame({
-            'sample_idx': sample_idx, 'seed': seed, 'beta': beta,
-            'dissim': dissim_matrix[idxs[0], idxs[1]],
-            f'{X}_idx': X_idx, f'{Y}_idx': Y_idx, 'sample_size': size
-        }, index=[''])
-
+        result_df = build_dataframe(X, Y, adjacency_matrix, dissim_matrix,
+                                    idxs, sample_idx, seed, beta, size)
         dfs.append(result_df)
 
-    if len()
+    if dfs:
+        dataframe = dd.concat(dfs, axis=0, interleave_partitions=True)
+
+        return dataframe
