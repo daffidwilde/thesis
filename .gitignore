@@ -2,10 +2,12 @@
 *.xls
 *.xlsx
 *.csv
+*.DS_Store
 thesis-data.dmg
 
 # Notebooks and cache files
 ./data/nbs/
+results
 ./*.ipynb
 ./*/*.ipynb
 *.ipynb_checkpoints
