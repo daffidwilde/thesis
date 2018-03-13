@@ -7,7 +7,7 @@ from dask import delayed
 from sampling import get_sample, concat_dataframes
 
 @delayed
-def write_dataframes(root, X, Y, sample_idx, seed, beta, size):
+def write_dataframes(root, X, Y, beta, size, seed, sample_idx):
     """ Write to file the resulting partition dataframes from locating and
     collecting similar pairs between two sets and for a given run.
 
@@ -46,5 +46,6 @@ def write_dataframes(root, X, Y, sample_idx, seed, beta, size):
     if np.any(dataframe):
 
         dataframe['time'] = time_taken
-        dataframe.to_csv(f'{root}/{beta}/{sample_idx}/{seed}/{size}/',
-                         index=False)
+        dataframe.to_csv(
+            f'{root}/{beta}/{size}/{seed}/{sample_idx}/', index=False
+        )
