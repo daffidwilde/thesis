@@ -7,7 +7,7 @@ thesis-data.dmg
 
 # Notebooks and cache files
 ./data/nbs/
-./src/quasi-bipartite-graphs/results/*
+results
 ./*.ipynb
 ./*/*.ipynb
 *.ipynb_checkpoints
