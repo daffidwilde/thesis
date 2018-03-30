@@ -5,15 +5,25 @@
 thesis-data.dmg
 
 # Notebooks and cache files
+./data/nbs/
 ./*.ipynb
 ./*/*.ipynb
 *.ipynb_checkpoints
 __pycache__
 *.pyc
 
+# Images
+tex/img/*.pdf
+tex/img/*.png
 
 # LaTeX stuff
-./latex/*
-!./latex/*.tex
-!./latex/*.bib
-!./latex/*.pdf
+main.pdf
+main.aux
+main.bcf
+main.log
+main.run.xml
+tex/*.aux
+tex/*.pdf
+tex/*.log
+tex/*.bcf
+tex/*.run.xml
