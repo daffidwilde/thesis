@@ -1,87 +1,61 @@
+""" All the formatting functions. """
+
 import pandas as pd
-import numpy as np
-import sys
 
-csv_path = str(sys.argv[1])
+def add_HRG_Subchapter(df):
+    """ Adds  an HRG Subchapter column to the dataframe. """
 
-df = pd.read_csv(csv_path, dtype={'INTERNAL_ID': str, 'SPECIALTY': str, 'BENCH_PERIOD': str, 'PERIOD': str, 'SEX': str}, low_memory=False)
-
-### Formatting ###
-
-
-def add_HRG_columns(df):
-    
-    """ Adds  an HRG Subchapter column to the dataframe.
-    """
-    
     # Subchapter is given by the irst and second letter of HRG
 
     if 'HRG_Subchapter' not in df.columns:
         df['HRG_Subchapter'] = df['HRG'].map(lambda x: str(x)[:2])
 
-
 def remove_extra_columns(df):
-    
-    """ Removes extra columns added after collection: PODHRG, LogLOS, 
-        LogNetCost, binary columns for age and days of the week.
-    """
+    """ Removes extra columns added after collection: PODHRG, LogLOS,
+    LogNetCost, binary columns for age and days of the week. """
 
-    daysoftheweek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 
-                     'Friday', 'Saturday', 'Sunday']
+    daysoftheweek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday',
+                     'Saturday', 'Sunday']
     procedure_on = [f'Procedure on {day}' for day in daysoftheweek]
-    
-    extra_columns = ['PODHRG', 'LogLOS', 'LogNetCost'] + daysoftheweek + procedure_on + ['Age 1-18', 'Age 19-25', 'Age 26-35', 'Age 36-45', 'Age 46-55', 'Age 56-75', 'Age 76-90', 'Age >90']
-    
-    for col in extra_columns:
+
+    cols = ['PODHRG', 'LogLOS', 'LogNetCost', 'LOAD_DATE'] \
+           + daysoftheweek + procedure_on \
+           + ['Age 1-18', 'Age 19-25', 'Age 26-35', 'Age 36-45',
+              'Age 46-55', 'Age 56-75', 'Age 76-90', 'Age >90']
+
+    for col in cols:
         if col in df.columns:
             df.drop(col, axis=1, inplace=True)
 
+def format_period(string):
+    """ Add a hyphen between the fourth and fifth elements of a string. """
+    return string[:4] + '-' + string[4:]
 
-def format_periods(df):
-    
-    """ Reformats the PERIOD/BENCH_PERIOD columns from 201310 
-        to 2013-10 (for example)
-    """
+def format_period_cols(df):
+    """ Reformats the PERIOD/BENCH_PERIOD columns from 201310 to 2013-10. """
 
-    # Place a hyphen after the fourth character
-
-    if 'Period' not in df.columns:
-        period = [df['PERIOD'][i][:4] + '-' + df['PERIOD'][i][4:] for i in range(len(df['PERIOD']))]
-        df.insert(loc=df.columns.get_loc('PERIOD'), column='Period', value=period)
-        df.drop('PERIOD', axis=1, inplace=True)
-    if 'Bench_Period' not in df.columns:
-        bench_period = [df['BENCH_PERIOD'][i][:4] + '-' + df['BENCH_PERIOD'][i][4:] for i in range(len(df['BENCH_PERIOD']))]
-        df.insert(loc=df.columns.get_loc('BENCH_PERIOD'), column='Bench_Period', value=bench_period)
-        df.drop('BENCH_PERIOD', axis=1, inplace=True)
-
+    for col in ['PERIOD', 'BENCH_PERIOD']:
+        if col in df.columns:
+            df[col].map(format_period)
 
 def format_dates(df):
+    """ Reformats the EPISODE_START, EPISODE_END, ADMDATE, DISCDATE, LOAD_DATE,
+    procedure_date_dt. """
 
-    """ Reformats the EPISODE_START, EPISODE_END, ADMDATE, DISCDATE, 
-        LOAD_DATE, procedure_date_dt
-    """
-    
-    date_columns = ['EPISODE_START', 'EPISODE_END', 'ADMDATE', 
-                    'DISCDATE', 'LOAD_DATE', 'procedure_date_dt']
+    cols = ['EPISODE_START', 'EPISODE_END', 'ADMDATE', 'DISCDATE',
+            'procedure_date_dt']
 
-    for col in date_columns:
+    for col in cols:
         if col in df.columns:
-            df[col] = df[col].map(lambda x: pd.to_datetime(x))
+            df[col] = pd.to_datetime(df[col])
 
+def rename_columns(df):
+    """ Rename some of the poorly/confusingly named columns. """
 
-def format_sex(df):
-    
-    """ Reformats SEX column from 1 or 2 to M or F, respectively, and NaN otherwise.
-    """
- 
-    df.loc[df.SEX == '1', 'SEX'] = 'M'
-    df.loc[df.SEX == '2', 'SEX'] = 'F'
-    df.loc[(df.SEX != '1') & (df.SEX != '2') & (df.SEX != 'M') & (df.SEX != 'F'), 'SEX'] = np.nan
+    rename_cols = {'VisonSec': 'VisionSec', 'HIVPrim.1': 'HIV_Prim',
+                   'HIVSec.1': 'HIV_Sec', 'LDPrim.1': 'LD_Prim',
+                   'LDSec.1': 'LD_Sec', 'site1': 'site', 'C.DIFF': 'C_DIFF'}
 
-
-add_HRG_columns(df)
-remove_extra_columns(df)
-format_periods(df)
-format_sex(df)
-
-df.to_csv(csv_path[:21] + csv_path[33:], header=True, index=False)
+    for col, val in rename_cols.items():
+        if col in df.columns:
+            df.rename(index=str, columns={col: val})
