@@ -10,6 +10,7 @@ thesis-data.dmg
 *.ipynb_checkpoints
 __pycache__
 *.pyc
+*.swp
 
 
 # LaTeX stuff
