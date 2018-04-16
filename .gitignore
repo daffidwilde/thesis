@@ -26,3 +26,4 @@ tex/*.aux
 tex/*.pdf
 tex/*.log
 tex/*.bcf
+tex/*.run.xml
