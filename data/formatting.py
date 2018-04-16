@@ -29,6 +29,7 @@ def remove_extra_columns(df):
 
 def format_period(string):
     """ Add a hyphen between the fourth and fifth elements of a string. """
+    string = str(string)
     return string[:4] + '-' + string[4:]
 
 def format_period_cols(df):
@@ -36,7 +37,11 @@ def format_period_cols(df):
 
     for col in ['PERIOD', 'BENCH_PERIOD']:
         if col in df.columns:
-            df[col].map(format_period)
+            loc = df.columns.get_loc(col)
+            periods = df[col].apply(format_period).values
+
+            df.drop(col, axis=1, inplace=True)
+            df.insert(loc=loc, column=col, value=periods)
 
 def format_dates(df):
     """ Reformats the EPISODE_START, EPISODE_END, ADMDATE, DISCDATE, LOAD_DATE,
@@ -52,10 +57,13 @@ def format_dates(df):
 def rename_columns(df):
     """ Rename some of the poorly/confusingly named columns. """
 
-    rename_cols = {'VisonSec': 'VisionSec', 'HIVPrim.1': 'HIV_Prim',
-                   'HIVSec.1': 'HIV_Sec', 'LDPrim.1': 'LD_Prim',
-                   'LDSec.1': 'LD_Sec', 'site1': 'site', 'C.DIFF': 'C_DIFF'}
+    some_cols = {'VisonSec': 'VisionSec', 'HIVPrim.1': 'HIV_Prim',
+                 'HIVSec.1': 'HIV_Sec', 'LDPrim.1': 'LD_Prim',
+                 'LDSec.1': 'LD_Sec', 'site1': 'site', 'C.DIFF': 'C_DIFF'}
+    programme_cols = {f'Programme {i}': f'Programme_{i}' for i in range(1, 14)}
+
+    rename_cols = dict(some_cols, **programme_cols)
 
     for col, val in rename_cols.items():
         if col in df.columns:
-            df.rename(index=str, columns={col: val})
+            df.rename(index=str, columns={col: val}, inplace=True)
