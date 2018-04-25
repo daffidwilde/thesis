@@ -90,3 +90,6 @@ dtype_dict = {
 
 with open('dtype_dict.json', 'w') as f:
     json.dump(dtype_dict, f)
+
+with open('/Volumes/theis-data/dtype_dict.json') as f:
+    json.dump(dtype_dict, f)

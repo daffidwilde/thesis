@@ -11,8 +11,8 @@ __pycache__
 *.swp
 
 # Images
-tex/img/*.pdf
-tex/img/*.png
+*.pdf
+*.png
 
 # LaTeX stuff
 main.pdf
