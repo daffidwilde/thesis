@@ -2,19 +2,26 @@
 *.xls
 *.xlsx
 *.csv
-thesis-data.dmg
+*thesis-data.dmg
 
-# Notebooks and cache files
-./*.ipynb
-./*/*.ipynb
+# Cache files
 *.ipynb_checkpoints
 __pycache__
 *.pyc
 *.swp
 
+# Images
+tex/img/*.pdf
+tex/img/*.png
 
 # LaTeX stuff
-./latex/*
-!./latex/*.tex
-!./latex/*.bib
-!./latex/*.pdf
+main.pdf
+main.aux
+main.bcf
+main.log
+main.run.xml
+tex/*.aux
+tex/*.pdf
+tex/*.log
+tex/*.bcf
+tex/*.run.xml
