@@ -54,6 +54,13 @@ def format_dates(df):
         if col in df.columns:
             df[col] = pd.to_datetime(df[col])
 
+def true_length_of_stay(df):
+    """ Append a column showing the true length of stay by admission and
+    discharge dates. """
+
+    df['TRUE_LOS'] = df['DISCDATE'] - df['ADMDATE']
+    df['TRUE_LOS'] = df['TRUE_LOS'].dt.days
+
 def rename_columns(df):
     """ Rename some of the poorly/confusingly named columns. """
 
