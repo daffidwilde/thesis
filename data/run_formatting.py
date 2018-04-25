@@ -39,6 +39,8 @@ for datafile in iglob(f'/Volumes/thesis-data/{root}/*'):
     name = path.parts[-1]
     new_name = name.replace('.xlsx', '.csv')
 
+    print('Start:', name)
+
     if name.endswith('xlsx'):
         df = pd.read_excel(path, dtype=dtypes)
     else:
