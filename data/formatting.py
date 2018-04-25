@@ -29,8 +29,11 @@ def remove_extra_columns(df):
 
 def format_period(string):
     """ Add a hyphen between the fourth and fifth elements of a string. """
+
     string = str(string)
-    return string[:4] + '-' + string[4:]
+    if string[4] != '-':
+        return string[:4] + '-' + string[4:]
+    return string
 
 def format_period_cols(df):
     """ Reformats the PERIOD/BENCH_PERIOD columns from 201310 to 2013-10. """
@@ -58,8 +61,9 @@ def true_length_of_stay(df):
     """ Append a column showing the true length of stay by admission and
     discharge dates. """
 
-    df['TRUE_LOS'] = df['DISCDATE'] - df['ADMDATE']
-    df['TRUE_LOS'] = df['TRUE_LOS'].dt.days
+    if 'TRUE_LOS' not in df.columns:
+        df['TRUE_LOS'] = df['DISCDATE'] - df['ADMDATE']
+        df['TRUE_LOS'] = df['TRUE_LOS'].dt.days
 
 def rename_columns(df):
     """ Rename some of the poorly/confusingly named columns. """
