@@ -78,7 +78,11 @@ def drop_true_los_rows(df):
     spell_ids += list(negative_stays.iloc[np.where(negative_stays < 0)].index)
 
     spell_ids = list(set(spell_ids))
-    df.set_index('SPELL_ID').drop(spell_ids, axis=0, inplace=True).reset_index()
+
+    if spell_ids != []:
+        df = df.set_index('SPELL_ID').drop(spell_ids, axis=0).reset_index()
+
+    return df
 
 def rename_columns(df):
     """ Rename some of the poorly/confusingly named columns. """
