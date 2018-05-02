@@ -85,7 +85,7 @@ dtype_dict = {
     'DiabcompSec': 'int', 'ParPrim': 'int', 'ParSec': 'int', 'RDPrim': 'int',
     'RDSec': 'int', 'MetCancPrim': 'int', 'MetCancSec': 'int', 'SLDPrim': 'int',
     'SLDSec': 'int', 'HIV_Prim': 'int', 'HIV_Sec': 'int', 'C_DIFF': 'int',
-    'MRSA': 'int', 'Obese': 'int', 'TRUE_LOS': 'int'
+    'MRSA': 'int', 'Obese': 'int', 'TRUE_LOS': 'float'
 }
 
 with open('dtype_dict.json', 'w') as f:
