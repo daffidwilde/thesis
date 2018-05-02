@@ -1,5 +1,6 @@
 """ All the formatting functions. """
 
+import numpy as np
 import pandas as pd
 
 def add_HRG_Subchapter(df):
@@ -29,8 +30,11 @@ def remove_extra_columns(df):
 
 def format_period(string):
     """ Add a hyphen between the fourth and fifth elements of a string. """
+
     string = str(string)
-    return string[:4] + '-' + string[4:]
+    if string[4] != '-':
+        return string[:4] + '-' + string[4:]
+    return string
 
 def format_period_cols(df):
     """ Reformats the PERIOD/BENCH_PERIOD columns from 201310 to 2013-10. """
@@ -53,6 +57,28 @@ def format_dates(df):
     for col in cols:
         if col in df.columns:
             df[col] = pd.to_datetime(df[col])
+
+def true_length_of_stay(df):
+    """ Append a column showing the true length of stay by admission and
+    discharge dates. """
+
+    if 'TRUE_LOS' not in df.columns:
+        df['TRUE_LOS'] = df['DISCDATE'] - df['ADMDATE']
+        df['TRUE_LOS'] = df['TRUE_LOS'].dt.days
+
+def drop_true_los_rows(df):
+    """ Some episodes and spells are encoded incorrectly leading to multiple
+    disharge dates or impossible lengths of stay within spells. Until this is
+    sorted out, we drop these rows. """
+
+    multiple_dates = df.groupby('SPELL_ID').TRUE_LOS.nunique()
+    spell_ids = list(multiple_dates.iloc[np.where(multiple_dates > 1)].index)
+
+    negative_stays = df.groupby('SPELL_ID').TRUE_LOS.min()
+    spell_ids += list(negative_stays.iloc[np.where(negative_stays < 0)].index)
+
+    spell_ids = list(set(spell_ids))
+    df.set_index('SPELL_ID').drop(spell_ids, axis=0, inplace=True).reset_index()
 
 def rename_columns(df):
     """ Rename some of the poorly/confusingly named columns. """

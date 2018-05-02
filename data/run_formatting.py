@@ -1,13 +1,23 @@
+""" Full run of formatting. """
+
 from glob import iglob
 from pathlib import Path
 
 import json
+import sys
 
 import pandas as pd
 
 from formatting import add_HRG_Subchapter, remove_extra_columns, \
-                       format_period_cols, format_dates, rename_columns
+                       format_period_cols, format_dates, true_length_of_stay, \
+                       drop_true_los_rows, rename_columns
 
+if __name__ == '__main__':
+
+    if len(sys.argv) == 1:
+        root = 'unformatted'
+    else:
+        root = str(sys.argv[1])
 
 def main_formatting(df):
 
@@ -15,32 +25,32 @@ def main_formatting(df):
     remove_extra_columns(df)
     format_period_cols(df)
     format_dates(df)
+    true_length_of_stay(df)
+    drop_true_los_rows(df)
     rename_columns(df)
 
     return df
 
 with open('./dtype_dict.json', 'r') as f:
-    dtype_dict = json.load(f)
+    dtypes = json.load(f)
 
-for excel_file in iglob('/Volumes/thesis-data/unformatted/*.xlsx'):
-    path = Path(excel_file)
+for datafile in iglob(f'/Volumes/thesis-data/{root}/*'):
+
+    path = Path(datafile)
     name = path.parts[-1]
-    new_name = name.replace('xlsx', 'csv')
+    new_name = name.replace('.xlsx', '.csv')
 
-    df = pd.read_excel(path, dtype=dtype_dict)
+    print('Start:', name)
+
+    if name.endswith('xlsx'):
+        df = pd.read_excel(path, dtype=dtypes)
+    else:
+        df = pd.read_csv(path, dtype=dtypes)
+
+    print('Read:', name)
+
     df = main_formatting(df)
     df.to_csv(f'/Volumes/thesis-data/formatted/{new_name}',
               header=True, index=False)
 
-    print('Done:', name)
-
-for csv_file in iglob('/Volumes/thesis-data/unformatted/*.csv'):
-    path = Path(csv_file)
-    name = path.parts[-1]
-
-    df = pd.read_csv(path, dtype=dtype_dict, low_memory=False)
-    df = main_formatting(df)
-    df.to_csv(f'/Volumes/thesis-data/formatted/{name}',
-              header=True, index=False)
-
-    print('Done:', name)
+    print('Done:', name, '\n')
