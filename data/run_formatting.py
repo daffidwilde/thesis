@@ -9,8 +9,8 @@ import sys
 import pandas as pd
 
 from formatting import add_HRG_Subchapter, remove_extra_columns, \
-                       format_period_cols, format_dates, \
-                       true_length_of_stay, rename_columns
+                       format_period_cols, format_dates, true_length_of_stay, \
+                       drop_true_los_rows, rename_columns
 
 if __name__ == '__main__':
 
@@ -26,6 +26,7 @@ def main_formatting(df):
     format_period_cols(df)
     format_dates(df)
     true_length_of_stay(df)
+    drop_true_los_rows(df)
     rename_columns(df)
 
     return df

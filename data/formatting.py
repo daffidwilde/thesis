@@ -1,5 +1,6 @@
 """ All the formatting functions. """
 
+import numpy as np
 import pandas as pd
 
 def add_HRG_Subchapter(df):
@@ -64,6 +65,20 @@ def true_length_of_stay(df):
     if 'TRUE_LOS' not in df.columns:
         df['TRUE_LOS'] = df['DISCDATE'] - df['ADMDATE']
         df['TRUE_LOS'] = df['TRUE_LOS'].dt.days
+
+def drop_true_los_rows(df):
+    """ Some episodes and spells are encoded incorrectly leading to multiple
+    disharge dates or impossible lengths of stay within spells. Until this is
+    sorted out, we drop these rows. """
+
+    multiple_dates = df.groupby('SPELL_ID').TRUE_LOS.nunique()
+    spell_ids = list(multiple_dates.iloc[np.where(multiple_dates > 1)].index)
+
+    negative_stays = df.groupby('SPELL_ID').TRUE_LOS.min()
+    spell_ids += list(negative_stays.iloc[np.where(negative_stays < 0)].index)
+
+    spell_ids = list(set(spell_ids))
+    df.set_index('SPELL_ID').drop(spell_ids, axis=0, inplace=True).reset_index()
 
 def rename_columns(df):
     """ Rename some of the poorly/confusingly named columns. """
