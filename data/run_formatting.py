@@ -26,8 +26,8 @@ def main_formatting(df):
     format_period_cols(df)
     format_dates(df)
     true_length_of_stay(df)
-    drop_true_los_rows(df)
     rename_columns(df)
+    df = drop_true_los_rows(df)
 
     return df
 
