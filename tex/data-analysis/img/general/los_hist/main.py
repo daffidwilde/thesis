@@ -2,13 +2,14 @@ import os
 
 import matplotlib.pyplot as plt
 import numpy as np
+import pandas as pd
 
 def plot_los_hist(df):
     """
     Histogram for the spell-wise length of stay of patients in the dataset.
     """
-    time_constraint = (df['ADMDATE'] >= '2012-04-01') \
-                      & (df['DISCDATE'] < '2017-04-31')
+    time_constraint = (df['ADMDATE'] >= pd.to_datetime('2012-04-01')) \
+                      & (df['DISCDATE'] < pd.to_datetime('2017-04-30'))
 
     lengths = df[time_constraint].set_index('ADMDATE') \
                                  .drop_duplicates('SPELL_ID')['TRUE_LOS'] \

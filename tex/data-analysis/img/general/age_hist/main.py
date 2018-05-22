@@ -13,7 +13,7 @@ def plot_age_hist(df):
 
     bins = int(ages.max() / 2)
     ax.hist(ages, bins, rwidth=0.9, density=True)
-    freq_ax(ages, bins, rwidth=0.9)
+    freq_ax.hist(ages, bins, rwidth=0.9)
 
     ax.set_xlabel('Age (2 year bins)')
     ax.set_ylabel('Frequency density')

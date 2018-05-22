@@ -34,8 +34,8 @@ def plot_corr_heatmap(df):
         label.set_rotation(45)
         label.set_horizontalalignment('right')
 
-    ax.set_title('Correlation coefficients for spell-level cost components and \
-                  other clinical variables \n')
+    ax.set_title('Correlation coefficients for spell-level cost components and'\
+                 ' other clinical variables \n')
 
     here = os.path.dirname(os.path.realpath(__file__))
     filename = os.path.join(here, 'main.pdf')

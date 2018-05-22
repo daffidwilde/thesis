@@ -8,9 +8,7 @@ import numpy as np
 import pandas as pd
 import seaborn as sbn
 
-sbn.set_palette('colorblind')
-colours = cycle(sbn.color_palette())
-blue = next(colours)
+
 
 def plot_cost_bubble(df):
     """
@@ -20,6 +18,9 @@ def plot_cost_bubble(df):
     corresponding coefficient of variation.
     """
     np.random.seed(3)
+    sbn.set_palette('colorblind')
+    colours = cycle(sbn.color_palette())
+    blue = next(colours)
 
     costs = ['COST', 'NetCost', 'DRUG', 'ENDO', 'HCD', 'EMER', 'CRIT',
              'IMG', 'IMG_OTH', 'MED', 'NCI', 'NID', 'OCLST', 'OPTH',
