@@ -4,16 +4,13 @@ from matplotlib.ticker import MultipleLocator
 
 import matplotlib.pyplot as plt
 import numpy as np
-import seaborn as sbn
 
-sbn.set_palette('colorblind')
-
-def main(df):
+def plot_los_hist(df):
     """
     Histograms for the lengths of stay of diabetic and non-diabetic patients.
     """
     time_constraint = (df['ADMDATE'] >= '2012-04-01') \
-                      & (df['DISCDATE'] < '2017-04-31')
+                      & (df['DISCDATE'] < '2017-04-30')
 
     diab_lengths = df[(df['Diabetes'] == 1) \
                       & (time_constraint)].set_index('ADMDATE') \

@@ -3,11 +3,8 @@ import os
 from matplotlib.ticker import MultipleLocator
 
 import matplotlib.pyplot as plt
-import seaborn as sbn
 
-sbn.set_palette('colorblind')
-
-def main(df):
+def plot_no_diag_hist(df):
     """
     Figure showing density and frequency histograms for no. of diagnoses in an
     episode. Here, we compare diabetic and non-diabetic patients.

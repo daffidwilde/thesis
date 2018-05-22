@@ -3,11 +3,8 @@ import os
 from matplotlib.ticker import MultipleLocator
 
 import matplotlib.pyplot as plt
-import seaborn as sbn
 
-sbn.set_palette('colorblind')
-
-def main(df):
+def plot_no_spells_hist(df):
     """
     Histograms for the no. of spells associated with diabetic and non-diabetic
     patients.

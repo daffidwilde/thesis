@@ -3,11 +3,8 @@ import os
 from matplotlib.ticker import MultipleLocator
 
 import matplotlib.pyplot as plt
-import seaborn as sbn
 
-sbn.set_palette('colorblind')
-
-def main(df):
+def plot_age_hist(df):
     """
     Histograms for the age of diabetic and non-diabetic patients.
     """

@@ -3,11 +3,8 @@ import os
 from matplotlib.ticker import MultipleLocator
 
 import matplotlib.pyplot as plt
-import seaborn as sbn
 
-sbn.set_palette('colorblind')
-
-def main(df):
+def plot_no_proc_hist(df):
     """
     Histograms for number of procedures in an episode for diabetic and
     non-diabetic patients.
