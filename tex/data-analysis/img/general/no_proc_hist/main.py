@@ -2,11 +2,8 @@ import os
 
 import matplotlib.pyplot as plt
 import numpy as np
-import seaborn as sbn
 
-sbn.set_palette('colorblind')
-
-def main(df):
+def plot_no_proc_hist(df):
     """
     Histogram for the no. of procedures in an episode
     """

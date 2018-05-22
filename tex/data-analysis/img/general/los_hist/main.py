@@ -2,11 +2,8 @@ import os
 
 import matplotlib.pyplot as plt
 import numpy as np
-import seaborn as sbn
 
-sbn.set_palette('colorblind')
-
-def main(df):
+def plot_los_hist(df):
     """
     Histogram for the spell-wise length of stay of patients in the dataset.
     """
@@ -31,5 +28,5 @@ def main(df):
     freq_ax.set_ylabel('Frequency')
 
     here = os.path.dirname(os.path.realpath(__file__))
-    filename = os.path.join(filename)
+    filename = os.path.join(here, 'main.pdf')
     plt.savefig(filename)

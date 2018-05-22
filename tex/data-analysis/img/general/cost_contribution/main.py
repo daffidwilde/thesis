@@ -3,11 +3,8 @@ import os
 from matplotlib.ticker import MultipleLocator
 
 import matplotlib.pyplot as plt
-import seaborn as sbn
 
-sbn.set_palette('colorblind')
-
-def main(df):
+def plot_cost_contribution(df):
     """
     Bar plot for the average contribution to the net cost of a spell
     """

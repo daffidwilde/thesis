@@ -3,11 +3,8 @@ import os
 from matplotlib.ticker import MultipleLocator
 
 import matplotlib.pyplot as plt
-import seaborn as sbn
 
-sbn.set_palette('colorblind')
-
-def main(df):
+def plot_cost_variation(df):
     """
     Bar plot for the coefficient of variation in each cost component
     """
@@ -38,4 +35,3 @@ def main(df):
     here = os.path.dirname(os.path.realpath(__file__))
     filename = os.path.join(here, 'main.pdf')
     plt.savefig(filename)
-

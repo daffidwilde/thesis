@@ -1,11 +1,8 @@
 import os
 
 import matplotlib.pyplot as plt
-import seaborn as sbn
 
-sbn.set_palette('colorblind')
-
-def main(df):
+def plot_age_hist(df):
     """
     Histogram for the age of patients.
     """

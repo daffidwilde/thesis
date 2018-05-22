@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sbn
 
-def main(df):
+def plot_corr_heatmap(df):
     """
     Heatmap showing the pairwise correlation coefficients of our cost components
     and some other clinical variables at the spell level.
@@ -25,7 +25,7 @@ def main(df):
     correlation = data.corr().round(2)
 
 
-    fig, ax = plt.subplots(1, figsize(12, 10), dpi=400)
+    fig, ax = plt.subplots(1, figsize=(12, 10), dpi=400)
 
     sbn.heatmap(correlation, square=True, cmap='viridis', center=0, lw=0.01,
                 annot=True, annot_kws={'fontsize': 6}, ax=ax)

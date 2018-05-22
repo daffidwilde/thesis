@@ -1,11 +1,8 @@
 import os
 
 import matplotlib.pyplot as plt
-import seaborn as sbn
 
-sbn.set_palette('colorblind')
-
-def main(df):
+def plot_no_diag_hist(df):
     """
     Histogram for the no. of diagnoses in an episode.
     """

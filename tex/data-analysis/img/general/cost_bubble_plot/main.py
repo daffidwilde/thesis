@@ -12,7 +12,7 @@ sbn.set_palette('colorblind')
 colours = cycle(sbn.color_palette())
 blue = next(colours)
 
-def main(df):
+def plot_cost_bubble(df):
     """
     'Bubble' plot to illustrate the relative importance of our cost components.
     Effectively, a scatter plot of the average contribution to net cost of a

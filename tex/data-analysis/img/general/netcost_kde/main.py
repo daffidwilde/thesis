@@ -4,11 +4,8 @@ from scipy.stats import gaussian_kde
 
 import matplotlib.pyplot as plt
 import numpy as np
-import seaborn as sbn
 
-sbn.set_palette('colorblind')
-
-def main(df):
+def plot_netcost_kde(df):
     """
     Gaussian KDE for net cost of a spell
     """
