@@ -17,8 +17,9 @@ from no_proc_hist.main import plot_no_proc_hist
 from no_spells_hist.main import plot_no_spells_hist
 
 def main():
-    """ Generate all plots for general dataset analysis. """
-
+    """
+    Generate all plots for general dataset analysis.
+    """
     sbn.set_palette('colorblind')
     with open('/Volumes/thesis-data/dtype_dict.json', 'r') as f:
         dtypes = json.load(f)
