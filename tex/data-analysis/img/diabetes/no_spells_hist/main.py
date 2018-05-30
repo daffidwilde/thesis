@@ -3,6 +3,7 @@ import os
 from matplotlib.ticker import MultipleLocator
 
 import matplotlib.pyplot as plt
+import numpy as np
 
 def plot_no_spells_hist(df):
     """

@@ -112,7 +112,8 @@ def plot_cost_bubble(df):
             else:
                 face, centre = green, 'w'
 
-            contribution, variation = point.values
+            contribution = point['contribution']
+            variation = abs(point['variation'])
             contributions.append(contribution)
             ax.scatter(component, contribution, s=1e3*variation, marker='.',
                        zorder=2.5-(0.01*variation), alpha=0.75,
