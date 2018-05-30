@@ -53,7 +53,7 @@ def main():
     ]
 
     tasks = [delayed(plot(df)) for plot in plots]
-    compute(tasks, get=get)
+    compute(tasks, get=get, num_workers=4)
 
 if __name__ == '__main__':
     main()
