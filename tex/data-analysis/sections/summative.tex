@@ -1,53 +1,99 @@
 As was discussed in Section~\ref{subsec:structure}, the vast majority of our
 attributes will not be considered at this stage of our analysis so we can focus
 on how the cost of care is distributed and seen in the data. The exclusion of
-these attributes does not, however, imply that they are not of interest. In
-fact, when we look at the distributions of our subset of attributes on the whole
-dataset we see that the data is skewed towards low-cost, short-stay, and
-otherwise low-impact patients with long, heavy tails, as seen in
-Figures~\ref{fig:netcost_kde}~\--~\ref{fig:no_proc_hist}. Then we can take
-advantage of these other attributes, incorporating combinations of their values
-to identify slices of the dataset which are of interest to our research.
+these attributes does not, however, imply that they are not of interest. 
 
+\subsection{Distributions and summative
+statistics}\label{subsec:distributions_statistics}
 \graphicspath{{./img/general/}}
 
+When we look at the distributions of our subset of attributes on the whole
+dataset we see that the data is skewed towards low-cost, short-stay, and
+otherwise low-impact patients with long, heavy tails, as seen in
+Figures~\ref{fig:netcost_kde}~\--~\ref{fig:no_spells_hist}. We can then take
+advantage of the other attributes to identify slices of the dataset which are of
+interest by literature review, clustering, or otherwise.
+
 \begin{figure}[h]
     \centering
-    \begin{minipage}{.5\textwidth}
-        \centering
-        \includegraphics[width=.9\linewidth]{netcost_kde/main.pdf}
-        \captionof{figure}{Estimated probability density for the net cost of a
-        spell, clipped at \pounds12,500.}\label{fig:netcost_kde}
-    \end{minipage}%
-    \begin{minipage}{.5\textwidth}
-        \centering
-        \includegraphics[width=.9\linewidth]{los_hist/main.pdf}
-        \captionof{figure}{Histogram for the total length of a spell, clipped
-        at 21 days.}\label{fig:los_hist}
-    \end{minipage}
-
-    \begin{minipage}{.5\textwidth}
-        \centering
-        \includegraphics[width=.9\linewidth]{no_diag_hist/main.pdf}
-        \captionof{figure}{Histogram for the number of diagnoses in an
-        episode}\label{fig:no_diag_hist}
-    \end{minipage}%
-    \begin{minipage}{.5\textwidth}
-        \centering
-        \includegraphics[width=.9\linewidth]{no_proc_hist/main.pdf}
-        \captionof{figure}{Histogram for the number of procedures in an
-        episode}\label{fig:no_proc_hist}
-    \end{minipage}
+    \includegraphics[width=.9\linewidth]{netcost_kde/main.pdf}
+    \caption{Estimated probability density for the net cost of a spell, clipped
+    at \pounds12,500.}\label{fig:netcost_kde}
 \end{figure}
 
-There are many methods available to attempt tackling this skewedness including
-the scaling and transformation of our attributes, but that is not to say that
-all the attributes are so harshly skewed; Figure~\ref{fig:age_hist} shows the
-clear peaks and troughs in the distribution of the ages of our patients.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=.9\linewidth]{los_hist/main.pdf}
+    \caption{Histogram for the total length of a spell, clipped at 21
+    days.}\label{fig:los_hist}
+\end{figure}
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=.5\linewidth]{age_hist/main.pdf}
+    \includegraphics[width=.9\linewidth]{no_diag_hist/main.pdf}
+    \caption{Histogram for the number of diagnoses in an
+    episode.}\label{fig:no_diag_hist}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=.9\linewidth]{no_proc_hist/main.pdf}
+    \caption{Histogram for the number of procedures in an
+    episode.}\label{fig:no_proc_hist}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=.9\linewidth]{no_spells_hist/main.pdf}
+    \caption{Histogram for the number of spells associated with a
+    patient.}\label{fig:no_spells_hist}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=.9\linewidth]{age_hist/main.pdf}
     \caption{Histogram for the age of patients with two-year
     bins.}\label{fig:age_hist}
 \end{figure}
+
+As can clearly be seen, the dataset has some significant skew. In particular,
+the average lengths and total number of stays for patients are low
+(Figures~\ref{fig:los_hist}~\&~\ref{fig:no_spells_hist} respectively). A
+corollary to be drawn from these plots is that it seems that of all the spells
+in hospital provided under the health board, the majority of them are daycases
+and one-off treatments.
+
+However, this does not imply that these spells all come cheap. When we look at
+the distribution of the net cost of a spell (Figure~\ref{fig:netcost_kde}) we
+see that although there is a distinct peak around a relatively low net cost,
+this value has probability \(0.00075 \ (2 sf.)\). That is, the most likely net
+cost of treating a patient in this dataset occurs less than one tenth of a
+percent of the time, and the overwhelming majority of recorded net costs are
+spread over a massive range. While tests do exist for verifying if our empirical
+data is truly heavy-tailed~\cite{heavytail_tests}, it is clear our net costs (at
+least) are distributed in such a way. Further results can be seen in
+Table~\ref{tab:summative}
+
+\begin{table}[h]
+    \resizebox{\textwidth}{!}{%
+    \input{./tex/summative_stats0.tex}\\
+    \input{./tex/summative_stats1.tex}\\
+    \input{./tex/summative_stats2.tex}
+    }
+    \caption{Summative spell-level statistics for each of our non-trivial cost
+    components and our selected clinical variables.}\label{tab:summative}
+\end{table}
+
+There are methods available to attempt to overcome this skewedness, including
+the scaling and transformation of our numerical attributes, but they are not
+necessary for the purposes of a summative analysis, though this process could
+improve the performance of several algorithms on the dataset since it is of
+mixed type. Moreover, the presence of this skewedness in some attributes is not
+to say that all the attributes are so harshly skewed; for instance,
+Figure~\ref{fig:age_hist} shows the clear peaks and troughs in the distribution
+of the ages of our patients. It is clear that the distribution of ages does not
+have a bell-shaped curve and should likely not be modelled as normally
+distributed \-- or otherwise `bell-shaped', for that matter.
+
+
+\subsection{Pairwise correlation}\label{subsec:corr}

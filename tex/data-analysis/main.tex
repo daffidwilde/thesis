@@ -1,16 +1,13 @@
 \documentclass{article}
 
-\usepackage[margin=1.5cm, includefoot, footskip=30pt]{geometry}
+\usepackage[margin=1in, includefoot, footskip=30pt]{geometry}
 
 \usepackage{booktabs}
 \usepackage{graphicx}
 \usepackage{wrapfig}
 \usepackage{caption}
 
-\usepackage{biblatex}
-\addbibresource{thesis.bib}
-
-\title{An elementary analysis of the health board data}
+\title{An exploratory analysis of patient episode data}
 \author{Henry Wilde}
 
 \begin{document}
@@ -22,4 +19,6 @@
 \section{Summative analysis}\label{sec:summative}
 \input{./sections/summative.tex}
 
+\bibliographystyle{plain}
+\bibliography{../thesis.bib}
 \end{document}
