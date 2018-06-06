@@ -1,9 +1,13 @@
 \documentclass[12pt]{article}
 
+\usepackage{amsthm}
+\newtheorem{definition}{Definition}
+
 \usepackage{setspace}
     \doublespacing%
 \usepackage[margin=1in, includefoot, footskip=30pt]{geometry}
 
+\usepackage{color}
 \usepackage{booktabs}
 \usepackage{graphicx}
 \usepackage{wrapfig}
@@ -21,6 +25,10 @@
 \section{Summative analysis}\label{sec:summative}
 \input{./sections/summative.tex}
 
+\section{Diabetic patient analysis}\label{sec:diabetic}
+\input{./sections/diabetic.tex}
+
+\clearpage
 \bibliographystyle{plain}
 \bibliography{../thesis.bib}
 \end{document}
