@@ -20,6 +20,8 @@ main.aux
 main.bcf
 main.log
 main.run.xml
+tex/*.bbl
+tex/*.blg
 tex/*.aux
 tex/*.pdf
 tex/*.log
