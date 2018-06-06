@@ -14,46 +14,62 @@ Figures~\ref{fig:netcost_kde}~\--~\ref{fig:no_spells_hist}. We can then take
 advantage of the other attributes to identify slices of the dataset which are of
 interest by literature review, clustering, or otherwise.
 
+In the following plots, and subsequently, when we refer to `spell-level'
+quantities, we mean that each of our cost components and the number of
+procedures are summed over all episodes in any given spell, the number of
+diagnoses at the spell level is considered as the maximal number of diagnoses in
+a spell, and the length of stay is unique to the spell not the episode. The
+decision to take the maximal number of diagnoses as opposed to the total number
+of diagnoses is justified since, (a.) we want to minimise the effect of counting
+the same diagnosis more than once at the spell level, and (b.) the severity of a
+patient's condition is often compared against their Charlson comorbidity
+index~(CCI), which a weighted summation of their individual
+severities~\cite{Thygesen2011}. As such, by taking the maximum number of
+diagnoses we hope to capture the most severe a patient's condition becomes
+during a spell as this is often indicative of how aggressive the patient's
+treatments are, and thus likely more expensive due to additional drug or ward
+costs, for instance.
+
 \begin{figure}[h]
     \centering
-    \includegraphics[width=.9\linewidth]{netcost_kde/main.pdf}
-    \caption{Estimated probability density for the net cost of a spell, clipped
-    at \pounds12,500.}\label{fig:netcost_kde}
+    \begin{minipage}{.495\textwidth}
+        \includegraphics[width=\linewidth]{netcost_kde/main.pdf}
+        \captionof{figure}{Estimated probability density for the net cost of a
+        spell, clipped at \pounds12,500.}\label{fig:netcost_kde}
+    \end{minipage}\hfill%
+    \begin{minipage}{.495\textwidth}
+        \includegraphics[width=\linewidth]{los_hist/main.pdf}
+        \captionof{figure}{Histogram for the total length of a spell, clipped at
+        21 days.}\label{fig:los_hist}
+    \end{minipage}
 \end{figure}
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=.9\linewidth]{los_hist/main.pdf}
-    \caption{Histogram for the total length of a spell, clipped at 21
-    days.}\label{fig:los_hist}
+    \begin{minipage}{.495\textwidth}
+        \includegraphics[width=\linewidth]{no_diag_hist/main.pdf}
+        \captionof{figure}{Histogram for the number of diagnoses in an
+        episode.}\label{fig:no_diag_hist}
+    \end{minipage}\hfill%
+    \begin{minipage}{.495\textwidth}
+        \includegraphics[width=\linewidth]{no_proc_hist/main.pdf}
+        \captionof{figure}{Histogram for the number of procedures in an
+        episode.}\label{fig:no_proc_hist}
+    \end{minipage}
 \end{figure}
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=.9\linewidth]{no_diag_hist/main.pdf}
-    \caption{Histogram for the number of diagnoses in an
-    episode.}\label{fig:no_diag_hist}
-\end{figure}
-
-\begin{figure}
-    \centering
-    \includegraphics[width=.9\linewidth]{no_proc_hist/main.pdf}
-    \caption{Histogram for the number of procedures in an
-    episode.}\label{fig:no_proc_hist}
-\end{figure}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=.9\linewidth]{no_spells_hist/main.pdf}
-    \caption{Histogram for the number of spells associated with a
-    patient.}\label{fig:no_spells_hist}
-\end{figure}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=.9\linewidth]{age_hist/main.pdf}
-    \caption{Histogram for the age of patients with two-year
-    bins.}\label{fig:age_hist}
+    \begin{minipage}{.495\textwidth}
+        \includegraphics[width=\linewidth]{no_spells_hist/main.pdf}
+        \captionof{figure}{Histogram for the number of spells associated with a
+        patient.}\label{fig:no_spells_hist}
+    \end{minipage}\hfill%
+    \begin{minipage}{.495\textwidth}
+        \includegraphics[width=\linewidth]{age_hist/main.pdf}
+        \captionof{figure}{Histogram for the age of patients with two-year
+        bins.}\label{fig:age_hist}
+    \end{minipage}
 \end{figure}
 
 As can clearly be seen, the dataset has some significant skew. In particular,
@@ -66,19 +82,24 @@ and one-off treatments.
 However, this does not imply that these spells all come cheap. When we look at
 the distribution of the net cost of a spell (Figure~\ref{fig:netcost_kde}) we
 see that although there is a distinct peak around a relatively low net cost,
-this value has probability \(0.00075 \ (2 sf.)\). That is, the most likely net
-cost of treating a patient in this dataset occurs less than one tenth of a
-percent of the time, and the overwhelming majority of recorded net costs are
-spread over a massive range. While tests do exist for verifying if our empirical
-data is truly heavy-tailed~\cite{heavytail_tests}, it is clear our net costs (at
-least) are distributed in such a way. Further results can be seen in
-Table~\ref{tab:summative}
+this value has probability \(7.5\times10^{-4}\ (2 sf.)\). That is, the most
+likely net cost of treating a patient in this dataset occurs less than one tenth
+of a percent of the time, and the overwhelming majority of recorded net costs
+are spread over a massive range. While tests do exist for verifying if our
+empirical data is truly heavy-tailed~\cite{Bryson1974}, it is clear our net
+costs (at least) are distributed in such a way. Further results on the
+distributions of our net and component costs can be seen in
+Table~\ref{tab:summative}.
 
 \begin{table}[h]
     \resizebox{\textwidth}{!}{%
-    \input{./tex/summative_stats0.tex}\\
-    \input{./tex/summative_stats1.tex}\\
-    \input{./tex/summative_stats2.tex}
+        \input{./tex/summative_stats0.tex}
+    }
+    \resizebox{\textwidth}{!}{%
+        \input{./tex/summative_stats1.tex}
+    }
+    \resizebox{\textwidth}{!}{%
+        \input{./tex/summative_stats2.tex}
     }
     \caption{Summative spell-level statistics for each of our non-trivial cost
     components and our selected clinical variables.}\label{tab:summative}
@@ -95,5 +116,19 @@ of the ages of our patients. It is clear that the distribution of ages does not
 have a bell-shaped curve and should likely not be modelled as normally
 distributed \-- or otherwise `bell-shaped', for that matter.
 
-
 \subsection{Pairwise correlation}\label{subsec:corr}
+
+Figure~\ref{fig:corr_heatmap} shows the Pearson correlation coefficient of all
+pairs in our subset of selected attributes (not including age or number of
+spells) in the form of a heatmap with a colour bar is located to the right of
+it. Using a visual aid such as this makes gaining insight from our array of
+numbers, and thus the relationships between our variables, much easier than
+studying a table or matrix directly. It should also be noted that these
+attributes are considered at the spell level again.
+
+\begin{figure}[h!]
+    \vspace{-50pt}%
+    \includegraphics[width=1.2\textwidth]{corr_heatmap/main.pdf}
+    \caption{A heatmap of the pairwise correlation coefficients for our cost
+    components, and our other clinical attributes.}\label{fig:corr_heatmap}
+\end{figure}

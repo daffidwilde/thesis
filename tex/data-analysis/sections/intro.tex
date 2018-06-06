@@ -8,8 +8,7 @@ this, we will endeavour to construct a framework for the analysis of slices
 within the data which provide another dimension to our analysis through
 comparison and contrast. However, before any such analysis begins, it is
 important to understand the structure of data we are dealing with and how it has
-been prepared.\\
-
+been prepared.
 
 \subsection{Data structure}\label{subsec:structure}
 
@@ -27,11 +26,11 @@ statistics in favour of a patient's spell-level statistics. Since the
 introduction of the `payment by results' system for financial flows, it has been
 seen that focusing on the more granular episode statistics can lead to the
 amount of resource or `activity' consumed by a hospital to treat that patient
-being overestimated~\cite{spells_or_episodes}.\\
+being overestimated~\cite{BMJ2004}.
 
-\noindent
 Each episode is recorded as a row of roughly 250 attributes or columns,
 including:
+
 \begin{itemize}
     \item Personal identifiers such as identification numbers, age, registered
         GP practice, as well as spell admission and discharge dates;
@@ -42,7 +41,7 @@ including:
         various departments within the hospital, ward and overhead costs, and
         the cost of administration;
     \item Diagnosis (HRG, ICD10) and procedure (OPCS4) indicators, as well as
-        Charlson index scores for a selection of common diagnoses.\\
+        Charlson index scores for a selection of common diagnoses.
 \end{itemize}
 
 Of the attributes listed here, we will focus on the cost components and other
@@ -51,7 +50,6 @@ considered to be linked to overall contribution to the cost of care. Other than
 the cost components themselves, those attributes are: true length of stay,
 maximum number of diagnoses and total number of procedures in a spell, and the
 number of spells associated with any given patient.
-
 
 \subsection{Cleaning the data}\label{subsec:formatting}
 
