@@ -1,0 +1,45 @@
+\section{Taking a slice: diabetic patient analysis}
+
+\begin{frame}
+    \frametitle{General methods for slice analysis}
+    \textbf{Too wordy?}
+    Given some slice of the data, we want to:
+    \begin{itemize}
+        \item Examine cost variations and general surface-level statistics
+        \item Determine components and variable relationships of interest
+        \item Consider the relative `cost' of the patients in this slice
+        \item Contrast this against its complement and the general dataset
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Diabetic patient analysis}
+
+    This is a known area of interest to the health board.
+
+    \vspace{10pt}
+    Diabetic patients make up 10.8\% of all the episodes in the dataset, and
+    roughly 8.7\% of the unique patients in the dataset.
+
+    \vspace{10pt}
+    Here we consider patients to be `diabetic' if they have diabetes flagged as
+    either a primary or secondary condition in their episode.
+\end{frame}
+
+\input{./sections/diabetes/variables/main.tex}
+\input{./sections/diabetes/variation/main.tex}
+%\input{./sections/diabetes/components/main.tex}
+\input{./sections/diabetes/correlation/main.tex}
+\section{Measuring resource consumption}
+\input{./sections/diabetes/consumption/main.tex}
+
+\section{Conclusions}
+\begin{frame}
+    \frametitle{Conclusions}
+
+    \begin{itemize}
+        \item Relative resource consumption by diabetic patients is consistent
+        \item Cost components are less variant than \-- and are comparable in
+            their distribution to \-- non-diabetic patients
+    \end{itemize}
+\end{frame}

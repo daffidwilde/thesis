@@ -1,0 +1,28 @@
+\documentclass{beamer}
+%\setbeamertemplate{navigation symbols}{}
+
+\usepackage{graphicx}
+
+\title{An exploratory analysis of patient episode data}
+\author{Henry Wilde}
+\institute{Cardiff University School of Mathematics}
+
+\usetheme{metropolis}
+%\usecolortheme{seahorse}
+\begin{document}
+
+\begin{frame}
+\titlepage%
+\end{frame}
+
+\input{./sections/intro/main.tex}
+
+\graphicspath{{../img/general/}}
+\input{./sections/general/main.tex}
+
+\graphicspath{{../img/diabetes/}}
+\input{./sections/diabetes/main.tex}
+
+\input{./sections/conclusion/main.tex}
+
+\end{document}
