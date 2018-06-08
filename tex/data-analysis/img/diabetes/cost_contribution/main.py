@@ -37,7 +37,7 @@ def plot_cost_contribution(df):
                                .sort_values('nondiab', ascending=False)
 
 
-    fig, ax = plt.subplots(1, figsize=(14, 10), dpi=300)
+    fig, ax = plt.subplots(1, figsize=(16, 10), dpi=300)
 
     width = 0.4
     inds = np.arange(len(combined_contributions))

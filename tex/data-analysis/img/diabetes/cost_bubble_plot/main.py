@@ -76,7 +76,7 @@ def make_size_legend(ax):
 
     legend = ax.legend(handles, labels, loc='best', labelspacing=5.5,
                        fontsize=20, handletextpad=4, edgecolor='None',
-                       title=title)
+                       title=title, facecolor='None')
 
     legend.get_title().set_fontsize(24)
     legend._legend_box.sep = 60

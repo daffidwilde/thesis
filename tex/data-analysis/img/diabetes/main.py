@@ -46,12 +46,13 @@ def main():
         plot_admissions, plot_age_hist, plot_corr_differences,
         plot_corr_heatmap, plot_corr_ratios, plot_corr_relative_change,
         plot_cost_bubble, plot_cost_contribution, plot_cost_variation,
-        plot_large_component_boxplots, plot_large_component_violinplots,
-        plot_los_hist, plot_los_time, plot_medium_component_boxplots,
-        plot_medium_component_violinplots, plot_netcost_kde,
+        #plot_large_component_boxplots, plot_large_component_violinplots,
+        plot_los_hist, plot_los_time, #plot_medium_component_boxplots,
+        #plot_medium_component_violinplots,
+        plot_netcost_kde,
         plot_netcost_proportions, plot_no_diag_hist, plot_no_proc_hist,
-        plot_no_spells_hist, plot_nodist_component_boxplots,
-        plot_small_component_boxplots, plot_small_component_violinplots
+        plot_no_spells_hist #plot_nodist_component_boxplots,
+        #plot_small_component_boxplots, plot_small_component_violinplots
     ]
 
     tasks = [delayed(plot(df)) for plot in plots]
