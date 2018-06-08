@@ -31,11 +31,12 @@ def plot_corr_heatmap(df):
                 annot=True, annot_kws={'fontsize': 6}, ax=ax)
 
     for label in ax.get_xticklabels():
+        label.set_fontsize(12)
         label.set_rotation(45)
         label.set_horizontalalignment('right')
 
-    ax.set_title('Correlation coefficients for spell-level cost components and'\
-                 ' other clinical variables \n')
+    for label in ax.get_yticklabels():
+        label.set_fontsize(12)
 
     here = os.path.dirname(os.path.realpath(__file__))
     filename = os.path.join(here, 'main.pdf')

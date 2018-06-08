@@ -2,6 +2,7 @@ import json
 
 from dask import compute, delayed, get
 
+import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sbn
 
@@ -33,6 +34,7 @@ def main():
     """
     Generate all plots for diabetic patient analysis.
     """
+    plt.rcParams.update({'font.size': 16})
     sbn.set_palette('colorblind')
     with open('/Volumes/thesis-data/dtype_dict.json') as f:
         dtypes = json.load(f)

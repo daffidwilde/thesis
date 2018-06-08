@@ -13,7 +13,6 @@ def plot_no_proc_hist(df):
     freq_ax = ax.twinx()
 
     ax.hist(procedure_nums, procedure_nums.max(), rwidth=0.9, density=True)
-    freq_ax = ax.twinx()
     freq_ax.hist(procedure_nums, procedure_nums.max(), rwidth=0.9)
 
     ax.set_ylabel('Frequency density')

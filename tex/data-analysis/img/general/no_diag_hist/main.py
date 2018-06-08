@@ -12,7 +12,6 @@ def plot_no_diag_hist(df):
     freq_ax = ax.twinx()
 
     ax.hist(diagnosis_nums, diagnosis_nums.max(), rwidth=0.9, density=True)
-    freq_ax = ax.twinx()
     freq_ax.hist(diagnosis_nums, diagnosis_nums.max(), rwidth=0.9)
 
     ax.set_ylabel('Frequency density')

@@ -14,7 +14,7 @@ def plot_netcost_kde(df):
     xs = np.linspace(netcost.min(), 12500, steps)
     density = gaussian_kde(netcost)
 
-    fig, ax = plt.subplots(1, figsize=(14, 10), dpi=300)
+    fig, ax = plt.subplots(1, figsize=(14, 8), dpi=300)
 
     ax.plot(xs, density(xs))
     ax.fill_between(xs, [0]*steps, density(xs), alpha=0.25)

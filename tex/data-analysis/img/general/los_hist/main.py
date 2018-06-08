@@ -22,8 +22,8 @@ def plot_los_hist(df):
     ax.hist(lengths, bins, rwidth=0.9, density=True)
     freq_ax.hist(lengths, bins, rwidth=0.9)
 
-    ax.set_xlim(-0.5, 21)
-    ax.set_xticks(np.arange(1, 21))
+    ax.set_xlim(-0.5, 22)
+    ax.set_xticks(np.arange(0, 22))
     ax.set_xlabel('Length of stay (days)')
     ax.set_ylabel('Frequency density')
     freq_ax.set_ylabel('Frequency')
