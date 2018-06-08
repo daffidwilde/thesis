@@ -60,4 +60,4 @@ def plot_admissions(df):
 
     here = os.path.dirname(os.path.realpath(__file__))
     filename = os.path.join(here, 'main.pdf')
-    plt.savefig(filename)
+    plt.savefig(filename, transparent=True)

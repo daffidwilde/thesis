@@ -34,10 +34,10 @@ def plot_no_spells_hist(df):
 
         ax.set_ylabel(label)
         ax.set_xticks(np.arange(1, 15))
-        ax.set_xlim(-0.5, 15)
+        ax.set_xlim(0.5, 15)
         ax.set_xlabel('Number of spells')
         ax.legend(['non-diabetic', 'diabetic'], loc='best', fontsize=12)
 
     here = os.path.dirname(os.path.realpath(__file__))
     filename = os.path.join(here, 'main.pdf')
-    plt.savefig(filename)
+    plt.savefig(filename, transparent=True)
