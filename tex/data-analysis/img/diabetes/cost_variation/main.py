@@ -48,6 +48,7 @@ def plot_cost_variation(df):
     ax.set_axisbelow(True)
     ax.grid(b=True, which='minor', axis='y')
 
+    ax.legend(loc='best')
     ax.set_xticks(inds + width/2)
     ax.set_xticklabels(combined_variations.index)
     ax.set_ylabel(r' Coefficient of variation ($C_v$)', fontsize=12)
