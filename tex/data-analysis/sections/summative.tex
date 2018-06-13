@@ -1,3 +1,5 @@
+\section{Summative analysis}\label{sec:summative}
+
 As was discussed in Section~\ref{subsec:structure}, the vast majority of our
 attributes will not be considered at this stage of our analysis so we can focus
 on how the cost of care is distributed and seen in the data. The exclusion of
@@ -111,9 +113,10 @@ improve the performance of several algorithms on the dataset since it is of
 mixed type. Moreover, the presence of this skewedness in some attributes is not
 to say that all the attributes are so harshly skewed; for instance,
 Figure~\ref{fig:age_hist} shows the clear peaks and troughs in the distribution
-of the ages of our patients. It is clear that the distribution of ages does not
-have a bell-shaped curve and should likely not be modelled as normally
-distributed \-- or otherwise `bell-shaped', for that matter.
+of the ages of our patients. It is clear that even at a sample size in the
+hundreds of thousands, the distribution of ages does not follow a bell-shaped
+curve and should likely not be modelled as being normally distributed \-- or
+otherwise `bell-shaped', for that matter.
 
 \subsection{Pairwise correlation}\label{subsec:corr}
 
@@ -251,16 +254,42 @@ about the others? The midriff of each of these plots contain many of the same
 components. In order to aid understanding and interpretability of how these two
 quantities relate to one another we make use of a bubble plot. Since each of the
 plots are two-dimensional and can share the same horizontal axis, both of the
-values can be visualised together by using the vertical axis and size as a third
-dimension, as seen in Figure~\ref{fig:cost_bubble_plot}.
+values can be visualised together by using the vertical axis and size as two
+separate dimensions, as illustrated in Figure~\ref{fig:cost_bubble_plot}.
 
-\textcolor{red}{%
-    Write something about the conclusions to be drawn from this plot.
-}
+Figure~\ref{fig:cost_bubble_plot} can be interpreted either by first reading
+along the vertical axis to find the components that make the most considerable
+contribution to treating a patient and then investigating the relative variation
+that component holds intrinsically in the dataset by looking at the size of its
+outer marker. The reverse of this process is also perfectly logical since the
+objective is to determine where the variation exists, and then how much of an
+impact that has on the net cost. The latter is how
+Figures~\ref{fig:cost_variation}~\&~\ref{fig:cost_contribution} we interpreted
+above. The crux of interpreting this plot is that the further away a large
+marker is from the zero line, the more important that component is considered.
+However, small markers are also of interest since these components indicate that
+the level of variation is relatively low \-- the reasons as to why unknown.
+
+It is easily seen from this figure that our previous conclusions can still be
+interpreted; that is, our largest contributors have some of the smallest
+measures of variation while the smallest average contributors are more strongly
+varied. What is of interest is the jump between these groups of cost components.
+There does not seem to be any particular component in the midriff of
+contributors that has huge, or indeed small, variation. As a result of this,
+perhaps more investigation is needed into individual components and their
+relationships with specific types of patient.
+
+Also, the skewedness of our data could be having an adverse effect on the
+representation of the last three plots, particularly those considering the
+contribution to net cost. As was discussed earlier, this measure is not strictly
+the contribution a component makes to the net cost since in some cases certain
+components sum up to several multiples of the total net cost of the spell. This
+is true in cases where critical care costs are taken as huge deductions from the
+total cost of most the other components.
 
 \subsection{Conclusions}
 
 \textcolor{red}{%
     Overall conclusions and lead into the next chapter on diabetic patient
-    analysis.
+    analysis?
 }

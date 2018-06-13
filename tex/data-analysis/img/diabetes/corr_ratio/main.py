@@ -37,15 +37,12 @@ def plot_corr_ratios(df):
 
     fig, ax = plt.subplots(1, figsize=(12, 10), dpi=400)
 
-    sbn.heatmap(ratio, square=True, cmap='RdBu', center=1, lw=0.01,
+    sbn.heatmap(ratio, square=True, cmap='viridis', center=1, lw=0.01,
                 annot=True, annot_kws={'fontsize': 6}, ax=ax)
 
     for label in ax.get_xticklabels():
         label.set_rotation(45)
         label.set_horizontalalignment('right')
-
-    ax.set_title('Ratio of correlation coefficients for diabetic patients'\
-                 ' and the general population \n')
 
     here = os.path.dirname(os.path.realpath(__file__))
     filename = os.path.join(here, 'main.pdf')

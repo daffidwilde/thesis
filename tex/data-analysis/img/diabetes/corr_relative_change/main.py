@@ -37,15 +37,12 @@ def plot_corr_relative_change(df):
 
     fig, ax = plt.subplots(1, figsize=(12, 10), dpi=400)
 
-    sbn.heatmap(relative_change, square=True, cmap='RdBu', center=0, lw=0.01,
+    sbn.heatmap(relative_change, square=True, cmap='viridis', center=0, lw=0.01,
                 annot=True, annot_kws={'fontsize': 6}, ax=ax)
 
     for label in ax.get_xticklabels():
         label.set_rotation(45)
         label.set_horizontalalignment('right')
-
-    ax.set_title('Relative change in correlation coefficients for diabetic' \
-                 'patients and the general population \n')
 
     here = os.path.dirname(os.path.realpath(__file__))
     filename = os.path.join(here, 'main.pdf')

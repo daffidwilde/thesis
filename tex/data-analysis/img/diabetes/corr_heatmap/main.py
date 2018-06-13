@@ -28,15 +28,13 @@ def plot_corr_heatmap(df):
 
     fig, ax = plt.subplots(1, figsize=(12, 10), dpi=400)
 
-    sbn.heatmap(correlation, square=True, cmap='viridis', center=0, lw=0.01,
+    sbn.heatmap(correlation, square=True, cmap='viridis',
+                vmin=-1, vmax=1, center=0, lw=0.01,
                 annot=True, annot_kws={'fontsize': 6}, ax=ax)
 
     for label in ax.get_xticklabels():
         label.set_rotation(45)
         label.set_horizontalalignment('right')
-
-    ax.set_title('Correlation coefficients for diabetic spell-level cost' \
-                 ' components and other clinical variables \n')
 
     here = os.path.dirname(os.path.realpath(__file__))
     filename = os.path.join(here, 'main.pdf')
