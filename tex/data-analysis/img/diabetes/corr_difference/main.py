@@ -36,15 +36,12 @@ def plot_corr_differences(df):
 
     fig, ax = plt.subplots(1, figsize=(12, 10), dpi=400)
 
-    sbn.heatmap(differences, square=True, cmap='RdBu', center=0, lw=0.01,
+    sbn.heatmap(differences, square=True, cmap='viridis', center=0, lw=0.01,
                 annot=True, annot_kws={'fontsize': 6}, ax=ax)
 
     for label in ax.get_xticklabels():
         label.set_rotation(45)
         label.set_horizontalalignment('right')
-
-    ax.set_title('Difference in correlation coefficients for diabetic patients'\
-                 ' and the general population \n')
 
     here = os.path.dirname(os.path.realpath(__file__))
     filename = os.path.join(here, 'main.pdf')
