@@ -2,7 +2,7 @@
 *.xls
 *.xlsx
 *.csv
-*thesis-data.dmg
+*.dmg
 
 # Cache files
 *.ipynb_checkpoints
@@ -15,15 +15,13 @@ __pycache__
 *.png
 
 # LaTeX stuff
-main.pdf
-main.aux
-main.bcf
-main.log
-main.run.xml
-tex/*.bbl
-tex/*.blg
-tex/*.aux
-tex/*.pdf
-tex/*.log
-tex/*.bcf
-tex/*.run.xml
+*.bak
+*.bbl
+*.blg
+*.aux
+*.log
+*.bcf
+*.run.xml
+*.nav
+*.out
+*.toc
