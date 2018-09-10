@@ -1,0 +1,34 @@
+\documentclass{beamer}
+
+\usepackage{booktabs}
+\usepackage{graphicx}
+
+\usetheme[subsectionpage=progressbar]{metropolis}
+
+\newlength{\imgwidth}
+\setlength{\imgwidth}{.9\textwidth}
+
+
+\title{An analysis of NHS patient-episode data utilising machine learning
+    techniques}
+\author{Henry Wilde}
+
+\begin{document}
+
+\frame{%
+    \titlepage%
+}
+
+\graphicspath{{./img/general/}}
+\input{./sections/overview.tex}
+
+\graphicspath{{./img/diabetes/}}
+\input{./sections/diabetes.tex}
+
+\input{./sections/clustering.tex}
+
+\input{./sections/external_data.tex}
+
+\input{./sections/linear_model.tex}
+
+\end{document}

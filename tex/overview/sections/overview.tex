@@ -1,0 +1,119 @@
+\section{An overview of the data}
+
+\frame{\frametitle{Structure}
+    A large corpus of patient-episode data has been provided by the Cwm Taf
+    University Health Board over the period April 2013 through April 2017. The
+    data has the following structure for individual patients:
+
+    \begin{table}[htbp]
+        \resizebox{.9\textwidth}{!}{%
+            \input{./tex/patient.tex}
+        }
+    \end{table}
+
+    \pause%
+    Each episode (row) has a number of associated measurements (columns),
+    including:
+    \begin{itemize}
+        \pause\item personal and demographic identifiers;
+        \pause\item condition and procedure codes;
+        \pause\item other clinical references;
+        \pause\item cost components
+    \end{itemize}
+}
+
+\subsection{Distributions of key attributes}
+
+\frame{\frametitle{Number of spells associated with a patient}
+    \centering
+    \includegraphics[width=\imgwidth]{no_spells_hist/main.pdf}
+}
+
+\frame{\frametitle{Length of stay}
+    \centering
+    \includegraphics[width=\imgwidth]{los_hist/main.pdf}
+}
+
+\frame{\frametitle{Net cost of a spell}
+    \centering
+    \includegraphics[width=\imgwidth]{netcost_kde/main.pdf}
+}
+
+\frame{\frametitle{Number of diagnoses in an episode}
+    \centering
+    \includegraphics[width=\imgwidth]{no_diag_hist/main.pdf}
+}
+
+\frame{\frametitle{Number of procedures in an episode}
+    \centering
+    \includegraphics[width=\imgwidth]{no_proc_hist/main.pdf}
+}
+
+\subsection{Demographic information}
+
+\frame{\frametitle{Demographic information}
+    There are issues with demographic information in the data:
+
+    \begin{itemize}
+        \pause\item Gender is binary and inconsistently recorded
+    \pause\item Limited geographic information encoded in registered GP
+        practice
+    \end{itemize}
+}
+
+\frame{\frametitle{Distribution of age}
+    \centering
+    \includegraphics[width=\imgwidth]{age_hist/main.pdf}
+}
+
+\subsection{Correlation and interaction}
+
+\frame{\frametitle{Pairwise correlation}
+    \centering
+    \includegraphics[width=\imgwidth]{corr_heatmap/main.pdf}
+}
+
+\frame{\frametitle{Detecting collinearity}
+
+    \centering
+    \begin{minipage}{.8\imgwidth}
+        \resizebox{\linewidth}{!}{%
+            \input{./tex/vif_0.tex}
+    }
+    \end{minipage}
+
+    \begin{minipage}{.8\imgwidth}
+        \resizebox{\linewidth}{!}{%
+            \input{./tex/vif_1.tex}
+        }
+    \end{minipage}
+
+    \begin{minipage}{.8\imgwidth}
+        \resizebox{\linewidth}{!}{%
+            \input{./tex/vif_2.tex}
+        }
+    \end{minipage}
+
+    \begin{minipage}{.8\imgwidth}
+        \resizebox{\linewidth}{!}{%
+            \input{./tex/vif_3.tex}
+        }
+    \end{minipage}
+}
+
+\subsection{Measuring variation and relative importance}
+
+\frame{\frametitle{Cost variation}
+    \centering
+    \includegraphics[width=\imgwidth]{cost_variation/main.pdf}
+}
+
+\frame{\frametitle{Component contribution to net costs}
+    \centering
+    \includegraphics[width=\imgwidth]{cost_contribution/main.pdf}
+}
+
+\frame{\frametitle{Relative importance}
+    \centering
+    \includegraphics[width=\imgwidth]{cost_bubble_plot/main.pdf}
+}
