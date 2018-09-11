@@ -1,34 +1,49 @@
 \documentclass{beamer}
 
+\usepackage{animate}
 \usepackage{booktabs}
+\usepackage{caption}
 \usepackage{graphicx}
+\usepackage[backend=bibtex, style=numeric]{biblatex}
+    \addbibresource{references}
 
 \usetheme[subsectionpage=progressbar]{metropolis}
 
 \newlength{\imgwidth}
-\setlength{\imgwidth}{.9\textwidth}
+\setlength{\imgwidth}{.9\paperwidth}
 
+\renewcommand*{\bibfont}{\tiny}
+\setbeamertemplate{footline}{}
 
-\title{An analysis of NHS patient-episode data utilising machine learning
-    techniques}
-\author{Henry Wilde}
+\title{Novel methods for the analysis of NHS patient-episode data}
+\author{%
+    Henry Wilde \\
+    \small{\textit{Supervised by:} Dr Jonathan Gillard and Dr Vincent Knight}
+}
+\institute{\vfill\centering\includegraphics[height=.2\paperheight]{./img/cu_logo.png}\hspace{5pt}\includegraphics[height=.2\paperheight]{./img/cthb_logo.jpg}}
+
 
 \begin{document}
 
 \frame{%
-    \titlepage%
+    \maketitle%
 }
 
-\graphicspath{{./img/general/}}
+\graphicspath{{./img/overview/}}
 \input{./sections/overview.tex}
 
 \graphicspath{{./img/diabetes/}}
 \input{./sections/diabetes.tex}
 
+\graphicspath{{./img/clustering/}}
 \input{./sections/clustering.tex}
 
 \input{./sections/external_data.tex}
 
 \input{./sections/linear_model.tex}
+
+\frame[allowframebreaks]{\frametitle{References}
+    \printbibliography[heading=none]
+}
 
 \end{document}
