@@ -23,8 +23,15 @@
 }
 
 \frame{\frametitle{Net cost of a spell}
-    \centering
-    \includegraphics[width=\imgwidth]{netcost_kde/main.pdf}
+    \begin{minipage}{.75\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{netcost_kde/main.pdf}
+    \end{minipage}%
+    \begin{minipage}{.25\linewidth}
+        \resizebox{\linewidth}{!}{%
+            \input{./tex/diabetic_netcost_summary.tex}
+        }
+    \end{minipage}
 }
 
 \frame{\frametitle{Number of diagnoses in an episode}
@@ -90,8 +97,8 @@
     \end{itemize}
 
     \pause%
-    This method will has its flaws but allows for the analysis of how these
-    measures evolve.
+    This method has its flaws but allows for the analysis of how these measures
+    evolve.
 }
 
 \frame{\frametitle{Proportion of admissions}
