@@ -64,7 +64,7 @@ def plot_cost_contribution(df):
         pd.concat(contributions, axis=1)
         .rename({0: "non-diabetic", 1: "diabetic"}, axis=1)
     )
-    combined_contributions = combined_contributions.reindex(order)
+    combined_contributions = combined_contributions.reindex(order).dropna()
 
     fig, ax = plt.subplots(1, figsize=(16, 10), dpi=300)
 

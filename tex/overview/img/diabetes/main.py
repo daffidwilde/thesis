@@ -36,8 +36,8 @@ def main():
     """
     Generate all plots for diabetic patient analysis.
     """
-    plt.rcParams.update({"font.size": 16})
     sbn.set_palette("colorblind")
+
     with open("/Volumes/thesis-data/dtype_dict.json") as f:
         dtypes = json.load(f)
 
