@@ -13,13 +13,15 @@
 \subsection{Distributions of key attributes and demographic information}
 
 \frame{\frametitle{Number of spells associated with a patient}
-    \centering
-    \includegraphics[width=\imgwidth]{no_spells_hist/main.pdf}
+    \makebox[\linewidth]{%
+        \includegraphics[width=\imgwidth]{no_spells_bar/main.pdf}
+    }
 }
 
 \frame{\frametitle{Length of stay}
-    \centering
-    \includegraphics[width=\imgwidth]{los_hist/main.pdf}
+    \makebox[\linewidth]{%
+        \includegraphics[width=\imgwidth]{los_bar/main.pdf}
+    }
 }
 
 \frame{\frametitle{Net cost of a spell}
@@ -35,53 +37,67 @@
 }
 
 \frame{\frametitle{Number of diagnoses in an episode}
-    \centering
-    \includegraphics[width=\imgwidth]{no_diag_hist/main.pdf}
+    \makebox[\linewidth]{%
+        \includegraphics[width=\imgwidth]{no_diag_bar/main.pdf}
+    }
 }
 
 \frame{\frametitle{Number of procedures in an episode}
-    \centering
-    \includegraphics[width=\imgwidth]{no_proc_hist/main.pdf}
+    \makebox[\linewidth]{%
+        \includegraphics[width=\imgwidth]{no_proc_bar/main.pdf}
+    }
 }
 
 \frame{\frametitle{Distribution of age}
-    \centering
-    \includegraphics[width=\imgwidth]{age_hist/main.pdf}
+    \makebox[\linewidth]{%
+        \includegraphics[width=\imgwidth]{age_bar/main.pdf}
+    }
 }
 
 \subsection{Correlation}
 
 \frame{\frametitle{Pairwise correlation}
-    \centering
-    \includegraphics[width=\imgwidth]{corr_heatmap/main.pdf}
+    \makebox[\linewidth]{%
+        \includegraphics[height=.85\paperheight]{corr_heatmap/main.pdf}
+    }
+}
+
+\frame{\frametitle{Pairwise correlation (differences)}
+    \makebox[\linewidth]{%
+        \includegraphics[height=.85\paperheight]{corr_difference/main.pdf}
+    }
 }
 
 \subsection{Measuring variation and relative importance}
 
 \frame{\frametitle{Cost variation}
-    \centering
-    \includegraphics[width=\imgwidth]{cost_variation/main.pdf}
+    \makebox[\linewidth]{%
+        \includegraphics[width=\imgwidth]{cost_variation/main.pdf}
+    }
 }
 
 \frame{\frametitle{Component contribution to net costs}
-    \centering
-    \includegraphics[width=\imgwidth]{cost_contribution/main.pdf}
-
+    \makebox[\linewidth]{%
+        \includegraphics[width=\imgwidth]{cost_contribution/main.pdf}
+    }
 }
 
 \frame{\frametitle{Relative importance}
-    \centering
-    \includegraphics[width=\imgwidth]{cost_bubble_plot/main.pdf}
+    \makebox[\linewidth]{%
+        \includegraphics[width=\imgwidth]{cost_bubble_plot/main.pdf}
+    }
 }
 
 \frame{\frametitle{Components of interest (large contribution)}
-    \centering
-    \includegraphics[width=\imgwidth]{large_component_violinplots/main.pdf}
+    \makebox[\linewidth]{%
+        \includegraphics[width=\imgwidth]{large_component_violinplots/main.pdf}
+    }
 }
 
 \frame{\frametitle{Components of interest (medium contribution)}
-    \centering
-    \includegraphics[width=\imgwidth]{middling_component_violinplots/main.pdf}
+    \makebox[\linewidth]{%
+        \includegraphics[width=\imgwidth]{middling_component_violinplots/main.pdf}
+    }
 }
 
 \subsection{Resource consumption}
@@ -101,19 +117,28 @@
     evolve.
 }
 
+\frame{\frametitle{Overplotting}
+    \makebox[\linewidth]{%
+        \includegraphics[width=\imgwidth]{admissions/with_data.pdf}
+    }
+}
+
 \frame{\frametitle{Proportion of admissions}
-    \centering
-    \includegraphics[width=\imgwidth]{admissions/main.pdf}
+    \makebox[\linewidth]{%
+        \includegraphics[width=\imgwidth]{admissions/main.pdf}
+    }
 }
 
 \frame{\frametitle{Average length of stay}
-    \centering
-    \includegraphics[width=\imgwidth]{los_time/main.pdf}
+    \makebox[\linewidth]{%
+        \includegraphics[width=\imgwidth]{los_time/main.pdf}
+    }
 }
 
 \frame{\frametitle{Proportion of net costs}
-    \centering
-    \includegraphics[width=\imgwidth]{netcost_proportions/main.pdf}
+    \makebox[\linewidth]{%
+        \includegraphics[width=\imgwidth]{netcost_proportions/main.pdf}
+    }
 }
 
 \subsection{Conclusions}

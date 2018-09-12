@@ -51,7 +51,6 @@ def get_contribution_variation(df):
     Return a dataframe containing the mean contribution to the net cost of our
     cost components, and their respective coefficients of variation.
     """
-
     summed_costs = df.groupby("SPELL_ID")[costs].sum()
     variations = summed_costs.std() / summed_costs.mean()
     netcost = summed_costs["NetCost"]
@@ -114,6 +113,7 @@ def plot_cost_bubble(df):
     spell for each component where the size of the marker is proportional to the
     corresponding coefficient of variation.
     """
+    fontsize = 20
     cont_var = get_contribution_variation(df)
 
     fig, (ax, size_ax) = plt.subplots(
@@ -145,23 +145,23 @@ def plot_cost_bubble(df):
         )
         ax.vlines(point[0], -1, point[1]["contribution"], "grey", "dotted")
 
-    ax.hlines(0, -10, 100, lw=2, color="darkgray", zorder=-100)
-
     size_legend = make_size_legend(size_ax)
 
-    ax.set_ylabel("Average proportion of net cost", fontsize=20)
+    ax.set_ylabel("Average proportion of net cost", fontsize=fontsize)
     ax.set_ylim(-0.1, 0.3)
-    ax.set_xlim(-1.5, 25.5)
 
     ax.set_axisbelow(True)
     ax.grid(b=True, which="major", axis="y")
     ax.set_yticks(ax.get_yticks()[1:-1])
 
+    ax.set_xlim(ax.get_xlim())
+    ax.hlines(0, *ax.get_xlim(), color='darkgray', lw=2)
+
     for label in ax.get_yticklabels():
-        label.set_fontsize(16)
+        label.set_fontsize(fontsize * .8)
 
     for label in ax.get_xticklabels():
-        label.set_fontsize(16)
+        label.set_fontsize(fontsize * .8)
         label.set_rotation(45)
         label.set_horizontalalignment("right")
 

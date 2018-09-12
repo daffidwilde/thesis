@@ -9,6 +9,7 @@ def plot_cost_contribution(df):
     """
     Bar plot for the average contribution to the net cost of a spell
     """
+    fontsize = 14
     costs = [
         "COST",
         "NetCost",
@@ -56,14 +57,17 @@ def plot_cost_contribution(df):
 
     ax.bar(sorted_avg_contributions.index, sorted_avg_contributions.values)
 
-    minor_locs = MultipleLocator(0.025)
-    ax.yaxis.set_minor_locator(minor_locs)
     ax.set_axisbelow(True)
-    ax.grid(b=True, which="minor", axis="y")
+    ax.grid(b=True, which="major", axis="y")
 
-    ax.set_ylabel("Average proportion of net cost", fontsize=12)
+    ax.set_xlim(ax.get_xlim())
+    ax.hlines(0, *ax.get_xlim(), color='darkgray', lw=2)
+
+    ax.set_ylabel("Average proportion of net cost", fontsize=fontsize)
+    for label in ax.get_yticklabels():
+        label.set_fontsize(fontsize * .8)
     for label in ax.get_xticklabels():
-        label.set_fontsize(12)
+        label.set_fontsize(fontsize * .8)
         label.set_rotation(45)
         label.set_horizontalalignment("right")
 

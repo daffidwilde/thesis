@@ -12,6 +12,7 @@
 \newlength{\imgwidth}
 \setlength{\imgwidth}{.95\paperwidth}
 
+\renewcommand{\footnotesize}{\tiny}
 \renewcommand*{\bibfont}{\tiny}
 \setbeamertemplate{footline}{}
 
@@ -44,12 +45,7 @@
 \graphicspath{{./img/clustering/}}
 \input{./sections/clustering.tex}
 
+\graphicspath{{./img/external/}}
 \input{./sections/external_data.tex}
-
-\input{./sections/linear_model.tex}
-
-\frame[allowframebreaks]{\frametitle{References}
-    \printbibliography[heading=none]
-}
 
 \end{document}
