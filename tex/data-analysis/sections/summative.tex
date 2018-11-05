@@ -1,33 +1,33 @@
 \section{Summative analysis}\label{sec:summative}
 
-As was discussed in Section~\ref{subsec:structure}, the vast majority of our
-attributes will not be considered at this stage of our analysis so we can focus
-on how the cost of care is distributed and seen in the data. The exclusion of
-these attributes does not, however, imply that they are not of interest. 
+As was discussed in Section~\ref{subsec:structure}, the majority of the
+attributes in the dataset will not be considered at this stage of the analysis,
+allowing the focus to be on how the cost of care is distributed and seen in the
+data. The exclusion of these attributes does not, however, imply that they are
+not of interest or unimportant.
 
 \subsection{Distributions and summative
 statistics}\label{subsec:distributions_statistics}
-\graphicspath{{./img/general/}}
 
-When we look at the distributions of our subset of attributes on the whole
+When looking at the distributions of our subset of attributes on the whole
 dataset we see that the data is skewed towards low-cost, short-stay, and
-otherwise low-impact patients with long, heavy tails, as seen in
-Figures~\ref{fig:netcost_kde}~\--~\ref{fig:no_spells_hist}. We can then take
+otherwise low-impact patients with long, heavy tails. This can be seen in
+Figures~\ref{fig:netcost_kde}\--\ref{fig:no_spells_bar}. We can then take
 advantage of the other attributes to identify slices of the dataset which are of
 interest by literature review, clustering, or otherwise.
 
-\begin{figure}[h!]
+\begin{figure}[htbp]
     \centering
-    \begin{minipage}{.495\textwidth}
-        \includegraphics[width=\linewidth]{netcost_kde/main.pdf}
-        \captionof{figure}{Estimated probability density for the net cost of a
-        spell, clipped at \pounds12,500.}\label{fig:netcost_kde}
-    \end{minipage}\hfill%
-    \begin{minipage}{.495\textwidth}
-        \includegraphics[width=\linewidth]{los_hist/main.pdf}
-        \captionof{figure}{Histogram for the total length of a spell, clipped at
-        21 days.}\label{fig:los_hist}
-    \end{minipage}
+    \includegraphics[width=\imgwidth]{netcost_kde/main.pdf}
+    \caption{Estimated probability density for the net cost of a spell, clipped
+        at \pounds12,500. \textit{Maximum approx.
+        \pounds369,000.}}\label{fig:netcost_kde}
+\end{figure}
+
+\begin{figure}[htbp]
+    \includegraphics[width=\imgwidth]{los_bar/main.pdf}
+    \caption{Bar chart for the total length of a spell, clipped at 21 days.
+        \textit{Maximum 705 days.}}\label{fig:los_bar}
 \end{figure}
 
 In this section, and subsequently, when we refer to `spell-level' quantities, we
@@ -38,46 +38,46 @@ stay is unique to the spell not the episode. The decision to take the maximal
 number of diagnoses as opposed to the total number of diagnoses is justified
 since, (a.) we want to minimise the effect of counting the same diagnosis more
 than once at the spell level, and (b.) the severity of a patient's condition is
-often compared against their Charlson~comorbidity~index~(CCI), which a weighted
-summation of their individual severities~\cite{Thygesen2011}. As such, by taking
-the maximum number of diagnoses we hope to capture the most severe a patient's
-condition becomes during a spell as this is often indicative of how aggressive
-the patient's treatments are, and thus likely more expensive due to additional
-drug or ward costs, for instance.
+often compared against their Charlson~Comorbidity~Index~(CCI), which is a
+weighted summation of their individual severities~\cite{Thygesen2011}. As such,
+by taking the maximum number of diagnoses we hope to capture the most severe a
+patient's condition becomes during a spell as this is often indicative of how
+aggressive the patient's treatments are, and thus likely more expensive due to
+additional drug or extended ward costs, for instance.
 
-\begin{figure}[h!]
+\begin{figure}[htbp]
     \centering
-    \begin{minipage}{.495\textwidth}
-        \includegraphics[width=\linewidth]{no_diag_hist/main.pdf}
-        \captionof{figure}{Histogram for the number of diagnoses in an
-        episode.}\label{fig:no_diag_hist}
-    \end{minipage}\hfill%
-    \begin{minipage}{.495\textwidth}
-        \includegraphics[width=\linewidth]{no_proc_hist/main.pdf}
-        \captionof{figure}{Histogram for the number of procedures in an
-        episode.}\label{fig:no_proc_hist}
-    \end{minipage}
+    \includegraphics[width=\imgwidth]{no_diag_bar/main.pdf}
+    \caption{Bar chart for the number of diagnoses in an
+        episode.}\label{fig:no_diag_bar}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\imgwidth]{no_proc_bar/main.pdf}
+    \caption{Bar chart for the number of procedures in an
+        episode.}\label{fig:no_proc_bar}
 \end{figure}
 
 As can clearly be seen, the dataset has some significant skew. In particular,
 the average lengths and total number of stays for patients are low
-(Figures~\ref{fig:los_hist}~\&~\ref{fig:no_spells_hist} respectively). A
+(Figures~\ref{fig:los_bar}~\&~\ref{fig:no_spells_bar} respectively). A
 corollary to be drawn from these plots is that it seems that of all the spells
 in hospital provided under the health board, the majority of them are daycases
 and one-off treatments.
 
-\begin{figure}[h!]
+\begin{figure}[htbp]
     \centering
-    \begin{minipage}{.495\textwidth}
-        \includegraphics[width=\linewidth]{no_spells_hist/main.pdf}
-        \captionof{figure}{Histogram for the number of spells associated with a
-        patient.}\label{fig:no_spells_hist}
-    \end{minipage}\hfill%
-    \begin{minipage}{.495\textwidth}
-        \includegraphics[width=\linewidth]{age_hist/main.pdf}
-        \captionof{figure}{Histogram for the age of patients with two-year
-        bins.}\label{fig:age_hist}
-    \end{minipage}
+    \includegraphics[width=\imgwidth]{no_spells_bar/main.pdf}
+    \caption{Bar chart for the number of spells associated with a
+        patient.}\label{fig:no_spells_bar}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\imgwidth]{age_bar/main.pdf}
+    \caption{Bar chart for the age of patients with two-year
+        bins.}\label{fig:age_bar}
 \end{figure}
 
 However, this does not imply that these spells all come cheap. When we look at
@@ -92,7 +92,7 @@ costs (at least) are distributed in such a way. Further results on the
 distributions of our net and component costs can be seen in
 Table~\ref{tab:summative}.
 
-\begin{table}[h!]
+\begin{table}[htbp!]
     \resizebox{\textwidth}{!}{%
         \input{./tex/summative_stats0.tex}
     }
@@ -112,7 +112,7 @@ necessary for the purposes of a summative analysis, though this process could
 improve the performance of several algorithms on the dataset since it is of
 mixed type. Moreover, the presence of this skewedness in some attributes is not
 to say that all the attributes are so harshly skewed; for instance,
-Figure~\ref{fig:age_hist} shows the clear peaks and troughs in the distribution
+Figure~\ref{fig:age_bar} shows the clear peaks and troughs in the distribution
 of the ages of our patients. It is clear that the distribution of ages does not
 have a bell-shaped curve and should likely not be modelled as normally
 distributed \-- or otherwise `bell-shaped', for that matter.
@@ -127,9 +127,11 @@ numbers, and thus the relationships between our variables, much easier than
 studying a table or matrix directly. It should also be noted that these
 attributes are considered at the spell level again.
 
-\begin{figure}[h!]
-    \vspace{-50pt}%
-    \includegraphics[width=1.2\textwidth]{corr_heatmap/main.pdf}
+\begin{figure}[htbp]
+    \makebox[\textwidth]{%
+        \centering
+        \includegraphics[height=.5\paperheight]{corr_heatmap/main.pdf}
+    }
     \caption{A heatmap of the pairwise correlation coefficients for our cost
     components, and our other clinical attributes.}\label{fig:corr_heatmap}
 \end{figure}
@@ -181,7 +183,8 @@ deviation and mean, and so is scale invariant.
 
 \begin{definition}
     Consider a population with mean \(\mu\) and standard deviation \(\sigma\).
-    Then the \emph{coefficient of variation} is defined to be:
+    Then the \emph{coefficient of variation}, denoted by \(C_v\), is defined to
+    be:
 
     \[
         C_{v} := \frac{\sigma}{\mu}
@@ -208,10 +211,10 @@ of coefficients of variation found have size far greater than one.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=\textwidth]{cost_variation/main.pdf}
+    \includegraphics[width=\imgwidth]{cost_variation/main.pdf}
     \caption{Bar chart showing the coefficient of variation \(C_{v}\) of each
-    cost component, and the net and total costs, in descending
-    order.}\label{fig:cost_variation}
+        cost component, and the net and total costs, in descending
+        order.}\label{fig:cost_variation}
 \end{figure}
 
 At this point, knowing which of the cost components are the most highly varied
@@ -226,10 +229,10 @@ component and the net cost.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=\textwidth]{cost_contribution/main.pdf}
+    \includegraphics[width=\imgwidth]{cost_contribution/main.pdf}
     \caption{Bar chart showing the average contribution of each cost component
-    to the net cost of a spell, in descending
-    order.}\label{fig:cost_contribution}
+        to the net cost of a spell, in descending
+        order.}\label{fig:cost_contribution}
 \end{figure}
 
 By inspecting Figure~\ref{fig:cost_contribution}, it is seen that, on average,

@@ -1,0 +1,53 @@
+\documentclass{beamer}
+
+\usepackage{animate}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{graphicx}
+\usepackage[backend=bibtex, style=numeric]{biblatex}
+    \addbibresource{../references}
+
+\usetheme[subsectionpage=progressbar]{metropolis}
+
+\newlength{\imgwidth}
+\setlength{\imgwidth}{.95\paperwidth}
+
+\renewcommand{\footnotesize}{\tiny}
+\renewcommand*{\bibfont}{\tiny}
+\setbeamertemplate{footline}{}
+\newsavebox{\largestimage}
+
+\title{Novel methods for the analysis of NHS patient-episode data}
+\author{%
+    Henry Wilde \\
+    \small{\textit{Supervised by:} Dr Jonathan Gillard and Dr Vincent Knight}
+}
+\institute{%
+    \vfill%
+    \centering%
+    \includegraphics[height=.2\paperheight]{../../img/cu_logo.png}%
+    \hspace{5pt}%
+    \includegraphics[height=.2\paperheight]{../../img/cthb_logo.jpg}
+}
+
+
+\begin{document}
+
+\frame{%
+    \maketitle%
+}
+
+\graphicspath{{../img/overview/}}
+\input{./sections/overview.tex}
+
+\graphicspath{{../img/diabetes/}}
+\input{./sections/diabetes.tex}
+
+\graphicspath{{../img/clustering/}}
+\input{./sections/clustering.tex}
+
+\graphicspath{{../img/external/}}
+\input{./sections/external_data.tex}
+
+\end{document}

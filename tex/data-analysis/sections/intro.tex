@@ -1,16 +1,26 @@
 \section{Introduction}\label{sec:intro}
 
-In this section we will conduct a summative and exploratory analysis of the data
-provided by the Cwm Taf University Health Board. The focus will be on the
-distributions of, and relationships between, our non-trivial cost components
-and a selection of other clinical attributes such as length of stay and number
-of diagnoses. As we will see in the ensuing analysis, the bulk of this data
-corresponds to short-stay and relatively low-cost spells of treatment. Following
-this, we will endeavour to construct a framework for the analysis of slices
-within the data which provide another dimension to our analysis through
-comparison and contrast. However, before any such analysis begins, it is
-important to understand the structure of data we are dealing with and how it has
-been prepared.
+In this work we will conduct a summative and exploratory analysis of a
+moderately large, patient-episode costing dataset provided by the Cwm Taf
+University Health Board. The focus of this analysis is on how a selection of
+key, cost-related attributes are distributed across the entire dataset and how
+they interact with one another. These attributes are comprised of non-trivial
+cost components and a set of clinical attributes typically associated with
+increased costs. The ensuing analysis will show that while the bulk of this data
+corresponds to short-stay and relatively low-cost spells of treatment, there are
+long tails and high levels of variation.
+        
+Following this, a framework for the analysis of slices within the data is
+established, looking in particular at the diabetic population. This framework
+provides another dimension to the overall analysis through the use of comparison
+and contrast but the impact of the particular example is ultimately lost due,
+again, to high levels of cost variation. Finally, we look toward other methods
+for partioning the data and identifying patterns within. These methods are based
+in the clustering of patients and spells specifically so the framework is still
+applicable.
+
+However, before any analysis can be conducted it is best to learn how the data
+is structured and how it has been prepared.
 
 \subsection{Data structure}\label{subsec:structure}
 
@@ -19,39 +29,46 @@ records for patients from across Wales that are being treated in the Prince
 Charles and Royal Glamorgan hospitals. An episode is defined to be any
 continuous period of care provided by the same consultant in the same place. For
 instance, if a patient is admitted to a general medical ward for diagnosis and
-testing, and then is referred to a specialist consultant in oncology their first
-episode would end and be recorded, and a second episode of care would begin on
-the oncology ward. Each of these episodes would correspond to a row in the
-dataset. If the patient was then discharged, they would have completed a spell
-with two episodes. In this analysis we will avoid looking at episode-level
+testing, and then is referred to a specialist consultant in oncology, then their
+first episode would end with their testing, and a second episode of care would
+begin on the oncology ward. Each of these episodes would correspond to a row in
+the dataset. If the patient was then discharged, they would have completed a
+spell with two episodes. In this analysis we will avoid looking at episode-level
 statistics in favour of a patient's spell-level statistics. Since the
 introduction of the `payment by results' system for financial flows, it has been
 seen that focusing on the more granular episode statistics can lead to the
 amount of resource or `activity' consumed by a hospital to treat that patient
 being overestimated~\cite{BMJ2004}.
 
-Each episode is recorded as a row of roughly 250 attributes or columns,
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=.9\textwidth]{./img/external/proportion_wales.pdf}
+    \caption{The proportion of total patients observed in the dataset by
+        postcode district (e.g.\ CF24).}
+\end{figure}
+
+Each episode is recorded as a row of roughly 260 attributes or columns,
 including:
 
 \begin{itemize}
-    \item Personal identifiers such as identification numbers, age, registered
-        GP practice, as well as spell admission and discharge dates;
+    \item Personal information such as identification numbers, age, registered
+        GP practice;
     \item Other clinical quantities such as the number of diagnoses and
-        procedures conducted in that episode, admission and discharge methods,
-        and length of stay;
+        procedures conducted in that episode, admission and discharge dates and
+        methods, and length of stay;
     \item A number of cost components which include the costs coming from
-        various departments within the hospital, ward and overhead costs, and
-        the cost of administration;
+        various departments within the hospital, overall medical and ward costs,
+        as well as overhead costs;
     \item Diagnosis (HRG, ICD-10) and procedure (OPCS-4) indicators, as well as
-        Charlson index scores for a selection of common diagnoses.
+        Charlson index scores for the included diseases.
 \end{itemize}
 
-Of the attributes listed here, we will focus on the cost components and other
-clinical variables, paying particular attention to those attributes which are
-considered to be linked to overall contribution to the cost of care. Other than
-the cost components themselves, those attributes are: true length of stay,
-the number of diagnoses and number of procedures during a period of care, and
-the number of spells associated with any given patient.
+Of the attributes listed here, we will focus on the cost components and a
+selection of the other clinical variables, paying particular attention to those
+attributes which are considered to be linked to overall contribution to the cost
+of care. More specifically, those attributes are: length of stay, the maximum
+number of diagnoses during a spell, the total number of procedures during a
+spell, and the number of spells associated with any given patient.
 
 \subsection{Cleaning the data}\label{subsec:formatting}
 
@@ -61,4 +78,5 @@ to make the data consistent and suitable for our purposes. This process included
 the removal of some superfluous columns which added no real information to the
 dataset, and a number of rows that had been corrupted by some external storage
 software during data collection. In addition to this, we reformatted some
-columns whose entries were intended to be used as datetime objects later on.
+columns whose entries were intended to be used as datetime objects later on such
+as admission and discharge dates, and financial bench period.
