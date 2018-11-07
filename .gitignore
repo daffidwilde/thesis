@@ -12,17 +12,20 @@ __pycache__
 *.swp
 
 # Images
+*.gif
 *.pdf
 *.png
 
 # LaTeX stuff
+*.aux
 *.bak
 *.bbl
-*.blg
-*.aux
-*.log
 *.bcf
-*.run.xml
+*.blg
+*-blx.bib
+*.log
 *.nav
 *.out
+*.run.xml
+*.snm
 *.toc
