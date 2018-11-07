@@ -8,29 +8,31 @@ import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sbn
 
-sbn.set_palette('colorblind')
+sbn.set_palette("colorblind")
 colours = cycle(sbn.color_palette())
 blue = next(colours)
 green = next(colours)
 
-cols = sorted(['WARD', 'OVH', 'MED'])
+cols = sorted(["WARD", "OVH", "MED"])
 fontsize = 24
 delta = 0.05
 steps = 200
 xmin, xmax = 0, 1
 positions = np.arange(len(cols)) * 1.5
 
+
 def get_contributions(df, boolean):
     """
     Get the mean contribution of each cost component to the net cost of a spell
     conditioned on some binary (Boolean) variable. Here, we use diabetes.
     """
-    dataset = df[df['Diabetes'] == boolean]
-    summed_costs = dataset.groupby('SPELL_ID')[cols].sum()
-    netcost = dataset.groupby('SPELL_ID')['NetCost'].sum()
+    dataset = df[df["Diabetes"] == boolean]
+    summed_costs = dataset.groupby("SPELL_ID")[cols].sum()
+    netcost = dataset.groupby("SPELL_ID")["NetCost"].sum()
     contribution = summed_costs.divide(netcost, axis=1).mean()
 
     return contribution
+
 
 def get_vpstats(df, col):
     """
@@ -46,11 +48,16 @@ def get_vpstats(df, col):
     median = np.median(data)
 
     stats = {
-        'coords': coords, 'vals': density(coords), 'mean': mean,
-        'min': LQ, 'max': UQ, 'median': median
+        "coords": coords,
+        "vals": density(coords),
+        "mean": mean,
+        "min": LQ,
+        "max": UQ,
+        "median": median,
     }
 
     return stats
+
 
 def plot_large_component_violinplots(df):
     """
@@ -61,8 +68,9 @@ def plot_large_component_violinplots(df):
     fig, ax = plt.subplots(1, figsize=(40, 24), dpi=400)
 
     contributions = [get_contributions(df, i) for i in [0, 1]]
-    args = zip(['non-diabetic', 'diabetic'], contributions,
-               [blue, green], [0.3, -0.3])
+    args = zip(
+        ["non-diabetic", "diabetic"], contributions, [blue, green], [0.3, -0.3]
+    )
 
     patches = []
     for name, contribution, colour, beta in args:
@@ -72,32 +80,38 @@ def plot_large_component_violinplots(df):
             pos = positions[i] + beta
             stats = get_vpstats(contribution, col)
 
-            IQR = stats['max'] - stats['min']
-            lower_whisker = max(xmin, stats['min']-1.5*IQR)
-            upper_whisker = min(xmax, stats['max']+1.5*IQR)
+            IQR = stats["max"] - stats["min"]
+            lower_whisker = max(xmin, stats["min"] - 1.5 * IQR)
+            upper_whisker = min(xmax, stats["max"] + 1.5 * IQR)
 
             vpstats.append(stats)
 
-            ax.hlines(pos, stats['min'], stats['max'], lw=7, color='k')
-            ax.hlines(pos, lower_whisker, upper_whisker, lw=1, color='k')
-            ax.vlines(lower_whisker, pos-delta, pos+delta, lw=1, color='k')
-            ax.vlines(upper_whisker, pos-delta, pos+delta, lw=1, color='k')
-            ax.scatter(stats['median'], pos, s=50, color='w', zorder=100)
+            ax.hlines(pos, stats["min"], stats["max"], lw=7, color="k")
+            ax.hlines(pos, lower_whisker, upper_whisker, lw=1, color="k")
+            ax.vlines(lower_whisker, pos - delta, pos + delta, lw=1, color="k")
+            ax.vlines(upper_whisker, pos - delta, pos + delta, lw=1, color="k")
+            ax.scatter(stats["median"], pos, s=50, color="w", zorder=100)
 
         patch = mpatches.Patch(color=colour, label=name)
         patches.append(patch)
 
-        ax.violin(vpstats, vert=False, positions=positions+beta,
-                  showmedians=False, showextrema=False)
+        ax.violin(
+            vpstats,
+            vert=False,
+            positions=positions + beta,
+            showmedians=False,
+            showextrema=False,
+        )
 
     ax.set_yticks(positions)
     ax.set_yticklabels(cols, fontsize=fontsize)
-    ax.set_xlabel('Proportion of net cost', fontsize=fontsize)
-    ax.legend(handles=patches, loc='best', fontsize=fontsize,
-              markerscale=fontsize/8)
+    ax.set_xlabel("Proportion of net cost", fontsize=fontsize)
+    ax.legend(
+        handles=patches, loc="best", fontsize=fontsize, markerscale=fontsize / 8
+    )
     for label in ax.get_xticklabels():
         label.set_fontsize(fontsize)
 
     here = os.path.dirname(os.path.realpath(__file__))
-    filename = os.path.join(here, 'main.pdf')
-    plt.savefig(filename)
+    filename = os.path.join(here, "main.pdf")
+    plt.savefig(filename, transparent=True)
