@@ -1,20 +1,28 @@
-\section{Summative analysis}\label{sec:summative}
+\section{An overview of the data}\label{sec:overview}
 
 As was discussed in Section~\ref{subsec:structure}, the majority of the
 attributes in the dataset will not be considered at this stage of the analysis,
 allowing the focus to be on how the cost of care is distributed and seen in the
-data. The exclusion of these attributes does not, however, imply that they are
-not of interest or unimportant.
+data. This subset will frequently be referred to as the set of `key attributes'.
+The exclusion of the other attributes does not, however, imply that they
+are not of interest or that they are in any way unimportant.
+
+The chosen attributes provide a base for understanding how the costs and
+resources consumed by a patient in a spell are built up: cost components give
+direct evidence as to which departments and types of procedures are being
+utilised; the length of stay can give an indication of the nature of the spell
+and any default costs that are incurred; and considering the maximum and total
+number of diagnoses and procedures (respectively) in a spell allow for some
+insight into the severity or complexity of a patient's spell in hospital.
 
 \subsection{Distributions and summative
 statistics}\label{subsec:distributions_statistics}
 
-When looking at the distributions of our subset of attributes on the whole
-dataset we see that the data is skewed towards low-cost, short-stay, and
-otherwise low-impact patients with long, heavy tails. This can be seen in
-Figures~\ref{fig:netcost_kde}\--\ref{fig:no_spells_bar}. We can then take
-advantage of the other attributes to identify slices of the dataset which are of
-interest by literature review, clustering, or otherwise.
+When looking at the distributions of the key attributes on the whole dataset, it
+is seen that the data is weighted towards low-cost, short-stay, and
+otherwise low-impact patients. The distributions themselves have long, and often
+heavy, tails. This can be seen in
+Figures~\ref{fig:netcost_kde}\--\ref{fig:no_spells_bar}.
 
 \begin{figure}[htbp]
     \centering
@@ -29,21 +37,6 @@ interest by literature review, clustering, or otherwise.
     \caption{Bar chart for the total length of a spell, clipped at 21 days.
         \textit{Maximum 705 days.}}\label{fig:los_bar}
 \end{figure}
-
-In this section, and subsequently, when we refer to `spell-level' quantities, we
-mean that each of our cost components and the number of procedures are summed
-over all episodes in any given spell, the number of diagnoses at the spell level
-is considered as the maximal number of diagnoses in a spell, and the length of
-stay is unique to the spell not the episode. The decision to take the maximal
-number of diagnoses as opposed to the total number of diagnoses is justified
-since, (a.) we want to minimise the effect of counting the same diagnosis more
-than once at the spell level, and (b.) the severity of a patient's condition is
-often compared against their Charlson~Comorbidity~Index~(CCI), which is a
-weighted summation of their individual severities~\cite{Thygesen2011}. As such,
-by taking the maximum number of diagnoses we hope to capture the most severe a
-patient's condition becomes during a spell as this is often indicative of how
-aggressive the patient's treatments are, and thus likely more expensive due to
-additional drug or extended ward costs, for instance.
 
 \begin{figure}[htbp]
     \centering
@@ -60,11 +53,11 @@ additional drug or extended ward costs, for instance.
 \end{figure}
 
 As can clearly be seen, the dataset has some significant skew. In particular,
-the average lengths and total number of stays for patients are low
-(Figures~\ref{fig:los_bar}~\&~\ref{fig:no_spells_bar} respectively). A
-corollary to be drawn from these plots is that it seems that of all the spells
-in hospital provided under the health board, the majority of them are daycases
-and one-off treatments.
+when inspecting Figures~\ref{fig:los_bar}~\&~\ref{fig:no_spells_bar},
+the majority of lengths of stay and total numbers of stays for patients are
+minimal, i.e.\ of all the spells provided under the care of the health board,
+the majority of them are daycases and the patients they deal with are one-off
+treatments.
 
 \begin{figure}[htbp]
     \centering
