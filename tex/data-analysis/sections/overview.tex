@@ -17,6 +17,7 @@ hospital; and considering the maximum and total number of diagnoses and
 procedures (respectively) in a spell allow for some insight into the severity or
 complexity of a patient's spell in hospital.
 
+
 \subsection{Distributions and summative statistics}%
 \label{subsec:distributions_statistics}
 
@@ -129,16 +130,20 @@ health. Thus, a hospital should expect to see a disproportionate number of them.
 
 \subsection{Pairwise correlation}\label{subsec:corr}
 
+By looking at the distributions of the key attributes in the previous section,
+a surface-level understanding of the data was established. The next logical step
+is to dive deeper into the data and investigate how these attributes interact
+with one another. In this analysis, correlation coefficients will be used to
+give a sense of this interaction.
+
 Figure~\ref{fig:corr_heatmap} shows the Pearson correlation coefficient of all
 pairs in the subset of selected attributes. The data has been presented in the
-form of a heatmap with a colour bar is located to the right of the map,
-indicating the scale of the correlation between any two variables.
+form of a heatmap with a colour bar located to its right, indicating the scale
+of the correlation between any two variables. Using a visualisation such as this
+is more intuitive than reading directly from the corresponding array of numbers,
+and makes gaining insight from the relationships between variables much easier.
 
-Using a visualisation such as this is more intuitive than reading directly from
-the corresponding array of numbers, and makes gaining insight from the
-relationships between variables much easier.
-
-The attributes themselves have been aranged into descending order according to
+The attributes themselves have been arranged into descending order according to
 their summed absolute correlation coefficient. Doing this makes it easier to
 deduce which variables have the most prominent levels of interaction.
 
@@ -166,31 +171,31 @@ deduce which variables have the most prominent levels of interaction.
     \label{fig:corr_heatmap}
 \end{figure}
 
-Upon inspection the heatmap, it is seen that there are several cost components,
-such as secondary commisioning costs (SECC) and emergency care
-(EMER), that have no significant linear correlation with any of the other
-attributes. While there seems to be an abundance of non-correlation across the
-heatmap, there are clear correlations between many of our attributes; some of
+Upon inspection of the heatmap, there are many cost components that have no
+significant linear correlation with any of the other attributes. Despite this,
+however, there are clear correlations between many of the attributes; some of
 these are easier to realise than others. For instance, ignoring the main
-diagonal, the largest value is that between total costs (COST) and net costs at
-\(0.94\). This indicates almost total positive linear correlation between these
-two variables, and that makes sense given that our net cost is just the total
-cost corrected for a number of reimbursable costs like critical care (CRIT)
-and non-contracted income (NCI) which are entered as negative values in the
-dataset \-- hence the distinctly negative correlation coefficients they have
-with the other variables. Typically, these costs are small (see
-Table~\ref{tab:summative}) so we would expect a strong correlation between costs
-and net costs.
+diagonal, the largest value is that between total costs (COST) and net costs
+with a value of 0.94. This indicates almost total positive linear correlation
+between these two variables, and that makes sense given that the net cost of a
+spell is just the total cost corrected for a number of reimbursable costs like
+critical care (CRIT) and non-contracted income (NCI) which are entered as
+negative values in the dataset \-- hence the distinctly negative correlation
+coefficients they have with the other variables. Typically, these costs are
+small (see Table~\ref{tab:summative}) so a strong correlation between costs
+and net costs is to be expected.
 
 Another example is the strong correlation amongst the length of stay
-(TRUE\_LOS), and ward and overhead costs (WARD and OVH respectively). We can
-justify these anecdotally: the longer a patient spends in hospital, the more
-time they are likely to spend on a ward and incurring associated overheads like
-administration work and cleaning costs. It should also be clear that these
-attributes all share a strong linear correlation with the net cost of a spell.
-This implies that these costs and the length of stay are good indicators of the
-net cost of treating someone, and may suggest that the cost components make up a
-substantial and relatively consistent part of the net cost.
+(TRUE\_LOS), and ward and overhead costs (WARD and OVH respectively). These are
+well-known relationships that can be justified anecdotally: the longer a patient
+spends in hospital, the more time they are likely to spend on a ward. Thus,
+incurring associated overheads like administrative work, cleaning costs and a
+larger proportion of rental costs. It should also be clear that these attributes
+all share a strong linear correlation with the net cost of a spell. This
+suggests that these costs and the length of stay are strong indicators of the
+net cost of treating someone, and may suggest that the remaining cost components 
+make up a substantially smaller part of the net cost.
+
 
 \subsection{Measuring variation and importance in our cost components}
 
