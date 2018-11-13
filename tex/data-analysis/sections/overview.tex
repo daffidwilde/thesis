@@ -1,136 +1,173 @@
 \section{An overview of the data}\label{sec:overview}
 
-As was discussed in Section~\ref{subsec:structure}, the majority of the
-attributes in the dataset will not be considered at this stage of the analysis,
-allowing the focus to be on how the cost of care is distributed and seen in the
-data. This subset will frequently be referred to as the set of `key attributes'.
-The exclusion of the other attributes does not, however, imply that they
-are not of interest or that they are in any way unimportant.
+As was discussed at the end of Section~\ref{subsec:structure}, the majority of
+the attributes in the dataset will not be considered at this stage of the
+analysis. This allows the focus to be on how the costs of care are distributed
+and seen in the data. The subset of chosen attributes will frequently be
+referred to as the set of `key attributes' but this choice of name does not
+imply that the remaining attributes are not of interest or that they are in any
+way unimportant.
 
-The chosen attributes provide a base for understanding how the costs and
-resources consumed by a patient in a spell are built up: cost components give
-direct evidence as to which departments and types of procedures are being
-utilised; the length of stay can give an indication of the nature of the spell
-and any default costs that are incurred; and considering the maximum and total
-number of diagnoses and procedures (respectively) in a spell allow for some
-insight into the severity or complexity of a patient's spell in hospital.
+The chosen, `key' attributes provide a base for understanding how the
+costs and resources consumed by a patient in a spell are built up: cost
+components give direct information on which departments and types of procedures
+are being utilised; the length of stay can give an indication of the nature of
+the spell and any default costs that may be incurred by spending more time in
+hospital; and considering the maximum and total number of diagnoses and
+procedures (respectively) in a spell allow for some insight into the severity or
+complexity of a patient's spell in hospital.
 
-\subsection{Distributions and summative
-statistics}\label{subsec:distributions_statistics}
+\subsection{Distributions and summative statistics}%
+\label{subsec:distributions_statistics}
 
-When looking at the distributions of the key attributes on the whole dataset, it
-is seen that the data is weighted towards low-cost, short-stay, and
-otherwise low-impact patients. The distributions themselves have long, and often
-heavy, tails. This can be seen in
-Figures~\ref{fig:netcost_kde}\--\ref{fig:no_spells_bar}.
+When looking at the distributions of the key attributes on the whole dataset,
+displayed in Figures~\ref{fig:no_spells_bar}~\--~\ref{fig:netcost_kde}, it
+is clear that the data is weighted towards low-cost, short-stay, and
+otherwise low-impact patients. This behaviour is well-projected through
+Figures~\ref{fig:no_spells_bar}~\&~\ref{fig:los_bar}. Here, it is clear that of
+all the spells provided under the care of the health board that the majority are
+daycases, and that the patients being dealt with are one-time users of the
+hospital system.
+
+In general, the distributions themselves have long, pronounced tails. This
+suggests that the effect of extreme cases, despite being a rarity, takes a toll
+on the hospital system with respect to the cost of providing care.
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=\imgwidth]{netcost_kde/main.pdf}
-    \caption{Estimated probability density for the net cost of a spell, clipped
-        at \pounds12,500. \textit{Maximum approx.
-        \pounds369,000.}}\label{fig:netcost_kde}
+    \includegraphics[width=\imgwidth]{no_spells_bar/main.pdf}
+    \caption{Bar chart for the number of spells associated with a patient.}%
+    \label{fig:no_spells_bar}
 \end{figure}
 
 \begin{figure}[htbp]
     \includegraphics[width=\imgwidth]{los_bar/main.pdf}
     \caption{Bar chart for the total length of a spell, clipped at 21 days.
-        \textit{Maximum 705 days.}}\label{fig:los_bar}
+        \textit{Maximum 705 days.}}%
+    \label{fig:los_bar}
 \end{figure}
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=\imgwidth]{no_diag_bar/main.pdf}
-    \caption{Bar chart for the number of diagnoses in an
-        episode.}\label{fig:no_diag_bar}
+    \caption{Bar chart for the maximum number of diagnoses in a spell.}%
+    \label{fig:no_diag_bar}
 \end{figure}
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=\imgwidth]{no_proc_bar/main.pdf}
-    \caption{Bar chart for the number of procedures in an
-        episode.}\label{fig:no_proc_bar}
+    \caption{Bar chart for the total number of procedures in a spell.}%
+    \label{fig:no_proc_bar}
 \end{figure}
-
-As can clearly be seen, the dataset has some significant skew. In particular,
-when inspecting Figures~\ref{fig:los_bar}~\&~\ref{fig:no_spells_bar},
-the majority of lengths of stay and total numbers of stays for patients are
-minimal, i.e.\ of all the spells provided under the care of the health board,
-the majority of them are daycases and the patients they deal with are one-off
-treatments.
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=\imgwidth]{no_spells_bar/main.pdf}
-    \caption{Bar chart for the number of spells associated with a
-        patient.}\label{fig:no_spells_bar}
+    \includegraphics[width=\imgwidth]{netcost_kde/main.pdf}
+    \caption{Estimated probability density for the net cost of a spell, clipped
+        at \pounds12,500. \textit{Maximum approx. \pounds369,000.}}%
+    \label{fig:netcost_kde}
 \end{figure}
+
+Though the length and returning frequency of the spells are largely minimal and
+tightly packed, their associated net costs are wildly variant. This is seen
+immediately from inspecting Figure~\ref{fig:netcost_kde}. It would appear that
+there is a distinct peak in the figure, but upon closer inspection of the scale
+it becomes clear that this peak is little more than a blip; the most probable
+net cost has a likelihood of less than one tenth of a percent. The remaining
+values are distributed in a way that, given the scale, is near uniform, spanning
+from approximately \pounds6000 up to \pounds369,000. A more detailed look at the
+skeleton of this distribution, and those of the remaining key attributes, is
+given in Table~\ref{tab:summative}.
+
+\begin{table}[htbp]
+    \resizebox{\imgwidth}{!}{%
+        \input{./tex/summative_stats0.tex}
+    }
+
+    \vspace{5pt}
+
+    \resizebox{\imgwidth}{!}{%
+        \input{./tex/summative_stats1.tex}
+    }
+
+    \vspace{5pt}
+    
+    \resizebox{\imgwidth}{!}{%
+        \input{./tex/summative_stats2.tex}
+    }
+    \caption{Summative spell-level statistics for each of the key attributes.}%
+    \label{tab:summative}
+\end{table}
+
+Health-related analyses classically categorise patients by grouping ages
+together to aid the calculation of risk factors and projected costs. This has
+proven to be particularly helpful when looking at older
+patients~\cite{Billings327}. Baring this in mind, looking at how age is
+distributed amongst the patients in the dataset can provide another valuable
+insight into how costs appear.
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=\imgwidth]{age_bar/main.pdf}
-    \caption{Bar chart for the age of patients with two-year
-        bins.}\label{fig:age_bar}
+    \caption{Bar chart for the age of patients in the dataset against the
+        estimated UK population in 2016.}%
+    \label{fig:age_bar}
 \end{figure}
 
-However, this does not imply that these spells all come cheap. When we look at
-the distribution of the net cost of a spell (Figure~\ref{fig:netcost_kde}) we
-see that although there is a distinct peak around a relatively low net cost,
-this value has probability \(7.5\times10^{-4}\ (2 sf.)\). That is, the most
-likely net cost of treating a patient in this dataset occurs less than one tenth
-of a percent of the time, and the overwhelming majority of recorded net costs
-are spread over a massive range. While tests do exist for verifying if our
-empirical data is truly heavy-tailed~\cite{Bryson1974}, it is clear our net
-costs (at least) are distributed in such a way. Further results on the
-distributions of our net and component costs can be seen in
-Table~\ref{tab:summative}.
+Figure~\ref{fig:age_bar} shows this distribution in contrast to a UK population
+estimate in 2016 from the ONS.\@ Following the graph from left to right, the UK
+estimate is roughly uniform from birth up until the late 50s where a decline
+appears as older people become less prevalent. Looking instead at the patients
+in the data it is clear that there are several peaks and troughs. The largest
+trough corresponds to adolescents which makes sense since some of the least
+likely people to visit a hospital would be reaching their peak fitness
+biologically. Similarly, the clear peaks around infancy and in the older age
+range correspond to those people who are most vulnerable in terms of their
+health. Thus, a hospital should expect to see a disproportionate number of them.
 
-\begin{table}[htbp!]
-    \resizebox{\textwidth}{!}{%
-        \input{./tex/summative_stats0.tex}
-    }
-    \resizebox{\textwidth}{!}{%
-        \input{./tex/summative_stats1.tex}
-    }
-    \resizebox{\textwidth}{!}{%
-        \input{./tex/summative_stats2.tex}
-    }
-    \caption{Summative spell-level statistics for each of our non-trivial cost
-    components and our selected clinical variables.}\label{tab:summative}
-\end{table}
-
-There are methods available to attempt to overcome this skewedness, including
-the scaling and transformation of our numerical attributes, but they are not
-necessary for the purposes of a summative analysis, though this process could
-improve the performance of several algorithms on the dataset since it is of
-mixed type. Moreover, the presence of this skewedness in some attributes is not
-to say that all the attributes are so harshly skewed; for instance,
-Figure~\ref{fig:age_bar} shows the clear peaks and troughs in the distribution
-of the ages of our patients. It is clear that the distribution of ages does not
-have a bell-shaped curve and should likely not be modelled as normally
-distributed \-- or otherwise `bell-shaped', for that matter.
 
 \subsection{Pairwise correlation}\label{subsec:corr}
 
 Figure~\ref{fig:corr_heatmap} shows the Pearson correlation coefficient of all
-pairs in our subset of selected attributes (not including age or number of
-spells) in the form of a heatmap with a colour bar is located to the right of
-it. Using a visual aid such as this makes gaining insight from our array of
-numbers, and thus the relationships between our variables, much easier than
-studying a table or matrix directly. It should also be noted that these
-attributes are considered at the spell level again.
+pairs in the subset of selected attributes. The data has been presented in the
+form of a heatmap with a colour bar is located to the right of the map,
+indicating the scale of the correlation between any two variables.
+
+Using a visualisation such as this is more intuitive than reading directly from
+the corresponding array of numbers, and makes gaining insight from the
+relationships between variables much easier.
+
+The attributes themselves have been aranged into descending order according to
+their summed absolute correlation coefficient. Doing this makes it easier to
+deduce which variables have the most prominent levels of interaction.
+
+\begin{definition}
+    Consider a dataset with \(m \in \mathbb{N}\) attributes denoted
+    by \(A = \left\{A_1, \ldots, A_m\right\}\). Then attribute \(A_j\) has
+    associated with it a correlation vector given by \(C_j = \left[
+    \rho_{A_j,A_k} | 1 \leq k \leq m\right]\) where \(\rho_{A_j, A_k}\) denotes
+    the Pearson's correlation coefficient between attributes \(A_j\) and
+    \(A_k\). The summed absolute correlation coefficient of \(A_j\), denoted by
+    \(r_j\), is given by:
+    \[
+        r_j = \sum_{c \in C_j} \left\| c \right\|
+    \]
+\end{definition}
 
 \begin{figure}[htbp]
     \makebox[\textwidth]{%
         \centering
-        \includegraphics[height=.5\paperheight]{corr_heatmap/main.pdf}
+        \includegraphics[height=.5\paperheight]{corr_heatmap/with_nums.pdf}
     }
-    \caption{A heatmap of the pairwise correlation coefficients for our cost
-    components, and our other clinical attributes.}\label{fig:corr_heatmap}
+    \caption{A heatmap of the pairwise correlation coefficients for the key cost
+        attributes. The attributes have been ordered according to their summed
+        absolute correlation coefficient.}%
+    \label{fig:corr_heatmap}
 \end{figure}
 
-Upon inspection of Figure~\ref{fig:corr_heatmap}, we see that there are several
-cost components, such as secondary commisioning costs (SECC) and emergency care
+Upon inspection the heatmap, it is seen that there are several cost components,
+such as secondary commisioning costs (SECC) and emergency care
 (EMER), that have no significant linear correlation with any of the other
 attributes. While there seems to be an abundance of non-correlation across the
 heatmap, there are clear correlations between many of our attributes; some of

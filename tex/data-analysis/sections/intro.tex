@@ -4,34 +4,33 @@ In this work a summative and exploratory analysis of a patient-episode dataset
 will be conducted. This dataset has been provided by the Cwm Taf University
 Health Board and details the costs associated with treating patients during
 their time in hospital. The focus of this analysis is to better understand and
-observe variation in these costs; in particualar, how a selection of key,
+observe variation in these costs; in particualar, how a selection of
 cost-related attributes are distributed across the entire dataset and how
 they interact with one another. These attributes are comprised of non-trivial
 cost components and a set of clinical attributes typically associated with
-changes in costs. The ensuing analysis will show that while the bulk of this data
-corresponds to short-stay and relatively low-cost and -impact spells of
-treatment, there are long, heavy tails with high levels of variation.
-        
+changes in costs. The ensuing analysis will show that while the bulk of the data
+corresponds to short-stay and relatively low-impact spells of treatment, there
+are long, heavy tails with high levels of variation in each of these variables.
+
 Following this, a framework for the analysis of slices within the data is
 established, using the diabetic population as an example. This framework
 provides another dimension to the overall analysis through the use of comparison
 and contrast but the intended impact is ultimately lost due, again, to high
-levels of variation. Finally, we look toward other methods
-for partioning the data and identifying intrinsic structures within. These
-methods are based in the clustering of patients and spells specifically so the
-framework is still applicable. There is also discussion of the clustering of
+levels of variation. Finally, the analysis looks toward other methods of
+extracting intrinsic structures built within the data. These methods are
+generally based in the clustering of patients and spells specifically, and so
+the framework is still applicable. There is also discussion of the clustering of
 patient pathways and how such analysis could highlight areas, procedures or
-departments that influence variation more strongly.
-
-However, before any analysis can be conducted it is best to learn how the data
-is structured and how it has been prepared.
+departments that influence variation, and those that leave well enough alone.
 
 \subsection{Data structure}\label{subsec:structure}
 
-The data is comprised of approximately two and a half million episode
-records for patients from across Wales that were treated in the Prince
-Charles and Royal Glamorgan hospitals (South Wales) from April 2012 through to
-April 2017. The geographic distribution of the patients is given in
+Before any analysis can be conducted, it is best to learn how the data is
+structured and how it has been prepared. This dataset is comprised of
+approximately two and a half million episode records for patients from across
+Wales that were treated in the Prince~Charles and Royal~Glamorgan hospitals
+(South~Wales) from April 2012 through April 2017. An approximation for the
+geographic distribution of patients is given in
 Figure~\ref{fig:proportion_wales}.
 
 \begin{figure}[htbp]
@@ -61,7 +60,7 @@ including:
 \begin{itemize}
     \item Personal information such as identification numbers, age, registered
         GP practice;
-    \item Other clinical quantities such as the number of diagnoses and
+    \item Clinical quantities such as the number of diagnoses made and
         procedures conducted in that episode, admission and discharge dates and
         methods, and length of stay;
     \item A number of cost components which include the costs coming from
@@ -71,29 +70,21 @@ including:
         Charlson index scores for the appropriate chronic diseases.
 \end{itemize}
 
-Of the attributes listed here, the focus is on the total, net and component
-costs, and a selection of other clinical variables \-- paying particular
-attention to those attributes which are considered to be linked to an overall
-contribution to the cost of care. Those attributes are: length of stay, the
-maximum number of diagnoses during a spell, the total number of procedures
+Of the attributes listed here, the focus is on the total, net and summed
+component costs, and a selection of other clinical variables \-- paying
+particular attention to those attributes which are considered to be linked to an
+overall contribution to the cost of care. Those attributes are: length of stay,
+the maximum number of diagnoses during a spell, the total number of procedures
 during a spell, and (separately) the number of spells associated with any given
 patient.
-
-These attributes provide a base for understanding how the costs and resources
-consumed by a patient in a spell are built up: cost components give direct
-evidence for departments and types of procedure; length of stay gives an
-indication of the nature of the spell and any default costs that are incurred;
-considering the maximum and total number of diagnoses and procedures
-(respectively) in a spell will allow for some understanding of the severity or
-complexity of a patient's spell in hospital.
 
 \subsection{Cleaning the data}\label{subsec:formatting}
 
 As with any real-world data analysis, a substantial amount of preprocessing and
-formatting was required to make the data consistent and suitable for our
-purposes. This process included the removal of some superfluous columns which
-added unwanted redundancy to the dataset, and a number of rows that had been
-corrupted by some external storage software prior to this work's beginning. In
-addition to this, some columns have been reformatted; namely those whose entries
-were intended to be used as datetime objects later on. These include admission
-and discharge dates, and financial bench periods.
+formatting was required to make the data sufficiently consistent and suitable
+for the intended purposes. This process included the removal of some superfluous
+columns which added unwanted redundancy to the dataset, and a number of rows
+that had been corrupted by some external storage software prior to this work's
+beginning. In addition to this, some columns have been reformatted; namely those
+whose entries were intended to be used as datetime objects later on. These
+include admission and discharge dates, and financial bench periods.
