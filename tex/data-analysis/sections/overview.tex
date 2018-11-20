@@ -148,16 +148,17 @@ their summed absolute correlation coefficient. Doing this makes it easier to
 deduce which variables have the most prominent levels of interaction.
 
 \begin{definition}
-    Consider a dataset with \(m \in \mathbb{N}\) attributes denoted
-    by \(A = \left\{A_1, \ldots, A_m\right\}\). Then attribute \(A_j\) has
-    associated with it a correlation vector given by \(C_j = \left[
-    \rho_{A_j,A_k} | 1 \leq k \leq m\right]\) where \(\rho_{A_j, A_k}\) denotes
-    the Pearson's correlation coefficient between attributes \(A_j\) and
-    \(A_k\). The summed absolute correlation coefficient of \(A_j\), denoted by
-    \(r_j\), is given by:
+    Consider a dataset with \(m \in \mathbb{N}\) attribute columns, denoted
+    by \(A = \left\{A_1, \ldots, A_m\right\}\). Attribute \(A_j\) has
+    associated with it a summed absolute correlation coefficient, \(c_j\), given
+    by:
+    
     \[
-        r_j = \sum_{c \in C_j} \left\| c \right\|
+        c_j = \sum_{k=1}^{m} \left\| \rho_{A_j, A_k} \right\|
     \]
+
+    Here, \(\rho_{A_j, A_k}\) is the Pearson's correlation coefficient
+    between attributes \(A_j\) and \(A_k\)
 \end{definition}
 
 \begin{figure}[htbp]
@@ -174,16 +175,17 @@ deduce which variables have the most prominent levels of interaction.
 Upon inspection of the heatmap, there are many cost components that have no
 significant linear correlation with any of the other attributes. Despite this,
 however, there are clear correlations between many of the attributes; some of
-these are easier to realise than others. For instance, ignoring the main
-diagonal, the largest value is that between total costs (COST) and net costs
-with a value of 0.94. This indicates almost total positive linear correlation
-between these two variables, and that makes sense given that the net cost of a
-spell is just the total cost corrected for a number of reimbursable costs like
-critical care (CRIT) and non-contracted income (NCI) which are entered as
-negative values in the dataset \-- hence the distinctly negative correlation
-coefficients they have with the other variables. Typically, these costs are
-small (see Table~\ref{tab:summative}) so a strong correlation between costs
-and net costs is to be expected.
+these are easier to realise than others.
+
+For instance, ignoring the main diagonal, the largest value is that between
+total costs (COST) and net costs with a value of 0.94. This indicates almost
+total positive linear correlation between these two variables, and that makes
+sense given that the net cost of a spell is just the total cost corrected for a
+number of reimbursable costs like critical care (CRIT) and non-contracted income
+(NCI) which are entered as negative values in the dataset \-- hence their
+distinctly negative correlation coefficients with the other variables.
+Typically, these deductible costs are small (see Table~\ref{tab:summative}) so a
+strong correlation between costs and net costs is to be expected.
 
 Another example is the strong correlation amongst the length of stay
 (TRUE\_LOS), and ward and overhead costs (WARD and OVH respectively). These are
@@ -199,22 +201,24 @@ make up a substantially smaller part of the net cost.
 
 \subsection{Measuring variation and importance in our cost components}
 
-The purpose of this entire work is to understand the factors leading to
-variations in the cost of treating someone in hospital so it is fitting to look
-at the constituent parts of our net cost: the cost components. In this section
-we will make use of a dimensionless measure of variation for, and the mean
-contribution to the net cost of, each cost component during a spell. Using these
-pairs of quantities, we can compare the components against one another in an
-rudimentary way.
+The larger purpose of this work is to better understand the factors leading to
+variations in the cost of treating patients so it would be fitting to
+investigate how this variation appears in the cost components. By doing so, a
+high level indication of departments and procedures that incur more (or less)
+variation can be established. Once a level of variation has been determined, the
+relative importance of that component and its variation can be assessed by
+considering the overall contribution that component makes to net costs.
 
-During a preliminary analysis of our cost components, it was found that our
-conclusions on the variations in each component were misled owing to the fact we
-were measuring variation using the unbiased sample variance. While this quantity
-is a perfectly valid unbiased estimator for the population variance, it is
-entirely dependent on the scale of the attribute being considered. This
-dependency is evident in Table~\ref{tab:summative}. In place of this measure we
-use the coefficient of variation which is the ratio between the standard
-deviation and mean, and so is scale invariant.
+In this section, and throughout this analysis, a dimensionless measure of
+variation will be used so that the components can be compared against one
+another in the same context. This measure is known as the coefficient of
+variation and is effectively a normalised standard deviation. During the early
+stages of this analysis it was found that the conclusions being made around the
+variation in each cost component were flawed since variation was measured using
+the classical unbiased sample variance. While this quantity is perfectly valid
+and an unbiased estimator for the population variance, it is dependent on the
+scale of the data being considered. The effect of this dependency is evident in
+Table~\ref{tab:summative}.
 
 \begin{definition}
     Consider a population with mean \(\mu\) and standard deviation \(\sigma\).
@@ -230,53 +234,54 @@ deviation and mean, and so is scale invariant.
     deviation and the sample mean analogously.
 \end{definition}
 
-In Figure~\ref{fig:cost_variation}, the coefficient of variation for each of our
-cost components is shown as a bar in a bar chart. The components have been
-ranked in descending order of their variations and it clear that there are a
-number of strongly variant attributes. Taking secondary commisioning costs
-(SECC) again, we see that its standard deviation is over thirty times the size
-of its mean. This alone could explain why there seemed to be no linear
-correlation with the other variables in Figure~\ref{fig:corr_heatmap} since the
-values for these costs are so wildly varied. At the other end of the scale we
-see that our ward and overhead costs are amongst the attributes with the
-smallest variation, implying that they are consistent as was supposed in
-Section~\ref{subsec:corr}. Despite this, we can conclude that these attributes
-are quite highly varied when considering the entire dataset since the majority
-of coefficients of variation found have size far greater than one.
+In Figure~\ref{fig:cost_variation}, the coefficient of variation for each of the
+cost components is shown as a bar chart. The components have been ranked as in
+Figure~\ref{fig:corr_heatmap}. It is immediately clear that there are a number
+of strongly variant cost components. Take outpatient costs (OUTP) as an example:
+its standard deviation is over thirty times the size of its mean. This could go
+some way in explaining why there seemed to be no linear correlation with the
+other variables in Figure~\ref{fig:corr_heatmap} since these costs are so wildly
+varied.
+
+At the other end of the scale, ward and overhead costs have some of the smallest
+variations. This would suggest that they are in some way consistent or
+predictable, as was commented on in Section~\ref{subsec:corr}. Despite this, the
+conclusion is that all of the cost components are still quite highly varied when
+considering the entire dataset since the majority of coefficients of variation
+found have size far greater than one. 
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=\imgwidth]{cost_variation/main.pdf}
     \caption{Bar chart showing the coefficient of variation \(C_{v}\) of each
-        cost component, and the net and total costs, in descending
-        order.}\label{fig:cost_variation}
+        cost component, and the net and total costs.}\label{fig:cost_variation}
 \end{figure}
 
 At this point, knowing which of the cost components are the most highly varied
-is not enough. To determine the relative importance of these findings, the
-contribution of each cost component to the net cost of a spell must be
-considered. After all, we only care for the components that make a significant
-impact. We calculate these quantities by taking each cost component in turn,
-dividing it by its corresponding net cost and taking the mean over all of these
-values. We refer to this mean as the average contribution (or proportion) to the
-net cost, although it is more accurately an average of the ratios between each
-component and the net cost.
+is not sufficient to decide whether they are worth persuing. In order to
+determine the relative importance of these findings, the contribution of each
+cost component to the net cost of a spell must be considered. Then, with a sense
+of the scale of the variation acquired, the components that make the most
+significant impacts can be isolated. These quantities are calculated by taking
+each cost component in turn, dividing it by its corresponding net cost and
+taking the mean over all of these values. This mean is referred as the average
+contribution (or proportion) to the net cost, although it is more accurately an
+average of the spell-wise ratios between each cost component and the net cost.
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=\imgwidth]{cost_contribution/main.pdf}
     \caption{Bar chart showing the average contribution of each cost component
-        to the net cost of a spell, in descending
-        order.}\label{fig:cost_contribution}
+        to the net cost of a spell.}\label{fig:cost_contribution}
 \end{figure}
 
-By inspecting Figure~\ref{fig:cost_contribution}, it is seen that, on average,
-ward and overhead costs are the two largest contributors to the net cost of a
-spell. This is then followed by medical costs (MED) before the average
-contribution drops down to roughly \(5\%\) and below for the various
-department-specific cost components. Then for our most varied components in
-Figure~\ref{fig:cost_variation}, we see their average contribution to net cost
-is effectively negligible in comparison to the majority of our other components.
+By inspecting Figure~\ref{fig:cost_contribution}, it is seen that ward, overhead
+and medical (MED) costs are the largest contributors to the net cost of a spell
+by a large margin. When looking across the remaining bars, the contribution is
+substantially smaller for the department-specific cost components. Not only that
+but it appears that the most varied components (from
+Figure~\ref{fig:cost_variation}) have near negligible average contributions to
+the net cost of a spell.
 
 \begin{figure}[h]
     \centering
@@ -286,46 +291,32 @@ is effectively negligible in comparison to the majority of our other components.
     component as the size of its marker.}\label{fig:cost_bubble_plot}
 \end{figure}
 
-So, we can conclude that these components are not especially important. But what
-about the others? The midriff of each of these plots contain many of the same
-components. In order to aid understanding and interpretability of how these two
-quantities relate to one another we make use of a bubble plot. Since each of the
-plots are two-dimensional and can share the same horizontal axis, both of the
-values can be visualised together by using the vertical axis and size as two
-separate dimensions, as illustrated in Figure~\ref{fig:cost_bubble_plot}.
+So the question is thus: can these small but highly varied components be
+considered especially important? And what about the other components? The
+midriffs of each of these figures contain many of the same components but the
+relationships are less clear. In order to aid this understanding of how these
+two quantities relate to one another, a bubble plot is used. Such a plot allows
+three-dimensional data to be displayed in the plane; by running their common
+variable along the horizontal axis, both of the quantities can be visualised
+together by using the vertical axis and size as two separate dimensions, as
+illustrated in Figure~\ref{fig:cost_bubble_plot}.
 
-Figure~\ref{fig:cost_bubble_plot} can be interpreted either by first reading
-along the vertical axis to find the components that make the most considerable
-contribution to treating a patient and then investigating the relative variation
-that component holds intrinsically in the dataset by looking at the size of its
-outer marker. The reverse of this process is also perfectly logical since the
-objective is to determine where the variation exists, and then how much of an
-impact that has on the net cost. The latter is how
-Figures~\ref{fig:cost_variation}~\&~\ref{fig:cost_contribution} we interpreted
-above. The crux of interpreting this plot is that the further away a large
-marker is from the zero line, the more important that component is considered.
-However, small markers are also of interest since these components indicate that
-the level of variation is relatively low \-- the reasons as to why unknown.
+This figure can be interpreted either by first reading along the vertical axis
+to find the components that make the most considerable contribution to treating
+a patient, and then investigating the variation that component holds by looking
+at the size of its outer marker. The reverse of this process is also perfectly
+logical since the objective is to determine where the variation exists, and then
+how much of an impact that has on the net cost, as has been done above. The crux
+of interpreting this plot is that the further away a large marker is from the
+zero line, the more important that component is to be considered. However, small
+markers are also of interest since these components indicate that the level of
+variation is relatively low \-- the reasons as to why are still unknown.
 
-It is easily seen from this figure that our previous conclusions can still be
-interpreted; that is, our largest contributors have some of the smallest
-measures of variation while the smallest average contributors are more strongly
-varied. What is of interest is the jump between these groups of cost components.
-There does not seem to be any particular component in the midriff of
-contributors that has huge, or indeed small, variation. As a result of this,
-perhaps more investigation is needed into individual components and their
-relationships with specific types of patient.
-
-Also, the skewedness of our data could be having an adverse effect on the
-representation of the last three plots, particularly those considering the
-contribution to net cost. As was discussed earlier, this measure is not strictly
-the contribution a component makes to the net cost since in some cases certain
-components sum up to several multiples of the total net cost of the spell. This
-is true in cases where critical care costs are taken as huge deductions from the
-total cost of most the other components.
-
-\subsection{Conclusions}
-
-\textcolor{red}{%
-    Overall conclusions and lead into the next chapter on diabetic patient
-}
+It is easily seen from this figure that the conclusions made previously still
+hold. That is, the largest contributors have some of the smallest measures of
+variation while the smallest average contributors are more strongly varied. What
+is of interest is the jump between these groups of cost components. There does
+not seem to be any particular component in the midriff of contributors that has
+large, or indeed small, variation. This suggests that a deeper investigation is
+required into individual components and their relationships with specific types
+of patient.
