@@ -23,11 +23,14 @@ between these two datasets a new dimension is added to the analysis.
 
 \subsection{Distributions}\label{subsec:diabetes_dists}
 
-\begin{itemize}
-    \item All the plots in the same order as previous section
-    \item Summary for each plot and comparison where applicable
-\end{itemize}
-
+In much the same way as in Section~\ref{subsec:distributions_statistics}, taking
+an overview of the key attributes provides some idea about how costs are
+represented in the data.
+Figures~\ref{fig:diabetes_no_spells_bar}~\--~\ref{fig:diabetes_netcost_kde} show
+the same statistics as in the summative analysis though these figures have two
+additional components: (a) in the case of bar charts, separate plots for overall
+frequency and frequency density, and (b) a comparison with the non-diabetic
+population on the same axes.
 
 \begin{figure}[htbp]
     \centering
@@ -40,7 +43,7 @@ between these two datasets a new dimension is added to the analysis.
 \begin{figure}[htbp]
     \includegraphics[width=\imgwidth]{los_bar/main.pdf}
     \caption{Bar chart for the total length of a spell in the presence of
-        diabetes and not, clipped at 21 days.}%
+        diabetes and not, clipped at 21 days. \textit{Maximum 705 days.}}%
     \label{fig:diabetes_los_bar}
 \end{figure}
 
@@ -68,14 +71,46 @@ between these two datasets a new dimension is added to the analysis.
     \label{fig:diabetes_netcost_kde}
 \end{figure}
 
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\imgwidth]{age_bar/main.pdf}
+    \caption{Bar chart for the age of patients in the presence of diabetes and
+        not.}%
+    \label{fig:diabetes_age_bar}
+\end{figure}
 
 \subsection{Pairwise correlation}\label{subsec:diabetes_correlation}
 
-\begin{itemize}
-    \item Correlation heatmap
-    \item Ordering is based on diabetic population now \-- any changes?
-    \item Differences heatmap
-\end{itemize}
+With an overview of how the key attributes are distributed in mind, as before,
+it is a good idea to see how these attributes interact with one another. In
+Figure~\ref{fig:diabetes_corr_heatmap}, the Pearson correlation coefficients
+are shown between each of the pairs of the key attributes in the diabetic
+population. Again, the attributes have been ranked in descending order according
+to their summed absolute correlation coefficient (see
+Definition~\ref{def:absolute_correlation}) to determine those with the highest
+levels of interaction.
+
+\begin{figure}[htbp]
+    \makebox[\textwidth]{%
+        \centering
+        \includegraphics[height=.6\paperheight]{corr_heatmap/with_nums.pdf}
+    }
+    \caption{A heatmap of the pairwise correlation coefficients for the key cost
+        attributes in diabetic patients. The attributes have been ordered
+        according to their summed absolute correlation coefficient.}%
+    \label{fig:diabetes_corr_heatmap}
+\end{figure}
+
+\begin{figure}[htbp]
+    \makebox[\textwidth]{%
+        \centering
+        \includegraphics[height=.6\paperheight]{corr_difference/with_nums.pdf}
+    }
+    \caption{A heatmap of the difference in pairwise correlation coefficients
+        between the diabetic and general populations. These attributes have been
+        ordered according to the sum of their absolute values.}%
+    \label{fig:diabetes_corr_difference}
+\end{figure}
 
 
 \subsection{Variation and relative importance}\label{subsec:diabetes_variation}
