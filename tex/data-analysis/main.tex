@@ -17,9 +17,9 @@
 \usepackage{amssymb}
 \usepackage{booktabs}
 \usepackage{graphicx}
-\usepackage{rotating}
 \usepackage{hyperref}
 \usepackage{wrapfig}
+\usepackage[export]{adjustbox}
 
 \newlength{\imgwidth}
 \newlength{\logoheight}
@@ -46,9 +46,10 @@
     \pagebreak%
 }
 
-\setcounter{page}{1}
 \tableofcontents%
+\thispagestyle{empty}
 \pagebreak%
+\setcounter{page}{1}
 
 \input{./sections/intro.tex}
 \graphicspath{{./img/overview/}}

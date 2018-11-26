@@ -5,8 +5,13 @@ that the dataset contains a huge amount of variation. Therefore, in order to
 conduct more meaningful analysis, more homogenous subsets of the data must be
 considered.
 
-Classically, patients are categorised by age or condition~\cite{Vuik2016}. In
-this section, the focus will be on the diabetic population within the dataset.
+Classically, patients are categorised by age or condition. However, it has been
+shown that doing so often gives an unrepresentative slice of
+patients~\cite{Vuik2016}. In this section, the focus will be on the diabetic
+population within the dataset despite this potential danger as it provides a
+good example of condition-based slicing and is of interest to public health
+groups.
+
 Since diabetes is recorded only as a primary or secondary condition in the
 dataset and is not distinguished by type, the diabetic population is considered
 to be any instance where diabetes is present.
@@ -21,7 +26,8 @@ the subset with its complement; by considering the differences and similarities
 between these two datasets a new dimension is added to the analysis.
 
 
-\subsection{Distributions}\label{subsec:diabetes_dists}
+\subsection{Distributions and summative statistics}%
+\label{subsec:diabetes_distributions_statistics}
 
 In much the same way as in Section~\ref{subsec:distributions_statistics}, taking
 an overview of the key attributes provides some idea about how costs are
@@ -79,6 +85,49 @@ population on the same axes.
     \label{fig:diabetes_age_bar}
 \end{figure}
 
+\begin{table}[htbp]
+    \vspace{-40pt}
+    \resizebox{\imgwidth}{!}{%
+        \input{./tex/diab_summative_stats0.tex}
+    }
+
+    \vspace{3pt}
+
+    \resizebox{\imgwidth}{!}{%
+        \input{./tex/diab_summative_stats1.tex}
+    }
+
+    \vspace{3pt}
+    
+    \resizebox{\imgwidth}{!}{%
+        \input{./tex/diab_summative_stats2.tex}
+    }
+
+    \vspace{3pt}
+
+    \resizebox{\imgwidth}{!}{%
+        \input{./tex/diab_summative_stats3.tex}
+    }
+
+    \vspace{3pt}
+
+    \resizebox{\imgwidth}{!}{%
+        \input{./tex/diab_summative_stats4.tex}
+    }
+
+    \vspace{3pt}
+
+    \resizebox{\imgwidth}{!}{%
+        \input{./tex/diab_summative_stats5.tex}
+    }
+
+    \thispagestyle{empty}
+    \caption{Summative spell-level statistics for each of the key attributes. In
+        each column the diabetic population's statistic in followed by the
+        corresponding non-diabetic statistic in brackets.}%
+    \label{tab:diabetes_summative}
+\end{table}
+
 \subsection{Pairwise correlation}\label{subsec:diabetes_correlation}
 
 With an overview of how the key attributes are distributed in mind, as before,
@@ -115,8 +164,65 @@ levels of interaction.
 
 \subsection{Variation and relative importance}\label{subsec:diabetes_variation}
 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\imgwidth]{cost_variation/main.pdf}
+    \caption{Bar chart showing the coefficient of variation \(C_{v}\) of each
+        cost component, and the net and total costs, in the presence of diabetes
+        and not.}%
+    \label{fig:diabetes_variation}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\imgwidth]{cost_contribution/main.pdf}
+    \caption{Bar chart showing the average contribution of each cost component
+        to the net cost of a spell in the presence of diabetes and not.}%
+    \label{fig:cost_contribution}
+\end{figure}
+
+\begin{figure}[h]
+    \hspace{-75pt}
+    \includegraphics[width=\paperwidth]{cost_bubble_plot/main.pdf}\hfill%
+    \caption{A bubble plot showing a comparison between the diabetic and
+        non-diabetic populations' average contribution to the net cost of a
+        spell along the vertical, and the coefficient of variation for that
+        component as the size of its marker.}%
+    \label{fig:cost_bubble_plot}
+\end{figure}
+
+\subsection{Resource consumption}\label{subsec:diabetes_resources}
+
 \begin{itemize}
-    \item Variation/contribution plots \-- ordering same as above
-    \item Bubble plot
-    \item Conclusions
+    \item Only plots not showing all data points
+    \item Discussion on instrinsic error and misrepresentation vs.\ evolving
+        patterns
+    \item Seasonal effect; metrics and statistical tests?
+    \item Summary of each plot and final conclusions
 \end{itemize}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\imgwidth]{admissions/main.pdf}
+    \caption{Monthly averages for the proportion of daily admissions presenting
+        diabetes. Fitted with a linear least-squares regression model.}%
+    \label{fig:admissions}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\imgwidth]{los_time/main.pdf}
+    \caption{Monthly averages for the average length of a diabetic patient's
+        spell given their admission date. Fitted with a linear least-squares
+        regression model.}%
+    \label{fig:los_time}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\imgwidth]{netcost_proportions/main.pdf}
+    \caption{Monthly averages for the proportion of daily net cost spending
+        toward diabetic patients given their admission date. Fitted with a
+        linear least-squares regression model.}%
+    \label{fig:netcost_proportions}
+\end{figure}
