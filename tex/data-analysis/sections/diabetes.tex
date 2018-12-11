@@ -2,7 +2,7 @@
 
 The main conclusion to be taken away from the previous summative analysis is
 that the dataset contains a huge amount of variation. Therefore, in order to
-conduct more meaningful analysis, more homogenous subsets of the data must be
+conduct more meaningful analysis, more homogeneous subsets of the data must be
 considered.
 
 Classically, patients are categorised by age or condition. However, it has been
@@ -27,30 +27,40 @@ between these two datasets a new dimension is added to the analysis.
 
 
 \subsection{Distributions and summative statistics}%
-\label{subsec:diabetes_distributions_statistics}
+\label{subsec:diab_distributions_statistics}
 
 In much the same way as in Section~\ref{subsec:distributions_statistics}, taking
 an overview of the key attributes provides some idea about how costs are
 represented in the data.
-Figures~\ref{fig:diabetes_no_spells_bar}~\--~\ref{fig:diabetes_netcost_kde} show
+Figures~\ref{fig:diab_no_spells_bar}~\--~\ref{fig:diab_netcost_kde} show
 the same statistics as in the summative analysis though these figures have two
 additional components: (a) in the case of bar charts, separate plots for overall
 frequency and frequency density, and (b) a comparison with the non-diabetic
-population on the same axes.
+population on the same axes. The purpose of the separate bar charts is to show,
+firstly, the relative sizes between the groups and their bins, and then to be
+able to directly compare their distributions.
+
+As before, the distributions of the diabetic population have long tails but they
+are often heavier than the general or non-diabetic populations which are
+arguably interchangeable given their sizes. This extra weight in the tails
+suggests that diabetic patients are more likely to experience severe periods of
+illness, and this is bolstered by the complete difference in the shape of the
+distribution of maximal diagnosis numbers pictured in
+Figure~\ref{fig:diab_no_diag_bar}.
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=\imgwidth]{no_spells_bar/main.pdf}
     \caption{Bar chart for the number of spells associated with a patient in the
         presence of diabetes and not.}%
-    \label{fig:diabetes_no_spells_bar}
+    \label{fig:diab_no_spells_bar}
 \end{figure}
 
 \begin{figure}[htbp]
     \includegraphics[width=\imgwidth]{los_bar/main.pdf}
     \caption{Bar chart for the total length of a spell in the presence of
         diabetes and not, clipped at 21 days. \textit{Maximum 705 days.}}%
-    \label{fig:diabetes_los_bar}
+    \label{fig:diab_los_bar}
 \end{figure}
 
 \begin{figure}[htbp]
@@ -58,7 +68,7 @@ population on the same axes.
     \includegraphics[width=\imgwidth]{no_diag_bar/main.pdf}
     \caption{Bar chart for the maximum number of diagnoses in a spell in the
         presence of diabetes and not.}%
-    \label{fig:diabetes_no_diag_bar}
+    \label{fig:diab_no_diag_bar}
 \end{figure}
 
 \begin{figure}[htbp]
@@ -66,24 +76,59 @@ population on the same axes.
     \includegraphics[width=\imgwidth]{no_proc_bar/main.pdf}
     \caption{Bar chart for the total number of procedures in a spell in the
         presence of diabetes and not.}%
-    \label{fig:diabetes_no_proc_bar}
+    \label{fig:diab_no_proc_bar}
 \end{figure}
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=\imgwidth]{netcost_kde/main.pdf}
     \caption{Estimated probability density for the net cost of a spell in the
-        presence of diabetes and not, clipped at \pounds12,500.}%
-    \label{fig:diabetes_netcost_kde}
+        presence of diabetes and not, clipped at \pounds12,500. \textit{Maximum
+        approx. \pounds369,000.}}%
+    \label{fig:diab_netcost_kde}
 \end{figure}
+
+Other than diagnosis numbers, the shapes of the distributions here are
+comparable. As stated, the tails are heavier across the board for the diabetic
+population. With that being true, it follows that the noses are substantially
+lighter. This is evident most clearly in Figures~\ref{fig:diab_no_spells_bar},~%
+\ref{fig:diab_los_bar},~\ref{fig:diab_no_proc_bar}~\&~\ref{fig:diab_netcost_kde}
+which imply that diabetic patients are more likely to return, have more
+procedures and stay longer in the hospital whilst typically incurring higher
+costs than non-diabetic patients. These all suggest that diabetic patients
+represent a population of patients and spells that are more severe on average
+than the typical patient, and thus will likely have a larger effect on the
+hospital system on the whole. Again, a more detailed breakdown of the skeleton
+for each of these attributes as well as the other key attributes is given in
+Table~\ref{tab:diab_summative}. This table also shows a comparison between both
+populations being considered in this section.
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=\imgwidth]{age_bar/main.pdf}
     \caption{Bar chart for the age of patients in the presence of diabetes and
         not.}%
-    \label{fig:diabetes_age_bar}
+    \label{fig:diab_age_bar}
 \end{figure}
+
+The distribution of patients' age is given in Figure~\ref{fig:diab_age_bar} and
+quite clearly shows how unrepresentative a slice the diabetic population can be
+\-- as was discussed above. Here, when looking at the frequency density plot,
+all the intricacies in the shape of the age distribution for the entire dataset
+and the non-diabetic population are dropped. Instead, the distribution indicates
+negative skew and disproportionate amount of older patients. Thus, considering
+the diabetic population is similar to just considering older patients since they
+dominate the population.
+
+However, the small number of younger diabetic patients
+that remain could be polluting the population and this analysis. A remedy for
+this would be to consider two or more diabetic populations based on their age
+and perhaps a combination of other attributes including severity or total cost.
+Deciding meaningful populations like these would require a large amount of
+potentially arbitrary splitting on, or estimation of, such attributes. As such,
+these methods will be avoided since they are not guaranteed to be appropriate or
+robust.
+
 
 \begin{table}[htbp]
     \vspace{-40pt}
@@ -125,14 +170,15 @@ population on the same axes.
     \caption{Summative spell-level statistics for each of the key attributes. In
         each column the diabetic population's statistic in followed by the
         corresponding non-diabetic statistic in brackets.}%
-    \label{tab:diabetes_summative}
+    \label{tab:diab_summative}
 \end{table}
 
-\subsection{Pairwise correlation}\label{subsec:diabetes_correlation}
+
+\subsection{Pairwise correlation}\label{subsec:diab_correlation}
 
 With an overview of how the key attributes are distributed in mind, as before,
 it is a good idea to see how these attributes interact with one another. In
-Figure~\ref{fig:diabetes_corr_heatmap}, the Pearson correlation coefficients
+Figure~\ref{fig:diab_corr_heatmap}, the Pearson correlation coefficients
 are shown between each of the pairs of the key attributes in the diabetic
 population. Again, the attributes have been ranked in descending order according
 to their summed absolute correlation coefficient (see
@@ -144,10 +190,10 @@ levels of interaction.
         \centering
         \includegraphics[height=.6\paperheight]{corr_heatmap/with_nums.pdf}
     }
-    \caption{A heatmap of the pairwise correlation coefficients for the key cost
-        attributes in diabetic patients. The attributes have been ordered
+    \caption{A heat map of the pairwise correlation coefficients for the key
+        cost attributes in diabetic patients. The attributes have been ordered
         according to their summed absolute correlation coefficient.}%
-    \label{fig:diabetes_corr_heatmap}
+    \label{fig:diab_corr_heatmap}
 \end{figure}
 
 \begin{figure}[htbp]
@@ -155,14 +201,41 @@ levels of interaction.
         \centering
         \includegraphics[height=.6\paperheight]{corr_difference/with_nums.pdf}
     }
-    \caption{A heatmap of the difference in pairwise correlation coefficients
+    \caption{A heat map of the difference in pairwise correlation coefficients
         between the diabetic and general populations. These attributes have been
         ordered according to the sum of their absolute values.}%
-    \label{fig:diabetes_corr_difference}
+    \label{fig:diab_corr_difference}
 \end{figure}
 
+To more clearly see the subtleties between these correlation coefficients and
+those in Figure~\ref{fig:corr_heatmap}, another heat map has been included to
+show their differences in Figure~\ref{fig:diab_corr_difference}. This heat
+map utilises a different colour map to reflect this, and the attributes have
+been ranked in descending order of their summed absolute differences. From this
+figure it is seen that drug and therapy costs (DRUG and THER respectively) have
+the largest total difference in correlation coefficients. In fact, the sign of
+these differences are in line with those coefficients in both of the previous
+heat maps meaning that these attributes are more strongly correlated amongst
+diabetic patients than for the general population.
 
-\subsection{Variation and relative importance}\label{subsec:diabetes_variation}
+However, other than a small number of attributes at the top, this difference
+heat map shows that the vast majority of correlation coefficients are unaffected
+by considering the diabetic population alone. Given the large amounts of
+variation and low levels of correlation seen in Section~\ref{subsec:corr}, this
+is unsurprising but where there are differences suggests potential areas of
+interest when comparing the corresponding diabetic variation with the
+non-diabetic and general populations.
+
+
+\subsection{Variation and relative importance}\label{subsec:diab_variation}
+
+It has been established again how the key attributes are distributed and related
+in both the diabetic and non-diabetic populations, and the remaining parts of
+the exploratory analysis methodology established in Section~\ref{sec:overview}
+is to investigate variation and importance.
+Figures~\ref{fig:diab_variation}~\&~\ref{fig:diab_contribution} show these
+quantities as in the previous analysis, and are ranked as in
+Figure~\ref{fig:diab_corr_heatmap}. 
 
 \begin{figure}[h]
     \centering
@@ -170,7 +243,7 @@ levels of interaction.
     \caption{Bar chart showing the coefficient of variation \(C_{v}\) of each
         cost component, and the net and total costs, in the presence of diabetes
         and not.}%
-    \label{fig:diabetes_variation}
+    \label{fig:diab_variation}
 \end{figure}
 
 \begin{figure}[h]
@@ -178,30 +251,46 @@ levels of interaction.
     \includegraphics[width=\imgwidth]{cost_contribution/main.pdf}
     \caption{Bar chart showing the average contribution of each cost component
         to the net cost of a spell in the presence of diabetes and not.}%
-    \label{fig:diabetes_contribution}
+    \label{fig:diab_contribution}
 \end{figure}
 
-\begin{figure}[h]
+Aside from the change in order of the attributes compared with
+Figure~\ref{fig:cost_variation}, this plot is largely similar; the relationship
+between being more weakly correlated and more highly varied is still present and
+the overall levels of relative variation is high. Having said that, the diabetic
+population is consistently less varied in each cost component bar operating
+theatre (OPTH), radiotherapy (RADTH) and endoscopy (ENDO) costs which implies
+that this subset of the dataset is in fact more homogeneous, as desired.
+
+Inspecting Figure~\ref{fig:diab_contribution} tells a similar story as with
+variation; the dominant cost components are still overheads, medical and ward
+costs, and the least correlated or varied components are insignificant in their
+contribution to net costs. The interest comes in the increased contribution by
+ward costs which makes sense given the heavier tails in length of stay and the
+total number of procedures, and also the increased contributions among the
+department-specific components such as pharmacy (PHAR), pathology (PATH), and
+imaging (IMG), supported by the increase in the average number of diagnoses.
+
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=\linewidth]{cost_bubble_plot/main.pdf}
     \caption{A bubble plot showing a comparison between the diabetic and
         non-diabetic populations' average contribution to the net cost of a
         spell along the vertical, and the coefficient of variation for that
         component as the size of its marker.}%
-    \label{fig:diabetes_bubble_plot}
+    \label{fig:diab_bubble_plot}
 \end{figure}
 
-\subsection{Resource consumption}\label{subsec:diabetes_resources}
+\subsection{Resource consumption}\label{subsec:diab_resources}
 
 \begin{itemize}
-    \item Only plots not showing all data points
-    \item Discussion on instrinsic error and misrepresentation vs.\ evolving
+    \item Discussion on intrinsic error and misrepresentation vs.\ evolving
         patterns
     \item Seasonal effect; metrics and statistical tests?
     \item Summary of each plot and final conclusions
 \end{itemize}
 
-\begin{figure}
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=\imgwidth]{admissions/main.pdf}
     \caption{Monthly averages for the proportion of daily admissions presenting
@@ -209,7 +298,7 @@ levels of interaction.
     \label{fig:admissions}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=\imgwidth]{los_time/main.pdf}
     \caption{Monthly averages for the average length of a diabetic patient's
@@ -218,7 +307,7 @@ levels of interaction.
     \label{fig:los_time}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=\imgwidth]{netcost_proportions/main.pdf}
     \caption{Monthly averages for the proportion of daily net cost spending

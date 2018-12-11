@@ -1,17 +1,14 @@
 \documentclass[12pt]{article}
 
-\usepackage{amsthm}
-    \newtheorem{definition}{Definition}
-
-\usepackage{helvet}
-\renewcommand\familydefault{\sfdefault} 
-\usepackage[T1]{fontenc}
-
-%\usepackage[default]{raleway}
+% Page setup
 \usepackage{setspace}
     \doublespacing%
+\usepackage{helvet}
+    \renewcommand\familydefault{\sfdefault} 
+\usepackage[T1]{fontenc}
 \usepackage[margin=1in, includefoot, footskip=30pt]{geometry}
 
+% Packages
 \usepackage{caption}
 \usepackage{color}
 \usepackage{amssymb}
@@ -19,9 +16,12 @@
 \usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage{wrapfig}
+\usepackage{rotating}
 \usepackage{floatpag}
     \floatpagestyle{plain}
     \renewcommand{\arraystretch}{.6}
+\usepackage{amsthm}
+    \newtheorem{definition}{Definition}
 
 \newlength{\imgwidth}
 \newlength{\logoheight}
@@ -58,6 +58,8 @@
 \input{./sections/overview.tex}
 \graphicspath{{./img/diabetes/}}
 \input{./sections/diabetes.tex}
+\graphicspath{{./img/clustering/}, {./img/external/}}
+\input{./sections/further.tex}
 
 \clearpage
 \bibliographystyle{plain}

@@ -27,7 +27,7 @@ is clear that the data is weighted towards low-cost, short-stay, and
 otherwise low-impact patients. This behaviour is well-projected through
 Figures~\ref{fig:no_spells_bar}~\&~\ref{fig:los_bar}. Here, it is clear that of
 all the spells provided under the care of the health board that the majority are
-daycases, and that the patients being dealt with are one-time users of the
+day-cases, and that the patients being dealt with are one-time users of the
 hospital system.
 
 In general, the distributions themselves have long, pronounced tails. This
@@ -138,7 +138,7 @@ give a sense of this interaction.
 
 Figure~\ref{fig:corr_heatmap} shows the Pearson correlation coefficient of all
 pairs in the subset of selected attributes. The data has been presented in the
-form of a heatmap with a colour bar located to its right, indicating the scale
+form of a heat map with a colour bar located to its right, indicating the scale
 of the correlation between any two variables. Using a visualisation such as this
 is more intuitive than reading directly from the corresponding array of numbers,
 and makes gaining insight from the relationships between variables much easier.
@@ -166,13 +166,13 @@ deduce which variables have the most prominent levels of interaction.
         \centering
         \includegraphics[height=.6\paperheight]{corr_heatmap/with_nums.pdf}
     }
-    \caption{A heatmap of the pairwise correlation coefficients for the key cost
-        attributes. The attributes have been ordered according to their summed
-        absolute correlation coefficient.}%
+    \caption{A heat map of the pairwise correlation coefficients for the key
+        cost attributes. The attributes have been ordered according to their
+        summed absolute correlation coefficient.}%
     \label{fig:corr_heatmap}
 \end{figure}
 
-Upon inspection of the heatmap, there are many cost components that have no
+Upon inspection of the heat map, there are many cost components that have no
 significant linear correlation with any of the other attributes. Despite this,
 however, there are clear correlations between many of the attributes; some of
 these are easier to realise than others.
@@ -258,15 +258,16 @@ found have size far greater than one.
 \end{figure}
 
 At this point, knowing which of the cost components are the most highly varied
-is not sufficient to decide whether they are worth persuing. In order to
+is not sufficient to decide whether they are worth pursuing. In order to
 determine the relative importance of these findings, the contribution of each
 cost component to the net cost of a spell must be considered. Then, with a sense
 of the scale of the variation acquired, the components that make the most
 significant impacts can be isolated. These quantities are calculated by taking
 each cost component in turn, dividing it by its corresponding net cost and
-taking the mean over all of these values. This mean is referred as the average
-contribution (or proportion) to the net cost, although it is more accurately an
-average of the spell-wise ratios between each cost component and the net cost.
+taking the mean over all of these values. This mean is referred to as the
+average contribution (or proportion) to the net cost, although it is more
+accurately an average of the spell-wise ratios between each cost component and
+the net cost.
 
 \begin{figure}[h]
     \centering
@@ -283,7 +284,7 @@ but it appears that the most varied components (from
 Figure~\ref{fig:cost_variation}) have near negligible average contributions to
 the net cost of a spell.
 
-\begin{figure}[h]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=\linewidth]{cost_bubble_plot/main.pdf}
     \caption{A bubble plot showing the average contribution to the net cost of a
