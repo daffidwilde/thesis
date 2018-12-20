@@ -27,7 +27,7 @@ between these two datasets a new dimension is added to the analysis.
 
 
 \subsection{Distributions and summative statistics}%
-\label{subsec:diab_distributions_statistics}
+\label{subsec:diab_dists_stats}
 
 In much the same way as in Section~\ref{subsec:distributions_statistics}, taking
 an overview of the key attributes provides some idea about how costs are
@@ -254,22 +254,50 @@ Figure~\ref{fig:diab_corr_heatmap}.
     \label{fig:diab_contribution}
 \end{figure}
 
-Aside from the change in order of the attributes compared with
-Figure~\ref{fig:cost_variation}, this plot is largely similar; the relationship
-between being more weakly correlated and more highly varied is still present and
-the overall levels of relative variation is high. Having said that, the diabetic
-population is consistently less varied in each cost component bar operating
+Aside from the change in the order of the attributes compared with
+Figure~\ref{fig:cost_variation}, this plot is largely similar: more weakly
+correlated attributes tend to be more highly varied and the overall level of
+relative variation is high. Having said that, the diabetic population is
+consistently less than, or similarly, varied in each instance except operating
 theatre (OPTH), radiotherapy (RADTH) and endoscopy (ENDO) costs which implies
-that this subset of the dataset is in fact more homogeneous, as desired.
+that this subset of the dataset is in fact somewhat more homogeneous, as
+desired.
 
-Inspecting Figure~\ref{fig:diab_contribution} tells a similar story as with
-variation; the dominant cost components are still overheads, medical and ward
-costs, and the least correlated or varied components are insignificant in their
-contribution to net costs. The interest comes in the increased contribution by
-ward costs which makes sense given the heavier tails in length of stay and the
-total number of procedures, and also the increased contributions among the
-department-specific components such as pharmacy (PHAR), pathology (PATH), and
-imaging (IMG), supported by the increase in the average number of diagnoses.
+Inspecting Figure~\ref{fig:diab_contribution} tells a similar story as with the
+general population. That is, the dominant cost components are still overheads,
+medical and ward costs, and the least correlated (and often most varied)
+components are insignificant in their contribution to net costs. However, there
+is a certain interest in the increased contribution from ward costs and those
+from specific departments such as pharmacy (PHAR), pathology (PATH), and imaging
+(IMG). The apparent increase in the likelihood, severity and length of diabetic
+patient spells seen in Table~\ref{tab:diab_summative} \-- and alluded to by the
+heavier tails in
+Figures~\ref{fig:diab_no_spells_bar}~\--~\ref{fig:diab_no_proc_bar} \-- seems to
+be linked to a rise in costs more generally which can be rationalised given
+that this population all exhibit at least one chronic disease that is known to
+have several comorbidities and knock-on effects more widely associated with a
+patient's well-being~\cite{Deschenes2015}~\cite{Klimek2015}~\cite{Walker2016}.
+
+In much the same way as in the previous section, the bubble plot shown in
+Figure~\ref{fig:diab_bubble_plot} allows these quantities to be considered
+simultaneously, and again, there is little to gain from its information. There
+are no distinctly important components here and the system seems to be optimised
+for both the diabetic and non-diabetic populations. That is, to the point where
+the smallest relative variation of a component is still twice its mean.
+
+So what was there to gain by looking at the diabetic population? From this
+surface-level analysis, it was found that the diabetic population is marginally
+more homogeneous than the general or non-diabetic population but that it still
+exhibits a large amount of variation. This was to be expected since the decision
+to look at diabetic patients was effectively arbitrary, and was not descriptive
+enough to indicate that any particular kind of patient was being investigated
+other than that they must exhibit this one condition. So, in that way, there was
+little to gain. However, as has been noted throughout this analysis, taking a
+subset of the population allows for some comparison with its complement
+(depicted in most
+Figures~\ref{fig:diab_no_spells_bar}~through~\ref{fig:diab_bubble_plot}) as well
+as the entire dataset. Comparisons of the latter form will be discussed further
+in the remainder of this analysis.
 
 \begin{figure}[htbp]
     \centering
@@ -289,6 +317,9 @@ imaging (IMG), supported by the increase in the average number of diagnoses.
     \item Seasonal effect; metrics and statistical tests?
     \item Summary of each plot and final conclusions
 \end{itemize}
+
+The comparisons utilised between the non-diabetic and diabetic populations used
+throughout this analysis are useful for making direct, side-by-side 
 
 \begin{figure}[htbp]
     \centering

@@ -6,6 +6,7 @@
 \usepackage{helvet}
     \renewcommand\familydefault{\sfdefault} 
 \usepackage[T1]{fontenc}
+\usepackage[utf8,applemac]{inputenc}
 \usepackage[margin=1in, includefoot, footskip=30pt]{geometry}
 
 % Packages
@@ -25,8 +26,9 @@
 
 \newlength{\imgwidth}
 \newlength{\logoheight}
-\setlength{\imgwidth}{.75\paperwidth}
+\setlength{\imgwidth}{.725\paperwidth}
 \setlength{\logoheight}{.125\paperheight}
+\DeclareUnicodeCharacter{2010}{-}
 
 \title{Novel methods for the analysis of NHS patient-episode data}
 \author{%
@@ -62,6 +64,7 @@
 \input{./sections/further.tex}
 
 \clearpage
+\inputencoding{utf8}
 \bibliographystyle{plain}
 \bibliography{references.bib}
 
