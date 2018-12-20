@@ -57,6 +57,7 @@ Figure~\ref{fig:diab_no_diag_bar}.
 \end{figure}
 
 \begin{figure}[htbp]
+    \centering
     \includegraphics[width=\imgwidth]{los_bar/main.pdf}
     \caption{Bar chart for the total length of a spell in the presence of
         diabetes and not, clipped at 21 days. \textit{Maximum 705 days.}}%
@@ -229,15 +230,14 @@ non-diabetic and general populations.
 
 \subsection{Variation and relative importance}\label{subsec:diab_variation}
 
-It has been established again how the key attributes are distributed and related
-in both the diabetic and non-diabetic populations, and the remaining parts of
-the exploratory analysis methodology established in Section~\ref{sec:overview}
+Again, it has been established how the key attributes are distributed and
+interact in both the diabetic and non-diabetic populations. From here, the 
+remaining component of the methodology established in Section~\ref{sec:overview}
 is to investigate variation and importance.
 Figures~\ref{fig:diab_variation}~\&~\ref{fig:diab_contribution} show these
-quantities as in the previous analysis, and are ranked as in
-Figure~\ref{fig:diab_corr_heatmap}. 
+quantities, and are ranked as in Figure~\ref{fig:diab_corr_heatmap}.
 
-\begin{figure}[h]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=\imgwidth]{cost_variation/main.pdf}
     \caption{Bar chart showing the coefficient of variation \(C_{v}\) of each
@@ -252,6 +252,16 @@ Figure~\ref{fig:diab_corr_heatmap}.
     \caption{Bar chart showing the average contribution of each cost component
         to the net cost of a spell in the presence of diabetes and not.}%
     \label{fig:diab_contribution}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\linewidth]{cost_bubble_plot/main.pdf}
+    \caption{A bubble plot showing a comparison between the diabetic and
+        non-diabetic populations' average contribution to the net cost of a
+        spell along the vertical, and the coefficient of variation for that
+        component as the size of its marker.}%
+    \label{fig:diab_bubble_plot}
 \end{figure}
 
 Aside from the change in the order of the attributes compared with
@@ -299,16 +309,6 @@ Figures~\ref{fig:diab_no_spells_bar}~through~\ref{fig:diab_bubble_plot}) as well
 as the entire dataset. Comparisons of the latter form will be discussed further
 in the remainder of this analysis.
 
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=\linewidth]{cost_bubble_plot/main.pdf}
-    \caption{A bubble plot showing a comparison between the diabetic and
-        non-diabetic populations' average contribution to the net cost of a
-        spell along the vertical, and the coefficient of variation for that
-        component as the size of its marker.}%
-    \label{fig:diab_bubble_plot}
-\end{figure}
-
 \subsection{Resource consumption}\label{subsec:diab_resources}
 
 \begin{itemize}
@@ -318,8 +318,17 @@ in the remainder of this analysis.
     \item Summary of each plot and final conclusions
 \end{itemize}
 
-The comparisons utilised between the non-diabetic and diabetic populations used
-throughout this analysis are useful for making direct, side-by-side 
+The types of comparisons made between the non-diabetic and diabetic populations
+throughout this analysis are useful for observing their similarities in a direct
+way, and in understanding how the groups may be related to one another. However
+these are not the only device available when examining a subset of the data.
+Another useful way of evaluating a subset of data such as this is to quantify
+how it is represented in the data. This is done here by considering the
+proportion it makes up of various indicative attributes. 
+
+When considering cost variation as the focus of this body of work, it can be
+useful to see how certain cost-related patterns evolve. In this section of the
+analysis, and in tandem with the concept of using proportions, 
 
 \begin{figure}[htbp]
     \centering
