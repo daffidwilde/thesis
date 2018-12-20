@@ -237,7 +237,7 @@ is to investigate variation and importance.
 Figures~\ref{fig:diab_variation}~\&~\ref{fig:diab_contribution} show these
 quantities, and are ranked as in Figure~\ref{fig:diab_corr_heatmap}.
 
-\begin{figure}[htbp]
+\begin{figure}[h]
     \centering
     \includegraphics[width=\imgwidth]{cost_variation/main.pdf}
     \caption{Bar chart showing the coefficient of variation \(C_{v}\) of each
@@ -309,30 +309,131 @@ Figures~\ref{fig:diab_no_spells_bar}~through~\ref{fig:diab_bubble_plot}) as well
 as the entire dataset. Comparisons of the latter form will be discussed further
 in the remainder of this analysis.
 
-\subsection{Resource consumption}\label{subsec:diab_resources}
 
-\begin{itemize}
-    \item Discussion on intrinsic error and misrepresentation vs.\ evolving
-        patterns
-    \item Seasonal effect; metrics and statistical tests?
-    \item Summary of each plot and final conclusions
-\end{itemize}
+\subsection{Resource consumption}\label{subsec:diab_resources}
 
 The types of comparisons made between the non-diabetic and diabetic populations
 throughout this analysis are useful for observing their similarities in a direct
-way, and in understanding how the groups may be related to one another. However
-these are not the only device available when examining a subset of the data.
-Another useful way of evaluating a subset of data such as this is to quantify
-how it is represented in the data. This is done here by considering the
-proportion it makes up of various indicative attributes. 
+way, and in understanding how the groups may relate to one another.
 
-When considering cost variation as the focus of this body of work, it can be
-useful to see how certain cost-related patterns evolve. In this section of the
-analysis, and in tandem with the concept of using proportions, 
+However, these are not the only devices available for examining such a subset of
+the data. Particularly when looking at costing data such as this, another useful
+way of evaluating a subset is to quantify its size and representation in the
+data with respect to various cost-indicative attributes. These attributes can
+give a sense of the level and nature of the resources that are consumed by the
+population in question. Namely, these attributes are: the proportion of total
+net costs and admissions, and length of stay. During this part of the analysis,
+these attributes will be referred to as the ``chosen'' attributes.
+
+In addition, whilst considering that costs are the focus of this body of work,
+it can be useful to investigate how certain cost-related quantities evolve for a
+subset of the population. In this section of the analysis, the evolution of the
+aforementioned attributes will be discussed within the diabetic population as a
+part of the general data population. For these purposes, the data must be
+manipulated into a chronological form and so some approximations have to be
+made. Here, each of the chosen attributes is given with respect to a particular
+admission date, and has been calculated in the following way for each admission
+date:
+
+\begin{itemize}
+    \item \textbf{Proportion of total admissions:} Take the number of unique
+        spells for diabetic patients admitted on that day, \(n_d\), and the
+        total number of unique spells with that admission date, \(N\). The
+        proportion of total admissions on that day from diabetic patients is
+        given by \(\frac{n_d}{N}\).
+    \item \textbf{Average length of stay:} Take the mean over all lengths of
+        stay from the diabetic spells with that admission date.
+    \item \textbf{Proportion of net costs:} Take the net cost for each diabetic
+        spell beginning on that admission date and sum them, denote this by
+        \(c_d\). Do the same with the net cost of all spells with that admission
+        date and denote this by \(C\). Then the proportion of net costs spent on
+        diabetic patients is given by \(\frac{c_d}{C}\).
+\end{itemize}
+
+The obvious benefit of taking the quantities in this way is that it allows for
+the data to be arranged with some sense of time, but there is a glaring issue.
+That being that the data will be misrepresented when manipulated in this way.
+For instance, the length of a spell has no definitive connection to the
+admission date of that spell. By grouping all the spells starting on that day
+together and taking their mean, any adversely long spells will push the mean
+upwards. Also, there is a time-related error when taking the net cost of a spell
+on any one day in that spell since that cost was not truly spent or incurred on
+that day necessarily.
+
+Irrespective of these misrepresentations,
+Figures~\ref{fig:admissions}~\--~\ref{fig:los_time} show how these quantities
+evolve over the entire data period. In each case, the monthly and year means are
+shown, and the standard deviation of the monthly averages in a year are given as
+error bars. The data has been aggregated into monthly and yearly averages rather
+than using the daily, or evenly weekly, data in an attempt to smooth out the
+misrepresentation that is described above. In addition to these plotted points,
+the data has been fitted with a standard linear regression model \-- the
+statistics of which are given beneath the legend in each plot. These statistics
+are the R-squared value and standard error. These statistics help to describe
+the goodness of fit of the model and their definitions are given below.
+
+\begin{definition}
+    Consider a dataset with \(n\) values, denoted by \(x_1, \ldots, x_n\). Each
+    of these data points has associated with it a predicted value obtained from
+    the fitted model, denoted by \(y_1, \ldots, y_n\). Let the mean of the
+    dataset be denoted by \(\bar x\). The \emph{coefficient of determination},
+    \(R^2\), is defined to be:
+
+    \[
+        R^2 = 1 - \frac{\sum_{i=1}^{n} {\left(x_i - y_i\right)}^2}%
+                       {\sum_{i=1}^{n} {\left(x_i - \bar x\right)}^2}
+    \]
+
+    Intuitively, the R-squared value represents the proportion of variation in
+    the data that is explained by the model fitted, and thus should take a value
+    in the interval \(\left[0, 1\right]\).
+\end{definition}
+
+\begin{definition}
+    Consider a dataset with \(n\) values, \(x_1, \ldots, x_n\), and their
+    corresponding predicted values, \(y_1, \ldots, y_n\). Then the standard
+    error of the estimate, \(SE\), is defined to be:
+
+    \[
+        SE = \sqrt{%
+            \frac{\sum_{i=1}^{n} {\left(x_i - y_i\right)}^2}{n}
+        }
+    \]
+
+    The standard error represents the average distance (error) of the data
+    points from the regression line. The benefit of this statistic is that it
+    gives a measure of the precision of the model on the scale of the variable
+    that has been predicted.
+\end{definition}
+
+Figures~\ref{fig:admissions}~\&~\ref{fig:netcost_proportions} suggest that the
+amount of resources consumed by the diabetic population is increasing, though
+slowly. The former indicates that on average the number of diabetic patients
+visiting the hospital is increasing slowly (approximately a one percent increase
+over five years), and from the latter it is seen that the yearly average
+proportion of net spending on diabetic patients has also experienced a shallow
+increase of roughly half a percent over the same period. So, indeed, these plots
+give evidence to support the claim.
+
+In addition to this, both figures show a distinct divergence as time progresses
+as shown by both the spread in the monthly averages and the widening of the
+yearly error bars. This is an interesting phenomenon; there seems no apparent
+reason for this variability to increase in recent years with improved policy on
+prevention, diagnosis, management and treatment~\cite{NICE}.
+
+With the final figure in this section it is clear that \-- despite the slight
+increase in the proportion of net costs and the number of diabetic admissions
+over the last five years \-- there has been a distinct decline in the average
+length of stay for diabetic patients in the same period. This average has fallen
+from one week to roughly five and a half days. This decrease is likely due, in
+part, to the changes in NHS policy referenced above but also the ever-increasing
+pressure put on the hospital system to move patients through the system
+efficiently in order to save on idle costs such as ward costs and overheads.
+
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=\imgwidth]{admissions/main.pdf}
+    \includegraphics[width=.95\imgwidth]{admissions/main.pdf}
     \caption{Monthly averages for the proportion of daily admissions presenting
         diabetes. Fitted with a linear least-squares regression model.}%
     \label{fig:admissions}
@@ -340,18 +441,33 @@ analysis, and in tandem with the concept of using proportions,
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=\imgwidth]{los_time/main.pdf}
+    \includegraphics[width=.95\imgwidth]{netcost_proportions/main.pdf}
+    \caption{Monthly averages for the proportion of daily net cost spending
+        toward diabetic patients given their admission date. Fitted with a
+        linear least-squares regression model.}%
+    \label{fig:netcost_proportions}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=.95\imgwidth]{los_time/main.pdf}
     \caption{Monthly averages for the average length of a diabetic patient's
         spell given their admission date. Fitted with a linear least-squares
         regression model.}%
     \label{fig:los_time}
 \end{figure}
 
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=\imgwidth]{netcost_proportions/main.pdf}
-    \caption{Monthly averages for the proportion of daily net cost spending
-        toward diabetic patients given their admission date. Fitted with a
-        linear least-squares regression model.}%
-    \label{fig:netcost_proportions}
-\end{figure}
+Across all three of the models summarised in the previous three figures, it is
+clear that none exhibit a particularly strong goodness of fit; though they all
+have appropriately small standard errors, the coefficients of determination are
+moderate at best (in the case of admissions and length of stay) and minuscule
+(in the case of net costs). This indicates that the models themselves are not
+wholly suitable in any case.
+
+It is notable, also, that there is a seasonal pattern in each of the plots which
+is consistent with the linear models not performing well. The inclusion of
+seasonal behaviour in a regression model has more to do more with the semantics
+of finding a ``good'' regression model than was intended here but it is an
+important concept nonetheless. If the purpose of this exercise was to accurately
+predict the quantities being plotted rather than just seeing the general trend,
+then a more elaborate model would have been fitted.
