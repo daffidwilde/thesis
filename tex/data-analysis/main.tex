@@ -1,0 +1,71 @@
+\documentclass[12pt]{article}
+
+% Page setup
+\usepackage{setspace}
+    \doublespacing%
+\usepackage{helvet}
+    \renewcommand\familydefault{\sfdefault} 
+\usepackage[T1]{fontenc}
+\usepackage[utf8,applemac]{inputenc}
+\usepackage[margin=1in, includefoot, footskip=30pt]{geometry}
+
+% Packages
+\usepackage{caption}
+\usepackage{color}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage{floatpag}
+    \floatpagestyle{plain}
+    \renewcommand{\arraystretch}{.6}
+\usepackage{amsthm}
+    \newtheorem{definition}{Definition}
+
+\newlength{\imgwidth}
+\newlength{\logoheight}
+\setlength{\imgwidth}{.725\paperwidth}
+\setlength{\logoheight}{.125\paperheight}
+\DeclareUnicodeCharacter{2010}{-}
+
+\title{Novel methods for the analysis of NHS patient-episode data}
+\author{%
+    Henry Wilde\\
+    \small{\textit{Supervised by:} Dr Jonathan Gillard \& Dr Vincent Knight}
+}
+
+
+\begin{document}
+\titlepage{%
+    \maketitle
+    \vfill%
+    \makebox[\linewidth]{%
+        \includegraphics[height=\logoheight]{../img/cu_logo.png}%
+        \hfill%
+        \includegraphics[height=\logoheight]{../img/cthb_logo.jpg}
+    }
+    \thispagestyle{empty}
+    \pagebreak%
+}
+
+\tableofcontents%
+\thispagestyle{empty}
+\pagebreak%
+\setcounter{page}{1}
+
+\input{./sections/intro.tex}
+\graphicspath{{./img/overview/}}
+\input{./sections/overview.tex}
+\graphicspath{{./img/diabetes/}}
+\input{./sections/diabetes.tex}
+\graphicspath{{./img/clustering/}, {./img/external/}}
+%\input{./sections/further.tex}
+
+\clearpage
+\inputencoding{utf8}
+\bibliographystyle{plain}
+\bibliography{references.bib}
+
+\end{document}

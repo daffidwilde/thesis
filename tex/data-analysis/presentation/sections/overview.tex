@@ -1,0 +1,129 @@
+\section{An overview of the data}
+
+\frame{\frametitle{Structure}
+    \begin{itemize}
+        \item The Cwm Taf University Health Board
+        \item April 2012 through April 2017
+        \item 2.4 million patient-episode records with 260 attributes
+    \end{itemize}
+
+    \pause%
+    \begin{table}[htbp]
+        \resizebox{\textwidth}{!}{%
+            \input{./tex/patient.tex}
+        }
+    \end{table}
+}
+
+\subsection{Distributions of key attributes}
+
+\frame{\frametitle{Number of spells associated with a patient}
+    \makebox[\linewidth]{%
+        \includegraphics[width=\imgwidth]{no_spells_bar/main.pdf}
+    }
+}
+
+\frame{\frametitle{Length of stay}
+    \makebox[\linewidth]{%
+        \includegraphics[width=\imgwidth]{los_bar/main.pdf}
+    }
+}
+
+\frame{\frametitle{Net cost of a spell}
+    \makebox[\linewidth]{%
+        \begin{minipage}{.7\imgwidth}
+            \centering
+            \includegraphics[width=\linewidth]{netcost_kde/main.pdf}
+        \end{minipage}\hfill\vspace{-10pt}%
+        \begin{minipage}{.2\paperwidth}
+            \resizebox{\linewidth}{!}{%
+                \input{../tex/netcost_summary.tex}
+            }
+        \end{minipage}
+    }
+}
+
+\frame{\frametitle{Number of diagnoses in an episode}
+    \makebox[\linewidth]{%
+        \includegraphics[width=\imgwidth]{no_diag_bar/main.pdf}
+    }
+}
+
+\frame{\frametitle{Number of procedures in an episode}
+    \makebox[\linewidth]{%
+        \includegraphics[width=\imgwidth]{no_proc_bar/main.pdf}
+    }
+}
+
+\subsection{Demographic information}
+
+\frame{\frametitle{Demographic information}
+    There are issues with demographic information in the data:
+
+    \begin{itemize}
+        \pause\item Gender is binary and inconsistently recorded
+        \pause\item Limited geographic information encoded in registered GP
+        practice
+    \end{itemize}
+}
+
+\frame{\frametitle{Distribution of age}
+    \makebox[\linewidth]{%
+        \includegraphics[width=\imgwidth]{age_bar/main.pdf}
+    }
+    \vfill\tiny{Data accessed via ONS at \url{https://bit.ly/2Mk4CgJ}}
+}
+
+\subsection{Correlation and interaction}
+
+\frame{\frametitle{Pairwise correlation}
+    \makebox[\linewidth]{%
+        \includegraphics[height=.85\paperheight]{corr_heatmap/main.pdf}
+    }
+}
+
+\frame{\frametitle{Detecting collinearity}
+    \[
+        y = \beta_{0} + \beta_{1} x_{1} + \cdots + \beta_{n} x_{n}
+    \]
+    %\vspace{5pt}
+
+    \centering
+    \begin{minipage}{\textwidth}
+        \resizebox{\linewidth}{!}{%
+            \input{../tex/vif_0.tex}
+        }
+    \end{minipage}
+
+    \begin{minipage}{\textwidth}
+        \resizebox{\linewidth}{!}{%
+            \input{../tex/vif_1.tex}
+        }
+    \end{minipage}
+
+    \begin{minipage}{\textwidth}
+        \resizebox{\linewidth}{!}{%
+            \input{../tex/vif_2.tex}
+        }
+    \end{minipage}
+}
+
+\subsection{Measuring variation and relative importance}
+
+\frame{\frametitle{Cost variation}
+    \makebox[\linewidth]{%
+        \includegraphics[width=\imgwidth]{cost_variation/main.pdf}
+    }
+}
+
+\frame{\frametitle{Component contribution to net costs}
+    \makebox[\linewidth]{%
+        \includegraphics[width=\imgwidth]{cost_contribution/main.pdf}
+    }
+}
+
+\frame{\frametitle{Relative importance}
+    \makebox[\linewidth]{%
+        \includegraphics[width=\imgwidth]{cost_bubble_plot/main.pdf}
+    }
+}
