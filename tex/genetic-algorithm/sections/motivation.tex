@@ -1,0 +1,26 @@
+\section{Motivation}\label{sec:motivation}
+
+In many machine learning applications, one of the first things to be determined
+is which algorithms are best-suited to the task at hand, and of those which is
+the `best'. Typically, this is answered by running  multiple algorithms on the
+data available and settling for the one which performs best. However:
+
+\begin{itemize}
+    \item[] What if the task is to measure the relative quality of an algorithm
+        itself?
+
+    \item[] What if the researcher is constrained to a small set of algorithms
+        and is without data?
+\end{itemize}
+
+In this work, we aim to flip this process on its head; by fixing two algorithms
+for comparison and actively searching for data that is better-suited to one
+algorithm over the other. We will make use of the `survival of the fittest'
+paradigm to attempt this. More specifically, the base of datasets to be
+constructed will form the generations of populations in a genetic algorithm,
+where the fitness function will be such that positive values indicate a
+preference for the algorithm of interest over the alternative, zero will
+correspond to indifference, and negative values will show preference for the
+alternative. The practical aim of all of this is to build a robust Python
+package that could take any two algorithms with the same objective function and
+produce datasets for which one algorithm outperforms the other.

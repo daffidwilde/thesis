@@ -1,5 +1,5 @@
 # Data
-rsc/
+rsc/*
 *.xls
 *.xlsx
 *.csv
