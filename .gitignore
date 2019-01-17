@@ -1,9 +1,8 @@
 # Data
-rsc/
+rsc/*
 *.xls
 *.xlsx
 *.csv
-*.dmg
 
 # Cache files
 *.ipynb_checkpoints
