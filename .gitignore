@@ -1,8 +1,9 @@
 # Data
+rsc/
 *.xls
 *.xlsx
 *.csv
-*thesis-data.dmg
+*.dmg
 
 # Cache files
 *.ipynb_checkpoints
@@ -11,17 +12,20 @@ __pycache__
 *.swp
 
 # Images
+*.gif
 *.pdf
 *.png
 
 # LaTeX stuff
-main.pdf
-main.aux
-main.bcf
-main.log
-main.run.xml
-tex/*.aux
-tex/*.pdf
-tex/*.log
-tex/*.bcf
-tex/*.run.xml
+*.aux
+*.bak
+*.bbl
+*.bcf
+*.blg
+*-blx.bib
+*.log
+*.nav
+*.out
+*.run.xml
+*.snm
+*.toc
