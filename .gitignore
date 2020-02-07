@@ -23,7 +23,9 @@ __pycache__
 *.bcf
 *.blg
 *-blx.bib
+*.lof
 *.log
+*.lot
 *.nav
 *.out
 *.run.xml

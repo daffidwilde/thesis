@@ -1,11 +1,41 @@
-\documentclass[12pt]{report}
+\documentclass[12pt, rightopen, twoside]{report}
 
-\usepackage[margin=1.5cm, includefoot, footskip=30pt]{geometry}
+% Setting up page
+\usepackage[a4paper, top=25mm, right=25mm, bottom=25mm, left=40mm]{geometry}
+\linespread{1.3}
 
+% Images and tables
+\usepackage{booktabs}
 \usepackage{graphicx}
 
-\begin{document}
+% Fonts
+\usepackage{moresize}
 
-\input{./tex/title-page.tex}
+
+\begin{document}
+\input{title.tex}
+\clearpage%
+
+% Preamble
+\input{chapters/abstract}
+\input{chapters/dedication}
+\input{chapters/declaration}
+\input{chapters/acknowledgements}
+\input{chapters/dissemination}
+\tableofcontents%
+\listoffigures%
+\listoftables%
+
+% Main text
+\input{chapters/01/main} % intro
+\input{chapters/02/main} % edo
+\input{chapters/03/main} % kmodes
+\input{chapters/04/main} % data analysis
+\input{chapters/05/main} % copd case study
+\input{chapters/conclusion}
+
+% Post-text
+\bibliography{bibliography.bib}
+\input{chapters/appendix}
 
 \end{document}
