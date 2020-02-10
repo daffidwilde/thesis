@@ -1,8 +1,13 @@
-\documentclass[12pt, rightopen, twoside]{report}
+\documentclass[12pt,openright,a4paper]{book}
 
 % Setting up page
-\usepackage[a4paper, top=25mm, right=25mm, bottom=25mm, left=40mm]{geometry}
+\usepackage[a4paper,top=25mm,right=25mm,bottom=25mm,left=40mm]{geometry}
+\usepackage{emptypage}
 \linespread{1.3}
+
+% Bibliography
+\usepackage[numbers]{natbib}
+    \bibliographystyle{abbrvnat}
 
 % Images and tables
 \usepackage{booktabs}
@@ -11,12 +16,15 @@
 % Fonts
 \usepackage{moresize}
 
+% Chapter-specifics
+\usepackage{import}
+\usepackage{chapters/02/main}
 
 \begin{document}
 \input{title.tex}
-\clearpage%
 
 % Preamble
+\frontmatter%
 \input{chapters/abstract}
 \input{chapters/dedication}
 \input{chapters/declaration}
@@ -27,6 +35,7 @@
 \listoftables%
 
 % Main text
+\mainmatter%
 \input{chapters/01/main} % intro
 \input{chapters/02/main} % edo
 \input{chapters/03/main} % kmodes

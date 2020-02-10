@@ -1,4 +1,6 @@
-\documentclass{svjour3}
+\documentclass{article}
+
+\usepackage{fullpage}
 
 \usepackage[ruled]{algorithm2e}
 \usepackage{amssymb}
@@ -95,23 +97,15 @@
     Evolutionary Dataset Optimisation:
     learning algorithm quality through evolution
 }
-\author{%
-    Henry Wilde \and
-    Vincent Knight \and
-    Jonathan Gillard
-}
-\institute{%
-    School of Mathematics, Senghennydd Rd, Cardiff, WALES CF24 4AG \\
-    \textit{\email{\{wildehd, knightva, gillardjw\}@cardiff.ac.uk}}
-}
-\date{Received: date / Accepted: date}
+\author{Henry Wilde, Vincent Knight, Jonathan Gillard}
+
 
 \begin{document}
-
 \maketitle%
 
 \input{sections/abstract.tex}
 
+\graphicspath{{./img/}}
 \input{sections/intro.tex}
 \input{sections/algorithm/main.tex}
 \input{sections/examples.tex}
