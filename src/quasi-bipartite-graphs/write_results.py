@@ -40,11 +40,15 @@ def write_dataframes(root, X, Y, beta, size, seed, sample_idx):
     x_sample.drop(irrelevant_columns, axis=1)
     y_sample.drop(irrelevant_columns, axis=1)
 
-    dataframe = concat_dataframes(x_sample, y_sample, sample_idx, seed, beta, size)
+    dataframe = concat_dataframes(
+        x_sample, y_sample, sample_idx, seed, beta, size
+    )
 
     time_taken = time.clock() - start
 
     if np.any(dataframe):
 
         dataframe["time"] = time_taken
-        dataframe.to_csv(f"{root}/{beta}/{size}/{seed}/{sample_idx}/", index=False)
+        dataframe.to_csv(
+            f"{root}/{beta}/{size}/{seed}/{sample_idx}/", index=False
+        )

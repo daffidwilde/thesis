@@ -38,7 +38,10 @@ def plot_age_bar(df):
         data = Counter(data)
 
         freq_ax.bar(
-            np.array(list(data.keys())) + shift, data.values(), width=width, label=label
+            np.array(list(data.keys())) + shift,
+            data.values(),
+            width=width,
+            label=label,
         )
 
         dens_ax.bar(
@@ -48,7 +51,9 @@ def plot_age_bar(df):
             label=label,
         )
 
-    for ax, label in zip([freq_ax, dens_ax], ["Frequency", "Frequency density"]):
+    for ax, label in zip(
+        [freq_ax, dens_ax], ["Frequency", "Frequency density"]
+    ):
         ax.set_xlabel("Age (years)", fontsize=fontsize)
         ax.set_ylabel(label, fontsize=fontsize)
         ax.legend(fontsize=fontsize * 0.8)

@@ -47,7 +47,12 @@ def plot_corr_heatmap(df):
     summed_procedure_nums = diabetic.groupby("SPELL_ID")["PROC_NO"].sum()
 
     data = pd.concat(
-        [summed_costs, lengths_of_stay, max_diagnosis_nums, summed_procedure_nums],
+        [
+            summed_costs,
+            lengths_of_stay,
+            max_diagnosis_nums,
+            summed_procedure_nums,
+        ],
         axis=1,
     )
 

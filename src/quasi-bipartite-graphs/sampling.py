@@ -123,7 +123,15 @@ def concat_dataframes(X, Y, sample_idx, seed, beta, size):
     dfs = []
     for idxs in idx_pairs:
         result_df = build_dataframe(
-            X, Y, adjacency_matrix, dissim_matrix, idxs, sample_idx, seed, beta, size
+            X,
+            Y,
+            adjacency_matrix,
+            dissim_matrix,
+            idxs,
+            sample_idx,
+            seed,
+            beta,
+            size,
         )
         dfs.append(result_df)
 

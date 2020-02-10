@@ -54,9 +54,9 @@ def get_contribution_variation(df):
     corr = summed_costs.corr()
     order = sorted(corr.columns, key=lambda col: abs(corr[col]).sum())[::-1]
 
-    cont_var = pd.concat([contributions, variations[components]], axis=1).rename(
-        {0: "contribution", 1: "variation"}, axis=1
-    )
+    cont_var = pd.concat(
+        [contributions, variations[components]], axis=1
+    ).rename({0: "contribution", 1: "variation"}, axis=1)
 
     return cont_var.reindex(order).dropna()
 
@@ -112,7 +112,10 @@ def plot_cost_bubble(df):
     cont_var = get_contribution_variation(df)
 
     fig, (ax, size_ax) = plt.subplots(
-        ncols=2, figsize=(24, 12), dpi=400, gridspec_kw={"width_ratios": [16, 1]}
+        ncols=2,
+        figsize=(24, 12),
+        dpi=400,
+        gridspec_kw={"width_ratios": [16, 1]},
     )
 
     for point in cont_var.iterrows():

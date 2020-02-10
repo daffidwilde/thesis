@@ -52,7 +52,12 @@ def plot_corr_differences(df):
         summed_procedure_nums = dataset.groupby("SPELL_ID")["PROC_NO"].sum()
 
         data = pd.concat(
-            [summed_costs, lengths_of_stay, max_diagnosis_nums, summed_procedure_nums],
+            [
+                summed_costs,
+                lengths_of_stay,
+                max_diagnosis_nums,
+                summed_procedure_nums,
+            ],
             axis=1,
         )
 
@@ -60,9 +65,9 @@ def plot_corr_differences(df):
         corrs.append(corr)
 
     differences = corrs[1] - corrs[0]
-    order = sorted(differences.columns, key=lambda col: abs(differences[col]).sum())[
-        ::-1
-    ]
+    order = sorted(
+        differences.columns, key=lambda col: abs(differences[col]).sum()
+    )[::-1]
     differences = differences[order].reindex(order)
 
     fig, ax = plt.subplots(1, figsize=(12, 10), dpi=400)

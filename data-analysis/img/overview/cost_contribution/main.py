@@ -39,7 +39,9 @@ def plot_cost_contribution(df):
 
     components = costs[2:]
     summed_costs = df.groupby("SPELL_ID")[costs].sum()
-    contributions = summed_costs[components].divide(summed_costs["NetCost"], axis=0)
+    contributions = summed_costs[components].divide(
+        summed_costs["NetCost"], axis=0
+    )
 
     corr = summed_costs.corr()
     order = sorted(corr.columns, key=lambda col: abs(corr[col]).sum())[::-1]

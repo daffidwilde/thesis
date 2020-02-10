@@ -44,7 +44,10 @@ def plot_admissions(df):
     params["vmax"] = params["val"] + params["err"]
 
     data = monthly
-    X, y = (date2num(data.index.values.reshape(-1, 1)), data.values.reshape(-1, 1))
+    X, y = (
+        date2num(data.index.values.reshape(-1, 1)),
+        data.values.reshape(-1, 1),
+    )
     lr = LinearRegression()
     lr.fit(X, y)
     y_pred = lr.predict(X)

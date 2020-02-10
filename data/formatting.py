@@ -74,7 +74,13 @@ def format_dates(df):
     """ Reformats the EPISODE_START, EPISODE_END, ADMDATE, DISCDATE, LOAD_DATE,
     procedure_date_dt. """
 
-    cols = ["EPISODE_START", "EPISODE_END", "ADMDATE", "DISCDATE", "procedure_date_dt"]
+    cols = [
+        "EPISODE_START",
+        "EPISODE_END",
+        "ADMDATE",
+        "DISCDATE",
+        "procedure_date_dt",
+    ]
 
     for col in cols:
         if col in df.columns:

@@ -16,7 +16,9 @@ def plot_no_diag_bar(df):
     fig, ax = plt.subplots(1, figsize=(14, 8), dpi=300)
     freq_ax = ax.twinx()
 
-    ax.bar(data.keys(), np.array(list(data.values())) / len(diag_nums), width=0.9)
+    ax.bar(
+        data.keys(), np.array(list(data.values())) / len(diag_nums), width=0.9
+    )
     freq_ax.bar(data.keys(), np.array(list(data.values())) / 100000, width=0.9)
 
     ax.set_ylabel("Frequency density")

@@ -57,6 +57,8 @@ for datafile in iglob(f"/Volumes/thesis-data/{root}/*"):
     print("Read:", name)
 
     df = main_formatting(df)
-    df.to_csv(f"/Volumes/thesis-data/formatted/{new_name}", header=True, index=False)
+    df.to_csv(
+        f"/Volumes/thesis-data/formatted/{new_name}", header=True, index=False
+    )
 
     print("Done:", name, "\n")

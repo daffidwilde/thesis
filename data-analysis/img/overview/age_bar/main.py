@@ -17,7 +17,9 @@ def plot_age_bar(df):
 
     blue, orange = [color_palette("colorblind")[i] for i in [0, 2]]
 
-    uk_age = pd.read_csv("/Volumes/thesis-data/rsc/UK_Age_2016.csv", usecols=["2016"])
+    uk_age = pd.read_csv(
+        "/Volumes/thesis-data/rsc/UK_Age_2016.csv", usecols=["2016"]
+    )
     uk_data = np.array(uk_age.values).flatten()
 
     fig, ax = plt.subplots(1, figsize=(14, 8), dpi=300)

@@ -13,8 +13,12 @@ def plot_no_spells_bar(df):
     fontsize = 14
     width = 0.45
 
-    diab_nums = df[df["Diabetes"] == 1].groupby("PATIENT_ID")["SPELL_ID"].nunique()
-    nondiab_nums = df[df["Diabetes"] == 0].groupby("PATIENT_ID")["SPELL_ID"].nunique()
+    diab_nums = (
+        df[df["Diabetes"] == 1].groupby("PATIENT_ID")["SPELL_ID"].nunique()
+    )
+    nondiab_nums = (
+        df[df["Diabetes"] == 0].groupby("PATIENT_ID")["SPELL_ID"].nunique()
+    )
 
     fig, (freq_ax, dens_ax) = plt.subplots(2, figsize=(14, 10), dpi=300)
 
@@ -27,7 +31,10 @@ def plot_no_spells_bar(df):
         data = Counter(data)
 
         freq_ax.bar(
-            np.array(list(data.keys())) + shift, data.values(), width=width, label=label
+            np.array(list(data.keys())) + shift,
+            data.values(),
+            width=width,
+            label=label,
         )
 
         dens_ax.bar(
@@ -37,7 +44,9 @@ def plot_no_spells_bar(df):
             label=label,
         )
 
-    for ax, label in zip([freq_ax, dens_ax], ["Frequency", "Frequency density"]):
+    for ax, label in zip(
+        [freq_ax, dens_ax], ["Frequency", "Frequency density"]
+    ):
         ax.set_xlabel("Number of spells", fontsize=fontsize)
         ax.set_ylabel(label, fontsize=fontsize)
         ax.set_xlim(0, 14.5)

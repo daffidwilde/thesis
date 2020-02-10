@@ -67,7 +67,9 @@ def plot_large_component_violinplots(df):
     fig, ax = plt.subplots(1, figsize=(40, 24), dpi=400)
 
     contributions = [get_contributions(df, i) for i in [0, 1]]
-    args = zip(["non-diabetic", "diabetic"], contributions, [blue, green], [0.3, -0.3])
+    args = zip(
+        ["non-diabetic", "diabetic"], contributions, [blue, green], [0.3, -0.3]
+    )
 
     patches = []
     for name, contribution, colour, beta in args:
@@ -103,7 +105,9 @@ def plot_large_component_violinplots(df):
     ax.set_yticks(positions)
     ax.set_yticklabels(cols, fontsize=fontsize)
     ax.set_xlabel("Proportion of net cost", fontsize=fontsize)
-    ax.legend(handles=patches, loc="best", fontsize=fontsize, markerscale=fontsize / 8)
+    ax.legend(
+        handles=patches, loc="best", fontsize=fontsize, markerscale=fontsize / 8
+    )
     for label in ax.get_xticklabels():
         label.set_fontsize(fontsize)
 

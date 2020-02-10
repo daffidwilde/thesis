@@ -20,7 +20,9 @@ def plot_los_time(df):
 
     diabetic = df[df["Diabetes"] == 1]
     lengths_of_stay = (
-        diabetic.set_index("ADMDATE").drop_duplicates("SPELL_ID")["TRUE_LOS"].dropna()
+        diabetic.set_index("ADMDATE")
+        .drop_duplicates("SPELL_ID")["TRUE_LOS"]
+        .dropna()
     )
 
     fig, ax = plt.subplots(1, figsize=(16, 10), dpi=300)

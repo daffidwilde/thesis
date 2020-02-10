@@ -36,7 +36,10 @@ def plot_los_bar(df):
         data = Counter(data)
 
         freq_ax.bar(
-            np.array(list(data.keys())) + shift, data.values(), width=width, label=label
+            np.array(list(data.keys())) + shift,
+            data.values(),
+            width=width,
+            label=label,
         )
 
         dens_ax.bar(
@@ -46,7 +49,9 @@ def plot_los_bar(df):
             label=label,
         )
 
-    for ax, label in zip([freq_ax, dens_ax], ["Frequency", "Frequency density"]):
+    for ax, label in zip(
+        [freq_ax, dens_ax], ["Frequency", "Frequency density"]
+    ):
         ax.set_xlim(-1, 21.5)
         ax.set_xticks(np.arange(11) * 2)
         ax.set_xlabel("Length of stay (days)", fontsize=fontsize)

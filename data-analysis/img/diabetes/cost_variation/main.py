@@ -63,7 +63,9 @@ def plot_cost_variation(df):
     fig, ax = plt.subplots(1, figsize=(16, 10), dpi=300)
 
     inds = np.arange(len(combined_variations))
-    for label, shift in zip(combined_variations.columns, [-0.5 * width, 0.5 * width]):
+    for label, shift in zip(
+        combined_variations.columns, [-0.5 * width, 0.5 * width]
+    ):
 
         data = combined_variations[label]
         ax.bar(inds + shift, data.values, width, label=label)

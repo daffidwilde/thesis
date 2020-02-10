@@ -56,9 +56,9 @@ def get_contribution_variation(df):
     netcost = summed_costs["NetCost"]
     contributions = summed_costs[components].divide(netcost, axis=0).mean()
 
-    cont_var = pd.concat([contributions, variations[components]], axis=1).rename(
-        {0: "contribution", 1: "variation"}, axis=1
-    )
+    cont_var = pd.concat(
+        [contributions, variations[components]], axis=1
+    ).rename({0: "contribution", 1: "variation"}, axis=1)
 
     return cont_var
 
@@ -150,7 +150,10 @@ def plot_cost_bubble(df):
     )
 
     fig, (ax, size_ax) = plt.subplots(
-        ncols=2, figsize=(24, 12), dpi=400, gridspec_kw={"width_ratios": [16, 1]}
+        ncols=2,
+        figsize=(24, 12),
+        dpi=400,
+        gridspec_kw={"width_ratios": [16, 1]},
     )
 
     for nondiab_row, diab_row in args:
