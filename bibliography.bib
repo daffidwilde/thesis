@@ -1,0 +1,62 @@
+@article{Armancio14,
+    author = {Armancio DR, Comin CH, Casanova D, Travieso G, Bruno OM, Rodrigues FA, et al.},
+    comment = {Thorough writing on how to generate an artificial dataset with controllable parameters according to some constraints regarding the covariance matrices of the classes.
+
+Strong results from classifier analysis and nice work on parameter optimisation.},
+    journal = {PLOS ONE},
+    month = {April},
+    title = {A Systematic Comparison of Supervised Classifiers},
+    url = {https://doi.org/10.1371/journal.pone.0094137},
+    year = {2014}
+}
+
+@article{Cao2009,
+    author = {Cao F, Liang J, Bai L},
+    journal = {Expert Systems with Applications},
+    pages = {10223--10228},
+    title = {A new initialization method for categorical data clustering},
+    url = {https://pdfs.semanticscholar.org/1955/c6801bca5e95a44e70ce14180f00fd3e55b8.pdf},
+    volume = {36},
+    year = {2009}
+}
+
+@article{Huang98,
+    author = {Huang Z},
+    comment = {Expands on the k-means paradigm to incorporate categorical and mixed-type datasets.
+
+
+Initial representative points are chosen according to two methods for k-modes:
+
+(1.) Take the first k datapoints (or take k at random) and set them as the inital modes.
+(2.) Store categories in an array according to their descending frequencies for each attribute. Assign the most frequent categories equally amongst k vectors (one for each mode) and replace each mode by the closest datapoint in the dataset without replacement. 
+
+I believe there is scope to implement game-theoretic concepts here to optimise this process, hopefully increasing the overall quality of the algorithm; rather than assigning a point to each mode in turn a matching game could provide closer-to-optimal initial results. Obviously, something to consider is the computational cost of this initial step as well as its effect on the diversity of the initial modes.
+
+
+It is worth noting that, in most cases, the effectiveness of both algorithms are based on a priori knowledge of the test data rather than standard unsupervised learning techniques such as silohouette plots. As a result, there is no substantial writing on how these algorithms hold up against varying the number of clusters. However, it is shown that they are (mostly) scalable to more complex and larger datasets with more clusters.
+
+
+Provides no proof for the convergence of k-modes algorithm.},
+    doi = {10.1023/A:1009769707641},
+    journal = {Data Mining and Knowledge Discovery},
+    month = {September},
+    number = {3},
+    pages = {283--304},
+    title = {Extensions to the k-Means Algorithm for Clustering Large Data Sets with Categorical Values},
+    url = {https://doi.org/10.1023/A:1009769707641},
+    volume = {2},
+    year = {1998}
+}
+
+@article{Ng2007,
+    author = {Ng MK, Li MJ, Huang Z, He Z},
+    journal = {IEEE Transactions on Pattern Analysis and Machine Intelligence},
+    month = {March},
+    number = {3},
+    pages = {503--507},
+    title = {On the impact of dissimilarity measure in $k$-modes clustering algorithm},
+    url = {http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=4069266},
+    volume = {29},
+    year = {2007}
+}
+
