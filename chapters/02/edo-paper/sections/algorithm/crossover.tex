@@ -1,0 +1,25 @@
+\subsection{Crossover}
+
+Crossover is the operation of combining two individuals in order to create at
+least one offspring. In genetic algorithms, the term `crossover' can be taken
+literally: two bit strings are crossed at a point to create two new bit strings.
+Another popular method is uniform crossover, which has been favoured for its
+efficiency and efficacy in combining individuals~\cite{Semenkin2012}. For EDO,
+this method is adapted to support dataset manipulation: a new individual is
+created by uniformly sampling each of its components (dimensions and then
+columns) from a set of two `parent' individuals, as shown in
+Figure~\ref{fig:crossover}.
+
+\inputtikz[\linewidth]{crossover}{%
+    The crossover process between two individuals with different dimensions.
+}
+
+Observe that there is no requirement on the dimensions of the parents to be of
+similar or equal shapes. This is because the driving aim of the proposed method
+is to explore the space of all possible datasets. In the case where there is
+incongruence in the lengths of the two parents, missing values may appear in a
+shorter column that is sampled. To resolve this, values are sampled from the
+probability distribution associated with that column to fill in these gaps.
+
+\input{tex/algorithms/crossover.tex}
+

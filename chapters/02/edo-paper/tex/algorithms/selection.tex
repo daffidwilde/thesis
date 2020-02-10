@@ -1,0 +1,14 @@
+\balg%
+\KwIn{population, population fitness, \(b\), \(l\)}
+\KwOut{A set of parent individuals}
+
+\Begin{%
+    calculate \(n_b\) and \(n_l\)\;
+    sort the population by the fitness of its individuals\;
+    take the first \(n_b\) individuals and make them parents\;
+    \If{there are any individuals left}{%
+        take the next \(n_l\) individuals and make them parents\;
+    }
+}
+\caption{The selection process}
+\ealg%

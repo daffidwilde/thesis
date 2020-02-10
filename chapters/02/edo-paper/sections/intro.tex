@@ -1,0 +1,105 @@
+\section{Introduction}\label{section:introduction}
+
+This work presents a novel approach to learning the quality and performance of
+an algorithm through the use of evolution. When an algorithm is developed to
+solve a given problem, the designer is presented with questions about the
+performance of their proposed method, and its relative performance against
+existing methods. This is an inherently difficult task. However, under the
+current paradigm, the standard response to this situation is to use a known
+fixed set of datasets \-- or simulate new data sets themselves \-- and a common
+metric amongst the proposed method and its competitors. The algorithm is then
+assessed based on this metric with often minimal consideration for both the
+appropriateness or reliability of the datasets being used, and the robustness of
+the method in question.
+
+This notion is not so easily observed when travelling in the opposite direction.
+Suppose that, instead, the benchmark was a dataset of particular interest and a
+preferable algorithm was to be determined for some task. There exist a number of
+methods employed across disciplines to complete this task that take into account
+the characteristics of the data and the context of the research problem. These
+methods include the use of diagnostic tests. For instance, in the case of
+clustering, if the data displayed an indeterminate number of non-convex blobs,
+then one could recommend that an appropriate clustering algorithm would be
+DBSCAN~\cite{Ester1996}. Otherwise, for scalability, \(k\)-means may be
+chosen~\cite{Wu2009}.
+
+The approach presented in this work aims to flip the paradigm described here by
+allowing the data itself to be unfixed. This fluidity in the data is achieved by
+generating data for which the algorithm performs well (or better than some
+other) through the use of an evolutionary algorithm. The purpose of doing so is
+not to simply create a bank of useful datasets but rather to allow for the
+subsequent studying of these datasets. In doing so, the attributes and
+characteristics which lead to the success (or failure) of the algorithm may be
+described, giving a broader understanding of the algorithm on the whole. Our
+framework is described in Figure~\ref{fig:paradigm}.
+
+\inputtikz{paradigm}{%
+    On the right: the current path for selecting some algorithm(s) based on
+    their validity and performance for a given dataset. On the left: the
+    proposed flip to better understand the space in which `good' datasets exist
+    for an algorithm.
+}
+
+This proposed flip has a number of motivations, and below is a non-exhaustive
+list of some of the problems that are presented by the established evaluation
+paradigm:
+
+% TODO More citations required here. Places to start looking: Hyndman blogpost,
+% open science papers, p-hacking critique, data carpentry slides.
+
+\begin{enumerate}
+    \item How are these benchmark examples selected? There is no true measure of
+        their reliability other than their frequent use. In some domains and
+        disciplines there are well-established benchmarks so those found through
+        literature may well be reliable, but in others less so.
+    \item Sometimes, when there is a lack of benchmark examples, a `new' dataset
+        is simulated to assess the algorithm. This begs the question as to how
+        and why that simulation is created. Not only this, but the origins of
+        existing benchmarks is often a matter of convenience rather than their
+        merit.
+    \item In disciplines where there are established benchmarks, there may still
+        be underlying problems around the true performance of an algorithm:
+        \begin{enumerate}[(i)]
+            \item As an example, work by Torralba and Efros~\cite{Torralba2011}
+                showed that image classifiers trained and evaluated on a
+                particular dataset, or datasets, did not perform reliably when
+                evaluated using other benchmark datasets that were determined
+                to be similar. Thus leading to a model which lacks robustness.
+            \item The amount of learning one can gain as to the characteristics
+                of data which lead to good (or bad) performance of an algorithm
+                is constrained to the finite set of attributes present in the
+                benchmark data chosen in the first place.
+        \end{enumerate}
+\end{enumerate}
+
+Evolutionary algorithms (EAs) have been applied successfully to solve a wide
+array of problems \-- particularly where the complexity of the problem or its
+domain are significant. These methods are highly adaptive and
+their population-based construction (displayed in Figure~\ref{fig:flowchart})
+allows for the efficient solving of problems that are otherwise beyond the scope
+of traditional search and optimisation methods.
+
+\inputtikz{flowchart}{%
+    A general schematic for an evolutionary algorithm.
+}
+
+The use of EAs to generate artificial data is not a new concept. Its
+applications in data generation have included developing methods for the
+automated testing of software~\cite{Koleejan2015,Michael2001,Sharifipour2018}
+and the synthesis of existing or confidential data~\cite{Chen2016}. Such methods
+also have a long history in the parameter optimisation of algorithms, and
+recently in the automated design of convolutional neural network (CNN)
+architecture~\cite{Suganuma2017,Sun2018}.
+
+Other methods for the generation or synthesis of artificial data include
+simulated annealing~\cite{Matejka2017} and generative adversarial networks
+(GANs)~\cite{Goodfellow2014}. The unconstrained learning style of methods such
+as CNNs and GANs aligns with that proposed in this work. By allowing the EA to
+explore and learn about the search space in an organic way, less-prejudiced
+insight can be established that is not necessarily reliant on any particular
+framework or agenda.
+
+Note that the proposed methodology is not simply to use an EA to optimise an
+algorithm over a search space with fixed dimension or datatype such as those set
+out in~\cite{Chen2016}. The size and sample space itself is considered as a
+property that can be traversed through the algorithm.

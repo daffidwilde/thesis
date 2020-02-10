@@ -1,0 +1,47 @@
+\documentclass[border=5pt]{standalone}
+\usepackage{edo-tikz}
+
+\begin{document}
+\begin{tikzpicture}
+
+    \fill[gray!15, rounded corners] (0, 0) node[left=45pt, above=20pt] {%
+        \color{black} Old population} rectangle (7, 2);
+    \fill[rounded corners, gray!5] (0, -4) node[left=45pt, above=20pt] {%
+        \color{black} New population} rectangle (7, -2);
+
+    \fill[pattern=north east lines, pattern color=orange]
+        (2, 0) --
+        ++(0, 2) {[rounded corners] --
+        ++(-2, 0) --
+        ++(0, -2)} --
+        cycle
+        {};
+   
+    \draw[->, orange, thick] (1, -0.1) to (1, -1.9);
+
+    \fill[orange!50]
+        (2, -4) --
+        ++(0, 2) {[rounded corners] --
+        ++(-2, 0) --
+        ++(0, -2)} --
+        cycle
+        {};
+
+    \foreach \val in {4, 5.5, 6.2} {%
+        \fill[pattern=north east lines, pattern color=magenta!85]
+            (\val, 0) rectangle (\val+0.1, 2);
+        \draw[->, magenta!85, thick]
+            (\val+0.05, -0.1) to [out=270, in=80] (2.15, -1.9);
+    };
+
+    \fill[magenta!50] (2, -4) rectangle (2.3, -2);
+
+    \draw[decorate, decoration={brace, amplitude=10pt}] (0, 2.1) -- (2, 2.1)
+        node[midway, above=10pt] {\footnotesize{Best individuals}};
+    \draw[decorate, decoration={brace, amplitude=10pt}] (4, 2.1) -- (6.3, 2.1)
+        node[midway, above=10pt] {\footnotesize{Lucky individuals}};
+    \draw[decorate, decoration={brace, amplitude=10pt}] (2.3, -4.1) -- (0, -4.1)
+        node[midway, below=10pt] {\footnotesize{Parents}};
+
+\end{tikzpicture}
+\end{document}

@@ -1,0 +1,21 @@
+\balg[H]%
+\KwIn{a dataset \(X\), a number of centroids \(k\), a distance metric \(d\)}
+\KwOut{a partition of \(X\) into \(k\) parts, \(Z\)}
+
+\Begin{%
+    select \(k\) initial centroids, \(z_1, \ldots, z_k \in X\)\;
+    \While{any point changes cluster or some stopping criterion is not met}{%
+        assign each point, \(x \in X\), to cluster \(Z_{j^*}\) where:
+        \[
+            j^* = \argmin_{j = 1, \ldots, k} \left\{%
+                {d\left(x, z_j\right)}^2
+            \right\}
+        \]\;
+        recalculate all centroids by taking the intra-cluster mean:
+        \[
+            z_j = \frac{1}{|Z_j|} \sum_{x \in Z_j} x
+        \]
+    }
+}
+\caption{\(k\)-means (Lloyd's)}\label{algorithm:kmeans}
+\ealg%
