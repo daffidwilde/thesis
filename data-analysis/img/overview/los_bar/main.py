@@ -1,8 +1,8 @@
+import os
 from collections import Counter
 
-import os
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 
 
 def plot_los_bar(df):
@@ -10,9 +10,7 @@ def plot_los_bar(df):
     Bar chart for the spell-wise length of stay of patients in the dataset.
     """
 
-    lengths = (
-        df.set_index("ADMDATE").drop_duplicates("SPELL_ID")["TRUE_LOS"].dropna()
-    )
+    lengths = df.set_index("ADMDATE").drop_duplicates("SPELL_ID")["TRUE_LOS"].dropna()
 
     data = Counter(lengths)
 

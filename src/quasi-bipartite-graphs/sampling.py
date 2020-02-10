@@ -3,10 +3,9 @@ Script for the collection and manipulation of similar pairs of points in a given
 dataset, using Dask to parallelise the process of finding these pairs.
 """
 
+import dask.dataframe as dd
 import numpy as np
 import pandas as pd
-import dask.dataframe as dd
-
 from dask import delayed
 
 
@@ -16,6 +15,7 @@ def dissim(Y, x):
 
     return np.sum(Y != x, axis=1) / len(x)
 
+
 def get_sample(X, seed, size):
     """ Take a random sample of `size` rows from a dataframe object, specified
     by a random number generator `seed`. """
@@ -24,6 +24,7 @@ def get_sample(X, seed, size):
     sample = X.sample(frac, random_state=seed)
 
     return sample
+
 
 @delayed
 def build_matrices(X, Y, beta, size):
@@ -67,18 +68,26 @@ def build_matrices(X, Y, beta, size):
 
 
 @delayed
-def build_dataframe(X, Y, adjacency_matrix, dissim_matrix,
-                    idxs, sample_idx, seed, beta, size):
+def build_dataframe(
+    X, Y, adjacency_matrix, dissim_matrix, idxs, sample_idx, seed, beta, size
+):
     """ Return a dataframe object for a pair of points given by idxs. """
 
     x_idx = X.index.compute()[idxs[0]]
     y_idx = Y.index.compute()[idxs[1]]
 
-    result_df = pd.DataFrame({
-        'sample_idx': sample_idx, 'seed': seed, 'beta': beta,
-        'dissim': dissim_matrix[idxs[0], idxs[1]],
-        f'{X}_idx': x_idx, f'{Y}_idx': y_idx, 'sample_size': size
-    }, index=[''])
+    result_df = pd.DataFrame(
+        {
+            "sample_idx": sample_idx,
+            "seed": seed,
+            "beta": beta,
+            "dissim": dissim_matrix[idxs[0], idxs[1]],
+            f"{X}_idx": x_idx,
+            f"{Y}_idx": y_idx,
+            "sample_size": size,
+        },
+        index=[""],
+    )
 
     return result_df
 
@@ -113,8 +122,9 @@ def concat_dataframes(X, Y, sample_idx, seed, beta, size):
 
     dfs = []
     for idxs in idx_pairs:
-        result_df = build_dataframe(X, Y, adjacency_matrix, dissim_matrix,
-                                    idxs, sample_idx, seed, beta, size)
+        result_df = build_dataframe(
+            X, Y, adjacency_matrix, dissim_matrix, idxs, sample_idx, seed, beta, size
+        )
         dfs.append(result_df)
 
     if dfs:

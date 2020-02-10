@@ -1,12 +1,11 @@
 import os
 
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
 from matplotlib.dates import date2num
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import r2_score
-
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
 
 
 def plot_los_time(df):
@@ -21,9 +20,7 @@ def plot_los_time(df):
 
     diabetic = df[df["Diabetes"] == 1]
     lengths_of_stay = (
-        diabetic.set_index("ADMDATE")
-        .drop_duplicates("SPELL_ID")["TRUE_LOS"]
-        .dropna()
+        diabetic.set_index("ADMDATE").drop_duplicates("SPELL_ID")["TRUE_LOS"].dropna()
     )
 
     fig, ax = plt.subplots(1, figsize=(16, 10), dpi=300)
@@ -42,7 +39,7 @@ def plot_los_time(df):
 
     X, y = (
         date2num(monthly.index.values.reshape(-1, 1)),
-        monthly.values.reshape(-1, 1)
+        monthly.values.reshape(-1, 1),
     )
 
     lr = LinearRegression()
@@ -70,19 +67,19 @@ def plot_los_time(df):
     ax.plot(linreg_df, "-", label="Lin. regression model")
 
     ax.annotate(
-        r'$R^2 = $ ' + str(r_squared) + '\n' + r'$SE = $ ' + str(standard_err),
-        ['2016-09-01', 7.4],
-        fontsize=fontsize
+        r"$R^2 = $ " + str(r_squared) + "\n" + r"$SE = $ " + str(standard_err),
+        ["2016-09-01", 7.4],
+        fontsize=fontsize,
     )
 
     ax.set_xticks(yearly.index)
-    ax.set_xticklabels(['Apr ' + str(year.year) for year in yearly.index])
+    ax.set_xticklabels(["Apr " + str(year.year) for year in yearly.index])
     for label in ax.get_xticklabels() + ax.get_yticklabels():
-        label.set_fontsize(fontsize * .8)
+        label.set_fontsize(fontsize * 0.8)
 
-    ax.set_xlabel('Admission date', fontsize=fontsize)
-    ax.set_ylabel('Length of stay (days)', fontsize=fontsize)
-    ax.legend(fontsize=fontsize * .8)
+    ax.set_xlabel("Admission date", fontsize=fontsize)
+    ax.set_ylabel("Length of stay (days)", fontsize=fontsize)
+    ax.legend(fontsize=fontsize * 0.8)
 
     here = os.path.dirname(os.path.realpath(__file__))
     filename = os.path.join(here, "main.pdf")

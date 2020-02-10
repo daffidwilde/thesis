@@ -1,11 +1,10 @@
 import os
-
 from itertools import cycle
 
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import seaborn as sbn
-import matplotlib.pyplot as plt
 
 sbn.set_palette("colorblind")
 colours = cycle(sbn.color_palette())
@@ -57,9 +56,9 @@ def get_contribution_variation(df):
     netcost = summed_costs["NetCost"]
     contributions = summed_costs[components].divide(netcost, axis=0).mean()
 
-    cont_var = pd.concat(
-        [contributions, variations[components]], axis=1
-    ).rename({0: "contribution", 1: "variation"}, axis=1)
+    cont_var = pd.concat([contributions, variations[components]], axis=1).rename(
+        {0: "contribution", 1: "variation"}, axis=1
+    )
 
     return cont_var
 
@@ -151,10 +150,7 @@ def plot_cost_bubble(df):
     )
 
     fig, (ax, size_ax) = plt.subplots(
-        ncols=2,
-        figsize=(24, 12),
-        dpi=400,
-        gridspec_kw={"width_ratios": [16, 1]},
+        ncols=2, figsize=(24, 12), dpi=400, gridspec_kw={"width_ratios": [16, 1]}
     )
 
     for nondiab_row, diab_row in args:
@@ -203,13 +199,13 @@ def plot_cost_bubble(df):
     ax.set_yticks(ax.get_yticks()[1:-1])
 
     ax.set_xlim(ax.get_xlim())
-    ax.hlines(0, *ax.get_xlim(), color='darkgray', lw=2)
+    ax.hlines(0, *ax.get_xlim(), color="darkgray", lw=2)
 
     for label in ax.get_yticklabels():
-        label.set_fontsize(fontsize * .8)
+        label.set_fontsize(fontsize * 0.8)
 
     for label in ax.get_xticklabels():
-        label.set_fontsize(fontsize * .8)
+        label.set_fontsize(fontsize * 0.8)
         label.set_rotation(45)
         label.set_horizontalalignment("right")
 

@@ -1,7 +1,8 @@
 import os
+
+import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sbn
-import matplotlib.pyplot as plt
 
 
 def plot_corr_heatmap(df):
@@ -45,12 +46,7 @@ def plot_corr_heatmap(df):
     summed_procedure_nums = df.groupby("SPELL_ID")["PROC_NO"].sum()
 
     data = pd.concat(
-        [
-            summed_costs,
-            lengths_of_stay,
-            max_diagnosis_nums,
-            summed_procedure_nums,
-        ],
+        [summed_costs, lengths_of_stay, max_diagnosis_nums, summed_procedure_nums],
         axis=1,
     )
 
@@ -61,14 +57,7 @@ def plot_corr_heatmap(df):
     fig, ax = plt.subplots(1, figsize=(16, 12), dpi=400)
 
     sbn.heatmap(
-        corr,
-        square=True,
-        cmap="viridis",
-        vmin=-1,
-        vmax=1,
-        lw=0.01,
-        annot=False,
-        ax=ax,
+        corr, square=True, cmap="viridis", vmin=-1, vmax=1, lw=0.01, annot=False, ax=ax
     )
 
     for label in ax.get_xticklabels():

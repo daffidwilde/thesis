@@ -1,12 +1,11 @@
 import os
 
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
 from matplotlib.dates import date2num
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import r2_score
-
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
 
 
 def plot_admissions(df):
@@ -45,10 +44,7 @@ def plot_admissions(df):
     params["vmax"] = params["val"] + params["err"]
 
     data = monthly
-    X, y = (
-        date2num(data.index.values.reshape(-1, 1)),
-        data.values.reshape(-1, 1),
-    )
+    X, y = (date2num(data.index.values.reshape(-1, 1)), data.values.reshape(-1, 1))
     lr = LinearRegression()
     lr.fit(X, y)
     y_pred = lr.predict(X)
@@ -73,19 +69,19 @@ def plot_admissions(df):
     ax.plot(linreg_df, "-", label="Lin. regression model")
 
     ax.annotate(
-        r'$R^2 = $ ' + str(r_squared) + '\n' + r'$SE = $ ' + str(standard_err),
-        ['2012-05-01', 0.0945],
-        fontsize=fontsize
+        r"$R^2 = $ " + str(r_squared) + "\n" + r"$SE = $ " + str(standard_err),
+        ["2012-05-01", 0.0945],
+        fontsize=fontsize,
     )
 
     ax.set_xticks(yearly.index)
-    ax.set_xticklabels(['Apr ' + str(year.year) for year in yearly.index])
+    ax.set_xticklabels(["Apr " + str(year.year) for year in yearly.index])
     for label in ax.get_xticklabels() + ax.get_yticklabels():
-        label.set_fontsize(fontsize * .8)
+        label.set_fontsize(fontsize * 0.8)
 
-    ax.set_xlabel('Admission date', fontsize=fontsize)
-    ax.set_ylabel('Proportion of total admissions', fontsize=fontsize)
-    ax.legend(fontsize=fontsize * .8)
+    ax.set_xlabel("Admission date", fontsize=fontsize)
+    ax.set_ylabel("Proportion of total admissions", fontsize=fontsize)
+    ax.legend(fontsize=fontsize * 0.8)
 
     here = os.path.dirname(os.path.realpath(__file__))
     filename = os.path.join(here, "main.pdf")

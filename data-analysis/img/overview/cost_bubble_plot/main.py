@@ -1,12 +1,10 @@
 import os
 
-from seaborn import color_palette
-from matplotlib.ticker import MultipleLocator
-
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-
+from matplotlib.ticker import MultipleLocator
+from seaborn import color_palette
 
 blue = color_palette("colorblind")[0]
 
@@ -56,9 +54,9 @@ def get_contribution_variation(df):
     corr = summed_costs.corr()
     order = sorted(corr.columns, key=lambda col: abs(corr[col]).sum())[::-1]
 
-    cont_var = pd.concat(
-        [contributions, variations[components]], axis=1
-    ).rename({0: "contribution", 1: "variation"}, axis=1)
+    cont_var = pd.concat([contributions, variations[components]], axis=1).rename(
+        {0: "contribution", 1: "variation"}, axis=1
+    )
 
     return cont_var.reindex(order).dropna()
 
@@ -114,10 +112,7 @@ def plot_cost_bubble(df):
     cont_var = get_contribution_variation(df)
 
     fig, (ax, size_ax) = plt.subplots(
-        ncols=2,
-        figsize=(24, 12),
-        dpi=400,
-        gridspec_kw={"width_ratios": [16, 1]},
+        ncols=2, figsize=(24, 12), dpi=400, gridspec_kw={"width_ratios": [16, 1]}
     )
 
     for point in cont_var.iterrows():
@@ -152,7 +147,7 @@ def plot_cost_bubble(df):
     ax.set_yticks(ax.get_yticks()[1:-1])
 
     ax.set_xlim(ax.get_xlim())
-    ax.hlines(0, *ax.get_xlim(), color='r', lw=2)
+    ax.hlines(0, *ax.get_xlim(), color="r", lw=2)
 
     for label in ax.get_yticklabels():
         label.set_fontsize(fontsize)
