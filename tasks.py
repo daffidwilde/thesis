@@ -21,7 +21,7 @@ from invoke import task
 def compile(c):
     """ Compile the LaTeX document. """
 
-    c.run("latexmk -interaction=nonstopmode --xelatex -shell-escape main.tex")
+    c.run("latexmk -interaction=nonstopmode -shell-escape main.tex")
 
 
 @task

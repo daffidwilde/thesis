@@ -23,6 +23,7 @@ __pycache__
 *.bcf
 *.blg
 *-blx.bib
+*.dvi
 *.fdb_latexmk
 *.fls
 *.lof
