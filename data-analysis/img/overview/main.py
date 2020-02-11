@@ -1,13 +1,12 @@
 """ Main script for overview plot generation. """
 
-import sys
 import json
+import sys
 
-from dask import compute, delayed
-
+import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sbn
-import matplotlib.pyplot as plt
+from dask import compute, delayed
 
 from age_bar.main import plot_age_bar
 from corr_heatmap.main import plot_corr_heatmap
@@ -28,13 +27,13 @@ def main(num_cores):
     sbn.set_palette("colorblind")
     sbn.set_style("ticks")
 
-    plt.rcParams['axes.labelpad'] = 10
-    plt.rcParams['axes.labelsize'] = 'xx-large'
-    plt.rcParams['xtick.labelsize'] = 'xx-large'
-    plt.rcParams['ytick.labelsize'] = 'xx-large'
+    plt.rcParams["axes.labelpad"] = 10
+    plt.rcParams["axes.labelsize"] = "xx-large"
+    plt.rcParams["xtick.labelsize"] = "xx-large"
+    plt.rcParams["ytick.labelsize"] = "xx-large"
 
-    plt.rcParams['legend.title_fontsize'] = 'xx-large'
-    plt.rcParams['legend.fontsize'] = 'x-large'
+    plt.rcParams["legend.title_fontsize"] = "xx-large"
+    plt.rcParams["legend.fontsize"] = "x-large"
 
     with open("/Volumes/thesis-data/dtype_dict.json", "r") as dtypes:
         dtypes = json.load(dtypes)

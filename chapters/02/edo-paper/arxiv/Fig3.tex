@@ -1,0 +1,93 @@
+\documentclass[border=5pt]{standalone}
+\usepackage{edo-tikz}
+
+\begin{document}
+\begin{tikzpicture}
+
+    % Columns
+    \path (-2.75, -10) pic {column=7}
+          (1, -10) pic {column=7}
+          (4.75, -10) pic {column=7};
+
+    \node at (-1.85, -7.75) {\huge \(+\)};
+    \node at (1.85, -7.75) {\huge \(+\)};
+
+    \draw[decorate, decoration={brace, amplitude=10pt}] (-6, -10) -- (-6, -6)
+    node[midway, left=20pt] {%
+        \begin{tabular}{l}
+            Columns of\\
+            the dataset
+        \end{tabular}
+    };
+
+    % Distribution families
+    \node[ellipse, fill=orange!15] (dists) at (0, -1) {\Large%
+        \begin{tabular}{c}
+            \tikz[baseline, inner sep=0] \node[anchor=base] (normal)
+                {\(N(\mu, \sigma^2)\)};
+            \qquad
+            \tikz[baseline, inner sep=0] \node[anchor=base] (uniform)
+                {\(U(\alpha, \beta)\)};
+            \\
+            {} \quad \(Po(\lambda)\)
+        \end{tabular}
+    } node[yshift=-30pt,left=150pt] {%
+        \color{orange}
+        \begin{tabular}{l}
+            Families of\\
+            distributions
+        \end{tabular}
+    };
+
+
+    % Metadata
+    \node[fill=cyan!15, minimum width=3cm, rounded corners] (metadata) at
+        (0, -4) {\Large%
+            \tikz[baseline, inner sep=0] \node[anchor=base] (norm1)
+                {\(N(0.25, 1)\)};
+            \quad
+            \tikz[baseline, inner sep=0] \node[anchor=base] (uniform1)
+                {\(U(1.2, 3.2)\)};
+            \quad
+            \tikz[baseline, inner sep=0] \node[anchor=base] (norm2)
+                {\(N(-3.7, 0)\)};
+        } node[yshift=-110pt,left=180pt] {%
+            \color{cyan}
+            \begin{tabular}{l}
+                Column\\
+                information
+            \end{tabular}
+        };
+
+
+    % Connecting family to metadata
+    \draw[->] ([xshift=-5pt] normal.south)
+        to [out=250, in=90] ([yshift=20pt] norm1);
+
+    \draw[->] (uniform) to [out=270, in=90] ([yshift=20pt] uniform1);
+
+    \draw[->] ([xshift=5pt] normal.south)
+        to [out=270, in=90] ([yshift=20pt] norm2)
+        node[right=15pt, yshift=20pt] {%
+            \begin{tabular}{l}
+                Sample or create a\\
+                distribution subtype\\
+                and sample parameters
+            \end{tabular}
+        };
+
+    % Connecting metadata to columns
+    \draw[->] ([yshift=-10pt] norm1.south) -- ++(0, -1);
+
+    \draw[->] ([yshift=-10pt] uniform1.south) -- ++(0, -1);
+
+    \draw[->] ([yshift=-10pt] norm2.south) -- ++(0, -1)
+        node[right=20pt, yshift=15pt] {%
+            \begin{tabular}{l}
+                Sample values\\
+                from distribution
+            \end{tabular}
+        };
+
+\end{tikzpicture}
+\end{document}

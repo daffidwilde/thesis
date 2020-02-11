@@ -1,0 +1,3 @@
+[submodule "chapters/02/edo-paper"]
+	path = chapters/02/edo-paper
+	url = https://github.com/daffidwilde/edo-paper

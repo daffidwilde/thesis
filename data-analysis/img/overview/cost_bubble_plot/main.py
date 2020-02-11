@@ -1,12 +1,10 @@
 import os
 
-from seaborn import color_palette
-from matplotlib.ticker import MultipleLocator
-
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-
+from matplotlib.ticker import MultipleLocator
+from seaborn import color_palette
 
 blue = color_palette("colorblind")[0]
 
@@ -152,7 +150,7 @@ def plot_cost_bubble(df):
     ax.set_yticks(ax.get_yticks()[1:-1])
 
     ax.set_xlim(ax.get_xlim())
-    ax.hlines(0, *ax.get_xlim(), color='r', lw=2)
+    ax.hlines(0, *ax.get_xlim(), color="r", lw=2)
 
     for label in ax.get_yticklabels():
         label.set_fontsize(fontsize)

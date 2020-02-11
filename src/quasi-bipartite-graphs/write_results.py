@@ -1,10 +1,12 @@
 """ The worker function. """
 
 import time
-import numpy as np
 
+import numpy as np
 from dask import delayed
-from sampling import get_sample, concat_dataframes
+
+from sampling import concat_dataframes, get_sample
+
 
 @delayed
 def write_dataframes(root, X, Y, beta, size, seed, sample_idx):
@@ -34,18 +36,19 @@ def write_dataframes(root, X, Y, beta, size, seed, sample_idx):
     y_sample = get_sample(Y, seed, size)
 
     # Drop irrelevant columns
-    irrelevant_columns = ['animal_name', 'class_type', 'catsize']
+    irrelevant_columns = ["animal_name", "class_type", "catsize"]
     x_sample.drop(irrelevant_columns, axis=1)
     y_sample.drop(irrelevant_columns, axis=1)
 
-    dataframe = concat_dataframes(x_sample, y_sample, sample_idx,
-                                  seed, beta, size)
+    dataframe = concat_dataframes(
+        x_sample, y_sample, sample_idx, seed, beta, size
+    )
 
     time_taken = time.clock() - start
 
     if np.any(dataframe):
 
-        dataframe['time'] = time_taken
+        dataframe["time"] = time_taken
         dataframe.to_csv(
-            f'{root}/{beta}/{size}/{seed}/{sample_idx}/', index=False
+            f"{root}/{beta}/{size}/{seed}/{sample_idx}/", index=False
         )

@@ -1,8 +1,8 @@
+import os
 from collections import Counter
 
-import os
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 
 
 def plot_no_diag_bar(df):
@@ -19,9 +19,7 @@ def plot_no_diag_bar(df):
     ax.bar(
         data.keys(), np.array(list(data.values())) / len(diag_nums), width=0.9
     )
-    freq_ax.bar(
-        data.keys(), np.array(list(data.values())) / 100000, width=0.9
-    )
+    freq_ax.bar(data.keys(), np.array(list(data.values())) / 100000, width=0.9)
 
     ax.set_ylabel("Frequency density")
     freq_ax.set_ylabel("Frequency (100,000's)")

@@ -1,0 +1,51 @@
+\subsection{Selection}
+
+The selection operator describes the process by which individuals are chosen
+from the current population to generate the next. Almost always, the likelihood
+of an individual being selected is determined by their fitness. This is because
+the purpose of selection is to preserve favourable qualities and encourage some
+homogeneity within future generations~\cite{Back1994}.
+
+\inputtikz[.8\imgwidth]{selection}{%
+    The selection process with the inclusion of some lucky individuals.
+}
+\input{tex/algorithms/selection.tex}
+
+In EDO, a modified truncation selection method is used~\cite{Jebari2013}, as can
+be seen in Figure~\ref{fig:selection}. Truncation selection takes a fixed
+number, \(n_b = \lceil bN\rceil\), of the fittest individuals in a population
+and makes them the `parents' of the next. It has been observed that, despite
+its efficiency as a selection operator, truncation selection can lead to
+premature convergence at local optima~\cite{Jebari2013, Tatsuya2002}. The
+modification for EDO is an optional stage after the best individuals have been
+chosen: with some small \(l\), a number, \(n_l = \lceil lN\rceil\), of the
+remaining individuals can be selected at random to be carried forward. Hence,
+allowing for a small number of randomly selected individuals may encourage
+diversity and further exploration throughout the run of the algorithm. It should
+be noted that regardless of this step, an individual could potentially be
+present throughout the entirety of the algorithm.
+
+After the parents have been selected, there are two adjustments made to the
+current search space. The first is that the subtypes for each family in
+\(\mathcal{P}\) are updated to only those present in the parents. The second
+adjustment is a process which acts on the distribution parameter limits for
+each subtype in \(\mathcal{P}\). This adjustment gives the ability to `shrink'
+the search space about the region observed in a given population. This method is
+based on a power law described in~\cite{Amirjanov2016} that relies on a shrink
+factor, \(s\). At each iteration, \(t\), every distribution subtype which is
+present in the parents has its parameter's limits, \(\left(l_t, u_t\right)\),
+adjusted. This adjustment is such that the new limits, \(\left(l_{t+1},
+u_{t+1}\right)\) are centred about the mean observed value, \(\mu\), for that
+parameter:
+\begin{align}
+    \label{eq:shrinking_lower}
+    l_{t+1}&= \max \left\{l_t, \ \mu - \frac{1}{2} (u_t - l_t) s^t\right\}\\
+    \label{eq:shrinking_upper}
+    u_{t+1}&= \min \left\{u_t, \ \mu + \frac{1}{2} (u_t - l_t) s^t\right\}
+\end{align}
+
+The shrinking process is given explicitly in
+Algorithm~\ref{algorithm:shrinking}. Note that the behaviour of this process can 
+produce reductive results for some use cases and is optional.
+
+\input{tex/algorithms/shrinking.tex}

@@ -1,0 +1,16 @@
+\balg%
+\KwIn{\(R, C, \mathcal{P}, w\)}
+\KwOut{An individual defined by a dataset and some metadata}
+
+\Begin{%
+    sample a number of rows and columns\;
+    create an empty dataset\;
+    \For{each column in the dataset}{%
+        sample a distribution from \(\mathcal{P}\)\;
+        create an instance of the distribution\;
+        fill in the column by sampling from this instance\;
+        record the instance in the metadata
+    }
+}
+\caption{Creating an individual}
+\ealg%

@@ -1,12 +1,11 @@
 import os
-
 from itertools import cycle
-from scipy.stats import gaussian_kde
 
 import matplotlib.patches as mpatches
 import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sbn
+from scipy.stats import gaussian_kde
 
 sbn.set_palette("colorblind")
 colours = cycle(sbn.color_palette())

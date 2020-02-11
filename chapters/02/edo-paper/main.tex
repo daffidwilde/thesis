@@ -1,0 +1,116 @@
+\documentclass{article}
+
+\usepackage{fullpage}
+
+\usepackage[ruled]{algorithm2e}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage[backend=bibtex, style=numeric, giveninits=true]{biblatex}
+    \addbibresource{references}
+\usepackage{booktabs} % Pandas dataframes
+\usepackage{caption}
+\usepackage{enumerate} % Roman numerals
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{mathptmx}
+\usepackage{minted}
+\usepackage{standalone}
+\usepackage{subfig}
+\usepackage{tikz}
+    \usetikzlibrary{%
+        arrows.meta,
+        decorations.pathreplacing,
+        decorations.text,
+        patterns,
+        shapes.arrows,
+        shapes.geometric
+    }
+
+
+% Page setup and lengths
+\raggedbottom%
+
+\newlength{\imgwidth}
+\setlength{\imgwidth}{.95\textwidth}
+
+\definecolor{cyan}{RGB}{0, 164, 216}
+\definecolor{magenta}{RGB}{226, 62, 138}
+
+
+% Algorithms
+\newcommand{\balg}[1][htbp]{%
+    \begin{algorithm}[#1]\DontPrintSemicolon
+}
+\newcommand{\ealg}{\end{algorithm}}
+
+
+% TikZ styles, commands and settings
+\pgfdeclarelayer{background}
+\pgfsetlayers{background,main}
+
+\tikzstyle{every picture} += [remember picture]
+\tikzstyle{na} = [baseline=-.5ex]
+
+\tikzset{%
+    column/.pic={%
+        code{%
+            \draw[line width=1pt] (0, 0) rectangle (-2cm, 4cm);
+            \foreach \val in {0, ..., #1}{%
+                \draw[rotate=90] ([xshift=-\val*10pt] 4cm, 2cm) -- ++(0, -2cm);
+            };
+            \node at (-1cm, 1.25) {$\vdots$};
+            \foreach \val in {1, 2}{%
+                \draw (0, \val * 10pt) -- ++(-2cm, 0);
+            };
+        }
+    }
+}
+
+\tikzset{%
+    fullcolumn/.pic={%
+        code{%
+            \draw[line width=1pt] (0, 0) rectangle (-2cm, #1*10pt);
+            \foreach \val in {0, ..., #1}{%
+                \draw[rotate=90] ([xshift=-\val*10pt] #1*10pt, 2cm) -- ++(0, -2cm);
+            };
+        }
+    }
+}
+
+\newcommand{\inputtikz}[3][.8\linewidth]{%
+    \begin{figure}[htbp]
+        \centering
+        \resizebox{#1}{!}{%
+            \input{tex/diagrams/#2.tex}
+        }
+        \caption{#3}\label{fig:#2}
+    \end{figure}
+}
+
+\DeclareMathOperator*{\argmin}{arg\,min}
+\renewcommand\theContinuedFloat{\alph{ContinuedFloat}}
+
+% Document
+\title{%
+    Evolutionary Dataset Optimisation:
+    learning algorithm quality through evolution
+}
+\author{Henry Wilde, Vincent Knight, Jonathan Gillard}
+
+
+\begin{document}
+\maketitle%
+
+\input{sections/abstract.tex}
+
+\graphicspath{{./img/}}
+\input{sections/intro.tex}
+\input{sections/algorithm/main.tex}
+\input{sections/examples.tex}
+\input{sections/conclusion.tex}
+
+\pagebreak\input{sections/appendix.tex}
+\printbibliography%
+\end{document}

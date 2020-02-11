@@ -1,0 +1,18 @@
+\balg%
+\KwIn{parents, current iteration, \(\mathcal{P}, M, s\)}
+\KwOut{A new mutation space focussed around the parents}
+
+\Begin{%
+    \For{each distribution subtype in \(\mathcal{P}\)}{%
+        \For{each parameter of the distribution}{%
+            get the current values for parameter over all parent columns\;
+            find the mean of the current values\;
+            find the new lower~(\ref{eq:shrinking_lower}) and
+            upper~(\ref{eq:shrinking_upper}) bounds around the mean\;
+            set the parameter limits\;
+        }
+    }
+}
+\caption{Shrinking the mutation space}\label{algorithm:shrinking}
+\ealg%
+

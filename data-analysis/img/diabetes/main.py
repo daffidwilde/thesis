@@ -1,11 +1,10 @@
 import json
 
-from dask import compute, delayed, get
-
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import seaborn as sbn
+from dask import compute, delayed, get
 
 from admissions.main import plot_admissions
 from age_bar.main import plot_age_bar

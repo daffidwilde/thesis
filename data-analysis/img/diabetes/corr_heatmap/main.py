@@ -1,7 +1,8 @@
 import os
+
+import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sbn
-import matplotlib.pyplot as plt
 
 
 def plot_corr_heatmap(df):

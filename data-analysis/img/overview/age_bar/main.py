@@ -1,11 +1,11 @@
+import os
 from collections import Counter
 
-import os
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
-
 from seaborn import color_palette
+
 
 def plot_age_bar(df):
     """

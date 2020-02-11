@@ -1,9 +1,8 @@
 import os
 
-from scipy.stats import gaussian_kde
-
 import matplotlib.pyplot as plt
 import numpy as np
+from scipy.stats import gaussian_kde
 
 
 def plot_netcost_kde(df):

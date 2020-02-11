@@ -1,8 +1,8 @@
+import os
 from collections import Counter
 
-import os
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 
 
 def plot_age_bar(df):
@@ -31,8 +31,8 @@ def plot_age_bar(df):
 
     for data, label, shift in zip(
         [nondiab_ages, diab_ages],
-        ['non-diabetic', 'diabetic'],
-        [-.5 * width, .5 * width]
+        ["non-diabetic", "diabetic"],
+        [-0.5 * width, 0.5 * width],
     ):
 
         data = Counter(data)
@@ -41,25 +41,25 @@ def plot_age_bar(df):
             np.array(list(data.keys())) + shift,
             data.values(),
             width=width,
-            label=label
+            label=label,
         )
 
         dens_ax.bar(
             np.array(list(data.keys())) + shift,
             np.array(list(data.values())) / sum(data.values()),
             width=width,
-            label=label
+            label=label,
         )
 
     for ax, label in zip(
-        [freq_ax, dens_ax], ['Frequency', 'Frequency density']
+        [freq_ax, dens_ax], ["Frequency", "Frequency density"]
     ):
-        ax.set_xlabel('Age (years)', fontsize=fontsize)
+        ax.set_xlabel("Age (years)", fontsize=fontsize)
         ax.set_ylabel(label, fontsize=fontsize)
-        ax.legend(fontsize=fontsize * .8)
+        ax.legend(fontsize=fontsize * 0.8)
 
         for tick_label in ax.get_xticklabels() + ax.get_yticklabels():
-            tick_label.set_fontsize(fontsize * .8)
+            tick_label.set_fontsize(fontsize * 0.8)
 
     here = os.path.dirname(os.path.realpath(__file__))
     filename = os.path.join(here, "main.pdf")

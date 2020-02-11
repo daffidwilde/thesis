@@ -1,8 +1,8 @@
+import os
 from collections import Counter
 
-import os
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 
 
 def plot_los_bar(df):

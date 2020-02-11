@@ -1,8 +1,8 @@
 import os
 
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
 
 costs = [
     "COST",
@@ -54,13 +54,11 @@ def plot_cost_variation(df):
 
     corr = summed_costs.corr()
     order = sorted(corr.columns, key=lambda col: abs(corr[col]).sum())[::-1]
-    
-    combined_variations = (
-        pd.concat(variations, axis=1)
-        .rename({0: "non-diabetic", 1: "diabetic"}, axis=1)
+
+    combined_variations = pd.concat(variations, axis=1).rename(
+        {0: "non-diabetic", 1: "diabetic"}, axis=1
     )
     combined_variations = combined_variations.reindex(order)
-
 
     fig, ax = plt.subplots(1, figsize=(16, 10), dpi=300)
 
@@ -73,19 +71,19 @@ def plot_cost_variation(df):
         ax.bar(inds + shift, data.values, width, label=label)
 
     ax.set_axisbelow(True)
-    ax.grid(b=True, which='major', axis='y')
+    ax.grid(b=True, which="major", axis="y")
 
     ax.set_xlim(ax.get_xlim())
-    ax.hlines(0, *ax.get_xlim(), color='darkgray', lw=2)
+    ax.hlines(0, *ax.get_xlim(), color="darkgray", lw=2)
 
-    ax.legend(fontsize=fontsize * .8)
+    ax.legend(fontsize=fontsize * 0.8)
     ax.set_xticks(inds)
     ax.set_xticklabels(combined_variations.index)
     ax.set_ylabel(r" Coefficient of variation ($C_v$)", fontsize=fontsize)
     for label in ax.get_yticklabels():
-        label.set_fontsize(fontsize * .8)
+        label.set_fontsize(fontsize * 0.8)
     for label in ax.get_xticklabels():
-        label.set_fontsize(fontsize * .8)
+        label.set_fontsize(fontsize * 0.8)
         label.set_rotation(45)
         label.set_horizontalalignment("right")
 

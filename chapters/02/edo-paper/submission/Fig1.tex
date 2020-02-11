@@ -1,0 +1,89 @@
+\documentclass[border=5pt]{standalone}
+\usepackage{edo-tikz}
+
+\begin{document}
+\begin{tikzpicture}
+
+    \begin{pgfonlayer}{background}
+    % Data
+    \node[%
+        ellipse,
+        minimum height=2cm,
+        minimum width=6cm,
+        fill=cyan!15,
+        label={below:\Large\color{cyan} Data}
+    ] at (0, 0) {};
+
+    % Algorithms
+    \node[%
+        rectangle,
+        rounded corners=0.25cm,
+        minimum height=1cm,
+        minimum width=5cm,
+        fill=orange!15,
+        label={\Large\color{orange} Algorithms}
+    ] at (0, -5.5) {};
+    \end{pgfonlayer}
+
+    \node[circle, fill=cyan, thick, inner sep=2pt, minimum size=2mm]
+        (d) at (2, 0) {};
+
+    \node[circle] (q1) at (2, -2) {?};
+    \draw[->, thick] (d.south) -- (q1.north);
+
+    \node[circle] (q2a) at (1, -3) {?};
+    \node[circle] (q2b) at (3, -3) {?};
+    \node at ([xshift=30pt]q2b.east) {\small{%
+            \begin{tabular}{c}
+                Review and\\
+                comparison
+            \end{tabular}
+        }
+    };
+    \draw[->, thick] (q1.south west) -- (q2a.north east);
+    \draw[->, thick] (q1.south east) -- (q2b.north west);
+
+    \node[circle] (q3) at (2, -4) {?};
+    \draw[->, thick] (q2a.south east) -- (q3.north west);
+    \draw[thick] (q2a.south west) -- ++(-0.5, -0.5);
+
+    \node[circle, fill=orange, thick, inner sep=2pt, minimum size=2mm]
+        (a) at (2, -5.5) {};
+
+    \draw[->, thick] (q3.south) -- (a.north);
+
+    \node[circle, fill=orange, thick, inner sep=2pt, minimum size=2mm]
+        (a2) at (-1.9, -5.5) {};
+
+    \fill[cyan!35] plot [smooth cycle] coordinates {%
+        (-2.2, -0.5)
+        (-1.7, -0.5)
+        (-1.1, -0.4)
+        (-0.7, -0.4)
+        (-0.8, 0.1)
+        (-0.7, 0.5)
+        (-1.5, 0.6)
+        (-2.2, 0.4)
+        (-2.15, -0.1)
+    } node (data) at (-2, -0.5) {};
+    \node (good) at (0.1, 0.6) {\scriptsize\color{cyan} `Good' data};
+    \draw[->, cyan] (good.south) to[out=270, in=10] (-0.7, -0.1);
+
+    \foreach \position in {(-1.7, 0), (-1.5, 0.1), (-1.3, -0.1)} {%
+        \fill[cyan] \position circle (0.8mm);
+    };
+
+    \node (bench) at (-4.5, 0) {\scriptsize\color{cyan} Benchmarks};
+    \draw[->, cyan] (bench.east) -- (-1.9, 0);
+
+    \draw[->, thick]
+        (a2.north west) to [out=130, in=230] node[midway, left] {\small{%
+                \begin{tabular}{c}
+                    Evolutionary\\
+                    dataset\\
+                    optimisation
+                \end{tabular}
+            }
+        } (data.south west);
+\end{tikzpicture}
+\end{document}
