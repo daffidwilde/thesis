@@ -1,11 +1,10 @@
 name: Comment word count
 on: pull_request
 jobs:
-  comment:
+  example:
     name: Comment the current word count
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
       - name: Set up Python
         uses: actions/setup-python@v1
         with:
@@ -18,7 +17,7 @@ jobs:
         run: |
           python wordcount.py
       - name: Comment word count
-        uses: harupy/comment-on-pr@master
+        uses: unsplash/comment-on-pr@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
