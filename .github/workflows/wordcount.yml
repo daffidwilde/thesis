@@ -24,7 +24,7 @@ jobs:
       - name: Install PyGithub
         run: |
             python -m pip install --upgrade pip
-            pip install PyGithub==1.4.6
+            pip install PyGithub
       - name: Clone submodules
         run: git submodule update --init --recursive
       - name: Calculate and comment word count
