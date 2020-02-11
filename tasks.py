@@ -9,7 +9,7 @@ from difflib import SequenceMatcher
 
 import bibtexparser
 
-# import known
+import known
 import pandas as pd
 from bibtexparser.bibdatabase import BibDatabase
 from bibtexparser.bparser import BibTexParser
@@ -37,7 +37,7 @@ def spellcheck(c):
             ["aspell", "-t", "--list", "--lang=en_GB"], input=latex, text=True
         )
 
-        errors = set(aspell_output.split("\n")) - {""}  # - known.words
+        errors = set(aspell_output.split("\n")) - {""} - known.words
         if len(errors):
             print(f"In {path} the following words are not known: ")
             for string in sorted(errors):

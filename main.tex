@@ -3,22 +3,49 @@
 % Setting up page
 \usepackage[a4paper,top=25mm,right=25mm,bottom=25mm,left=40mm]{geometry}
 \usepackage{emptypage}
-\linespread{1.3}
+    \linespread{1.3}
+    \setcounter{tocdepth}{1}
 
-% Bibliography
+% Bibliography and links
+\usepackage{hyperref}
 \usepackage[numbers]{natbib}
     \bibliographystyle{abbrvnat}
 
-% Images and tables
+% Images, lists, algorithms and tables
+\usepackage[ruled]{algorithm2e}
+    \newcommand{\balg}[1][htbp]{%
+        \begin{algorithm}[#1]\DontPrintSemicolon
+    }
+    \newcommand{\ealg}{\end{algorithm}}
 \usepackage{booktabs}
+\usepackage{caption}
+\usepackage{enumerate}
+\usepackage{float}
 \usepackage{graphicx}
+\usepackage{standalone}
+\usepackage{subfig}
+\usepackage{tikz}
+    \newlength{\imgwidth}
+    \setlength{\imgwidth}{.95\textwidth}
 
-% Fonts
+% Fonts, colours and code
+\usepackage{minted}
 \usepackage{moresize}
+    \definecolor{cyan}{RGB}{0, 164, 216}
+    \definecolor{magenta}{RGB}{226, 62, 138}
+
+% Mathematics
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
 
 % Chapter-specifics
 \usepackage{import}
 \usepackage{chapters/02/main}
+
+
+%%% DOCUMENT %%%
+
 
 \begin{document}
 \input{title.tex}
