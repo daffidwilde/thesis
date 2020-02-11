@@ -32,8 +32,8 @@ def get_summary():
     return summary
 
 
-def get_pull_request(entry):
-    """ Get the pull request associated with `entry`. """
+def get_pull_request(event):
+    """ Get the pull request associated with `event`. """
 
     branch_label = event['pull_request']['head']['label']
     branch_name = branch_label.split(':')[-1]
