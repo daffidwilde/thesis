@@ -32,8 +32,8 @@ def get_summary():
     return summary
 
 
-def get_pull_request(event):
-    """ Get the pull request associated with `event`. """
+def get_pull_request(gh, event):
+    """ Get the pull request from `gh` client associated with `event`. """
 
     branch_label = event['pull_request']['head']['label']
     branch_name = branch_label.split(':')[-1]
@@ -59,7 +59,7 @@ def main():
 
     gh = Github(os.getenv('GITHUB_TOKEN'))
     event = read_json(os.getenv('GITHUB_EVENT_PATH'))
-    pr = get_pull_request(event)
+    pr = get_pull_request(gh, event)
 
     new_comment = get_summary()
     check_for_duplicates(pr, new_comment)
