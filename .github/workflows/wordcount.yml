@@ -21,5 +21,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          filename: wordcount.md
+          msg: ${{ cat wordcount.md }}
+          shell: bash
 
