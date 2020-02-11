@@ -1,0 +1,26 @@
+name: Comment word count
+on: pull_request
+jobs:
+  comment:
+    name: Comment the current word count
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Set up Python
+        uses: actions/setup-python@v1
+        with:
+            python-version: [3.7]
+      - name: Install LaTeX
+        run: |
+            sudo apt-get update
+            sudo apt-get install -y texlive-latex-extra
+      - name: Calculate wordcount
+        run: |
+          python wordcount.py
+      - name: Comment word count
+        uses: harupy/comment-on-pr@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          filename: wordcount.md
+
