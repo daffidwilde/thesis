@@ -1,10 +1,18 @@
 """ A simple script to calculate the wordcount of main. """
 
+import json
 import os
 import subprocess
 import sys
 
 from github import Github
+
+
+def read_json(filepath):
+    """ Read a json file as a dictionary. """
+
+    with open(filepath, 'r') as f:
+        return json.load(f)
 
 
 def get_summary():
