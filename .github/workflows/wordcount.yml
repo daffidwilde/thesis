@@ -17,10 +17,9 @@ jobs:
         run: |
           python wordcount.py
       - name: Comment word count
-        uses: unsplash/comment-on-pr@master
+        uses: harupy/comment-on-pr@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          msg: ${{ cat wordcount.md }}
-          shell: bash
+          template: wordcount.md
 

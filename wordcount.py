@@ -6,7 +6,7 @@ import subprocess
 def main():
     """ Save the output of texcount to file and then trim it. """
 
-    with open("wordcount.md", "w") as f:
+    with open(".github/workflows/wordcount.md", "w") as f:
         f.write("The current word count is:\n")
         f.write("==========================\n\n")
 
