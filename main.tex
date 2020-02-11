@@ -27,6 +27,8 @@
 \usepackage{tikz}
     \newlength{\imgwidth}
     \setlength{\imgwidth}{.95\textwidth}
+    \newlength{\tablewidth}
+    \setlength{\tablewidth}{.9\textwidth}
 
 % Fonts, colours and code
 \usepackage{minted}
@@ -38,6 +40,11 @@
 \usepackage{amssymb}
 \usepackage{amsmath}
 \usepackage{amsthm}
+    \newtheorem{definition}{Definition}
+    \newtheorem{theorem}{Theorem}
+\usepackage{mathtools}
+    \DeclarePairedDelimiter\abs{\lvert}{\rvert}%
+    \DeclarePairedDelimiter\norm{\lVert}{\rVert}%
 
 % Chapter-specifics
 \usepackage{import}
