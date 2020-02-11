@@ -26,7 +26,7 @@ def get_summary():
     items = string.split("\\n\\n")
     block = items[-2]
 
-    for line in block.split("\\n")[2:]:
+    for line in block.split("\\n")[1:]:
         summary += line + "\n"
 
     return summary
