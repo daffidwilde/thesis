@@ -6,5 +6,7 @@ words = {
     "dataset",
     "edo",
     "img",
+    "init",
+    "kmodes",
     "Taf",
 }
