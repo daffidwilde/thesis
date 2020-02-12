@@ -1,6 +1,6 @@
-[submodule "chapters/02/edo-paper"]
-	path = chapters/02/edo-paper
+[submodule "chapters/edo/edo-paper"]
+	path = chapters/edo/edo-paper
 	url = https://github.com/daffidwilde/edo-paper
-[submodule "chapters/03/kmodes-init-paper"]
-	path = chapters/03/kmodes-init-paper
+[submodule "chapters/kmodes/kmodes-init-paper"]
+	path = chapters/kmodes/kmodes-init-paper
 	url = https://github.com/daffidwilde/kmodes-init-paper
