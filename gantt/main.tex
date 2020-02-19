@@ -1,4 +1,4 @@
-\documentclass[border=15pt]{standalone}
+\documentclass[border=5pt]{standalone}
 \usepackage{pgfgantt}
 
 \begin{document}
@@ -8,43 +8,32 @@
     vgrid=true,
 ]{1}{12}
 
-    \gantttitle{Year 2 (2019)}{12} \\
+    \gantttitle{Year 3 (2019/20)}{12} \\
     \gantttitlelist{1, ..., 12}{1}{12}\\
 
     \ganttgroup{Papers}{1}{5} \\
-    \ganttbar{Write EDO paper}{2}{3} \\
-    \ganttbar{Collect and verify EDO/\(k\)-modes data}{1}{2} \\
-    \ganttbar{Finish and prepare \(k\)-modes paper}{3}{4} \\
-    \ganttbar{Look to submit}{3}{5} \\
-    \ganttmilestone{Paper(s) submitted/accepted}{8}
-    \ganttmilestone{}{12} \\
+    \ganttbar{Write \(k\)-modes paper}{1}{2} \\
+    \ganttbar{Corrections on \(k\)-modes paper}{2}{5} \\
+    \ganttbar{JOSS matching paper}{3}{5} \\
+    \ganttbar{Write COPD analysis/queuing paper}{2}{4} \\
     
-    \ganttgroup{Talks}{3}{9} \\
-    \ganttbar{EDO talk}{3}{7} \\
-    \ganttbar{Something for Gregynog}{3}{5} \\
-    \ganttbar{Something for CTHB}{4}{6} \\
-    \ganttbar{Conference/seminar talk?}{5}{9}\\
-    \ganttmilestone{First seminar-level talk}{4}
-    \ganttmilestone{}{9} \\
+    \ganttgroup{Talks}{4}{10} \\
+    \ganttbar{Something for Gregynog}{4}{5} \\
+    \ganttbar{Something Python-related}{6}{10} \\
 
-    \ganttgroup{Travel awards}{1}{5} \\
-    \ganttbar{SSI Fellowship App.}{1}{1} \\
-
-    \ganttgroup{Conferences}{5}{9} \\
+    \ganttgroup{Conferences}{5}{10} \\
     \ganttbar{Welsh Maths Colloquium, Gregynog}{5}{5} \\
-    \ganttbar{EURO-k, Dublin}{6}{6} \\
-    \ganttbar{EuroSciPy, Italy}{8}{9} \\
-    \ganttbar{PyConUK, Cardiff}{9}{9} \\
+    \ganttbar{EuroSciPy, Bilbao}{7}{7} \\
+    \ganttbar{PyConUK, Cardiff}{10}{10} \\
 
-    \ganttgroup{Thesis}{2}{12} \\
-    \ganttbar{Get new data, familiarise, etc.}{2}{4} \\
-    \ganttbar{Determine/develop methods}{3}{8} \\
-    \ganttbar{Gather all parts so far together}{8}{9} \\
-    \ganttbar{Build narrative}{9}{12} \\
-    \ganttbar{Skeleton (lit review, sections, etc.)}{11}{12}
-
-    \ganttlink{elem5}{elem6}
-    \ganttlink{elem12}{elem13}
+    \ganttgroup{Thesis}{1}{12} \\
+    \ganttbar{Write literature review}{3}{6} \\
+    \ganttbar{Write chapter on matching games}{3}{6} \\
+    \ganttbar{Adapt chapters on EDO and \(k\)-modes}{4}{8} \\
+    \ganttbar{Write introduction}{3}{6} \\
+    \ganttbar{Construct pieces into thesis}{5}{8} \\
+    \ganttmilestone{First complete draft}{8}{9} \\
+    \ganttbar{Submit thesis}{9}{10}
 
 \end{ganttchart}
 
