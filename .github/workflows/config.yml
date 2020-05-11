@@ -31,7 +31,7 @@ jobs:
             sudo apt-get install aspell aspell-en
         - name: Install fonts
           run: |
-            sudo apt-get texlive-fonts-extra
+            sudo apt-get install -y texlive-fonts-extra
             sudo curl --remote-name https://www.tug.org/fonts/getnonfreefonts/install-getnonfreefonts
             sudo texlua install-getnonfreefonts
             sudo getnonfreefonts --sys garamondx
