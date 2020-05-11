@@ -3,12 +3,15 @@
 \usepackage{garamondx}
 \usepackage[garamondx,cmbraces]{newtxmath}
 
-\usepackage{titlesec} 
-    \titleformat{\section}[hang]{%
-        \usefont{T1}{phv}{b}{n}\selectfont
-    } % "phv" - Helvetica, "b" - bold
-        {} 
-        {0em}
-        {\hspace{-0.4pt}\Large \thesection\hspace{0.6em}}
 \usepackage{sectsty}
     \chapterfont{\usefont{T1}{phv}{b}{n}\selectfont\huge}
+
+\usepackage[subfigure]{tocloft} % subfigure option only if using subfigure package
+\renewcommand{\cfttoctitlefont} % ToC title
+             {\usefont{T1}{phv}{b}{n}\selectfont\huge}
+\renewcommand{\cftchapfont} % chapter titles
+             {\usefont{T1}{phv}{b}{n}\selectfont}
+\renewcommand{\cftloftitlefont}
+    {\usefont{T1}{phv}{b}{n}\selectfont\huge}
+\renewcommand{\cftlottitlefont}
+    {\usefont{T1}{phv}{b}{n}\selectfont\huge}
