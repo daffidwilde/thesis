@@ -29,6 +29,10 @@ jobs:
             sudo apt-get install latexmk
             sudo apt-get install texlive-science
             sudo apt-get install aspell aspell-en
+            curl --remote-name https://www.tug.org/fonts/getnonfreefonts/install-getnonfreefonts
+            texlua install-getnonfreefonts
+            getnonfreefonts --sys garamondx
+            sudo getnonfreefonts --sys -r
         - name: Install dependencies
           run: |
             python -m pip install --upgrade pip
