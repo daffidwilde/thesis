@@ -7,3 +7,6 @@
 [submodule "chapters/data/paper"]
 	path = chapters/data/paper
 	url = https://github.com/daffidwilde/cwmtaf-analysis
+[submodule "chapters/copd/paper"]
+	path = chapters/copd/paper
+	url = https://github.com/daffidwilde/copd-paper
