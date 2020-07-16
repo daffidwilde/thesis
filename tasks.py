@@ -56,8 +56,6 @@ def collate_bibfiles(bibfiles, destination):
                 for line in infile:
                     outfile.write(line)
 
-    return destination
-
 
 def get_bibentries(bibfile):
 
@@ -119,7 +117,7 @@ def bibliography(c):
     """ Merges the bibliography files for each chapter into one and cleans the
     entries. """
 
-    filenames = glob.glob("chapters/*/bibliography.bib")
+    filenames = glob.glob("chapters/*/paper/*.bib")
     collate_bibfiles(filenames, "bibliography.bib")
     bibentries = get_bibentries("bibliography.bib")
     citations_to_export = get_citations_to_export(bibentries)
