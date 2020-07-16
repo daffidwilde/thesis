@@ -1,3 +1,5 @@
+%%% EDO chapter settings
+
 \usetikzlibrary{%
     arrows.meta,
     decorations.pathreplacing,
@@ -39,16 +41,3 @@
         }
     }
 }
-
-\newcommand{\inputtikz}[3][.8\linewidth]{%
-    \begin{figure}[htbp]
-        \centering
-        \resizebox{#1}{!}{%
-            \input{tex/diagrams/#2.tex}
-        }
-        \caption{#3}\label{fig:#2}
-    \end{figure}
-}
-
-\DeclareMathOperator*{\argmin}{arg\,min}
-\renewcommand\theContinuedFloat{\alph{ContinuedFloat}}
