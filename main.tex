@@ -9,7 +9,7 @@
 % Bibliography and links
 \usepackage[hidelinks]{hyperref}
 \usepackage[numbers]{natbib}
-    \bibliographystyle{abbrvnat}
+    \bibliographystyle{abbrvurl}
 
 % Images, lists, algorithms and tables
 \usepackage[ruled]{algorithm2e}
@@ -51,13 +51,20 @@
 \usepackage{chapters/edo/main}
 
 % Fonts and typesetting
-\usepackage{thesis-fonts}
+\usepackage{datetime}
+    \newdateformat{monthyeardate}{\monthname[\THEMONTH] \THEYEAR}
+\usepackage{setspace}
+    \onehalfspacing%
+\usepackage{./fonts}
+
 
 %%% DOCUMENT %%%
 
-
 \begin{document}
+
+\newgeometry{margin=25mm}
 \input{title.tex}
+\restoregeometry%
 
 % Preamble
 \frontmatter%
