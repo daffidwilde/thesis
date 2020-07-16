@@ -10,6 +10,7 @@ from difflib import SequenceMatcher
 import bibtexparser
 
 import known
+import numpy as np
 import pandas as pd
 from bibtexparser.bibdatabase import BibDatabase
 from bibtexparser.bparser import BibTexParser
@@ -100,7 +101,7 @@ def export_citations(citations, destination):
         {
             attribute: value
             for attribute, value in citation.items()
-            if not value is pd.np.nan
+            if value is not np.nan
         }
         for citation in citation_dicts
     ]
