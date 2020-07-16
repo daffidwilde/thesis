@@ -11,12 +11,7 @@
 \usepackage[numbers]{natbib}
     \bibliographystyle{abbrvurl}
 
-% Images, lists, algorithms and tables
-\usepackage[ruled]{algorithm2e}
-    \newcommand{\balg}[1][htbp]{%
-        \begin{algorithm}[#1]\DontPrintSemicolon
-    }
-    \newcommand{\ealg}{\end{algorithm}}
+% Images, lists and tables
 \usepackage{booktabs}
 \usepackage{caption}
 \usepackage{enumerate}
@@ -24,33 +19,83 @@
 \usepackage{graphicx}
 \usepackage{standalone}
 \usepackage{subfig}
+    \renewcommand\theContinuedFloat{\alph{ContinuedFloat}}
 \usepackage{tikz}
-    \newlength{\imgwidth}
-    \setlength{\imgwidth}{.95\textwidth}
-    \newlength{\tablewidth}
-    \setlength{\tablewidth}{.9\textwidth}
+\usepackage{xargs}
 
-% Fonts, colours and code
-\usepackage{minted}
-\usepackage{moresize}
-    \definecolor{cyan}{RGB}{0, 164, 216}
-    \definecolor{magenta}{RGB}{226, 62, 138}
+\newlength{\imgwidth}
+\setlength{\imgwidth}{.95\textwidth}
+\newlength{\tablewidth}
+\setlength{\tablewidth}{.9\textwidth}
+
+\newcommand{\tikzpath}{}
+\newcommand{\inputtikz}[3][\tikzpath]{%
+    \begin{figure}[htbp]
+        \centering
+        \resizebox{\imgwidth}{!}{%
+            \input{#1/#2}
+        }
+        \caption{#3}\label{fig:#2}
+    \end{figure}
+}
+
+
+% Colours
+\definecolor{cyan}{RGB}{0, 164, 216}
+\definecolor{magenta}{RGB}{226, 62, 138}
+\definecolor{deepblue}{rgb}{0,0,0.5}
+\definecolor{deepred}{rgb}{0.6,0,0}
+\definecolor{deepgreen}{rgb}{0,0.5,0}
 
 % Mathematics
 \usepackage{amssymb}
 \usepackage{amsmath}
+    \DeclareMathOperator*{\argmin}{arg\,min}
 \usepackage{amsthm}
 {\theoremstyle{definition}\newtheorem{definition}{Definition}[chapter]}
 {\theoremstyle{plain}\newtheorem{theorem}{Theorem}[chapter]}
+\usepackage{mathptmx}
 \usepackage{mathtools}
     \DeclarePairedDelimiter\abs{\lvert}{\rvert}%
     \DeclarePairedDelimiter\norm{\lVert}{\rVert}%
+
+% Algorithms
+\usepackage[boxruled]{algorithm2e}
+    \newcommand{\balg}[1][htbp]{%
+        \begin{algorithm}[#1]\DontPrintSemicolon
+    }
+    \newcommand{\ealg}{%
+        \end{algorithm}
+    }
+\newcommand{\algpath}{}
+\newcommand{\inputalg}[2][\algpath]{%
+    \input{#1/#2}\label{alg:#2}
+}
+
+% Code blocks
+\usepackage{listings}
+\lstset{
+    backgroundcolor=,
+	tabsize=4,
+	rulecolor=,
+	language=python,
+        basicstyle=\scriptsize\ttfamily,
+        aboveskip={1.5\baselineskip},
+        breaklines=true,
+        columns=fixed,
+        identifierstyle=\ttfamily,
+        keywordstyle=\color{deepblue},
+        stringstyle=\color{deepgreen},
+        commentstyle=\color{deepred},
+        emphstyle=\color{deepred}
+}
 
 % Chapter-specifics
 \usepackage{import}
 \usepackage{chapters/edo/main}
 
 % Fonts and typesetting
+\usepackage{moresize}
 \usepackage{datetime}
     \newdateformat{monthyeardate}{\monthname[\THEMONTH] \THEYEAR}
 \usepackage{setspace}
