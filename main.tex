@@ -21,6 +21,28 @@
     \onehalfspacing%
 \usepackage{enumerate}  % Roman numerals in lists
 
+% Page headers and footers
+\usepackage{fancyhdr}
+\usepackage{etoolbox}
+
+\renewcommand{\chaptermark}[1]{%
+    \markboth{\MakeUppercase{\thechapter.\ #1}}{}  % Number and title only
+} 
+
+\fancypagestyle{normal}{  % Used for most pages
+    \fancyhf{}
+    \fancyhead[LE,RO]{\slshape\leftmark}  % Show chapter title on outer leaf
+    \fancyfoot[LE,RO]{\thepage}  % Show page number on outer leaf
+    \renewcommand{\headrulewidth}{1pt}
+}
+\fancypagestyle{chapterstyle}{  % For chapter pages (no need for a header)
+    \fancyhf{}
+    \fancyfoot[LE,RO]{\thepage}
+    \renewcommand{\headrulewidth}{0pt}% Line at the header invisible
+}
+\patchcmd{\chapter}{\thispagestyle{plain}}{\thispagestyle{chapterstyle}}{}{}
+
+
 % Images, lists and tables
 \usepackage{booktabs}
 \usepackage{graphicx}
@@ -175,6 +197,7 @@
 
 % Main text
 \mainmatter%
+\pagestyle{normal}
 \input{chapters/intro/main}
 \input{chapters/lit/main}
 \input{chapters/edo/main}
