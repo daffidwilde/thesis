@@ -59,12 +59,11 @@
 \setlength{\imgwidth}{.95\textwidth}
 \newlength{\tablewidth}
 \setlength{\tablewidth}{.9\textwidth}
-\setlength{\cftlistingnumwidth}{6em}
 
 % Colours
 \definecolor{linenums}{HTML}{4c566a}
 \definecolor{sourcebg}{HTML}{d8dee9}
-\definecolor{sourcefr}{HTML}{434c5e}
+\definecolor{sourcefr}{HTML}{b2bdd1}
 \definecolor{usagebg}{HTML}{fdf6e3}
 \definecolor{usagefr}{HTML}{eee8d5}
 
@@ -77,6 +76,7 @@
 % Code snippet stuff
 \usemintedstyle{friendly}
 \setminted{fontsize=\scriptsize, framerule=\textwidth}
+\setmintedinline{fontsize=\normalsize}
 
 
 %%% Commands and environments
@@ -126,8 +126,6 @@
     \begin{minted}[bgcolor=usagebg]{console}%
 }{\end{minted}\end{tcolorbox}}
 
-\renewcommand{\cftlistingpresnum}{Snippet~}
-
 % Inputting source
 \newcommand{\tikzpath}{}
 \newcommand{\inputtikz}[3][\tikzpath]{%
@@ -172,7 +170,8 @@
 \tableofcontents%
 \listoffigures%
 \listoftables%
-\listoflistings%
+\listofalgorithms%
+\listoflisting%
 
 % Main text
 \mainmatter%
