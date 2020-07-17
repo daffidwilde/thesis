@@ -1,3 +1,52 @@
 \chapter{Introduction}
 
 This will be the introduction.
+
+\section{Software development and best practices}\label{sec:dev}
+
+\subsection{Code snippets}
+
+Throughout this thesis, snippets of code are shown. These snippets are either of
+source code, as in Snippet~\ref{snp:source}, or uses of code. The first type of
+code snippet is presented on a darker background and is used to display some
+part of the source code of an existing piece of software. The second type of
+snippet can be distinguished by its lighter background and is used to display a
+series of commands to be executed; where this execution should be done is
+indicated by the preceding symbols.
+
+A snippet whose commands begin with \mintinline{python}{>>>}, as in
+Snippet~\ref{snp:usepy}, should be run in a Python interpreter while those with
+commands beginning with \mintinline{console}{>}, as in Snippet~\ref{snp:usesh},
+should be executed in a shell. In each of these cases, the output of a command
+(or series of commands) is displayed directly beneath it without any preceding
+symbols.
+
+\begin{listing}[htbp]
+\begin{sourcepy}
+def main():
+    """ Say hello. """
+
+    return "Hello world."
+
+if __name__ == "__main__":
+    main()
+\end{sourcepy}
+\caption{An example of some Python source code.}\label{snp:source}
+\end{listing}
+
+\begin{listing}[htbp]
+\begin{usagepy}
+>>> print("Hello world.")
+Hello world.
+
+\end{usagepy}
+\caption{An example of some code run in a Python interpreter.}\label{snp:usepy}
+\end{listing}
+
+\begin{listing}[htbp]
+\begin{usagesh}
+> echo "Hello world."
+Hello world.
+\end{usagesh}
+\caption{An example of some code executed in a shell.}\label{snp:usesh}
+\end{listing}

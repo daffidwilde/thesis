@@ -1,16 +1,24 @@
-\usepackage{inconsolata}
+%%%% Style file for fonts
+
 \usepackage[T1]{fontenc}
+\usepackage{dejavu}
 \usepackage{garamondx}
 \usepackage[garamondx,cmbraces]{newtxmath}
+\usepackage[parfill]{parskip}  % Empty lines between paragraphs
 
 \usepackage{sectsty}
     \chapterfont{\usefont{T1}{phv}{b}{n}\selectfont\huge}
 
-\usepackage[subfigure]{tocloft} % subfigure option only if using subfigure package
-\renewcommand{\cfttoctitlefont} % ToC title
-             {\usefont{T1}{phv}{b}{n}\selectfont\huge}
-\renewcommand{\cftchapfont} % chapter titles
-             {\usefont{T1}{phv}{b}{n}\selectfont}
+\usepackage[titles]{tocloft}
+
+\newlistof{listing}{lol}{List of Code Snippets}  % List for code snippets
+\setlength{\cftlistingindent}{1.5em}
+\setlength{\cftlistingnumwidth}{2.5em}
+
+\renewcommand{\cfttoctitlefont}  % ToC title
+    {\usefont{T1}{phv}{b}{n}\selectfont\huge}
+\renewcommand{\cftchapfont}  % chapter titles
+    {\usefont{T1}{phv}{b}{n}\selectfont}
 \renewcommand{\cftloftitlefont}
     {\usefont{T1}{phv}{b}{n}\selectfont\huge}
 \renewcommand{\cftlottitlefont}
