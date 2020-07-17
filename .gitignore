@@ -27,6 +27,7 @@ __pycache__
 *.fdb_latexmk
 *.fls
 *.listing
+*.loa
 *.lof
 *.lol
 *.log
