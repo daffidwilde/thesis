@@ -61,8 +61,10 @@ def spellcheck(c):
 
 def collate_bibfiles(bibfiles, destination):
 
-    with open(destination, "w") as outfile:
+    print("Collating bibfiles...")
+    with open(destination, "a") as outfile:
         for bibfile in bibfiles:
+            print("Adding", bibfile)
             with open(bibfile, "r") as infile:
                 for line in infile:
                     outfile.write(line)
@@ -70,6 +72,7 @@ def collate_bibfiles(bibfiles, destination):
 
 def get_bibentries(bibfile):
 
+    print("Getting bibentries...")
     with open(bibfile) as bibtexfile:
         parser = BibTexParser(common_strings=True)
         bibdatabase = bibtexparser.load(bibtex_file=bibtexfile, parser=parser)
@@ -80,7 +83,8 @@ def get_bibentries(bibfile):
 
 def get_citations_to_export(bibentries):
 
-    bibentries = bibentries.drop_duplicates(subset=["title"])
+    print("Cleaning entries...")
+    bibentries = bibentries.drop_duplicates(subset=["title"], keep="last")
     duplicate_keys = [
         key for key, count in Counter(bibentries["ID"]).items() if count > 1
     ]
@@ -90,6 +94,7 @@ def get_citations_to_export(bibentries):
         bibentries["ID"].isin(duplicate_keys)
     ].groupby("ID")
     for key, entries in entries_to_check:
+        print("Checking", key)
         titles = entries["title"].unique()
         if SequenceMatcher(None, *titles).ratio() > 0.7:
             citations_to_export = citations_to_export.append(entries.iloc[0, :])
@@ -124,11 +129,19 @@ def export_citations(citations, destination):
 
 
 @task
-def bibliography(c):
+def bibliography(c, path="bibliography.bib", backup=True):
     """ Merges the bibliography files for each chapter into one and cleans the
     entries. """
 
-    filenames = glob.glob("chapters/*/paper/*.bib")
+    current = []
+    if backup and pathlib.Path(path).exists():
+        name = path.split(".")[-2]
+        backup = f"{name}.backup"
+        print("Backing up current bibliography.")
+        c.run(f"mv {path} {backup}")
+        current = [backup]
+
+    filenames = glob.glob("chapters/*/paper/*.bib") + current
     collate_bibfiles(filenames, "bibliography.bib")
     bibentries = get_bibentries("bibliography.bib")
     citations_to_export = get_citations_to_export(bibentries)
