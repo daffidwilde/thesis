@@ -53,6 +53,7 @@
 \usepackage{float}  % Force hyperref to patch float [for minted]
 \usepackage[hidelinks]{hyperref}
 \usepackage[numbers]{natbib}
+    \bibliographystyle{abbrvurl}
 
 % Algorithms and code blocks
 \usepackage[boxruled]{algorithm2e}
@@ -60,9 +61,9 @@
 \usepackage{tcolorbox}
 \usepackage[newfloat,chapter]{minted}
 
-% Captions
+% Captions and subfigures
 \usepackage{caption}
-
+\usepackage{subcaption}
 
 %%% Settings
 
@@ -170,8 +171,50 @@
 }
 \newcommand{\ealg}{\end{algorithm}}
 
-% Bibliography style
-\bibliographystyle{abbrvurl}
+
+%%% Tikz stuff
+
+\usetikzlibrary{%
+    arrows.meta,
+    decorations.pathreplacing,
+    decorations.text,
+    patterns,
+    shapes.arrows,
+    shapes.geometric
+}
+
+% TikZ styles, commands and settings
+\pgfdeclarelayer{background}
+\pgfsetlayers{background,main}
+
+\tikzstyle{every picture} += [remember picture]
+\tikzstyle{na} = [baseline=-.5ex]
+
+\tikzset{%
+    column/.pic={%
+        code{%
+            \draw[line width=1pt] (0, 0) rectangle (-2cm, 4cm);
+            \foreach \val in {0, ..., #1}{%
+                \draw[rotate=90] ([xshift=-\val*10pt] 4cm, 2cm) -- ++(0, -2cm);
+            };
+            \node at (-1cm, 1.25) {$\vdots$};
+            \foreach \val in {1, 2}{%
+                \draw (0, \val * 10pt) -- ++(-2cm, 0);
+            };
+        }
+    }
+}
+
+\tikzset{%
+    fullcolumn/.pic={%
+        code{%
+            \draw[line width=1pt] (0, 0) rectangle (-2cm, #1*10pt);
+            \foreach \val in {0, ..., #1}{%
+                \draw[rotate=90] ([xshift=-\val*10pt] #1*10pt, 2cm) -- ++(0, -2cm);
+            };
+        }
+    }
+}
 
 
 %%% DOCUMENT %%%
