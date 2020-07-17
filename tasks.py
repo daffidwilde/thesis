@@ -26,10 +26,21 @@ def compile(c):
 
 
 @task
+def doctest(c):
+    """ Doctest the source files for the document. """
+
+    book = pathlib.Path("./chapters/").glob("*/main.tex")
+    for path in book:
+        chapter = str(path).split("/main.tex")[-2]
+        print("Testing", chapter)
+        c.run(f"python -m doctest -v {path}")
+
+
+@task
 def spellcheck(c):
     """ Check spelling. """
 
-    book = pathlib.Path("./chapters/").glob("0*/main.tex")
+    book = pathlib.Path("./chapters/").glob("*/main.tex")
     exit_codes = [0]
     for path in book:
 
