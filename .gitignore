@@ -26,9 +26,12 @@ __pycache__
 *.dvi
 *.fdb_latexmk
 *.fls
+*.listing
 *.lof
+*.lol
 *.log
 *.lot
+_minted-*
 *.nav
 *.out
 *.run.xml
