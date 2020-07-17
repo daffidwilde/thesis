@@ -22,7 +22,7 @@ from invoke import task
 def compile(c):
     """ Compile the LaTeX document. """
 
-    c.run("latexmk -interaction=nonstopmode -shell-escape --xelatex main.tex")
+    c.run("latexmk -interaction=nonstopmode -shell-escape --pdflatex main.tex")
 
 
 @task
