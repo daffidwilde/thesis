@@ -42,7 +42,6 @@
 }
 \patchcmd{\chapter}{\thispagestyle{plain}}{\thispagestyle{chapterstyle}}{}{}
 
-
 % Images, lists and tables
 \usepackage{booktabs}
 \usepackage{graphicx}
@@ -51,8 +50,7 @@
 
 % Bibliography and links
 \usepackage{float}  % Force hyperref to patch float [for minted]
-\usepackage[hidelinks]{hyperref}
-    \renewcommand{\UrlFont}{\ttfamily\footnotesize\relax}
+\usepackage{hyperref}
 \usepackage[numbers]{natbib}
     \bibliographystyle{abbrvurl}
 
@@ -65,6 +63,7 @@
 % Captions and subfigures
 \usepackage{caption}
 \usepackage{subcaption}
+
 
 %%% Settings
 
@@ -90,6 +89,7 @@
 \definecolor{sourcefr}{HTML}{b2bdd1}
 \definecolor{usagebg}{HTML}{fdf6e3}
 \definecolor{usagefr}{HTML}{eee8d5}
+\definecolor{myurl}{HTML}{5e81ac}
 
 \definecolor{cyan}{RGB}{0, 164, 216}
 \definecolor{magenta}{RGB}{226, 62, 138}
@@ -104,6 +104,12 @@
 
 
 %%% Commands and environments
+
+% URLs
+\renewcommand{\UrlFont}{\color{myurl}\ttfamily\footnotesize\relax}
+\hypersetup{%
+    %urlbordercolor=false
+}
 
 % Code snippets
 \SetupFloatingEnvironment{listing}{%
@@ -174,7 +180,6 @@
 
 
 %%% Tikz stuff
-
 \usetikzlibrary{%
     arrows.meta,
     decorations.pathreplacing,
@@ -216,6 +221,7 @@
         }
     }
 }
+
 
 
 %%% DOCUMENT %%%
