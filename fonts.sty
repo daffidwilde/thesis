@@ -4,6 +4,7 @@
 \usepackage{dejavu}
 \usepackage{garamondx}
 \usepackage[garamondx,cmbraces]{newtxmath}
+\usepackage[parfill]{parskip}  % Empty lines between paragraphs
 
 \usepackage{sectsty}
     \chapterfont{\usefont{T1}{phv}{b}{n}\selectfont\huge}
@@ -11,8 +12,8 @@
 \usepackage[titles]{tocloft}
 
 \newlistof{listing}{lol}{List of Code Snippets}  % List for code snippets
-\renewcommand{\cftlistingpresnum}{Snippet~}
-\setlength{\cftlistingnumwidth}{6em}
+\setlength{\cftlistingindent}{1.5em}
+\setlength{\cftlistingnumwidth}{2.5em}
 
 \renewcommand{\cfttoctitlefont}  % ToC title
     {\usefont{T1}{phv}{b}{n}\selectfont\huge}
