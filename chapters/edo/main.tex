@@ -399,9 +399,7 @@ priori}, reducing the number of points in each cluster (i.e.\ the terms of the
 second summation) quickly reduces the mean error of that cluster and thus the
 value of \(I\).
 
-\addtocounter{figure}{1}
 \begin{figure}[htbp]
-    \ContinuedFloat%
     \centering
     \begin{tabular}{c}
         \includegraphics[width=\imgwidth]{Fig7a-1.pdf}
@@ -415,7 +413,6 @@ value of \(I\).
 \end{figure}
 
 \begin{figure}[htbp]
-    \ContinuedFloat%
     \centering
     \begin{tabular}{c}
         \includegraphics[width=\imgwidth]{Fig7b-1.pdf}
@@ -443,18 +440,16 @@ algorithm's quality.
 
 \begin{figure}[htbp]
     \centering
-    \subfloat[][]{%
-        \label{fig:small-inertia-inds}
-        \centering
-        \includegraphics[width=\imgwidth]{Fig8a.pdf}
-    }\\
+    \begin{subfigure}{\imgwidth}
+        \includegraphics[width=\linewidth]{Fig8a.pdf}
+        \caption{}\label{fig:small-inertia-inds}
+    \end{subfigure}
 
-    \subfloat[][]{%
-        \label{fig:large-inertia-inds}
-        \centering
-        \includegraphics[width=\imgwidth]{Fig8b.pdf}
-    }
-    \caption[]{%
+    \begin{subfigure}{\imgwidth}
+        \includegraphics[width=\linewidth]{Fig8b.pdf}
+        \caption{}\label{fig:large-inertia-inds}
+    \end{subfigure}
+    \caption{%
         Representative individuals based on inertia with:
         \subref{fig:small-inertia-inds} \(R~=~(3,100)\);
         \subref{fig:large-inertia-inds} \(R~=~(50,100)\). Centroids displayed as
@@ -904,24 +899,28 @@ point for further works to come.
 Below is an example of how the Python implementation was used to complete the
 first example, including the definition of the fitness function.
 
-\begin{lstlisting}
-import edo
-from edo.pdfs import Uniform
-from sklearn.cluster import KMeans
+\begin{listing}[htbp]
+\begin{usagepy}
+>>> import edo
+>>> from edo.pdfs import Uniform
+>>> from sklearn.cluster import KMeans
+>>> 
+>>> def fitness(dataframe, seed):
+...     """ Return the final inertia of k-means on the `dataframe` for the given
+...     `seed` with k=2.
+...     """
+...     km = KMeans(n_clusters=2, random_state=seed).fit(dataframe)
+...     return km.inertia_
+... 
+>>> Uniform.param_limits["bounds"] = [0, 1]
+>>> 
+>>> pop_history, fit_history = edo.run_algorithm(
+...     fitness, size=100, row_limits=[3, 100], col_limits=[2, 2],
+...     families=[Uniform], max_iter=1000, best_prop=0.2,
+...     mutation_prob=0.01, seed=0, root="out",
+...     fitness_kwargs={"seed": 0},
+... )
 
-def fitness(dataframe, seed):
-    """ Return the final inertia of 2-means on the `dataframe`
-    for the given `seed`. """
-
-    km = KMeans(n_clusters=2, random_state=seed).fit(dataframe)
-    return km.inertia_
-
-Uniform.param_limits["bounds"] = [0, 1]
-
-pop_history, fit_history = edo.run_algorithm(
-    fitness, size=100, row_limits=[3, 100], col_limits=[2, 2],
-    families=[Uniform], max_iter=1000, best_prop=0.2,
-    mutation_prob=0.01, seed=0, root="out",
-    fitness_kwargs={"seed": 0},
-)
-\end{lstlisting}
+\end{usagepy}
+\caption{Source code to produce a trial from Example~\ref{ex:edo-1}}
+\end{listing}
