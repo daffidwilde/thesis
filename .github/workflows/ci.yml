@@ -18,7 +18,9 @@ jobs:
         with:
           args: conda env update -f ./environment.yml
       - name: Activate environment
-        run: source activate thesis
+        run: |
+          conda init
+          conda activate thesis
       - name: Install latex libs
         run: |
           sudo apt-get update
