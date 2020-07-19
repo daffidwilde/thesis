@@ -20,6 +20,7 @@ jobs:
       - name: Activate environment
         run: |
           conda init
+          bash
           conda activate thesis
       - name: Install latex libs
         run: |
