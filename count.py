@@ -18,15 +18,15 @@ def read_json(filepath):
 def get_summary():
     """ Save the output of texcount to file and then trim it. """
 
-    summary = "The current word count is:\n"
-    summary += "==========================\n\n"
+    summary = "[wordcount]\n"
+    summary += "==========\n"
 
     cmd = "texcount -inc -nosub main.tex"
     string = str(subprocess.check_output(cmd, shell=True))
     items = string.split("\\n\\n")
     block = items[-2]
 
-    for line in block.split("\\n")[1:]:
+    for line in block.split("\\n")[1:-1]:
         summary += line + "\n"
 
     return summary
@@ -36,22 +36,20 @@ def get_pull_request(gh, event):
     """ Get the pull request from `gh` client associated with `event`. """
 
     branch_label = event['pull_request']['head']['label']
-    branch_name = branch_label.split(':')[-1]
     repo = gh.get_repo(event['repository']['full_name'])
     prs = repo.get_pulls(state='open', sort='created', head=branch_label)
 
     return prs[0]
 
 
-def check_for_duplicates(pr, comment):
-    """ Check for duplicate comments. """
+def existing_comment(pr):
+    """ Check for an existing word count comment. """
 
-    old_comments = [c.body for c in pr.get_issue_comments()]
-    if comment in old_comments:
-        print("This PR already has this comment.")
-        sys.exit(0)
+    for comment in pr.get_issue_comments():
+        if comment.body.startswith("[wordcount]"):
+            return comment
 
-    return comment
+    return False
 
 
 def main():
@@ -61,10 +59,17 @@ def main():
     event = read_json(os.getenv('GITHUB_EVENT_PATH'))
     pr = get_pull_request(gh, event)
 
-    new_comment = get_summary()
-    check_for_duplicates(pr, new_comment)
+    comment = get_summary()
+    existing = existing_comment(pr)
+    if not existing:
+        pr.create_issue_comment(comment)
 
-    pr.create_issue_comment(new_comment)
+    elif existing.body != comment:
+        existing.edit(comment)
+
+    else:
+        print("No change to word count.")
+        sys.exit(0)
 
 
 if __name__ == "__main__":
