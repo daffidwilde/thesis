@@ -18,6 +18,11 @@ jobs:
         with:
           environment-file: ./environment.yml
           activate-environment: 'thesis'
+      - name: Print conda and Python information
+        run: |
+          conda info
+          which python
+          python --version
       - name: Install latex libs
         run: |
           sudo apt-get update
@@ -39,10 +44,10 @@ jobs:
         run: git submodule update --init --recursive
 
       - name: Combine and clean bibliography
-        run: inv bibliography
+        run: python -m invoke bibliography
       - name: Test PDF compiles
-        run: inv compile --engine=xelatex
+        run: python -m invoke compile --engine=xelatex
       - name: Doctest source
-        run: inv doctest
+        run: python -m invoke doctest
       - name: Test spellcheck
-        run: inv spellcheck
+        run: python -m invoke spellcheck
