@@ -17,7 +17,7 @@ jobs:
         uses: matthewrmshin/conda-action@v1
         with:
           args: conda env update -f ./environment.yml
-
+        run: conda activate thesis
       - name: Install latex libs
         run: |
           sudo apt-get update
