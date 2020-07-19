@@ -20,12 +20,6 @@ jobs:
         with:
           environment-file: ./environment.yml
           activate-environment: thesis
-      - name: Print conda and Python information
-        shell: bash -l {0}
-        run: |
-          conda info
-          which python
-          python --version
       - name: Install latex libs
         run: |
           sudo apt-get update
