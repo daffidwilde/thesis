@@ -7,7 +7,9 @@ on:
 
 jobs:
   build:
-
+    defaults:
+      run:
+        shell: bash -l {0}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -45,10 +47,10 @@ jobs:
         run: git submodule update --init --recursive
 
       - name: Combine and clean bibliography
-        run: python -m invoke bibliography
+        run: inv bibliography
       - name: Test PDF compiles
-        run: python -m invoke compile --engine=xelatex
+        run: inv compile --engine=xelatex
       - name: Doctest source
-        run: python -m invoke doctest
+        run: inv doctest
       - name: Test spellcheck
-        run: python -m invoke spellcheck
+        run: inv spellcheck
