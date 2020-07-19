@@ -36,7 +36,6 @@ def get_pull_request(gh, event):
     """ Get the pull request from `gh` client associated with `event`. """
 
     branch_label = event['pull_request']['head']['label']
-    branch_name = branch_label.split(':')[-1]
     repo = gh.get_repo(event['repository']['full_name'])
     prs = repo.get_pulls(state='open', sort='created', head=branch_label)
 
@@ -67,8 +66,12 @@ def main():
     if not existing:
         pr.create_issue_comment(comment)
 
-    else:
+    elif existing.body != comment:
         existing.edit(comment)
+
+    else:
+        print("No change to word count.")
+        sys.exit(0)
 
 
 if __name__ == "__main__":
