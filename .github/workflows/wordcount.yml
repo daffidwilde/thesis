@@ -16,6 +16,7 @@ jobs:
         with:
           trigger: '@wordcount'
           reaction: eyes
+          prefix_only: 'true'
         env:
           GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
       - name: Checkout repository
