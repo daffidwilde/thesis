@@ -37,7 +37,7 @@ jobs:
         run: echo "::set-output name=word_count::$(python count.py)"
       - name: Comment current wordcount
         if: ${{ steps.check.outputs.triggered == 'true' }}
-        uses: thollander/actions-comment-pull-request
+        uses: thollander/actions-comment-pull-request@master
         with:
           message: ${{ steps.count.word_count }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
