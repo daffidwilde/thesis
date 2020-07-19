@@ -2,13 +2,14 @@ name: Comment word count when asked with @wordcount
 
 on:
   pull_request:
-    types: [opened]
   issue_comment:
     types: [created]
 
 jobs:
   comment:
     runs-on: ubuntu-latest
+    outputs:
+      count: ${{ steps.count.word_count }}
     steps:
       - name: Check for comment call
         uses: khan/pull-request-comment-trigger@master
@@ -22,7 +23,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
       - name: Setup Python 3.7
-        uses: actions/setup-python@v1
+        uses: actions/setup-python@v2
         with:
           python-version: 3.7
       - name: Install TeXcount
@@ -31,10 +32,12 @@ jobs:
             sudo apt-get install -y texlive-extra-utils
       - name: Clone submodules
         run: git submodule update --init --recursive
+      - name: Calculate word count
+        id: count
+        run: echo "::set-output name=word_count::$(python count.py)"
       - name: Comment current wordcount
-        if: steps.check.outputs.triggered == 'true'
-        uses: unsplash/comment-on-pr@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        if: ${{ steps.check.outputs.triggered == 'true' }}
+        uses: thollander/actions-comment-pull-request@master
         with:
-          msg: python count.py
+          message: ${{ steps.count.word_count }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
