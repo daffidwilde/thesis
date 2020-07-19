@@ -19,10 +19,10 @@ from invoke import task
 
 
 @task
-def compile(c):
+def compile(c, engine="pdflatex"):
     """ Compile the LaTeX document. """
 
-    c.run("latexmk -interaction=nonstopmode -shell-escape --pdflatex main.tex")
+    c.run(f"latexmk -interaction=nonstopmode -shell-escape --{engine} main.tex")
 
 
 @task
