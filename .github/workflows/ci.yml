@@ -1,5 +1,4 @@
-name: CI
-description: Tests to ensure the document can be compiled and tested correctly.
+name: CI for thesis
 
 on:
     push:
