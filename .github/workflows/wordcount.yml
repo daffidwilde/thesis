@@ -36,8 +36,10 @@ jobs:
       - name: Calculate word count
         id: count
         run: |
-          WORD_COUNT = $(python count.py)
-          WORD_COUNT = "${WORD_COUNT//$'\n'/'%0A'}"
+          WORD_COUNT=$(python count.py)
+          WORD_COUNT="${WORD_COUNT//'%'/'%25'}"
+          WORD_COUNT="${WORD_COUNT//$'\n'/'%0A'}"
+          WORD_COUNT="${WORD_COUNT//$'\r'/'%0D'}"
           echo "::set-output name=word_count::$WORD_COUNT"
       - name: Comment current wordcount
         if: ${{ steps.check.outputs.triggered == 'true' }}
