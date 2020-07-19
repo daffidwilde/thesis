@@ -13,15 +13,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Set up conda and environment
-        uses: matthewrmshin/conda-action@v1
+      - name: Set up miniconda and environment
+        uses: goanpeca/setup-miniconda@v1.6.0
         with:
-          args: conda env update -f ./environment.yml
-      - name: Activate environment
-        run: |
-          conda init
-          bash
-          conda activate thesis
+          environment-file: ./environment.yml
+          activate-environment: 'thesis'
       - name: Install latex libs
         run: |
           sudo apt-get update
