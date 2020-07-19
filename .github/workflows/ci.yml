@@ -17,7 +17,7 @@ jobs:
         uses: goanpeca/setup-miniconda@v1.6.0
         with:
           environment-file: ./environment.yml
-          activate-environment: 'thesis'
+          activate-environment: thesis
       - name: Print conda and Python information
         run: |
           conda info
