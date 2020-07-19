@@ -57,8 +57,6 @@ def main():
 
     gh = Github(os.getenv('GITHUB_TOKEN'))
     event = read_json(os.getenv('GITHUB_EVENT_PATH'))
-    print("GITHUB_EVENT_PATH\n", event)
-
     pr = get_pull_request(gh, event)
 
     comment = get_summary()

@@ -1,4 +1,4 @@
-name: CI
+name: CI for thesis
 
 on:
     push:
@@ -7,15 +7,19 @@ on:
 
 jobs:
   build:
-
+    defaults:
+      run:
+        shell: bash -l {0}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Set up Python 3.7
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.7
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
+      - name: Set up miniconda and environment
+        uses: goanpeca/setup-miniconda@v1.6.0
+        with:
+          environment-file: ./environment.yml
+          activate-environment: thesis
       - name: Install latex libs
         run: |
           sudo apt-get update
@@ -33,11 +37,6 @@ jobs:
           sudo getnonfreefonts --sys garamondx
           sudo getnonfreefonts --sys -r
 
-      - name: Install Python dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-      
       - name: Clone submodules
         run: git submodule update --init --recursive
 
