@@ -22,11 +22,11 @@ jobs:
           activate-environment: thesis
       - name: Install latex libs
         run: |
-          sudo apt-get update
+          sudo apt-get update -y
           sudo apt-get install -y texlive-latex-extra
           sudo apt-get install -y texlive-xetex
+          sudo apt-get install -y texlive-science
           sudo apt-get install latexmk
-          sudo apt-get install texlive-science
           sudo apt-get install aspell aspell-en
 
       - name: Install fonts
