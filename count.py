@@ -4,7 +4,7 @@ import subprocess
 
 
 def get_summary():
-    """ Save the output of texcount to file and then trim it. """
+    """ Save an the output of texcount to file and then trim it. """
 
     summary = "The current word count is:\n"
     summary += "==========================\n"
@@ -14,20 +14,27 @@ def get_summary():
     items = string.split("\\n\\n")
     block = items[-2]
 
-    for line in block.split("\\n")[2:]:
+    for line in block.split("\\n")[2:-1]:
         summary += line + "\n"
 
     return summary
 
 
 def main():
-    """ Get a string with the word count summary. """
+    """ Get a string with the word count summary using texcount. """
 
-    new_comment = get_summary()
+    summary = "The current word count is:\n"
+    summary += "==========================\n"
 
-    print(new_comment)
+    cmd = "texcount -inc -nosub main.tex"
+    string = str(subprocess.check_output(cmd, shell=True))
+    items = string.split("\\n\\n")
+    block = items[-2]
 
-    return new_comment
+    for line in block.split("\\n")[2:-1]:
+        summary += line + "\n"
+
+    return summary
 
 
 if __name__ == "__main__":
