@@ -46,12 +46,9 @@ def get_pull_request(gh, event):
 def existing_comment(pr):
     """ Check for an existing word count comment. """
 
-    comments = [
-        comm.body.startswith("[wordcount]") for comm in pr.get_issue_comments()
-    ]
-    for comm in comments:
-        if comm.body.startswith("[wordcount]"):
-            return comm
+    for comment in pr.get_issue_comments():
+        if comment.body.startswith("[wordcount]"):
+            return comment
 
     return False
 
