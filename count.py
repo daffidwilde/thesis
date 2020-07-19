@@ -18,15 +18,15 @@ def read_json(filepath):
 def get_summary():
     """ Save the output of texcount to file and then trim it. """
 
-    summary = "[wordcount] The current word count is:\n"
-    summary += "==========================\n\n"
+    summary = "[wordcount]\n"
+    summary += "==========\n"
 
     cmd = "texcount -inc -nosub main.tex"
     string = str(subprocess.check_output(cmd, shell=True))
     items = string.split("\\n\\n")
     block = items[-2]
 
-    for line in block.split("\\n")[1:]:
+    for line in block.split("\\n")[1:-1]:
         summary += line + "\n"
 
     return summary
