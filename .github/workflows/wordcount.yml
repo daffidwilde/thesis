@@ -1,48 +1,34 @@
-name: Comment word count when asked with @wordcount
+name: Comment word count
 
-on:
-  pull_request:
-  issue_comment:
-    types: [created]
+on: pull_request
 
 jobs:
-  comment:
-    runs-on: ubuntu-latest
-    outputs:
-      count: ${{ steps.count.outputs.word_count }}
+  build:
+
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        python-version: [3.7]
+
     steps:
-      - name: Check for comment call
-        uses: khan/pull-request-comment-trigger@master
-        id: check
+      - uses: actions/checkout@v1
+      - name: Setup Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v1
         with:
-          trigger: '@wordcount'
-          reaction: eyes
-          prefix_only: 'true'
-        env:
-          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
-      - name: Checkout repository
-        uses: actions/checkout@v2
-      - name: Setup Python 3.7
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.7
-      - name: Install TeXcount
+          python-version: ${{ matrix.python-version }}
+      - name: Install LaTeX
         run: |
             sudo apt-get update
             sudo apt-get install -y texlive-extra-utils
+      - name: Install PyGithub
+        run: |
+            python -m pip install --upgrade pip
+            pip install PyGithub
       - name: Clone submodules
         run: git submodule update --init --recursive
-      - name: Calculate word count
-        id: count
-        run: |
-          WORD_COUNT=$(python count.py)
-          WORD_COUNT="${WORD_COUNT//'%'/'%25'}"
-          WORD_COUNT="${WORD_COUNT//$'\n'/'%0A'}"
-          WORD_COUNT="${WORD_COUNT//$'\r'/'%0D'}"
-          echo "::set-output name=word_count::$WORD_COUNT"
-      - name: Comment current wordcount
-        if: ${{ steps.check.outputs.triggered == 'true' }}
-        uses: thollander/actions-comment-pull-request@master
-        with:
-          message: ${{ steps.count.outputs.word_count }}
+      - name: Calculate and comment word count
+        run: python count.py
+        env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
