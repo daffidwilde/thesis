@@ -28,6 +28,7 @@ jobs:
           sudo apt-get install latexmk
           sudo apt-get install texlive-science
           sudo apt-get install aspell aspell-en
+
       - name: Install fonts
         run: |
           sudo apt-get install -y texlive-fonts-extra
@@ -35,13 +36,14 @@ jobs:
           sudo texlua install-getnonfreefonts
           sudo getnonfreefonts --sys garamondx
           sudo getnonfreefonts --sys -r
+
       - name: Clone submodules
         run: git submodule update --init --recursive
 
       - name: Combine and clean bibliography
         run: inv bibliography
       - name: Test PDF compiles
-        run: inv compile
+        run: inv compile --engine=xelatex
       - name: Doctest source
         run: inv doctest
       - name: Test spellcheck
