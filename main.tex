@@ -55,7 +55,7 @@
     \bibliographystyle{abbrvurl}
 
 % Algorithms and code blocks
-\usepackage[boxruled]{algorithm2e}
+\usepackage[ruled,algochapter,linesnumbered]{algorithm2e}
 \usepackage{xcolor}
 \usepackage{tcolorbox}
 \usepackage[newfloat,chapter]{minted}
@@ -169,13 +169,9 @@
 }
 
 \newcommand{\algpath}{}
-\newcommand{\inputalg}[2][\algpath]{%
-    \input{#1/#2}\label{alg:#2}
-}
+\newcommand{\inputalg}[2][\algpath]{\input{#1/#2}\label{alg:#2}}
 
-\newcommand{\balg}[1][htbp]{%
-    \begin{algorithm}[#1]\DontPrintSemicolon
-}
+\newcommand{\balg}[1][htbp]{\begin{algorithm}[#1]\DontPrintSemicolon}
 \newcommand{\ealg}{\end{algorithm}}
 
 
