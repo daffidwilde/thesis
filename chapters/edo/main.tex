@@ -415,18 +415,22 @@ improved on for a further 900 epochs. The same quick convergence is seen in the
 number of rows. This behaviour is quickly recognised as preferable and was
 dominant across all the trials conducted in this work. This preference for
 datasets with fewer rows is expected given that \(I\) is the sum of the mean
-error from each cluster centre. With that, when \(k\) is fixed \textit{a
-priori}, reducing the number of points in each cluster (i.e.\ the terms of the
-second summation) quickly reduces the mean error of that cluster and thus the
-value of \(I\).
+error from each cluster centre. With that, when \(k\) is fixed a priori,
+reducing the number of points in each cluster (i.e.\ the terms of the second
+summation) quickly reduces the mean error of that cluster and thus the value of
+\(I\).
 
 \begin{figure}[htbp]
     \centering
-    \begin{tabular}{c}
-        \includegraphics[width=\imgwidth]{Fig7a-1.pdf}
-        \\
-        \includegraphics[width=\imgwidth]{Fig7a-2.pdf}
-    \end{tabular}
+    \begin{subfigure}{\imgwidth}
+        \includegraphics[width=\linewidth]{Fig7a-1.pdf}
+        \caption{}\label{fig:edo:inertia:small:fitness}
+    \end{subfigure}
+
+    \begin{subfigure}{\imgwidth}
+        \includegraphics[width=\linewidth]{Fig7a-2.pdf}
+        \caption{}\label{fig:edo:inertia:small:dimension}
+    \end{subfigure}
     \caption{%
         Progressions for final inertia and dimension across the first 50
         epochs with \(R~=~(3,100)\).
@@ -435,11 +439,15 @@ value of \(I\).
 
 \begin{figure}[htbp]
     \centering
-    \begin{tabular}{c}
-        \includegraphics[width=\imgwidth]{Fig7b-1.pdf}
-        \\
-        \includegraphics[width=\imgwidth]{Fig7b-2.pdf}
-    \end{tabular}
+    \begin{subfigure}{\imgwidth}
+        \includegraphics[width=\linewidth]{Fig7b-1.pdf}
+        \caption{}\label{fig:edo:inertia:large:fitness}
+    \end{subfigure}
+
+    \begin{subfigure}{\imgwidth}
+        \includegraphics[width=\linewidth]{Fig7b-2.pdf}
+        \caption{}\label{fig:edo:inertia:large:dimension}
+    \end{subfigure}
     \caption{%
         Progressions for final inertia and dimension across the first 50 epochs
         with \(R~=~(50,100)\).
@@ -540,53 +548,56 @@ this transparency in the history and progression of the proposed method is
 something that sets it apart from other methods such as GANs which have a
 reputation of providing so-called `black box' solutions.
 
-\addtocounter{figure}{1}
 \begin{figure}[htbp]
-    \ContinuedFloat%
     \centering
-    \begin{tabular}{c}
-        \includegraphics[width=\imgwidth]{Fig9a-1.pdf}
-        \\
-        \includegraphics[width=\imgwidth]{Fig9a-2.pdf}
-    \end{tabular}
+    \begin{subfigure}{\imgwidth}
+        \includegraphics[width=\linewidth]{Fig9a-1.pdf}
+        \caption{}\label{fig:edo:small:silhouette}
+    \end{subfigure}
+
+    \begin{subfigure}{\imgwidth}
+        \includegraphics[width=\linewidth]{Fig9a-2.pdf}
+        \caption{}\label{fig:edo:small:dimension}
+    \end{subfigure}
     \caption{%
-        Progressions for silhouette and dimension across 1000 epochs at 100
-        epoch intervals with \(R~=~(3, 100)\).
+        Progressions of silhouette and dimension across 1000 epochs at 100 epoch
+        intervals with \(R~=~(3, 100)\).
     }\label{fig:small-silhouette}
 \end{figure}
 
 \begin{figure}
-    \ContinuedFloat%
     \centering
-    \begin{tabular}{c}
-        \includegraphics[width=\imgwidth]{Fig9b-1.pdf}
-        \\
-        \includegraphics[width=\imgwidth]{Fig9b-2.pdf}
-    \end{tabular}
+    \begin{subfigure}{\imgwidth}
+        \includegraphics[width=\linewidth]{Fig9b-1.pdf}
+        \caption{}\label{fig:edo:large:silhouette}
+    \end{subfigure}
+
+    \begin{subfigure}{\imgwidth}
+        \includegraphics[width=\linewidth]{Fig9b-2.pdf}
+        \caption{}\label{fig:edo:large:dimension}
+    \end{subfigure}
     \caption{%
-        Progressions for silhouette and dimension across 1000 epochs at 100
-        epoch intervals with \(R~=~(50,100)\).
+        Progressions of silhouette and dimension across 1000 epochs at 100 epoch
+        intervals with \(R~=~(50,100)\).
     }\label{fig:large-silhouette}
 \end{figure}
 
-\begin{figure}[htbp]
+\begin{figure}
     \centering
-    \subfloat[][]{%
-        \label{fig:small-silhouette-inds}
-        \centering
-        \includegraphics[width=\imgwidth]{Fig10a.pdf}
-    }\\
+    \begin{subfigure}{\imgwidth}
+        \includegraphics[width=\linewidth]{Fig10a.pdf}
+        \caption{}\label{fig:edo:small:silhouette:inds}
+    \end{subfigure}
 
-    \subfloat[][]{%
-        \label{fig:large-silhouette-inds}
-        \centering
+    \begin{subfigure}{\imgwidth}
         \includegraphics[width=\imgwidth]{Fig10b.pdf}
-    }
-    \caption[]{%
+        \caption{}\label{fig:edo:large:silhouette:inds}
+    \end{subfigure}
+    \caption{%
         Representative individuals based on silhouette with:
-        \subref{fig:small-silhouette-inds} \(R~=~(3,100)\);
-        \subref{fig:large-silhouette-inds} \(R~=~(50,100)\). Centroids displayed
-        as crosses.
+        \subref{fig:edo:small:silhouette:inds} \(R~=~(3,100)\);
+        \subref{fig:edo:large:silhouette:inds} \(R~=~(50,100)\). Centroids are
+        displayed as crosses.
     }\label{fig:silhouette-inds}
 \end{figure}
 
@@ -651,32 +662,35 @@ library Scikit-learn~\cite{scikit} to find comparable parameters in the given
 search space defined by the EDO parameters used previously with
 \(R~=~(50,100)\).
 
-\begin{figure}[htbp]
+\begin{figure}
     \centering
-    \begin{tabular}{c}
-        \includegraphics[width=\imgwidth]{Fig11-1.pdf}
-        \\
-        \includegraphics[width=\imgwidth]{Fig11-2.pdf}
-    \end{tabular}
+    \begin{subfigure}{\imgwidth}
+        \includegraphics[width=\linewidth]{Fig11-1.pdf}
+        \caption{}\label{fig:edo:positive:silhouette}
+    \end{subfigure}
+
+    \begin{subfigure}{\imgwidth}
+        \includegraphics[width=\linewidth]{Fig11-2.pdf}
+        \caption{}\label{fig:edo:positive:dimension}
+    \end{subfigure}
     \caption{%
         Progressions for difference in silhouette (\(k\)-means-preferable) and
         dimension across 1000 epochs at 100 epoch intervals.
     }\label{fig:dbscan-silhouette}
 \end{figure}
 
-\begin{figure}[htbp]
+\begin{figure}
     \centering
-    \subfloat[][]{%
-        \label{fig:dbscan-inds-k}
-        \centering
-        \includegraphics[width=\imgwidth]{Fig12a.pdf}
-    }\\
-    \subfloat[][]{%
-        \label{fig:dbscan-inds-d}
-        \centering
-        \includegraphics[width=\imgwidth]{Fig12b.pdf}
-    }
-    \caption[]{%
+    \begin{subfigure}{\imgwidth}
+        \includegraphics[width=\linewidth]{Fig12a.pdf}
+        \caption{}\label{fig:dbscan-inds-k}
+    \end{subfigure}
+
+    \begin{subfigure}{\imgwidth}
+        \includegraphics[width=\linewidth]{Fig12b.pdf}
+        \caption{}\label{fig:dbscan-inds-d}
+    \end{subfigure}
+    \caption{%
         Representative individuals from a \(k\)-means-preferable run with
         clustering by: \subref{fig:dbscan-inds-k} \(k\)-means;
         \subref{fig:dbscan-inds-d} DBSCAN.\ Concave and convex hulls illustrated
@@ -721,7 +735,8 @@ in a single polygon. The convexity of cluster \(Z_j\), denoted
 \(\mathcal{C}_j\), is then determined to be the ratio of the area of its concave
 hull, \(H_c\), to the area of its convex hull, \(H_v\)~\cite{Sonka1993}:
 \begin{equation}
-    \mathcal{C}_j := \frac{area(H_c)}{area(H_v)}
+    \mathcal{C}_j :=
+    \frac{\text{area}\left(H_c\right)}{\text{area}\left(H_v\right)}
 \end{equation}
 
 With this definition, it should be clear that a perfectly convex cluster, such
@@ -744,30 +759,35 @@ in~(\ref{eq:dbscan-fitness}).
 
 \begin{figure}[htbp]
     \centering
-    \begin{tabular}{c}
-        \includegraphics[width=\imgwidth]{Fig13-1.pdf}
-        \\
-        \includegraphics[width=\imgwidth]{Fig13-2.pdf}
-    \end{tabular}
+    \begin{subfigure}{\imgwidth}
+        \includegraphics[width=\linewidth]{Fig13-1.pdf}
+        \caption{}\label{fig:edo:negative:silhouette}
+    \end{subfigure}
+
+    \begin{subfigure}{\imgwidth}
+        \includegraphics[width=\linewidth]{Fig13-2.pdf}
+        \caption{}\label{fig:edo:negative:dimension}
+    \end{subfigure}
     \caption{%
         Progressions for difference in silhouette (DBSCAN-preferable) and
         dimension across 1000 epochs at 100 epoch intervals.
     }\label{fig:negative-prog}
 \end{figure}
 
-\begin{figure}[htbp]
+\begin{figure}
     \centering
-    \subfloat[][]{%
-        \label{fig:neg-inds-k}
+    \begin{subfigure}{\imgwidth}
         \centering
-        \includegraphics[width=\imgwidth]{Fig14a.pdf}
-    }\\
-    \subfloat[][]{%
-        \label{fig:neg-inds-d}
+        \includegraphics[width=\linewidth]{Fig14a.pdf}
+        \caption{}\label{fig:neg-inds-k}
+    \end{subfigure}
+
+    \begin{subfigure}{\imgwidth}
         \centering
-        \includegraphics[width=\imgwidth]{Fig14b.pdf}
-    }
-    \caption[]{%
+        \includegraphics[width=\linewidth]{Fig14b.pdf}
+        \caption{}\label{fig:neg-inds-d}
+    \end{subfigure}
+    \caption{%
         Representative individuals from a DBSCAN-preferable run with clustering
         by: \subref{fig:dbscan-inds-k} \(k\)-means; \subref{fig:dbscan-inds-d}
         DBSCAN.\ Concave and convex hulls illustrated by shading and outline
@@ -936,9 +956,13 @@ first example, including the definition of the fitness function.
 >>> Uniform.param_limits["bounds"] = [0, 1]
 >>> 
 >>> pop_history, fit_history = edo.run_algorithm(
-...     fitness, size=100, row_limits=[3, 100], col_limits=[2, 2],
-...     families=[Uniform], max_iter=1000, best_prop=0.2,
-...     mutation_prob=0.01, seed=0, root="out",
+...     fitness,
+...     size=10,
+...     row_limits=[10, 50],
+...     col_limits=[2, 2],
+...     families=[Uniform],
+...     max_iter=10,
+...     seed=0,
 ...     fitness_kwargs={"seed": 0},
 ... )
 
