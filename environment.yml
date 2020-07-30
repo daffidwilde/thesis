@@ -16,7 +16,7 @@ dependencies:
    - alphashape==1.0.1
    - bibtexparser==1.2.0
    - descartes==1.1.0
-   - edo==0.2.1
+   - edo>=0.3
    - invoke==1.4.1
    - graphviz==0.14.1
    - pygments==2.5.2
