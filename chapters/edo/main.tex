@@ -440,11 +440,11 @@ done by sampling new parameter values for each distribution in the metadata with
 the mutation probability \(p_m\). Following subsequent testing and in
 documenting of the Python library, it was decided that allowing for this kind of
 mutation made for confusing results. In particular, studying the resultant
-individuals became more difficult when individuals had values in their columns
-that were beyond any reasonable bounds of the associated distribution, for
-instance. Since removing this stage of the process, no observable impact has
-been seen on the ability of the EA to traverse the search space compared with
-its inclusion.
+individuals became more difficult when individuals retained values in their
+columns that were now beyond any reasonable bounds of the associated
+distribution, for instance. Since removing this stage of the process, no
+observable impact has been identified on the ability of the EA to traverse the
+search space compared with its inclusion.
 
 \inputtikz{mutation}{The mutation process}
 
@@ -509,20 +509,88 @@ However, since it is not a normalised measure, other metrics are often used.
 Many of these metrics --- such as accuracy, recall and precision --- are used
 under the assumption that clustering is some sort of unsupervised classification
 task which is fundamentally wrong. Therefore, as a starting point, the first
-example will use this inertia as the fitness function in EDO.\ That is, EDO will
-be used to find datasets that minimise~\eqref{eq:inertia}.
+example uses inertia as the fitness function in EDO.\ That is, EDO is used to
+find datasets that minimise the final inertia found by \(k\)-means clustering.
 
 For visualisation purposes, these examples will restrict EDO to datasets that
 are two-dimensional, i.e. \(C = ((2, 2))\). Then, for simplicity, each dataset
-will have its columns formed from uniform distributions, denoted by \(U\),
-enclosed by the unit interval. Thus, the search space is the unit square, and
-the only element of \(\mathcal{P}\) is:
+will be clustered into two parts, i.e. \(k = 2\), and have its columns formed
+from uniform distributions, denoted by \(U\), enclosed by the unit interval.
+Thus, the search space is the unit square, and the only element of
+\(\mathcal{P}\) is:
 \begin{equation}
     \mathcal{U} := \left\{U(a, b)~|~a, b \in [0, 1]\right\}
 \end{equation}
 
 The remaining parameters are as follows: \(N=100\), \(R=(3,100)\), \(M=1000\),
-\(b=0.2\), \(l=0\), \(p_m=0.01\), and shrinkage is excluded.
+\(b=0.2\), \(l=0\), \(p_m=0.01\), and shrinkage is excluded. How this example
+was implemented using the Python library is shown in Snippet~\ref{snp:inertia}.
+Other than the fitness function and the parameters passed to
+\mintinline{python}{edo.DataOptimiser} and its \mintinline{python}{run()}
+method, the process is identical for every example in this section.
+
+\begin{listing}[htbp]
+\begin{sourcepy}
+import sys
+
+import edo
+from edo.distributions import Uniform
+from sklearn.cluster import KMeans
+
+
+SEEDS = int(sys.argv[1])
+
+
+def fitness(individual, max_seeds):
+    """ Return the lowest final inertia of k-means on the individual dataset
+    across the given number of trials with k=2. """
+
+    inertias = []
+    for seed in range(max_seeds):
+        km = KMeans(n_clusters=2, random_state=seed).fit(
+            individual.dataframe
+        )
+        inertias.append(km.inertia_)
+
+    return min(inertias)
+
+
+def run_trial(seed):
+    """ Run a trial of EDO using inertia as the fitness function. """
+
+    Uniform.param_limits["bounds"] = [0, 1]
+    families = [edo.Family(Uniform)]
+
+    opt = edo.DataOptimiser(
+        fitness,
+        size=100,
+        row_limits=[3, 100],
+        col_limits=[2, 2],
+        families=families,
+        max_iter=1000,
+        best_prop=0.2,
+    )
+
+    pop_history, fit_history = opt.run(
+        root=f"kmeans_inertia_small/{seed}",
+        random_state=seed,
+        fitness_kwargs={"max_seeds": 5},
+    )
+
+
+def main():
+    for seed in range(SEEDS):
+        run_trial(seed)
+
+
+if __name__ == "__main__":
+    main()
+\end{sourcepy}
+\caption{%
+    An abridged version of the source code used to produce the data from the
+    first example
+}\label{snp:inertia}
+\end{listing}
 
 Figure~\ref{fig:small-inertia-50} shows an example of the fitness (above) and
 dimension (below) progression of the evolutionary algorithm under these
@@ -542,34 +610,34 @@ summation) quickly reduces the mean error of that cluster and thus the value of
 \begin{figure}[htbp]
     \centering
     \begin{subfigure}{\imgwidth}
-        \includegraphics[width=\linewidth]{Fig7a-1.pdf}
-        \label{fig:edo:inertia:small:fitness}
+        \includegraphics[width=\linewidth]{kmeans_inertia_small_fitness.pdf}
+        \label{fig:kmeans_inertia_small_fitness}
     \end{subfigure}
 
     \begin{subfigure}{\imgwidth}
-        \includegraphics[width=\linewidth]{Fig7a-2.pdf}
-        \label{fig:edo:inertia:small:dimension}
+        \includegraphics[width=\linewidth]{kmeans_inertia_small_nrows.pdf}
+        \label{fig:kmeans_inertia_small_nrows}
     \end{subfigure}
     \caption{%
-        Progressions for final inertia and dimension across the first 50
-        epochs with \(R~=~(3,100)\).
+        Final inertia and dimension progressions across the first 100 epochs
+        with \(R=(3,100)\)
     }\label{fig:small-inertia-50}
 \end{figure}
 
 \begin{figure}[htbp]
     \centering
     \begin{subfigure}{\imgwidth}
-        \includegraphics[width=\linewidth]{Fig7b-1.pdf}
-        \caption{}\label{fig:edo:inertia:large:fitness}
+        \includegraphics[width=\linewidth]{kmeans_inertia_large_fitness.pdf}
+        \label{fig:kmeans_inertia_large_fitness}
     \end{subfigure}
 
     \begin{subfigure}{\imgwidth}
-        \includegraphics[width=\linewidth]{Fig7b-2.pdf}
-        \caption{}\label{fig:edo:inertia:large:dimension}
+        \includegraphics[width=\linewidth]{kmeans_inertia_large_nrows.pdf}
+        \label{fig:kmeans_inertia_large_nrows}
     \end{subfigure}
     \caption{%
-        Progressions for final inertia and dimension across the first 50 epochs
-        with \(R~=~(50,100)\).
+        Final inertia and dimension progressions across the first 100 epochs
+        with \(R~=~(50,100)\)
     }\label{fig:large-inertia-50}
 \end{figure}
 
@@ -589,19 +657,16 @@ algorithm's quality.
 \begin{figure}[htbp]
     \centering
     \begin{subfigure}{\imgwidth}
-        \includegraphics[width=\linewidth]{Fig8a.pdf}
-        \caption{}\label{fig:small-inertia-inds}
+        \includegraphics[width=\linewidth]{kmeans_inertia_small_inds.pdf}
+        \caption{with \(R = (3, 100)\)}\label{fig:kmeans_inertia_small_inds}
     \end{subfigure}
 
     \begin{subfigure}{\imgwidth}
-        \includegraphics[width=\linewidth]{Fig8b.pdf}
-        \caption{}\label{fig:large-inertia-inds}
+        \includegraphics[width=\linewidth]{kmeans_inertia_large_inds.pdf}
+        \caption{with \(R = (50, 100)\)}\label{fig:kmeans_inertia_large_inds}
     \end{subfigure}
     \caption{%
-        Representative individuals based on inertia with:
-        \subref{fig:small-inertia-inds} \(R~=~(3,100)\);
-        \subref{fig:large-inertia-inds} \(R~=~(50,100)\). Centroids displayed as
-        crosses.
+        Representative individuals based on inertia
     }\label{fig:inertia-inds}
 \end{figure}
 
@@ -670,53 +735,48 @@ reputation of providing so-called `black box' solutions.
 \begin{figure}[htbp]
     \centering
     \begin{subfigure}{\imgwidth}
-        \includegraphics[width=\linewidth]{Fig9a-1.pdf}
-        \caption{}\label{fig:edo:small:silhouette}
+        \includegraphics[width=\linewidth]{kmeans_silhouette_small_fitness.pdf}
+        \label{fig:kmeans_silhouette_small_fitness}
     \end{subfigure}
 
     \begin{subfigure}{\imgwidth}
-        \includegraphics[width=\linewidth]{Fig9a-2.pdf}
-        \caption{}\label{fig:edo:small:dimension}
+        \includegraphics[width=\linewidth]{kmeans_silhouette_small_nrows.pdf}
+        \label{fig:kmeans_silhouette_small_nrows}
     \end{subfigure}
     \caption{%
-        Progressions of silhouette and dimension across 1000 epochs at 100 epoch
-        intervals with \(R~=~(3, 100)\).
+        Silhouette and dimension progressions with \(R=(3, 100)\)
     }\label{fig:small-silhouette}
 \end{figure}
 
 \begin{figure}
     \centering
     \begin{subfigure}{\imgwidth}
-        \includegraphics[width=\linewidth]{Fig9b-1.pdf}
-        \caption{}\label{fig:edo:large:silhouette}
+        \includegraphics[width=\linewidth]{kmeans_silhouette_large_fitness.pdf}
+        \label{fig:kmeans_silhouette_large_fitness}
     \end{subfigure}
 
     \begin{subfigure}{\imgwidth}
-        \includegraphics[width=\linewidth]{Fig9b-2.pdf}
-        \caption{}\label{fig:edo:large:dimension}
+        \includegraphics[width=\linewidth]{kmeans_silhouette_large_nrows.pdf}
+        \label{fig:kmeans_silhouette_large_nrows}
     \end{subfigure}
     \caption{%
-        Progressions of silhouette and dimension across 1000 epochs at 100 epoch
-        intervals with \(R~=~(50,100)\).
+        Silhouette and dimension progressions with \(R=(50, 100)\)
     }\label{fig:large-silhouette}
 \end{figure}
 
 \begin{figure}
     \centering
     \begin{subfigure}{\imgwidth}
-        \includegraphics[width=\linewidth]{Fig10a.pdf}
-        \caption{}\label{fig:edo:small:silhouette:inds}
+        \includegraphics[width=\linewidth]{kmeans_silhouette_small_inds.pdf}
+        \caption{with \(R=(3, 100)\)}\label{fig:kmeans_silhouette_small_inds}
     \end{subfigure}
 
     \begin{subfigure}{\imgwidth}
-        \includegraphics[width=\imgwidth]{Fig10b.pdf}
-        \caption{}\label{fig:edo:large:silhouette:inds}
+        \includegraphics[width=\imgwidth]{kmeans_silhouette_large_inds.pdf}
+        \caption{with \(R=(50, 100)\)}\label{fig:kmeans_silhouette_large_inds}
     \end{subfigure}
     \caption{%
-        Representative individuals based on silhouette with:
-        \subref{fig:edo:small:silhouette:inds} \(R~=~(3,100)\);
-        \subref{fig:edo:large:silhouette:inds} \(R~=~(50,100)\). Centroids are
-        displayed as crosses.
+        Representative individuals based on silhouette
     }\label{fig:silhouette-inds}
 \end{figure}
 
@@ -784,36 +844,35 @@ search space defined by the EDO parameters used previously with
 \begin{figure}
     \centering
     \begin{subfigure}{\imgwidth}
-        \includegraphics[width=\linewidth]{Fig11-1.pdf}
-        \caption{}\label{fig:edo:positive:silhouette}
+        \includegraphics[width=\linewidth]{kmeans_over_dbscan_fitness.pdf}
+        \label{fig:kmeans_over_dbscan_fitness}
     \end{subfigure}
 
     \begin{subfigure}{\imgwidth}
-        \includegraphics[width=\linewidth]{Fig11-2.pdf}
-        \caption{}\label{fig:edo:positive:dimension}
+        \includegraphics[width=\linewidth]{kmeans_over_dbscan_nrows.pdf}
+        \label{fig:kmeans_over_dbscan_nrows}
     \end{subfigure}
     \caption{%
-        Progressions for difference in silhouette (\(k\)-means-preferable) and
-        dimension across 1000 epochs at 100 epoch intervals.
+        Progressions for the (\(k\)-means preferable) difference in silhouette
+        and dimension
     }\label{fig:dbscan-silhouette}
 \end{figure}
 
 \begin{figure}
     \centering
     \begin{subfigure}{\imgwidth}
-        \includegraphics[width=\linewidth]{Fig12a.pdf}
-        \caption{}\label{fig:dbscan-inds-k}
+        \includegraphics[width=\linewidth]{kmeans_over_dbscan_kmeans_inds.pdf}
+        \caption{%
+            clustered by \(k\)-means
+        }\label{fig:kmeans_over_dbscan_kmeans_inds}
     \end{subfigure}
 
     \begin{subfigure}{\imgwidth}
-        \includegraphics[width=\linewidth]{Fig12b.pdf}
-        \caption{}\label{fig:dbscan-inds-d}
+        \includegraphics[width=\linewidth]{kmeans_over_dbscan_dbscan_inds.pdf}
+        \caption{clustered by DBSCAN}\label{fig:kmeans_over_dbscan_dbscan_inds}
     \end{subfigure}
     \caption{%
-        Representative individuals from a \(k\)-means-preferable run with
-        clustering by: \subref{fig:dbscan-inds-k} \(k\)-means;
-        \subref{fig:dbscan-inds-d} DBSCAN.\ Concave and convex hulls illustrated
-        by shading and outline respectively.
+        Representative individuals from the \(k\)-means-preferable trials
     }\label{fig:dbscan-inds}
 \end{figure}
 
@@ -828,9 +887,11 @@ suggestive of a more competitive environment for individuals where slight
 changes to an individual can drastically alter their fitness.
 
 The effect of such changes can be seen in Figure~\ref{fig:dbscan-inds} where
-representative individuals are shown for this example. Here, the best performing
-individual, when clustered by \(k\)-means, shows three clear and nicely
-separated clusters. Note that they are not so tightly packed; again, this
+representative individuals are shown for this example. In addition to the
+scattering of the clusters and their centres, the concave and convex hulls of
+each cluster are illustrated by shading and outline respectively. Here, the best
+performing individual, when clustered by \(k\)-means, shows three clear and
+nicely separated clusters. Note that they are not so tightly packed; again, this
 suggests that the route to an optimal individual is less clearly defined. In
 contrast, when the same dataset is clustered by DBSCAN a single cluster is found
 with a single noise point held within the convex hull of the cluster, i.e.\
@@ -879,17 +940,17 @@ in~(\ref{eq:dbscan-fitness}).
 \begin{figure}[htbp]
     \centering
     \begin{subfigure}{\imgwidth}
-        \includegraphics[width=\linewidth]{Fig13-1.pdf}
-        \caption{}\label{fig:edo:negative:silhouette}
+        \includegraphics[width=\linewidth]{dbscan_over_kmeans_fitness.pdf}
+        \label{fig:dbscan_over_kmeans_fitness}
     \end{subfigure}
 
     \begin{subfigure}{\imgwidth}
-        \includegraphics[width=\linewidth]{Fig13-2.pdf}
-        \caption{}\label{fig:edo:negative:dimension}
+        \includegraphics[width=\linewidth]{dbscan_over_kmeans_nrows.pdf}
+        \label{fig:dbscan_over_kmeans_nrows}
     \end{subfigure}
     \caption{%
-        Progressions for difference in silhouette (DBSCAN-preferable) and
-        dimension across 1000 epochs at 100 epoch intervals.
+        Progressions for the (DBSCAN-preferable) difference in silhouette and
+        dimension
     }\label{fig:negative-prog}
 \end{figure}
 
@@ -897,20 +958,19 @@ in~(\ref{eq:dbscan-fitness}).
     \centering
     \begin{subfigure}{\imgwidth}
         \centering
-        \includegraphics[width=\linewidth]{Fig14a.pdf}
-        \caption{}\label{fig:neg-inds-k}
+        \includegraphics[width=\linewidth]{dbscan_over_kmeans_kmeans_inds.pdf}
+        \caption{%
+            clustered by \(k\)-means
+        }\label{fig:dbscan_over_kmeans_kmeans_inds}
     \end{subfigure}
 
     \begin{subfigure}{\imgwidth}
         \centering
-        \includegraphics[width=\linewidth]{Fig14b.pdf}
-        \caption{}\label{fig:neg-inds-d}
+        \includegraphics[width=\linewidth]{dbscan_over_kmeans_dbscan_inds.pdf}
+        \caption{clustered by DBSCAN}\label{fig:dbscan_over_kmeans_dbscan_inds}
     \end{subfigure}
     \caption{%
-        Representative individuals from a DBSCAN-preferable run with clustering
-        by: \subref{fig:dbscan-inds-k} \(k\)-means; \subref{fig:dbscan-inds-d}
-        DBSCAN.\ Concave and convex hulls illustrated by shading and outline
-        respectively.
+        Representative individuals from the DBSCAN-preferable trials
     }\label{fig:negative-inds}
 \end{figure}
 
@@ -1026,57 +1086,3 @@ of the flipped paradigm set out in this work. The concept of where `good'
 datasets exist is not something that is well-documented in literature and the
 hope of this work is that Evolutionary Dataset Optimisation acts as a starting
 point for further works to come.
-
-
-\section*{Appendix}
-
-\subsection{Lloyd's algorithm}\label{app:kmeans}
-
-
-\subsection{Implementation example}\label{app:code}
-
-Below is an example of how the Python implementation was used to complete the
-first example, including the definition of the fitness function.
-
-\begin{listing}[htbp]
-\begin{sourcepy}
-import edo
-from edo.distributions import Uniform
-from sklearn.cluster import KMeans
-
-def fitness(individual, max_seeds):
-    """ Return the lowest final inertia of k-means on the individual dataset
-    across the given number of trials with k=2. """
-
-    inertias, labels = [], []
-    for seed in range(max_seeds):
-        km = KMeans(n_clusters=2, random_state=seed).fit(
-            individual.dataframe
-        )
-        inertias.append(km.inertia_)
-        labels.append(km.labels_)
-
-    best = min(inertias)
-    individual.labels = labels[inertias.index(best)]
-    return best
-
-
-Uniform.param_limits["bounds"] = [0, 1]
-families = [edo.Family(Uniform)]
-
-opt = edo.DataOptimiser(
-    fitness,
-    size=10,
-    row_limits=[10, 50],
-    col_limits=[2, 2],
-    families=families,
-    max_iter=10,
-)
-
-pop_history, fit_history = opt.run(
-    random_state=0, fitness_kwargs={"max_seeds": 5}
-)
-
-\end{sourcepy}
-\caption{Source code to produce a trial from Example~\ref{ex:edo-1}}
-\end{listing}
