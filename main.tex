@@ -242,11 +242,16 @@
 \input{preamble/declaration}
 \input{preamble/acknowledgements}
 \input{preamble/dissemination}
-\tableofcontents%
-\listoffigures%
-\listoftables%
-\listofalgorithms%
-\listoflisting%
+
+{
+  \hypersetup{hidelinks}
+
+    \tableofcontents%
+    \listoffigures%
+    \listoftables%
+    \listofalgorithms%
+    \listoflisting%
+}
 
 % Main text
 \mainmatter%
