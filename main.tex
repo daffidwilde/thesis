@@ -93,9 +93,9 @@
 
 \definecolor{cyan}{RGB}{0, 164, 216}
 \definecolor{magenta}{RGB}{226, 62, 138}
-\definecolor{deepblue}{RGB}{0,0,0.5}
-\definecolor{deepred}{RGB}{0.6,0,0}
-\definecolor{deepgreen}{RGB}{0,0.5,0}
+\definecolor{deepblue}{RGB}{0,0,150}
+\definecolor{deepred}{RGB}{200,0,0}
+\definecolor{deepgreen}{RGB}{0,150,0}
 
 % Code snippet stuff
 \usemintedstyle{friendly}
@@ -106,7 +106,12 @@
 %%% Commands and environments
 
 % URLs
-\renewcommand{\UrlFont}{\color{myurl}\ttfamily\footnotesize\relax}
+\hypersetup{
+    colorlinks=true,
+    citecolor=deepgreen,
+    linkcolor=deepred,
+    urlcolor=myurl,
+}
 
 % Line rule
 \newcommand{\myrule}{%
