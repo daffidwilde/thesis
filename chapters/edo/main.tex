@@ -164,12 +164,12 @@ left: the proposed flip to better understand the space in which `good' datasets
 exist for an algorithm.
 
 \inputtikz{paradigm}{%
-    A diagram of the current and proposed paradigms for algorithm evaluation.
+    A diagram of the current and proposed paradigms for algorithm evaluation
 }
 
 The method introduced here is just one method from this new paradigm that
 utilises evolution. Evolutionary algorithms (EAs) have been applied successfully
-to solve a wide array of problems \-- particularly where the complexity of the
+to solve a wide array of problems --- particularly where the complexity of the
 problem or its domain are significant. These methods are highly adaptive and
 their population-based construction (displayed in Figure~\ref{fig:flowchart})
 allows for the efficient solving of problems that are otherwise beyond the scope
@@ -178,7 +178,7 @@ here as they are simple in design yet their capabilities encompass the
 difficulties of the flipped paradigm set out above.
 
 \inputtikz{flowchart}{%
-    A general schematic for an evolutionary algorithm.
+    A general schematic for an evolutionary algorithm
 }
 
 The use of EAs to generate artificial data is not a new concept, however.
@@ -214,30 +214,29 @@ The remainder of this chapter is structured as follows:
     \item Section 4 summarises the chapter.
 \end{itemize}
 
+
 \section{The evolutionary algorithm}\label{section:algorithm}
 
-In this section, the details of an algorithm that generates data for which a
-given function, or (equivalently) algorithm, is well-suited is described. This
-algorithm is to be referred to as ``Evolutionary Dataset Optimisation'' (EDO).
-
-The EDO method is built as an evolutionary algorithm which follows a traditional
-(generic) schema with some additional features that keep the objective of
-artificial data generation in mind. With that, there are a number of parameters
-that are passed to EDO;\ the typical parameters of an evolutionary algorithm
-are a fitness function, \(f\), which maps from an individual to a real number,
-as well as a population size, \(N\), a maximum number of iterations, \(M\), a
-selection parameter, \(b\), and a  mutation probability, \(p_m\). In addition to
-these, EDO takes the following parameters:
+This section presents the details of the EDO algorithm. As stated previously,
+the EDO method is built as an EA. The EA follows a typical schema with the
+addition of some features that align with the overall objective of artificial
+data generation. With that, there are a number of parameters that are passed to
+EDO;\ the typical parameters of an evolutionary algorithm are a fitness
+function, \(f\), which maps from an individual to a real number, as well as a
+population size, \(N\), a maximum number of iterations, \(M\), a selection
+parameter, \(b\), and a mutation probability, \(p_m\). In addition to these,
+EDO takes the following parameters:
 \begin{itemize}
     \item A set of probability distribution families, \(\mathcal{P}\). Each
         family in this set has some parameter limits which form a part of the
         overall search space. For instance, the family of normal distributions,
         denoted by \(N(\mu, \sigma^2)\), would have limits on values for the
         mean, \(\mu\), and the standard deviation, \(\sigma\).
-    \item A maximum number of ``subtypes'' for each family in \(\mathcal{P}\). A
-        subtype is an independent copy of the family that progresses separate
-        from the others. These are the actual distribution objects which are
-        traversed in the optimisation.
+    \item A maximum number of `subtypes' for each family in \(\mathcal{P}\). A
+        subtype is an independent copy of the family distribution that
+        progresses separately from the other subtypes in that family. These are
+        the actual distribution objects which are traversed in the optimisation
+        and that are passed to the individuals.
     \item A probability vector to sample distributions from \(\mathcal{P}\),
         \(w = \left(w_1, \ldots, w_{|\mathcal{P}|}\right)\).
     \item Limits on the number of rows an individual dataset can have,
@@ -263,23 +262,27 @@ these, EDO takes the following parameters:
         component of the search space to be retained after adjustment.
 \end{itemize}
 
-The concepts discussed in this section form the mechanisms of the evolutionary
-dataset optimisation algorithm. To use the algorithm practically, these
-components have been implemented in Python as a library built on the scientific
-Python stack~\cite{pandas,numpy}. The library is fully tested and documented (at
-\url{https://edo.readthedocs.io}) and is freely available online under the MIT
-license~\cite{edo-project}. The EDO implementation was developed to be
+This chapter discusses the components and mechanisms of the EDO method in a
+largely mathematical manner. However, a Python package,
+\href{https://github.com/daffidwilde/edo}{\mintinline{python}{edo}}, that
+implements the EDO algorithm is used to demonstrate its practical use and
+particular technical aspects of the method. This implementation is built on the
+scientific Python stack~\cite{pandas,numpy} and has been developed to be
 consistent with the current best practices of open source software
-development~\cite{Jimenez2017}.
+development~\cite{Jimenez2017} so that it is modular, automatically tested and
+fully documented. It is freely available online under the MIT
+licence~\cite{edo-project}.
+
+Algorithm~\ref{alg:edo} provides a high-level description of the EDO algorithm
+that presents its general structure. More detailed discussion is provided in
+this section along with relevant examples, diagrams and algorithm statements for
+the abstract processes mentioned there: the creation of individuals, the
+evolutionary operators and the `shrinkage' process.
 
 \inputalg{edo}
 \inputalg{new_population}
 
-The statement of the EDO algorithm is presented here to lay out its general
-structure from a high level perspective. Lower level discussion is provided
-below where additional algorithms for the individual creation, evolutionary
-operator and shrinkage processes are given along with diagrams (where
-appropriate). Note that there are no defined processes for how to stop the
+Note that there are no defined processes for how to stop the
 algorithm or adjust the mutation probability, \(p_m\). This is down to their
 relevance to a particular use case. Some examples include:
 \begin{itemize}
@@ -291,76 +294,86 @@ relevance to a particular use case. Some examples include:
         point~\cite{Marti2016}.
 \end{itemize}
 
+
 \subsection{Individuals}
 
 Evolutionary algorithms operate in an iterative process on populations of
-individuals that each represent a solution to the problem in question. In a
-genetic algorithm, an individual is a solution encoded as a bit string of,
-typically, fixed length and treated as a chromosome-like object to be
-manipulated. In EDO, as the objective is to generate datasets and explore the
-space in which datasets exist, there is no encoding. As such the distinction is
-made that EDO is an evolutionary algorithm.
+individuals that correspond to a solution to the problem in question according
+to some representation or encoding. In a genetic algorithm, an individual is a
+solution encoded as a bit string of typically fixed length and is treated as a
+chromosome-like object to be manipulated.
 
-As is seen in Figure~\ref{fig:individual}, an individual's creation is
-defined by the generation of its columns. A set of instructions on how to sample
-new values (in mutation, for instance, Section~\ref{subsection:mutation}) for
-that column are recorded in the form of a probability distribution. These
-distributions are sampled and created from the families passed in
-\(\mathcal{P}\). In EDO, the produced datasets and their metadata are
-manipulated directly so that the biological operators can be designed and be
-interpreted in a more meaningful way as will be seen later in this section.
+In EDO, individuals are represented primarily as the dataset that defines them,
+without an encoding. This is because the objective of EDO is to generate
+datasets and explore the space in which datasets exist. Therefore, to design
+meaningful operators on these solutions, this form is preserved. Creation is one
+such operator that is governed by this representation.
+Figure~\ref{fig:individual} shows this process diagrammatically and
+Algorithm~\ref{alg:individual} provides a simplified statement of the individual
+creation process.
+
+In addition to the dataset, an individual is represented by a list of
+probability distributions created using the elements of~\(\mathcal{P}\) that
+correspond to the columns of the dataset. This list is referred to as the
+individual's `metadata'. The metadata acts as a set of instructions on how to
+sample new values for the columns (as in mutation, for instance) and as a record
+of how that column was created.
 
 However, one should not assume that the columns are a reliable representative of
 the distribution associated with them, or vice versa. This is particularly true
 of `shorter' datasets with a small number of rows, whereas confidence in the
 pair could be given more liberally for `longer' datasets with a larger number
-of rows. In any case, appropriate methods for analysis should be employed before
-formal conclusions are made.
+of rows. In any case, appropriate methods of analysis should be employed before
+formal conclusions are made about these relationships.
 
 \inputtikz{individual}{%
-    An example of how an individual is first created.
+    An example of how an individual is first created
 }
 \inputalg{individual}
+
 
 \subsection{Selection}
 
 The selection operator describes the process by which individuals are chosen
 from the current population to generate the next. Almost always, the likelihood
-of an individual being selected is determined by their fitness. This is because
-the purpose of selection is to preserve favourable qualities and encourage some
+of an individual being selected is determined by their fitness. By selecting
+individuals in this way, the hope is that some favourable qualities can be
+preserved (thus improving the population) and to encourage some
 homogeneity within future generations~\cite{Back1994}.
 
 \inputtikz{selection}{%
-    The selection process with the inclusion of some lucky individuals.
+    The selection process with the inclusion of some lucky individuals
 }
 \inputalg{selection}
 
-In EDO, a modified truncation selection method is used~\cite{Jebari2013}, as can
-be seen in Figure~\ref{fig:selection}. Truncation selection takes a fixed
-number, \(n_b = \lceil b N\rceil\), of the fittest individuals in a population
-and makes them the `parents' of the next. It has been observed that, despite
-its efficiency as a selection operator, truncation selection can lead to
-premature convergence at local optima~\cite{Jebari2013,Motoki2002}. The
-modification for EDO is an optional stage after the best individuals have been
-chosen: with some small \(l\), a number, \(n_l = \lceil l N\rceil\), of the
-remaining individuals can be selected at random to be carried forward. Hence,
-allowing for a small number of randomly selected individuals may encourage
-diversity and further exploration throughout the run of the algorithm. It should
-be noted that regardless of this step, an individual could potentially be
+A modified truncation selection method is used in EDO, as is illustrated in
+Figure~\ref{fig:selection}. Truncation is perhaps the simplest selection method
+wherein a fixed number, \(n_b = \left\lceil b N\right\rceil\), of the fittest
+individuals in a population are taken forward and used as the `parents' of the
+next generation. Note that this means that an individual could potentially be
 present throughout the entirety of the algorithm.
+
+It has been observed that, despite its efficiency as a selection operator,
+truncation selection can lead to premature convergence at local
+optima~\cite{Jebari2013,Motoki2002}. EDO provides an optional modification to
+counteract this where, after the best individuals have been chosen, some number,
+\(n_l = \left\lceil l N\right\rceil\), of the remaining individuals can be
+selected uniformly to be carried forward. The purpose of taking forward a small
+number of `lucky' individuals is to introduce some diversity in the genetic pool
+of the parent individuals thus adding to the exploration of the search space.
 
 After the parents have been selected, there are two adjustments made to the
 current search space. The first is that the subtypes for each family in
-\(\mathcal{P}\) are updated to only those present in the parents. The second
-adjustment is a process which acts on the distribution parameter limits for
-each subtype in \(\mathcal{P}\). This adjustment gives the ability to `shrink'
-the search space about the region observed in a given population. This method is
-based on a power law described in~\cite{Amirjanov2016} that relies on a shrink
-factor, \(s\). At each iteration, \(t\), every distribution subtype which is
-present in the parents has its parameter's limits, \(\left(l_t, u_t\right)\),
-adjusted. This adjustment is such that the new limits, \(\left(l_{t+1},
-u_{t+1}\right)\) are centred about the mean observed value, \(\mu\), for that
-parameter:
+\(\mathcal{P}\) are updated to include only those present in the parents. The
+second adjustment is a process which acts on the distribution parameter limits
+for each subtype in \(\mathcal{P}\) and takes place once the new generation has
+been created. This adjustment gives the ability to `shrink' the search space
+about the region observed in a given population. This method is based on a power
+law described in~\cite{Amirjanov2016} that relies on a shrink factor, \(s\). At
+each iteration, \(t\), every distribution subtype which is present in the
+parents has its parameter's limits, \(\left(l_t, u_t\right)\), adjusted. This
+adjustment is such that the new limits, \(\left(l_{t+1}, u_{t+1}\right)\) are
+centred about the mean observed value, \(\mu\), for that parameter:
 \begin{align}
     \label{eq:shrinking_lower}
     l_{t+1}&= \max \left\{l_t, \ \mu - \frac{1}{2} (u_t - l_t) s^t\right\}\\
@@ -370,92 +383,147 @@ parameter:
 
 The shrinking process is given explicitly in
 Algorithm~\ref{algorithm:shrinking}. Note that the behaviour of this process can
-produce reductive results for some use cases and is optional.
+produce reductive results where very early convergence is achieved at the cost
+of extensive exploration and is considered to be decidedly optional.
 
 \inputalg{shrinking}
 
+
 \subsection{Crossover}
 
-Crossover is the operation of combining two individuals in order to create at
-least one offspring. In genetic algorithms, the term `crossover' can be taken
-literally: two bit strings are crossed at a point to create two new bit strings.
-Another popular method is uniform crossover, which has been favoured for its
-efficiency and efficacy in combining individuals in both bit string and matrix
-representations~\cite{Chen2018,Semenkin2012}. For EDO, this method is adapted to
-support dataset manipulation: a new individual is created by uniformly sampling
-each of its components (dimensions and then columns) from a set of two `parent'
-individuals, as shown in Figure~\ref{fig:crossover}.
+Crossover is the operation of combining two individuals in order to create a new
+individual (or individuals). It is also the opportunity to have the favourable
+qualities preserved through selection interact with one another in potentially
+new ways. The term `crossover' originates from its application in genetic
+algorithms where it can be taken quite literally. In genetic algorithms, two bit
+strings are crossed at a point to create two new bit strings.
+
+Another popular method is uniform crossover, where the components of two parents
+are sampled uniformly to create a new individual. This method has been favoured
+for its efficiency, and its efficacy in combining individuals in both bit string
+and matrix representations~\cite{Chen2018,Semenkin2012}. EDO makes use of
+a form of uniform crossover that has been adapted to support the representation
+of individuals in the EA. Put simply, a new offspring is created by uniformly
+sampling each of its components (i.e.\ dimensions and columns) from a set of two
+`parent' individuals, as depicted in Figure~\ref{fig:crossover}.
 
 \inputtikz{crossover}{%
-    The crossover process between two individuals with different dimensions.
+    The crossover process between two individuals with different dimensions
 }
 
 Observe that there is no requirement on the dimensions of the parents to be of
 similar or equal shapes. This is because the driving aim of the proposed method
-is to explore the space of all possible datasets. In the case where there is
-incongruence in the lengths of the two parents, missing values may appear in a
-shorter column that is sampled. To resolve this, values are sampled from the
-probability distribution associated with that column to fill in these gaps.
+is to explore some part of the space of all possible datasets. In the case where
+there is incongruence in the lengths of the two parents, missing values may
+appear in a shorter column that has been sampled. To resolve this, values are
+sampled from the probability distribution associated with that column to fill in
+these gaps. Conversely, surplus values are trimmed from the bottom of all longer
+columns.
 
 \inputalg{crossover}
 
 \subsection{Mutation}\label{subsection:mutation}
 
-Mutation is used in evolutionary algorithms to encourage a broader exploration
-of the search space at each generation. Under this framework, the mutation
-process manipulates the phenotype of an individual where numerous things need to
-be modified including an individual's dimensions, column metadata and the
-entries themselves. This process is described in Figure~\ref{fig:mutation}.
 
-\inputtikz{mutation}{The mutation process.}
+Mutation is used in EAs to maintain a level of variety in a population and to
+force the algorithm to explore more of the search space at each generation.
+It is typical of mutation operators to affect all aspects of an individual. In
+genetic algorithms, this is as simple as running along a bit string and swapping
+a zero to a one (or one to zero). Under the EDO framework, the mutation process
+manipulates the phenotype of an individual by potentially modifying its
+dimensions and the entries of its dataset. A diagram of this process is given in
+Figure~\ref{fig:mutation}.
 
-As shown in Figure~\ref{fig:mutation}, each of the potential mutations occur
-with the same probability, \(p_m\). However, the way in which columns are
-maintained assure that (assuming appropriate choices for \(f\) and
-\(\mathcal{P}\)) many mutations in the metadata and the dataset itself will only
-result in some incremental change in the individual's fitness
-relative to, say, a completely new individual.
+In the publication that originally presented EDO, this process included a
+penultimate stage where the metadata of an individual could be mutated. This was
+done by sampling new parameter values for each distribution in the metadata with
+the mutation probability \(p_m\). Following subsequent testing and in
+documenting of the Python library, it was decided that allowing for this kind of
+mutation made for confusing results. In particular, studying the resultant
+individuals became more difficult when individuals had values in their columns
+that were beyond any reasonable bounds of the associated distribution, for
+instance. Since removing this stage of the process, no observable impact has
+been seen on the ability of the EA to traverse the search space compared with
+its inclusion.
+
+\inputtikz{mutation}{The mutation process}
+
+Each of the potential mutations occur with the same probability, \(p_m\).
+However, the way in which columns are maintained assure that (assuming
+appropriate choices for \(f\) and \(\mathcal{P}\)) even multiple mutations in
+the dataset will only result in some incremental change in the individual's
+fitness relative to, say, a completely new individual.
 
 \inputalg{mutation}
 
+
 \section{A case study in clustering}\label{section:examples}
+
+The following case study is comprised of a number of examples that act as a form
+of validation for EDO, and also highlight some of the nuances in its use. The
+objective of these examples is to use the proposed method to reproduce some
+known results about the clustering of data in the absence of any external
+forces, and to examine how clustering algorithms are typically evaluated. In
+particular, the focus will be on the well-known \(k\)-means (Lloyd's) algorithm.
+Clustering was chosen as it is a well-understood problem that is easily
+accessible --- especially when restricted to two dimensions.
 
 \subsection{\(k\)-means clustering}
 
-The following examples act as a form of validation for EDO, and also highlight
-some of the nuances in its use. The objective of these examples is to use the
-proposed method to reproduce some known results about the clustering of data in
-the absence of any external forces, and to examine how clustering algorithms are
-typically evaluated. In particular, the focus will be on the well-known
-\(k\)-means (Lloyd's) algorithm. Clustering was chosen as it is a
-well-understood problem that is easily accessible \-- especially when restricted
-to two dimensions. The \(k\)-means algorithm is an iterative, centroid-based
-method that aims to minimise the `inertia' of the current partition, \(Z =
-\left\{Z_1, \ldots, Z_k\right\}\), of some dataset \(X\):
+The \(k\)-means algorithm is an iterative, centroid-based method that aims to
+minimise the `inertia' of the current partition, \(Z = \left\{Z_1, \ldots,
+Z_k\right\}\), of some dataset \(X\):
 \begin{equation}
     I(Z, X) := \frac{1}{|X|} \sum_{j=1}^{k} \sum_{x \in Z_j} {d(x, z_j)}^2
     \label{eq:inertia}
 \end{equation}
 
-A full statement of the algorithm to minimise~(\ref{eq:inertia}) is given
-in~\ref{app:kmeans}.
+A full statement of the algorithm to minimise~\eqref{eq:inertia} is given in
+Algorithm~\ref{alg:kmeans}.
 
-This inertia function is taken as the objective of the \(k\)-means algorithm,
-and is used for evaluating the final clustering. This is particularly true when
-the algorithm is not being considered an unsupervised classifier where accuracy
-may be used~\cite{Huang1998}. With that, the first example will use this inertia
-as the fitness function in EDO.\ That is, to find datasets which minimise \(I\).
+\balg%
+\KwIn{a dataset \(X\), a number of centroids \(k\), a distance metric \(d\)}
+\KwOut{a partition of \(X\) into \(k\) parts, \(Z\)}
 
-For the purposes of visualisation, EDO is restricted to the space containing
-only two-dimensional datasets, i.e.\ \(C = \left((2, 2)\right)\). In addition to
-this, all columns are formed from uniform distributions where the bounds are
-sampled from the unit interval. Thus, the only family in \(\mathcal{P}\) is:
+\Begin{%
+    select \(k\) initial centroids, \(z_1, \ldots, z_k \in X\)\;
+    \While{any point changes cluster or some stopping criterion is not met}{%
+        assign each point, \(x \in X\), to cluster \(Z_{j^*}\) where:
+        \[
+            j^* = \argmin_{j = 1, \ldots, k} \left\{%
+                {d\left(x, z_j\right)}^2
+            \right\}
+        \]\;
+        recalculate all centroids by taking the intra-cluster mean:
+        \[
+            z_j = \frac{1}{|Z_j|} \sum_{x \in Z_j} x
+        \]
+    }
+}
+\caption{\(k\)-means (Lloyd's algorithm)}\label{alg:kmeans}
+\ealg%
+
+As this inertia function is the objective of the \(k\)-means algorithm, it is
+often used for evaluating the quality of the final clustering it produces.
+However, since it is not a normalised measure, other metrics are often used.
+Many of these metrics --- such as accuracy, recall and precision --- are used
+under the assumption that clustering is some sort of unsupervised classification
+task which is fundamentally wrong. Therefore, as a starting point, the first
+example will use this inertia as the fitness function in EDO.\ That is, EDO will
+be used to find datasets that minimise~\eqref{eq:inertia}.
+
+For visualisation purposes, these examples will restrict EDO to datasets that
+are two-dimensional, i.e. \(C = ((2, 2))\). Then, for simplicity, each dataset
+will have its columns formed from uniform distributions, denoted by \(U\),
+enclosed by the unit interval. Thus, the search space is the unit square, and
+the only element of \(\mathcal{P}\) is:
 \begin{equation}
     \mathcal{U} := \left\{U(a, b)~|~a, b \in [0, 1]\right\}
 \end{equation}
 
-The remaining parameters are as follows: \(N~=~100\), \(R~=~(3, 100)\),
-\(M~=~1000\), \(b~=~0.2\), \(l~=~0\), \(p_m~=~0.01\), and shrinkage is excluded.
+The remaining parameters are as follows: \(N=100\), \(R=(3,100)\), \(M=1000\),
+\(b=0.2\), \(l=0\), \(p_m=0.01\), and shrinkage is excluded.
+
 Figure~\ref{fig:small-inertia-50} shows an example of the fitness (above) and
 dimension (below) progression of the evolutionary algorithm under these
 conditions up until the \(50^{th}\) epoch.
@@ -475,12 +543,12 @@ summation) quickly reduces the mean error of that cluster and thus the value of
     \centering
     \begin{subfigure}{\imgwidth}
         \includegraphics[width=\linewidth]{Fig7a-1.pdf}
-        \caption{}\label{fig:edo:inertia:small:fitness}
+        \label{fig:edo:inertia:small:fitness}
     \end{subfigure}
 
     \begin{subfigure}{\imgwidth}
         \includegraphics[width=\linewidth]{Fig7a-2.pdf}
-        \caption{}\label{fig:edo:inertia:small:dimension}
+        \label{fig:edo:inertia:small:dimension}
     \end{subfigure}
     \caption{%
         Progressions for final inertia and dimension across the first 50
@@ -964,27 +1032,6 @@ point for further works to come.
 
 \subsection{Lloyd's algorithm}\label{app:kmeans}
 
-\balg[H]%
-\KwIn{a dataset \(X\), a number of centroids \(k\), a distance metric \(d\)}
-\KwOut{a partition of \(X\) into \(k\) parts, \(Z\)}
-
-\Begin{%
-    select \(k\) initial centroids, \(z_1, \ldots, z_k \in X\)\;
-    \While{any point changes cluster or some stopping criterion is not met}{%
-        assign each point, \(x \in X\), to cluster \(Z_{j^*}\) where:
-        \[
-            j^* = \argmin_{j = 1, \ldots, k} \left\{%
-                {d\left(x, z_j\right)}^2
-            \right\}
-        \]\;
-        recalculate all centroids by taking the intra-cluster mean:
-        \[
-            z_j = \frac{1}{|Z_j|} \sum_{x \in Z_j} x
-        \]
-    }
-}
-\caption{\(k\)-means (Lloyd's)}
-\ealg%
 
 \subsection{Implementation example}\label{app:code}
 
