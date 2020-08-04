@@ -99,7 +99,7 @@
 
 % Code snippet stuff
 \usemintedstyle{friendly}
-\setminted{fontsize=\scriptsize, framerule=\textwidth}
+\setminted{fontsize=\scriptsize, breaklines=true, framerule=\linewidth}
 \setmintedinline{fontsize=\normalsize}
 
 
@@ -125,11 +125,13 @@
 }
 
 \renewcommand{\theFancyVerbLine}{%
-    \ttfamily
     \color{linenums}{%
-        \scriptsize\oldstylenums{\arabic{FancyVerbLine}}
+        \scriptsize%
+        \oldstylenums{%
+            \usefont{T1}{DejaVuSansMono-TLF}{m}{n}\selectfont%
+            \arabic{FancyVerbLine}
+        }
     }%
-    %\hspace{-2em}%  % If using line numbers [LN]
 }
 
 \newenvironment{sourcepy}{%
@@ -137,11 +139,13 @@
     \begin{tcolorbox}[%
         colback=sourcebg,
         colframe=sourcefr,
-        %left=2em%  % [LN]
+        left=2em,
+        right=2em,
     ]%
     \begin{minted}[%
         bgcolor=sourcebg,
-        %linenos=true%  % [LN]
+        linenos=true,
+        numbersep=0ex,
     ]{python}%
 }{\end{minted}\end{tcolorbox}}
 
