@@ -97,7 +97,9 @@ def get_citations_to_export(bibentries):
         print("Checking", key)
         titles = entries["title"].unique()
         if SequenceMatcher(None, *titles).ratio() > 0.7:
-            citations_to_export = citations_to_export.append(entries.iloc[0, :])
+            citations_to_export = citations_to_export.append(
+                entries.iloc[-1, :]
+            )
 
         else:
             for i, entry in enumerate(entries):
