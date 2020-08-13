@@ -514,7 +514,7 @@ find datasets that minimise the final inertia found by \(k\)-means clustering.
 
 For visualisation purposes, these examples will restrict EDO to datasets that
 are two-dimensional, i.e. \(C = ((2, 2))\). Then, for simplicity, each dataset
-will be clustered into two parts, i.e. \(k = 2\), and have its columns formed
+will be clustered into three parts, i.e. \(k = 3\), and have its columns formed
 from uniform distributions, denoted by \(U\), enclosed by the unit interval.
 Thus, the search space is the unit square, and the only element of
 \(\mathcal{P}\) is:
@@ -522,74 +522,59 @@ Thus, the search space is the unit square, and the only element of
     \mathcal{U} := \left\{U(a, b)~|~a, b \in [0, 1]\right\}
 \end{equation}
 
-The remaining parameters are as follows: \(N=100\), \(R=(3,100)\), \(M=1000\),
-\(b=0.2\), \(l=0\), \(p_m=0.01\), and shrinkage is excluded. How this example
-was implemented using the Python library is shown in Snippet~\ref{snp:inertia}.
-Other than the fitness function and the parameters passed to
-\mintinline{python}{edo.DataOptimiser} and its \mintinline{python}{run()}
-method, the process is identical for every example in this section.
+The remaining parameters are as follows: \(N=100\), \(R=(50,100)\), \(M=100\),
+\(b=0.1\), \(l=0\), \(p_m=0.01\), and shrinkage is excluded. This set of
+parameters has been adapted from that used in~\cite{Wilde2020:edo}. The changes
+are comprised: the trivial case where the number of rows equals \(k\) has been
+omitted; a shorter run time is used to reduce computational resources and
+because the EA produces results that are as useful, indicating that a local
+optimum has been identified; and, finally, the selective pressure has been
+increased to mitigate the effect of noise in later generations.
+
+The examples in this study make use of a command line tool,
+\href{https://github.com/daffidwilde/edolab}{\mintinline{python}{edolab}}, for
+running experiments with the library. This tool allows for a lot of otherwise
+repeated code to be replaced by a simple `experiment' script.
+Snippet~\ref{snp:inertia} shows the experiment script used for this example.
+Other than the fitness function definition, this script is identical to that of
+every example in this section.
 
 \begin{listing}[htbp]
 \begin{sourcepy}
-import sys
-
-import edo
 from edo.distributions import Uniform
 from sklearn.cluster import KMeans
+from sklearn.preprocessing import MinMaxScaler
 
 
-SEEDS = int(sys.argv[1])
-
-
-def fitness(individual, max_seeds):
+def fitness(individual, max_seed=5):
     """ Return the lowest final inertia of k-means on the individual
     across the given number of trials with k=2. """
 
     inertias = []
     for seed in range(max_seeds):
-        km = KMeans(n_clusters=2, random_state=seed).fit(
-            individual.dataframe
+        dataframe = MinMaxScaler().fit_transform(
+            individual.dataframe, copy=True
         )
+        km = KMeans(n_clusters=2, random_state=seed).fit(dataframe)
         inertias.append(km.inertia_)
 
     return min(inertias)
 
 
-def run_trial(seed):
-    """ Run a trial of EDO using inertia as the fitness function. """
+size = 100
+row_limits = [50, 100]
+col_limits = [2, 2]
+max_iter = 100
+best_prop = 0.1
+lucky_prop = 0
+mutation_prob = 0.01
 
-    Uniform.param_limits["bounds"] = [0, 1]
-    families = [edo.Family(Uniform)]
-
-    opt = edo.DataOptimiser(
-        fitness,
-        size=100,
-        row_limits=[3, 100],
-        col_limits=[2, 2],
-        families=families,
-        max_iter=1000,
-        best_prop=0.2,
-    )
-
-    pop_history, fit_history = opt.run(
-        root=f"kmeans_inertia_small/{seed}",
-        random_state=seed,
-        fitness_kwargs={"max_seeds": 5},
-    )
-
-
-def main():
-
-    for seed in range(SEEDS):
-        run_trial(seed)
-
-
-if __name__ == "__main__":
-    main()
+Uniform.param_limits["bounds"] = [0, 1]
+distributions = [Uniform]
 \end{sourcepy}
 \caption{%
-    An abridged version of the source code used to produce the data from the
-    first example
+    An abridged version of the experiment configuration script used in the first
+    example
 }\label{snp:inertia}
 \end{listing}
 
