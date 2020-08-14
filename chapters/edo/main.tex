@@ -596,35 +596,17 @@ summation) quickly reduces the mean error of that cluster and thus the value of
 \begin{figure}[htbp]
     \centering
     \begin{subfigure}{\imgwidth}
-        \includegraphics[width=\linewidth]{kmeans_inertia_small_fitness.pdf}
-        \label{fig:kmeans_inertia_small_fitness}
+        \includegraphics[width=\linewidth]{kmeans_inertia_fitness.pdf}
+        \label{fig:kmeans_inertia_fitness}
     \end{subfigure}
 
     \begin{subfigure}{\imgwidth}
-        \includegraphics[width=\linewidth]{kmeans_inertia_small_nrows.pdf}
-        \label{fig:kmeans_inertia_small_nrows}
+        \includegraphics[width=\linewidth]{kmeans_inertia_nrows.pdf}
+        \label{fig:kmeans_inertia_nrows}
     \end{subfigure}
     \caption{%
-        Final inertia and dimension progressions across the first 100 epochs
-        with \(R=(3,100)\)
-    }\label{fig:small-inertia-50}
-\end{figure}
-
-\begin{figure}[htbp]
-    \centering
-    \begin{subfigure}{\imgwidth}
-        \includegraphics[width=\linewidth]{kmeans_inertia_large_fitness.pdf}
-        \label{fig:kmeans_inertia_large_fitness}
-    \end{subfigure}
-
-    \begin{subfigure}{\imgwidth}
-        \includegraphics[width=\linewidth]{kmeans_inertia_large_nrows.pdf}
-        \label{fig:kmeans_inertia_large_nrows}
-    \end{subfigure}
-    \caption{%
-        Final inertia and dimension progressions across the first 100 epochs
-        with \(R~=~(50,100)\)
-    }\label{fig:large-inertia-50}
+        Progressions for final inertia and the number of rows
+    }\label{fig:inertia_progression}
 \end{figure}
 
 However, something that may be seen as unwanted is a compaction of the cluster
@@ -642,18 +624,10 @@ algorithm's quality.
 
 \begin{figure}[htbp]
     \centering
-    \begin{subfigure}{\imgwidth}
-        \includegraphics[width=\linewidth]{kmeans_inertia_small_inds.pdf}
-        \caption{with \(R = (3, 100)\)}\label{fig:kmeans_inertia_small_inds}
-    \end{subfigure}
-
-    \begin{subfigure}{\imgwidth}
-        \includegraphics[width=\linewidth]{kmeans_inertia_large_inds.pdf}
-        \caption{with \(R = (50, 100)\)}\label{fig:kmeans_inertia_large_inds}
-    \end{subfigure}
+    \includegraphics[width=\imgwidth]{kmeans_inertia_inds.pdf}
     \caption{%
-        Representative individuals based on inertia
-    }\label{fig:inertia-inds}
+        Representative individuals from EDO trials with inertia
+    }\label{fig:kmeans_inertia_inds}
 \end{figure}
 
 Hence, consider Figure~\ref{fig:large-inertia-inds} where the individuals have
@@ -718,52 +692,28 @@ this transparency in the history and progression of the proposed method is
 something that sets it apart from other methods such as GANs which have a
 reputation of providing so-called `black box' solutions.
 
-\begin{figure}[htbp]
+\begin{figure}
     \centering
     \begin{subfigure}{\imgwidth}
-        \includegraphics[width=\linewidth]{kmeans_silhouette_small_fitness.pdf}
-        \label{fig:kmeans_silhouette_small_fitness}
+        \includegraphics[width=\linewidth]{kmeans_silhouette_fitness.pdf}
+        \label{fig:kmeans_silhouette_fitness}
     \end{subfigure}
 
     \begin{subfigure}{\imgwidth}
-        \includegraphics[width=\linewidth]{kmeans_silhouette_small_nrows.pdf}
-        \label{fig:kmeans_silhouette_small_nrows}
+        \includegraphics[width=\linewidth]{kmeans_silhouette_nrows.pdf}
+        \label{fig:kmeans_silhouette_nrows}
     \end{subfigure}
     \caption{%
-        Silhouette and dimension progressions with \(R=(3, 100)\)
-    }\label{fig:small-silhouette}
+        Progressions for silhouette and number of rows
+    }\label{fig:silhouette_progression}
 \end{figure}
 
 \begin{figure}
     \centering
-    \begin{subfigure}{\imgwidth}
-        \includegraphics[width=\linewidth]{kmeans_silhouette_large_fitness.pdf}
-        \label{fig:kmeans_silhouette_large_fitness}
-    \end{subfigure}
-
-    \begin{subfigure}{\imgwidth}
-        \includegraphics[width=\linewidth]{kmeans_silhouette_large_nrows.pdf}
-        \label{fig:kmeans_silhouette_large_nrows}
-    \end{subfigure}
+    \includegraphics[width=\imgwidth]{kmeans_silhouette_inds.pdf}
     \caption{%
-        Silhouette and dimension progressions with \(R=(50, 100)\)
-    }\label{fig:large-silhouette}
-\end{figure}
-
-\begin{figure}
-    \centering
-    \begin{subfigure}{\imgwidth}
-        \includegraphics[width=\linewidth]{kmeans_silhouette_small_inds.pdf}
-        \caption{with \(R=(3, 100)\)}\label{fig:kmeans_silhouette_small_inds}
-    \end{subfigure}
-
-    \begin{subfigure}{\imgwidth}
-        \includegraphics[width=\imgwidth]{kmeans_silhouette_large_inds.pdf}
-        \caption{with \(R=(50, 100)\)}\label{fig:kmeans_silhouette_large_inds}
-    \end{subfigure}
-    \caption{%
-        Representative individuals based on silhouette
-    }\label{fig:silhouette-inds}
+        Representative individuals from EDO trials with silhouette
+    }\label{fig:kmeans_silhouette_inds}
 \end{figure}
 
 \subsection{Comparison with DBSCAN}\label{subsec:dbscan}
@@ -830,13 +780,13 @@ search space defined by the EDO parameters used previously with
 \begin{figure}
     \centering
     \begin{subfigure}{\imgwidth}
-        \includegraphics[width=\linewidth]{kmeans_over_dbscan_fitness.pdf}
-        \label{fig:kmeans_over_dbscan_fitness}
+        \includegraphics[width=\linewidth]{kmeans_preferable_fitness.pdf}
+        \label{fig:kmeans_preferable_fitness}
     \end{subfigure}
 
     \begin{subfigure}{\imgwidth}
-        \includegraphics[width=\linewidth]{kmeans_over_dbscan_nrows.pdf}
-        \label{fig:kmeans_over_dbscan_nrows}
+        \includegraphics[width=\linewidth]{kmeans_preferable_nrows.pdf}
+        \label{fig:kmeans_preferable_nrows}
     \end{subfigure}
     \caption{%
         Progressions for the (\(k\)-means preferable) difference in silhouette
@@ -847,15 +797,15 @@ search space defined by the EDO parameters used previously with
 \begin{figure}
     \centering
     \begin{subfigure}{\imgwidth}
-        \includegraphics[width=\linewidth]{kmeans_over_dbscan_kmeans_inds.pdf}
+        \includegraphics[width=\linewidth]{kmeans_preferable_kmeans_inds.pdf}
         \caption{%
             clustered by \(k\)-means
-        }\label{fig:kmeans_over_dbscan_kmeans_inds}
+        }\label{fig:kmeans_preferable_kmeans_inds}
     \end{subfigure}
 
     \begin{subfigure}{\imgwidth}
-        \includegraphics[width=\linewidth]{kmeans_over_dbscan_dbscan_inds.pdf}
-        \caption{clustered by DBSCAN}\label{fig:kmeans_over_dbscan_dbscan_inds}
+        \includegraphics[width=\linewidth]{kmeans_preferable_dbscan_inds.pdf}
+        \caption{clustered by DBSCAN}\label{fig:kmeans_preferable_dbscan_inds}
     \end{subfigure}
     \caption{%
         Representative individuals from the \(k\)-means-preferable trials
@@ -926,13 +876,13 @@ in~(\ref{eq:dbscan-fitness}).
 \begin{figure}[htbp]
     \centering
     \begin{subfigure}{\imgwidth}
-        \includegraphics[width=\linewidth]{dbscan_over_kmeans_fitness.pdf}
-        \label{fig:dbscan_over_kmeans_fitness}
+        \includegraphics[width=\linewidth]{dbscan_preferable_fitness.pdf}
+        \label{fig:dbscan_preferable_fitness}
     \end{subfigure}
 
     \begin{subfigure}{\imgwidth}
-        \includegraphics[width=\linewidth]{dbscan_over_kmeans_nrows.pdf}
-        \label{fig:dbscan_over_kmeans_nrows}
+        \includegraphics[width=\linewidth]{dbscan_preferable_nrows.pdf}
+        \label{fig:dbscan_preferable_nrows}
     \end{subfigure}
     \caption{%
         Progressions for the (DBSCAN-preferable) difference in silhouette and
@@ -944,16 +894,16 @@ in~(\ref{eq:dbscan-fitness}).
     \centering
     \begin{subfigure}{\imgwidth}
         \centering
-        \includegraphics[width=\linewidth]{dbscan_over_kmeans_kmeans_inds.pdf}
+        \includegraphics[width=\linewidth]{dbscan_preferable_kmeans_inds.pdf}
         \caption{%
             clustered by \(k\)-means
-        }\label{fig:dbscan_over_kmeans_kmeans_inds}
+        }\label{fig:dbscan_preferable_kmeans_inds}
     \end{subfigure}
 
     \begin{subfigure}{\imgwidth}
         \centering
-        \includegraphics[width=\linewidth]{dbscan_over_kmeans_dbscan_inds.pdf}
-        \caption{clustered by DBSCAN}\label{fig:dbscan_over_kmeans_dbscan_inds}
+        \includegraphics[width=\linewidth]{dbscan_preferable_dbscan_inds.pdf}
+        \caption{clustered by DBSCAN}\label{fig:dbscan_preferable_dbscan_inds}
     \end{subfigure}
     \caption{%
         Representative individuals from the DBSCAN-preferable trials
@@ -1030,7 +980,7 @@ early stages, it is also clear here how the EA got stuck in small parts of the
 search space before later moving toward a subregion of the unit square.
 
 \begin{figure}[htbp]
-    \includegraphics[width=\imgwidth]{Fig15.pdf}
+    \includegraphics[width=\imgwidth]{coverage.pdf}
     \caption{%
         A scatter of all the individuals found at 50 epoch intervals in the
         first example of Section~\ref{subsec:dbscan}, i.e.\ those summarised in
