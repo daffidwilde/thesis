@@ -52,6 +52,7 @@ words = {
     "pdfs",
     "preprocessing",
     "priori",
+    "py",
     "scalability",
     "sklearn",
     "subregion",

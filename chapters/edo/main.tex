@@ -53,60 +53,59 @@ optimisation tasks with this method, its primary application is in learning the
 quality of an algorithm. The concept of an algorithm's quality here refers to
 some combination of its robustness, and its strengths and weaknesses.
 
-When an algorithm is developed to solve a given problem, questions are raised
-about its performance objectively and relative to existing methods. Determining
-convincing answers to these questions is an inherently difficult task. However,
-under the current regime, there is a standard response: take a number of
+When developing an algorithm to solve a given problem, questions are raised
+about its performance, both objectively and relative to existing methods.
+Determining convincing answers to these questions is an inherently difficult
+task. However, under the current regime, there is a standard response: take some
 benchmark datasets and a common metric (or set thereof) amongst the proposed
-method and its competitors then assess the methods based on this metric and deem
-those with the smallest value to be `best'.
+method, and its competitors, then assess the methods based on this metric and
+deem those with the smallest value to be `best'.
 
 Objectively, there is nothing illicit about comparing methods in this way except
 for the semantics of the outcome, i.e.\ outperforming a method on a dataset with
-respect to a metric is insufficient evidence to categorise one method as
-`better' than another. Obviously, each case can be qualified  with something
-along the lines of `Method \(A\) performs better than Method \(B\) under the
-given conditions' but there are concerns about this process that persist beyond
-linguistic hair-splitting. 
+a metric is insufficient evidence to categorise one method as `better' than
+another. Each case can be qualified with something along the lines of `Method
+\(A\) performs better than Method \(B\) under the given conditions', but there
+are concerns about this process that persist beyond linguistic hair-splitting. 
 
-A major concern presented by this process is in how benchmark examples are
-selected; there is no true measure of their reliability other than their
+A significant concern presented by this process is in how benchmark examples are
+selected; there is no real measure of their reliability other than their
 frequent use. Although there do exist benchmark dataset suites that are curated
 to be relevant, diverse and comprehensive for some problem domains --- such as
 machine learning~\cite{Dua2019,Olson2017} and time series~\cite{UCRArchive2018}
---- it is often the case that a dataset becomes a benchmark simply for being
-longstanding and used a number of times. This title awards the dataset with the
+--- it is often the case that a dataset becomes a benchmark for merely being
+longstanding and used many times. This title awards the dataset with the
 accolades of being reliable and trustworthy. However, this is not guaranteed.
 
 Computer vision is one such domain where these questionable de facto benchmarks
 have come to exist out of provenance.~\cite{Prabhu2020} dissects the unethical
 and problematic practices used in the creation and aggregation of several
 benchmark datasets from computer vision including the renowned \emph{ImageNet}
-datasets~\cite{Deng2009}. The consequences of these practices pose serious
-questions about the credibility of the models trained using these benchmarks
-both morally and as a matter of their performance. The exposition highlights
-questions of consent and privacy as well as revealing a valid moral quandary
-given that the social, cultural and racial biases transferred from these
-datasets to the models will then diffuse into systems that are synonymous with
-life in the age of `Big Data'.
+datasets~\cite{Deng2009}. These practices pose serious questions about the
+credibility of the models trained using these benchmarks, both morally and as a
+matter of their performance. The exposition highlights questions of consent and
+privacy as well as revealing a valid moral quandary given that the social,
+cultural and racial biases transferred from these datasets to the models will
+then diffuse into systems that are synonymous with life in the age of `Big
+Data'.
 
 As an example of the reality of these systemic biases, in 2015, it was made
 public that the automatic classifier developed as part of \emph{Google Photos}
 had been incorrectly labelling images of Black people as gorillas. Google
-publicly apologised and vowed to fix the problem but since then the only action
-taken to mitigate this has been to remove a number of primates from the set of
+publicly apologised and vowed to fix the problem, but since then the only action
+taken to mitigate this has been to remove several primates from the set of
 labels available to their model~\cite{Simonite2018}.
 
-Looking beyond computer vision,~\cite{Campos2016} raises questions about the
+Leaving computer vision aside,~\cite{Campos2016} raises questions about the
 availability and suitability of benchmark datasets in the field of unsupervised
 outlier detection. The authors point out that even though systematic approaches
 exist for the generation of benchmark datasets, the approaches are not
 sufficiently documented to be reproducible, thus rendering them scientifically
 moot.
 
-In addition to this, the authors discuss the troubles that come with
-co-opting datasets designed for another task (classification in this case) in
-the absence of existing benchmarks designed for outlier detection. This is
+In addition to this, the authors discuss the troubles that come with co-opting
+datasets designed for another task (classification in their case) in the absence
+of existing benchmarks designed for outlier detection. This practice is
 indicative of another issue with this aspect of the current paradigm where
 convenience has become a driving force for benchmark selection rather than
 merit.
@@ -115,67 +114,66 @@ Striving for convenience may well be an issue that stems from the competitive
 nature of algorithm design. In order for a method to become `state-of-the-art',
 there has to be some comparable evaluation with existing methods. However, this
 should not be the end of the line when discussing the quality of any method.
-More extensive work is required to truly understand an algorithm and to quantify
-its quality. This leads to the other source of concern in the established
+More extensive work is required to understand an algorithm truly and to quantify
+its quality, which leads to the other source of concern in the established
 process: the methods themselves.
 
 Holding a method to account on a finite number of example datasets ---
 regardless of their reliability or diversity --- limits the amount of learning
 one can gain about that method. In particular, it limits the learning of the
 characteristics which lead to good or bad performance to those attributes
-present in the set of example datasets. Drawing on another example from computer
-vision,~\cite{Torralba2011} shows that Support Vector Machines (SVMs) --- a
-method that is ubiquitous in classification --- perform poorly when tested on a
-dataset containing comparable and largely equivalent items to the one they are
-trained on. So, despite the abundant use of SVMs, even in the then-`best' image
-classifier, there is no strong sense of robustness in the model.
+present in the set of example datasets. Another example from computer
+vision,~\cite{Torralba2011}, shows that Support Vector Machines (SVMs) --- a
+method that is ubiquitous in classification --- fail to perform well when tested
+on a dataset containing comparable and broadly equivalent items to the one they
+on which they have been trained. So, despite the abundant use of SVMs, even in
+the then-`best' image classifier, there is no strong sense of robustness in the
+model.
 
-Taking a step back from empirical algorithm evaluation, consider the space
-between algorithms and data more generally. In the process described above,
-a fixed point in the space of all possible algorithms is mapped to a finite
-subset of points in the space of all possible datasets. How that subset is
+Taking a step back from empirical examples of algorithm evaluation, consider the
+space between algorithms and data more generally. To evaluate an algorithm,
+i.e.\ a fixed point in the space of algorithms, one maps it to a finite subset
+of points in the space of datasets using some metric(s). How that subset is
 determined is what has been discussed thus far. The process when travelling in
-the opposite direction is not so standardised but it appears more rigorous.
+the opposite direction is not so standardised, but it appears more rigorous.
 
 Suppose that the object of interest was not an algorithm but rather a dataset.
 In this case, the objective is to determine a preferable algorithm to complete
-some task on the data. There exist a number of methods employed across
-disciplines to achieve this that take into account the constraints and
-characteristics of the data, and the context of the research problem. These
-methods are often equivalent to asking questions of the data, and can include
-the use of diagnostic tests. For instance, in the case of clustering, if the
-data displayed an indeterminate number of non-convex blobs, then one could
-recommend that an appropriate clustering algorithm would be
-DBSCAN~\cite{Ester1996}. Otherwise, for scalability, \(k\)-means may be
-chosen~\cite{Wu2009,Zhao2009}.
+some task on the data. There exist many ways of achieving this that appear in a
+range of disciplines. However, each takes into account the constraints and
+characteristics of the data and the context of the research problem. These
+methods are often equivalent to asking questions of the data and can include the
+use of diagnostic tests. For instance, in the case of clustering, if the data
+displayed an indeterminate number of non-convex blobs, then one could recommend
+that an appropriate clustering algorithm would be DBSCAN~\cite{Ester1996}.
+Otherwise, for scalability, \(k\)-means may be chosen~\cite{Wu2009,Zhao2009}.
 
-The EDO method belongs to a new paradigm for evaluating algorithms that aims to
-flip the process described here by allowing the data itself to be unfixed.
-Within EDO, this fluidity is achieved by generating data for which the algorithm
-performs well (or better than some other) through the use of an evolutionary
-algorithm. The purpose of doing so is not to simply create a bank of useful
-datasets but rather to allow for the subsequent studying of those datasets. In
-doing so, the attributes and characteristics which lead to the success (or
-failure) of the algorithm may be described, giving a broader understanding of
-the algorithm on the whole. A diagram of this framework is given in
-Figure~\ref{fig:paradigm}; on the right: the current path for selecting some
-algorithm(s) based on their validity and performance for a given dataset; on the
-left: the proposed flip to better understand the space in which `good' datasets
-exist for an algorithm.
+The EDO method belongs to a new paradigm that aims to flip the process described
+here by allowing the data itself to be unfixed. EDO achieves this fluidity by
+generating data for which the algorithm of interest performs well (or better
+than some other) through the use of an evolutionary algorithm. The purpose of
+doing so is not to simply create a bank of useful datasets but rather to allow
+for the subsequent studying of those datasets. Undergoing this study describes
+the attributes and characteristics which lead to the success (or failure) of the
+algorithm, giving a broader understanding of the algorithm on the whole.
+Figure~\ref{fig:paradigm} provides a diagram of this framework; on the right:
+the current path for selecting some algorithm(s) based on their validity and
+performance for a given dataset; on the left: the proposed flip to better
+understand the space in which `good' datasets exist for an algorithm.
 
 \inputtikz{paradigm}{%
     A diagram of the current and proposed paradigms for algorithm evaluation
 }
 
-The method introduced here is just one method from this new paradigm that
-utilises evolution. Evolutionary algorithms (EAs) have been applied successfully
-to solve a wide array of problems --- particularly where the complexity of the
-problem or its domain are significant. These methods are highly adaptive and
-their population-based construction (displayed in Figure~\ref{fig:flowchart})
-allows for the efficient solving of problems that are otherwise beyond the scope
-of traditional search and optimisation methods. An EA approach has been chosen
-here as they are simple in design yet their capabilities encompass the
-difficulties of the flipped paradigm set out above.
+The method described here is just one element of this new paradigm that utilises
+evolution. Evolutionary algorithms (EAs) have been applied successfully to solve
+a wide array of problems --- particularly where the complexity of the problem or
+its domain is significant. These methods are highly adaptive, and their
+population-based construction (displayed in Figure~\ref{fig:flowchart}) allows
+for the efficient solving of problems that are otherwise beyond the scope of
+traditional search and optimisation methods. An EA approach has been chosen here
+as they are simple in design, yet their capabilities encompass the difficulties
+of the flipped paradigm set out above.
 
 \inputtikz{flowchart}{%
     A general schematic for an evolutionary algorithm
@@ -190,27 +188,26 @@ recently in the automated design of convolutional neural network (CNN)
 architecture~\cite{Suganuma2017,Sun2018}.
 
 Other methods for the generation or synthesis of artificial data are numerous
-and range from simple concepts such as simulated annealing~\cite{Matejka2017}
-to swarm-based learning techniques~\cite{Abualigah2018b} or generative
-adversarial networks (GANs)~\cite{Goodfellow2014}. The unconstrained learning
-style of methods such as CNNs and GANs aligns with those in the proposed
-paradigm and with EDO in particular. By allowing the EA to explore and learn
-about the search space in an organic way, less-prejudiced insight can be
-established that is not necessarily reliant on any particular framework or
-agenda.
+and range from simple concepts such as simulated annealing~\cite{Matejka2017} to
+swarm-based learning techniques~\cite{Abualigah2018b} or generative adversarial
+networks (GANs)~\cite{Goodfellow2014}. The unconstrained learning style of
+methods like CNNs and GANs aligns with those in the proposed paradigm, and with
+EDO in particular. By allowing the EA to explore and learn about the search
+space in an organic way, less-prejudiced insight can be established that is not
+necessarily reliant on any particular framework or agenda.
 
-Note that the EDO method is not necessarily restricted to a search space with
-fixed dimension or data type such as the method described in~\cite{Chen2016}. In
-fact, the shape of a dataset is considered a part of the search space itself
-that can be traversed through the evolutionary algorithm.
+Note that there is no necessary restriction on the search space for the EDO
+method to be of a fixed dimension or data type such as the method described
+in~\cite{Chen2016}. The shape of a dataset is considered a part of the search
+space itself that can be traversed through the evolutionary algorithm.
 
 The remainder of this chapter is structured as follows:
 \begin{itemize}
     \item Section 2 describes the parameterisation, structure and components of
         the EDO method.
-    \item Section 3 considers a case study where the success and failure of
-        \(k\)-means clustering is examined using EDO. Included also is a
-        comparison between \(k\)-means and another clustering algorithm DBSCAN.\
+    \item Section 3 contains a case study examining the success and failure of
+        \(k\)-means clustering using EDO. Included also is a comparison between
+        \(k\)-means and another clustering algorithm DBSCAN.\
     \item Section 4 summarises the chapter.
 \end{itemize}
 
@@ -218,14 +215,14 @@ The remainder of this chapter is structured as follows:
 \section{The evolutionary algorithm}\label{section:algorithm}
 
 This section presents the details of the EDO algorithm. As stated previously,
-the EDO method is built as an EA. The EA follows a typical schema with the
-addition of some features that align with the overall objective of artificial
-data generation. With that, there are a number of parameters that are passed to
-EDO;\ the typical parameters of an evolutionary algorithm are a fitness
-function, \(f\), which maps from an individual to a real number, as well as a
-population size, \(N\), a maximum number of iterations, \(M\), a selection
-parameter, \(b\), and a mutation probability, \(p_m\). In addition to these,
-EDO takes the following parameters:
+the EDO method is an EA. The EA follows a typical schema with the addition of
+some features that align with the overall objective of artificial data
+generation. With that, there are a number of parameters that are passed to EDO;\
+the typical parameters of an evolutionary algorithm are a fitness function,
+\(f\), which maps from an individual to a real number, as well as a population
+size, \(N\), a maximum number of iterations, \(M\), a selection parameter,
+\(b\), and a mutation probability, \(p_m\). In addition to these, EDO takes the
+following parameters:
 \begin{itemize}
     \item A set of probability distribution families, \(\mathcal{P}\). Each
         family in this set has some parameter limits which form a part of the
@@ -283,8 +280,9 @@ evolutionary operators and the `shrinkage' process.
 \inputalg{new_population}
 
 Note that there are no defined processes for how to stop the
-algorithm or adjust the mutation probability, \(p_m\). This is down to their
-relevance to a particular use case. Some examples include:
+algorithm or adjust the mutation probability, \(p_m\). This generality is
+deliberate and is down to their relevance in a particular use case. Some
+examples include:
 \begin{itemize}
     \item Regular decreasing in mutation probability across the available
         attributes~\cite{Kuehn2013}.
@@ -297,11 +295,12 @@ relevance to a particular use case. Some examples include:
 
 \subsection{Individuals}
 
-Evolutionary algorithms operate in an iterative process on populations of
-individuals that correspond to a solution to the problem in question according
-to some representation or encoding. In a genetic algorithm, an individual is a
-solution encoded as a bit string of typically fixed length and is treated as a
-chromosome-like object to be manipulated.
+Evolutionary algorithms operate in an iterative process. At each iteration, the
+EA acts on a population (generation) of individuals. Each individual corresponds
+to a solution to the problem in question according to some representation or
+encoding. In a genetic algorithm, an individual is a solution encoded as a bit
+string of typically fixed length and is treated as a chromosome-like object to
+be manipulated.
 
 In EDO, individuals are represented primarily as the dataset that defines them,
 without an encoding. This is because the objective of EDO is to generate
@@ -309,21 +308,21 @@ datasets and explore the space in which datasets exist. Therefore, to design
 meaningful operators on these solutions, this form is preserved. Creation is one
 such operator that is governed by this representation.
 Figure~\ref{fig:individual} shows this process diagrammatically and
-Algorithm~\ref{alg:individual} provides a simplified statement of the individual
-creation process.
+Algorithm~\ref{alg:individual} provides a simplified statement of the
+individual-creation process.
 
 In addition to the dataset, an individual is represented by a list of
-probability distributions created using the elements of~\(\mathcal{P}\) that
-correspond to the columns of the dataset. This list is referred to as the
-individual's `metadata'. The metadata acts as a set of instructions on how to
-sample new values for the columns (as in mutation, for instance) and as a record
-of how that column was created.
+probability distributions. These distributions are created using the elements
+of~\(\mathcal{P}\) and correspond to the columns of the dataset. This list is
+referred to as the individual's `metadata'. The metadata acts as a set of
+instructions for sampling new values for the columns (as in mutation). Also, the
+metadata is a record of how that column was created.
 
 However, one should not assume that the columns are a reliable representative of
-the distribution associated with them, or vice versa. This is particularly true
-of `shorter' datasets with a small number of rows, whereas confidence in the
-pair could be given more liberally for `longer' datasets with a larger number
-of rows. In any case, appropriate methods of analysis should be employed before
+the distribution associated with them or vice versa; this is particularly true
+of `shorter' datasets with only a few rows, whereas confidence in the pair could
+be given more liberally for `longer' datasets with a more significant number of
+rows. In any case, appropriate methods of analysis should be employed before
 formal conclusions are made about these relationships.
 
 \inputtikz{individual}{%
@@ -335,10 +334,10 @@ formal conclusions are made about these relationships.
 \subsection{Selection}
 
 The selection operator describes the process by which individuals are chosen
-from the current population to generate the next. Almost always, the likelihood
-of an individual being selected is determined by their fitness. By selecting
-individuals in this way, the hope is that some favourable qualities can be
-preserved (thus improving the population) and to encourage some
+from the current population to generate the next. Almost always, the fitness of
+an individual determines the likelihood of their selection to be a parent. By
+selecting individuals in this way, the hope is for the preservation of some
+favourable qualities (thus improving the population). Also, to encourage some
 homogeneity within future generations~\cite{Back1994}.
 
 \inputtikz{selection}{%
@@ -353,14 +352,14 @@ individuals in a population are taken forward and used as the `parents' of the
 next generation. Note that this means that an individual could potentially be
 present throughout the entirety of the algorithm.
 
-It has been observed that, despite its efficiency as a selection operator,
-truncation selection can lead to premature convergence at local
-optima~\cite{Jebari2013,Motoki2002}. EDO provides an optional modification to
-counteract this where, after the best individuals have been chosen, some number,
-\(n_l = \left\lceil l N\right\rceil\), of the remaining individuals can be
-selected uniformly to be carried forward. The purpose of taking forward a small
-number of `lucky' individuals is to introduce some diversity in the genetic pool
-of the parent individuals thus adding to the exploration of the search space.
+Despite its efficiency as a selection operator, truncation selection can lead to
+premature convergence at local optima~\cite{Jebari2013,Motoki2002}. EDO provides
+an optional modification to counteract this where, after the best individuals
+have been chosen, some number, \(n_l = \left\lceil l N\right\rceil\), of the
+remaining individuals can be selected uniformly to be carried forward. The
+purpose of taking forward a small number of `lucky' individuals is to introduce
+some diversity in the genetic pool of the parent individuals, thus adding to the
+exploration of the search space.
 
 After the parents have been selected, there are two adjustments made to the
 current search space. The first is that the subtypes for each family in
@@ -382,7 +381,7 @@ centred about the mean observed value, \(\mu\), for that parameter:
 \end{align}
 
 The shrinking process is given explicitly in
-Algorithm~\ref{algorithm:shrinking}. Note that the behaviour of this process can
+Algorithm~\ref{alg:shrinking}. Note that the behaviour of this process can
 produce reductive results where very early convergence is achieved at the cost
 of extensive exploration and is considered to be decidedly optional.
 
@@ -395,78 +394,81 @@ Crossover is the operation of combining two individuals in order to create a new
 individual (or individuals). It is also the opportunity to have the favourable
 qualities preserved through selection interact with one another in potentially
 new ways. The term `crossover' originates from its application in genetic
-algorithms where it can be taken quite literally. In genetic algorithms, two bit
-strings are crossed at a point to create two new bit strings.
+algorithms where it is quite literal. In genetic algorithms, two bit-strings are
+crossed at a point to create two new bit strings.
 
 Another popular method is uniform crossover, where the components of two parents
-are sampled uniformly to create a new individual. This method has been favoured
-for its efficiency, and its efficacy in combining individuals in both bit string
-and matrix representations~\cite{Chen2018,Semenkin2012}. EDO makes use of
-a form of uniform crossover that has been adapted to support the representation
-of individuals in the EA. Put simply, a new offspring is created by uniformly
+are sampled uniformly to create a new individual. This method is efficient and
+is effectual in combining individuals to preserve homogeneity in both bit string
+and matrix representations~\cite{Chen2018,Semenkin2012}. EDO makes use of a form
+of uniform crossover that has been adapted to support the representation of
+individuals in the EA. Put simply: a new offspring is created by uniformly
 sampling each of its components (i.e.\ dimensions and columns) from a set of two
-`parent' individuals, as depicted in Figure~\ref{fig:crossover}.
+`parent' individuals, as depicted in Figure~\ref{fig:crossover} and described in
+Algorithm~\ref{alg:crossover}.
 
 \inputtikz{crossover}{%
     The crossover process between two individuals with different dimensions
 }
 
 Observe that there is no requirement on the dimensions of the parents to be of
-similar or equal shapes. This is because the driving aim of the proposed method
-is to explore some part of the space of all possible datasets. In the case where
-there is incongruence in the lengths of the two parents, missing values may
-appear in a shorter column that has been sampled. To resolve this, values are
-sampled from the probability distribution associated with that column to fill in
-these gaps. Conversely, surplus values are trimmed from the bottom of all longer
-columns.
+similar or equal shapes. This laxness is allowed because the proposed method
+allows for individuals of different shapes, and their combination can be
+reconciled because of how individuals are represented. Where there is an
+incongruence in the lengths of the two parents, missing values may appear in a
+shorter column that has been sampled. New values are sampled from the
+probability distribution associated with that column to fill in these gaps.
+Conversely, surplus values are trimmed from the bottom of all longer columns.
+
 
 \inputalg{crossover}
 
 \subsection{Mutation}\label{subsection:mutation}
 
+The mutation operator is used in EAs to maintain a level of variety in a
+population. This operator effectively forces the algorithm to explore more of
+the search space at each generation. It is typical of mutation operators to
+affect all aspects of an individual. In genetic algorithms, this is as simple as
+running along a bit string and swapping a zero to a one (or one to zero). Under
+the EDO framework, the mutation process manipulates the phenotype of an
+individual by potentially modifying its dimensions and the entries of its
+dataset. Figure~\ref{fig:mutation} gives a diagrammatic description of this
+process, and a formal statement of the algorithm is described in
+Algorithm~\ref{alg:mutation}.
 
-Mutation is used in EAs to maintain a level of variety in a population and to
-force the algorithm to explore more of the search space at each generation.
-It is typical of mutation operators to affect all aspects of an individual. In
-genetic algorithms, this is as simple as running along a bit string and swapping
-a zero to a one (or one to zero). Under the EDO framework, the mutation process
-manipulates the phenotype of an individual by potentially modifying its
-dimensions and the entries of its dataset. A diagram of this process is given in
-Figure~\ref{fig:mutation}.
-
-In the publication that originally presented EDO, this process included a
-penultimate stage where the metadata of an individual could be mutated. This was
-done by sampling new parameter values for each distribution in the metadata with
-the mutation probability \(p_m\). Following subsequent testing and in
-documenting of the Python library, it was decided that allowing for this kind of
-mutation made for confusing results. In particular, studying the resultant
-individuals became more difficult when individuals retained values in their
-columns that were now beyond any reasonable bounds of the associated
+In the publication that initially presented EDO, this process included a
+penultimate stage where the metadata of an individual could be mutated. This
+manipulation sampled new parameter values for each distribution in the metadata
+with the mutation probability, \(p_m\). Following subsequent testing, and in the
+process of documenting the Python library, it was decided that allowing for this
+kind of mutation made for confusing results. In particular, studying the
+resultant individuals became more complicated when individuals retained values
+in their columns that were now beyond any reasonable bounds of the associated
 distribution, for instance. Since removing this stage of the process, no
-observable impact has been identified on the ability of the EA to traverse the
+noticeable impact has been identified on the ability of the EA to traverse the
 search space compared with its inclusion.
 
 \inputtikz{mutation}{The mutation process}
 
-Each of the potential mutations occur with the same probability, \(p_m\).
-However, the way in which columns are maintained assure that (assuming
-appropriate choices for \(f\) and \(\mathcal{P}\)) even multiple mutations in
-the dataset will only result in some incremental change in the individual's
-fitness relative to, say, a completely new individual.
+Each of the potential mutations occurs with the same probability \(p_m\).
+However, how the columns are maintained assure that (assuming appropriate
+choices for \(f\) and \(\mathcal{P}\)) even multiple mutations in the dataset
+will only result in some incremental change in the individual's fitness relative
+to, say, a completely new individual.
 
 \inputalg{mutation}
 
 
 \section{A case study in clustering}\label{section:examples}
 
-The following case study is comprised of a number of examples that act as a form
-of validation for EDO, and also highlight some of the nuances in its use. The
-objective of these examples is to use the proposed method to reproduce some
-known results about the clustering of data in the absence of any external
-forces, and to examine how clustering algorithms are typically evaluated. In
-particular, the focus will be on the well-known \(k\)-means (Lloyd's) algorithm.
-Clustering was chosen as it is a well-understood problem that is easily
-accessible --- especially when restricted to two dimensions.
+The following case study contains three examples that act as a form of
+validation for EDO. These examples also highlight some of the nuances in its
+use. This case study uses the proposed method to reproduce some known results
+about the clustering of data in the absence of any external forces and examines
+how clustering algorithms are typically evaluated. In particular, the focus will
+be on the well-known \(k\)-means (Lloyd's) algorithm. Clustering has been chosen
+as it is a well-understood problem that is easily accessible --- most notably
+when restricted to two dimensions.
 
 \subsection{\(k\)-means clustering}
 
@@ -522,25 +524,29 @@ Thus, the search space is the unit square, and the only element of
     \mathcal{U} := \left\{U(a, b)~|~a, b \in [0, 1]\right\}
 \end{equation}
 
+
 The remaining parameters are as follows: \(N=100\), \(R=(50,100)\), \(M=100\),
 \(b=0.1\), \(l=0\), \(p_m=0.01\), and shrinkage is excluded. This set of
 parameters has been adapted from that used in~\cite{Wilde2020:edo}. The changes
-are comprised: the trivial case where the number of rows equals \(k\) has been
-omitted; a shorter run time is used to reduce computational resources and
-because the EA produces results that are as useful, indicating that a local
-optimum has been identified; and, finally, the selective pressure has been
-increased to mitigate the effect of noise in later generations.
+are: omitting the trivial case where the number of rows equals \(k\); shortening
+the run time to reduce computational resources, and because the EA produces as
+useful results, indicating the identification of a local optimum; and, finally,
+increasing the selective pressure (by reducing \(b\)) to mitigate the effect of
+noise in later generations.
 
-The examples in this study make use of a command line tool,
+The examples in this study make use of a command-line tool,
 \href{https://github.com/daffidwilde/edolab}{\mintinline{python}{edolab}}, for
 running experiments with the library. This tool allows for a lot of otherwise
 repeated code to be replaced by a simple `experiment' script.
-Snippet~\ref{snp:inertia} shows the experiment script used for this example.
-Other than the fitness function definition, this script is identical to that of
-every example in this section.
+Snippet~\ref{snp:inertia} shows the experiment script used for this example, and
+Snippet~\ref{snp:edolab} shows how to use that script with the command-line
+tool. Other than the fitness function definition, this script is identical to
+that of every example in this section.
 
-\begin{listing}[htbp]
+\begin{listing}
 \begin{sourcepy}
+""" /path/to/experiments/kmeans_inertia.py """
+
 from edo.distributions import Uniform
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import MinMaxScaler
@@ -548,14 +554,14 @@ from sklearn.preprocessing import MinMaxScaler
 
 def fitness(individual, max_seed=5):
     """ Return the lowest final inertia of k-means on the individual
-    across the given number of trials with k=2. """
+    across the given number of trials with k=3. """
 
     inertias = []
     for seed in range(max_seeds):
         dataframe = MinMaxScaler().fit_transform(
             individual.dataframe, copy=True
         )
-        km = KMeans(n_clusters=2, random_state=seed).fit(dataframe)
+        km = KMeans(n_clusters=3, random_state=seed).fit(dataframe)
         inertias.append(km.inertia_)
 
     return min(inertias)
@@ -578,20 +584,32 @@ distributions = [Uniform]
 }\label{snp:inertia}
 \end{listing}
 
-Figure~\ref{fig:small-inertia-50} shows an example of the fitness (above) and
-dimension (below) progression of the evolutionary algorithm under these
-conditions up until the \(50^{th}\) epoch.
+\begin{listing}
+\begin{usagesh}
+> edolab run --seeds=10 --cores=4 /path/to/experiments/kmeans_inertia.py
+> edolab summarise --tarball /path/to/experiments/kmeans_inertia.py
+\end{usagesh}
+\caption{Example usage of the \mintinline{python}{edolab} command tool}
+\label{snp:edolab}
+\end{listing}
 
-There is a steep learning curve here; within the first 50 generations an
-individual is found with a fitness of roughly \(10^{-10}\) which could not be
-improved on for a further 900 epochs. The same quick convergence is seen in the
-number of rows. This behaviour is quickly recognised as preferable and was
-dominant across all the trials conducted in this work. This preference for
-datasets with fewer rows is expected given that \(I\) is the sum of the mean
-error from each cluster centre. With that, when \(k\) is fixed a priori,
-reducing the number of points in each cluster (i.e.\ the terms of the second
-summation) quickly reduces the mean error of that cluster and thus the value of
-\(I\).
+Once the EDO algorithm has terminated, a body of datasets, and information about
+those datasets, is recorded. This output is referred to as a `history'.
+Figure~\ref{fig:inertia_progression} shows the progression of the fitness
+function (inertia) and the number of rows at 10 generation intervals across the
+history generated with the parameters defined above. There is a steep learning
+curve here; within the first ten generations the population fitness gains
+substantially, and although there is constant improvement to the median and best
+fitness scores, the pace slows over the remaining generations.
+
+The same quick convergence is evident in the number of rows where it is apparent
+that there is a preference for datasets with fewer rows. Wanting fewer rows is
+expected given that inertia is the sum of the mean error from each cluster
+centre. Then, with \(k\) fixed a priori, a quick way of reducing this mean error
+is to reduce the number of points in each cluster; doing this reduces the number
+of terms in the second summation of~\eqref{eq:inertia}.~\cite{Wilde2020:edo},
+included the case where \(r_{min}=3\) in this example, and the EA successfully
+identified it before promptly getting stuck there.
 
 \begin{figure}[htbp]
     \centering
@@ -608,6 +626,12 @@ summation) quickly reduces the mean error of that cluster and thus the value of
         Progressions for final inertia and the number of rows
     }\label{fig:inertia_progression}
 \end{figure}
+
+Aside from these progressions, a more focused look may be taken at the generated
+datasets. Figure~\ref{fig:kmeans_inertia_inds} shows the individuals with a
+fitness closest to the lowest, median and highest values across the entire
+history. These individuals correspond to the best-, most-middling- and
+worst-performing individuals in said history.
 
 However, something that may be seen as unwanted is a compaction of the cluster
 centres. Referring to Figure~\ref{fig:small-inertia-inds}, the best and median
@@ -632,13 +656,12 @@ algorithm's quality.
 
 Hence, consider Figure~\ref{fig:large-inertia-inds} where the individuals have
 been generated with the same parameters as previously except with adjusted row
-limits, \(R = (50, 100)\), so as to exclude this trivial case. In these trials,
-the results are equivalent: the worst performing individuals are without
-structure whilst the best-performing individuals display clusters that are dense
-about a single point despite the minimum number of rows being increased.
-Supposing this was not already a known result, we can see mounting evidence in
-favour of this compaction being `optimal' behaviour in a dataset for \(k\)-means
-clustering.
+limits, \(R = (50, 100)\), to exclude this trivial case. In these trials, the
+results are equivalent: the worst performing individuals are without structure
+whilst the best-performing individuals display clusters that are dense about a
+single point despite the minimum number of rows being increased.  Supposing this
+was not already a known result, we can see mounting evidence in favour of this
+compaction being `optimal' behaviour in a dataset for \(k\)-means clustering.
 
 However, the fitness function may be addressed still, and more extensive
 studying may be done. Indeed, the final inertia could be considered a flawed or
@@ -803,6 +826,7 @@ search space defined by the EDO parameters used previously with
         }\label{fig:kmeans_preferable_kmeans_inds}
     \end{subfigure}
 
+    \vspace{1em}
     \begin{subfigure}{\imgwidth}
         \includegraphics[width=\linewidth]{kmeans_preferable_dbscan_inds.pdf}
         \caption{clustered by DBSCAN}\label{fig:kmeans_preferable_dbscan_inds}
@@ -812,8 +836,8 @@ search space defined by the EDO parameters used previously with
     }\label{fig:dbscan-inds}
 \end{figure}
 
-Figure~\ref{fig:dbscan-silhouette} shows a summary of the progression of EDO
-for this use case. As with the previous examples where \(R~=~(50, 100)\), the
+Figure~\ref{fig:dbscan-silhouette} shows a summary of the progression of EDO for
+this use case. As with the previous examples where \(R~=~(50, 100)\), the
 variation in the population fitness is unstable but there is a clear trend of
 improvement in the best individual over the course of the run. There is also a
 convergence seen in the number of rows a dataset has. The resting dimension
@@ -863,8 +887,8 @@ to be higher than that by DBSCAN.\ This was apparent across all trials conducted
 in this work and indicates that the condition for convex clusters is being
 sought out during the optimisation process. Meanwhile, however, it is not clear
 whether the performance of DBSCAN falls owing to its parameters or the method
-itself. This is a point where parameter sweeping would prove most useful so as
-to determine a crossing point for these two driving forces.
+itself. This is a point where parameter sweeping would prove most useful to
+determine a crossing point for these two driving forces.
 
 Now, to add to the discussion above, the inverse optimisation should be
 considered. That is, using the same parameters, the datasets for which DBSCAN
@@ -900,6 +924,7 @@ in~(\ref{eq:dbscan-fitness}).
         }\label{fig:dbscan_preferable_kmeans_inds}
     \end{subfigure}
 
+    \vspace{1em}
     \begin{subfigure}{\imgwidth}
         \centering
         \includegraphics[width=\linewidth]{dbscan_preferable_dbscan_inds.pdf}
@@ -929,13 +954,12 @@ clouds (as seen in the rightmost two frames of the figure) and the simplest step
 toward a fit dataset is one that maintains that vaguely dense body with minimal
 noise points far from it.
 
-As has already been stated, the software implementation of the EDO method
-has been produced in line with the best practices of open source software
-development and reproducible research. In aid of this, all of the source code
-used in these examples (including to create the figures) has been archived
-under the DOI
-\href{https://doi.org/10.5281/zenodo.3492236}{10.5281/zenodo.3492236}.
-Likewise, all of the data produced to support this case study have been archived
+As has already been stated, the software implementation of the EDO method has
+been produced in line with the best practices of open source software
+development and reproducible research. In aid of this, all the source code used
+in these examples (including to create the figures) has been archived under the
+DOI \href{https://doi.org/10.5281/zenodo.3492236}{10.5281/zenodo.3492236}.
+Likewise, all the data produced to support this case study have been archived
 under the DOI
 \href{https://doi.org/10.5281/zenodo.3492228}{10.5281/zenodo.3492228}.
 
