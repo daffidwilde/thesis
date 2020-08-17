@@ -521,7 +521,7 @@ from uniform distributions, denoted by \(U\), enclosed by the unit interval.
 Thus, the search space is the unit square, and the only element of
 \(\mathcal{P}\) is:
 \begin{equation}\label{eq:uniform}
-    \mathcal{U} := \left\{U(a, b)~|~a, b \in [0, 1]\right\}
+    \mathcal{U} := \left\{U(\alpha, \beta)~|~\alpha, \beta \in [0, 1]\right\}
 \end{equation}
 
 
@@ -641,9 +641,12 @@ Aside from these progressions, a more focused look may be taken at the generated
 datasets. Figure~\ref{fig:kmeans_inertia_inds} shows the individuals with a
 fitness closest to the lowest, median and highest values across the entire
 history after min-max scaling. These individuals correspond to the best-,
-most-middling- and worst-performing individuals in said history. As may have
-been expected, the worst individuals are random clouds that show no distinct
-clusters. However, there are some patterns in the better-performing individuals.
+most-middling- and worst-performing individuals in said history. It should be
+noted that any individual from any generation may be retrieved and studied with
+this implementation. The summary provided here is one particular way of studying
+the body of datasets that have been generated. This transparency in the history
+and progression of the EDO method sets it apart from other methods such as GANs
+which have a reputation of providing so-called `black box' solutions.
 
 \begin{figure}[htbp]
     \centering
@@ -653,16 +656,19 @@ clusters. However, there are some patterns in the better-performing individuals.
     }\label{fig:kmeans_inertia_inds}
 \end{figure}
 
-In this case, it is clear that there is a preference for tight clusters, but
-also it appears that well-performing datasets have columns with a strong
-positive correlation. Having such a relationship may seem irrelevant to the
-success of \(k\) means, but in doing so, the dataset becomes one-dimensional.
-Removing a dimension reduces the search space of the algorithm considerably, and
-makes it easier for the \(k\)-means algorithm to achieve its real goal of
-finding the centroidal Voronoi tessellation of a dataset~\cite{Du2006}. When
-restricted to a single dimension and with \(k = 3\), the optimal tessellation is
-equivalent to finding a clustering that matches the tertiles of a set of
-numbers, and when \(k = 2\) this is the same as finding the median.
+In this case, as may have been expected, the worst individuals take the form of
+random clouds with no distinct clusters. However, there are some patterns in the
+better-performing individuals. It is clear that there is a preference for tight
+clusters, but also it appears that well-performing datasets have columns with a
+strong positive correlation. Having such a relationship may seem irrelevant to
+the success of \(k\) means, but in doing so, the dataset becomes
+one-dimensional.  Removing a dimension reduces the search space of the algorithm
+considerably, and makes it easier for the \(k\)-means algorithm to achieve its
+real goal of finding the centroidal Voronoi tessellation of a
+dataset~\cite{Du2006}. When restricted to a single dimension and with \(k = 3\),
+the optimal tessellation is equivalent to finding a clustering that matches the
+tertiles of a set of numbers, and when \(k = 2\) this is the same as finding the
+median.
 % TODO maybe a plot of mean distance from the Voronoi cells to the true
 % tertiles?
 
@@ -679,9 +685,10 @@ reducing the effect of that otherwise dominant behaviour.
 In this way, inertia could be considered a flawed fitness function; without the
 scaling step, for instance, inertia produces near-trivial results, which begs
 the question: is there anything else to be learnt here? The answer is,
-``probably''. From here, the parameters passed to EDO may be changed, or the
-fitness function could be altered. Given that useful results have already been
-found, and to avoid cherry-picking any further results by tweaking parameters,
+``probably''. There are two options available to draw more learning from this
+algorithm. Either change the parameters passed to EDO, or modify the fitness
+function. Given that useful results have already been found with this parameter
+set, and to avoid cherry-picking any further results by tweaking parameters,
 this study considers the latter for the remaining examples.
 
 \subsection{Discounted silhouette coefficients}
@@ -732,14 +739,6 @@ preferable individuals are those leading toward this case. That this gradual
 reduction in the dimension of the individuals occurs despite adjusting the
 fitness function and considering the space which excludes the trivial case
 bolsters the claim that the base case is also optimal.
-
-At this point, it should be noted that, due to the nature of the implementation,
-any individual from any generation may be retrieved and studied should the final
-results be too concentrated on any given case. The summary provided here is one
-particular way of studying the body of datasets generated with this method and
-this transparency in the history and progression of the proposed method is
-something that sets it apart from other methods such as GANs which have a
-reputation of providing so-called `black box' solutions.
 
 \begin{figure}
     \centering
