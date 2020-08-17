@@ -470,7 +470,7 @@ be on the well-known \(k\)-means (Lloyd's) algorithm. Clustering has been chosen
 as it is a well-understood problem that is easily accessible --- most notably
 when restricted to two dimensions.
 
-\subsection{\(k\)-means clustering}
+\subsection{Inertia and \(k\)-means clustering}
 
 The \(k\)-means algorithm is an iterative, centroid-based method that aims to
 minimise the `inertia' of the current partition, \(Z = \left\{Z_1, \ldots,
@@ -677,6 +677,8 @@ So, this leaves the question: is there anything else to be learnt? The answer
 is, ``probably''. From here, the parameters passed to EDO may be changed, or the
 fitness function could be altered. In the example above, the presence of strong
 positive correlations stood out. 
+
+\subsection{Discounted silhouette coefficients}
 
 However, the fitness function may be addressed still, and more extensive
 studying may be done. Indeed, the final inertia could be considered a flawed or
