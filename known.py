@@ -55,7 +55,7 @@ words = {
     "priori",
     "py",
     "scalability",
-    "scalers",
+    "scaler",
     "sklearn",
     "subregion",
     "subtype",
