@@ -196,10 +196,10 @@ EDO in particular. By allowing the EA to explore and learn about the search
 space in an organic way, less-prejudiced insight can be established that is not
 necessarily reliant on any particular framework or agenda.
 
-Note that there is no necessary restriction on the search space for the EDO
-method to be of a fixed dimension or data type such as the method described
-in~\cite{Chen2016}. The shape of a dataset is considered a part of the search
-space itself that can be traversed through the evolutionary algorithm.
+Note that there is no necessary restriction on the search space to be of a fixed
+dimension or data type such as the method described in~\cite{Chen2016}. The
+shape of a dataset is considered a part of the search space itself that can be
+traversed through the evolutionary algorithm.
 
 The remainder of this chapter is structured as follows:
 \begin{itemize}
@@ -520,7 +520,7 @@ will be clustered into three parts, i.e. \(k = 3\), and have its columns formed
 from uniform distributions, denoted by \(U\), enclosed by the unit interval.
 Thus, the search space is the unit square, and the only element of
 \(\mathcal{P}\) is:
-\begin{equation}
+\begin{equation}\label{eq:uniform}
     \mathcal{U} := \left\{U(a, b)~|~a, b \in [0, 1]\right\}
 \end{equation}
 
@@ -533,6 +533,15 @@ the run time to reduce computational resources, and because the EA produces as
 useful results, indicating the identification of a local optimum; and, finally,
 increasing the selective pressure (by reducing \(b\)) to mitigate the effect of
 noise in later generations.
+
+In addition to these parameter changes, the fitness function has been altered.
+In this study, every individual is scaled using a min-max scaler so their values
+are in the interval \(\left[0, 1\right]\). This makes the value of limits
+in~\eqref{eq:uniform} arbitrary and eliminates the pinching effect observed
+in~\cite{Wilde2020:edo} where well-performing individuals were
+disproportionately compact. Following this scaling, the number of
+initialisations for the \(k\)-means algorithm has been increased from ten to 50
+so that there is greater confidence in the fitness score.
 
 The examples in this study make use of a command-line tool,
 \href{https://github.com/daffidwilde/edolab}{\mintinline{python}{edolab}}, for
@@ -556,12 +565,11 @@ def fitness(individual, max_seed=5):
     """ Return the lowest final inertia of k-means on the individual
     across the given number of trials with k=3. """
 
+    data = MinMaxScaler().fit_transform(individual.dataframe, copy=True)
+
     inertias = []
     for seed in range(max_seeds):
-        dataframe = MinMaxScaler().fit_transform(
-            individual.dataframe, copy=True
-        )
-        km = KMeans(n_clusters=3, random_state=seed).fit(dataframe)
+        km = KMeans(n_clusters=3, random_state=seed).fit(data)
         inertias.append(km.inertia_)
 
     return min(inertias)
@@ -589,7 +597,7 @@ distributions = [Uniform]
 > edolab run --seeds=10 --cores=4 /path/to/experiments/kmeans_inertia.py
 > edolab summarise --tarball /path/to/experiments/kmeans_inertia.py
 \end{usagesh}
-\caption{Example usage of the \mintinline{python}{edolab} command tool}
+\caption{Example usage of the \mintinline{python}{edolab} command-line tool}
 \label{snp:edolab}
 \end{listing}
 
@@ -607,7 +615,7 @@ that there is a preference for datasets with fewer rows. Wanting fewer rows is
 expected given that inertia is the sum of the mean error from each cluster
 centre. Then, with \(k\) fixed a priori, a quick way of reducing this mean error
 is to reduce the number of points in each cluster; doing this reduces the number
-of terms in the second summation of~\eqref{eq:inertia}.~\cite{Wilde2020:edo},
+of terms in the second summation of~\eqref{eq:inertia}.~\cite{Wilde2020:edo}
 included the case where \(r_{min}=3\) in this example, and the EA successfully
 identified it before promptly getting stuck there.
 
@@ -630,21 +638,32 @@ identified it before promptly getting stuck there.
 Aside from these progressions, a more focused look may be taken at the generated
 datasets. Figure~\ref{fig:kmeans_inertia_inds} shows the individuals with a
 fitness closest to the lowest, median and highest values across the entire
-history. These individuals correspond to the best-, most-middling- and
-worst-performing individuals in said history.
+history after min-max scaling. These individuals correspond to the best-,
+most-middling- and worst-performing individuals in said history. As may have
+been expected, the worst individuals are random clouds that show no clear
+clusters. However, there are some patterns in the better-performing individuals.
 
-However, something that may be seen as unwanted is a compaction of the cluster
-centres. Referring to Figure~\ref{fig:small-inertia-inds}, the best and median
-individuals show two clusters that are essentially the same point whereas the
-worst is a random cloud across the whole of \(\mathcal{U}\) which was found in
-the initial population. The kind of behaviour exhibited by the best performing
-individuals here occurs in part because it is allowed. There are two immediate
-ways in which this allowed: first, that a near-trivial case is included in \(R\)
-and, secondly, that the fitness function does nothing to penalise the proximity
-of the inter-cluster means, as well as aiming to reduce the intra-cluster means.
-This kind of unwanted behaviour highlights a subtlety in how EDO should be used;
-that experimentation and rigour are required to properly understand an
-algorithm's quality.
+In the opening example of~\cite{Wilde2020:edo}, the best and median individuals
+showed clusters that were all essentially the same point. That kind of behaviour
+was exhibited, in part, because it was allowed; the fitness function did nothing
+to penalise the proximity of the inter-cluster means. The need for this penalty
+does not exist in the current fitness function because of the scaling step
+before the application of the \(k\)-means algorithm. By scaling the dataset, the
+entire unit square must be used by every individual, thus reducing the effect of
+that otherwise dominant behaviour.
+
+Although having clusters that are exceptionally compact provides optimal values
+of \(I\), it leaves little else to be learnt. In this case, it is still clear
+that there is a preference for tight clusters, but also it appears that
+well-performing datasets have columns with a strong positive correlation.
+Having such a relationship may seem irrelevant to the success of \(k\)-means but
+in doing so, the dataset becomes one-dimensional. Removing a dimension reduces
+the search space of the algorithm considerably, and makes it easier for the
+\(k\)-means algorithm to achieve its true goal of finding the centroidal Voronoi
+tessellation of a dataset~\cite{Du2006}. When restricted to a single dimension
+and with \(k = 3\), the optimal tessellation is equivalent to finding the
+tertiles of a set of numbers, and when \(k = 2\) this is the same as finding the
+median.
 
 \begin{figure}[htbp]
     \centering
@@ -654,14 +673,10 @@ algorithm's quality.
     }\label{fig:kmeans_inertia_inds}
 \end{figure}
 
-Hence, consider Figure~\ref{fig:large-inertia-inds} where the individuals have
-been generated with the same parameters as previously except with adjusted row
-limits, \(R = (50, 100)\), to exclude this trivial case. In these trials, the
-results are equivalent: the worst performing individuals are without structure
-whilst the best-performing individuals display clusters that are dense about a
-single point despite the minimum number of rows being increased.  Supposing this
-was not already a known result, we can see mounting evidence in favour of this
-compaction being `optimal' behaviour in a dataset for \(k\)-means clustering.
+So, this leaves the question: is there anything else to be learnt? The answer
+is, ``probably''. From here, the parameters passed to EDO may be changed, or the
+fitness function could be altered. In the example above, the presence of strong
+positive correlations stood out. 
 
 However, the fitness function may be addressed still, and more extensive
 studying may be done. Indeed, the final inertia could be considered a flawed or
