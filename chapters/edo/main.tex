@@ -536,12 +536,12 @@ noise in later generations.
 
 In addition to these parameter changes, the fitness function has been altered.
 In this study, every individual is scaled using a min-max scaler so their values
-are in the interval \(\left[0, 1\right]\). This makes the value of limits
+are in the interval \(\left[0, 1\right]\). This makes the values of the limits
 in~\eqref{eq:uniform} arbitrary and eliminates the pinching effect observed
 in~\cite{Wilde2020:edo} where well-performing individuals were
 disproportionately compact. Following this scaling, the number of
 initialisations for the \(k\)-means algorithm has been increased from ten to 50
-so that there is greater confidence in the fitness score.
+so that there is greater confidence in any given fitness score.
 
 The examples in this study make use of a command-line tool,
 \href{https://github.com/daffidwilde/edolab}{\mintinline{python}{edolab}}, for
@@ -594,8 +594,9 @@ distributions = [Uniform]
 
 \begin{listing}
 \begin{usagesh}
-> edolab run --seeds=10 --cores=4 /path/to/experiments/kmeans_inertia.py
-> edolab summarise --tarball /path/to/experiments/kmeans_inertia.py
+> cd /path/to/experiments
+> edolab run --seeds=10 --cores=4 kmeans_inertia.py
+> edolab summarise --tarball kmeans_inertia.py
 \end{usagesh}
 \caption{Example usage of the \mintinline{python}{edolab} command-line tool}
 \label{snp:edolab}
@@ -613,11 +614,12 @@ fitness scores, the pace slows over the remaining generations.
 The same quick convergence is evident in the number of rows where it is apparent
 that there is a preference for datasets with fewer rows. Wanting fewer rows is
 expected given that inertia is the sum of the mean error from each cluster
-centre. Then, with \(k\) fixed a priori, a quick way of reducing this mean error
-is to reduce the number of points in each cluster; doing this reduces the number
-of terms in the second summation of~\eqref{eq:inertia}.~\cite{Wilde2020:edo}
-included the case where \(r_{min}=3\) in this example, and the EA successfully
-identified it before promptly getting stuck there.
+centre. Then, with \(k\) fixed a priori, a quick (although not guaranteed) way
+of reducing this mean error is to reduce the number of points in each cluster;
+doing this reduces the number of terms in the second summation
+of~\eqref{eq:inertia}.~\cite{Wilde2020:edo} included the case where
+\(r_{min}=3\) in this example, and the EA successfully identified it before
+promptly getting stuck there.
 
 \begin{figure}[htbp]
     \centering
@@ -640,30 +642,8 @@ datasets. Figure~\ref{fig:kmeans_inertia_inds} shows the individuals with a
 fitness closest to the lowest, median and highest values across the entire
 history after min-max scaling. These individuals correspond to the best-,
 most-middling- and worst-performing individuals in said history. As may have
-been expected, the worst individuals are random clouds that show no clear
+been expected, the worst individuals are random clouds that show no distinct
 clusters. However, there are some patterns in the better-performing individuals.
-
-In the opening example of~\cite{Wilde2020:edo}, the best and median individuals
-showed clusters that were all essentially the same point. That kind of behaviour
-was exhibited, in part, because it was allowed; the fitness function did nothing
-to penalise the proximity of the inter-cluster means. The need for this penalty
-does not exist in the current fitness function because of the scaling step
-before the application of the \(k\)-means algorithm. By scaling the dataset, the
-entire unit square must be used by every individual, thus reducing the effect of
-that otherwise dominant behaviour.
-
-Although having clusters that are exceptionally compact provides optimal values
-of \(I\), it leaves little else to be learnt. In this case, it is still clear
-that there is a preference for tight clusters, but also it appears that
-well-performing datasets have columns with a strong positive correlation.
-Having such a relationship may seem irrelevant to the success of \(k\)-means but
-in doing so, the dataset becomes one-dimensional. Removing a dimension reduces
-the search space of the algorithm considerably, and makes it easier for the
-\(k\)-means algorithm to achieve its true goal of finding the centroidal Voronoi
-tessellation of a dataset~\cite{Du2006}. When restricted to a single dimension
-and with \(k = 3\), the optimal tessellation is equivalent to finding the
-tertiles of a set of numbers, and when \(k = 2\) this is the same as finding the
-median.
 
 \begin{figure}[htbp]
     \centering
@@ -673,22 +653,51 @@ median.
     }\label{fig:kmeans_inertia_inds}
 \end{figure}
 
-So, this leaves the question: is there anything else to be learnt? The answer
-is, ``probably''. From here, the parameters passed to EDO may be changed, or the
-fitness function could be altered. In the example above, the presence of strong
-positive correlations stood out. 
+In this case, it is clear that there is a preference for tight clusters, but
+also it appears that well-performing datasets have columns with a strong
+positive correlation. Having such a relationship may seem irrelevant to the
+success of \(k\) means, but in doing so, the dataset becomes one-dimensional.
+Removing a dimension reduces the search space of the algorithm considerably, and
+makes it easier for the \(k\)-means algorithm to achieve its real goal of
+finding the centroidal Voronoi tessellation of a dataset~\cite{Du2006}. When
+restricted to a single dimension and with \(k = 3\), the optimal tessellation is
+equivalent to finding a clustering that matches the tertiles of a set of
+numbers, and when \(k = 2\) this is the same as finding the median.
+% TODO maybe a plot of mean distance from the Voronoi cells to the true
+% tertiles?
+
+In the first example of~\cite{Wilde2020:edo}, the best and median individuals
+showed clusters that were all virtually the same point. Although having
+exceptionally compact clusters provides optimal values of \(I\), it leaves
+little else to be learnt. That kind of behaviour was exhibited, in part, because
+it was allowed; the fitness function did nothing to penalise the proximity of
+the inter-cluster means. There is no need for this penalty currently because of
+the scaling step before the application of the \(k\)-means algorithm. By scaling
+the dataset, the entire unit square must be used by every individual, thus
+reducing the effect of that otherwise dominant behaviour.
+
+In this way, inertia could be considered a flawed fitness function; without the
+scaling step, for instance, inertia produces near-trivial results, which begs
+the question: is there anything else to be learnt here? The answer is,
+``probably''. From here, the parameters passed to EDO may be changed, or the
+fitness function could be altered. Given that useful results have already been
+found, and to avoid cherry-picking any further results by tweaking parameters,
+this study considers the latter for the remaining examples.
 
 \subsection{Discounted silhouette coefficients}
 
-However, the fitness function may be addressed still, and more extensive
-studying may be done. Indeed, the final inertia could be considered a flawed or
-fragile fitness function if it is supposed to evaluate the efficacy of the
-\(k\)-means algorithm. Incorporating the inter-cluster spread to the fitness
-of an individual dataset would reduce this observed compaction. For instance,
-the silhouette coefficient is a metric used to evaluate the appropriateness of a
-clustering to a dataset and does precisely that. The silhouette coefficient of a
-clustering of a dataset is given by the mean of the silhouette value,
-\(S(x)\), of each point \(x \in Z_j\) in each cluster:
+In the example above, the presence of strong positive correlations stood out
+when using inertia as the fitness function --- as such, counteracting that
+effect is the focus of this example.
+
+This study aims to understand \(k\)-means clustering, and therefore, the fitness
+function(s) used should somehow measure the efficacy of the identified
+clustering. The silhouette coefficient is one such metric. The silhouette
+coefficient evaluates what is colloquially referred to as the `appropriateness'
+of a particular clustering of a dataset. The metric considers both the
+intra-cluster cohesion and inter-cluster separation of a clustering. The
+silhouette coefficient of a clustering, \(Z\), is given by the mean of the
+silhouette value, \(S(x)\), of each point \(x \in Z_j\) in each cluster:
 \begin{equation}
     \begin{gathered}
         A(x) := \frac{1}{|Z_j| - 1} \sum_{y \in Z_j \setminus \{x\}} d(x, y),
@@ -702,13 +711,13 @@ clustering of a dataset is given by the mean of the silhouette value,
                 0 &\quad \text{otherwise}
             \end{cases}
     \end{gathered}\label{eq:silhouette}
-\end{equation}\\
+\end{equation}
 
 The optimisation of the silhouette coefficient is analogous to finding a dataset
-which increases both the intra-cluster cohesion (the inverse of \(A\)) and
-inter-cluster separation (\(B\)). Hence, the objective of minimising inertia is
-addressed by maximising cohesion. Meanwhile, the additional desire to spread out
-the clusters is considered by maximising separation.
+which maximises both cohesion (the inverse of \(A\)) and separation (\(B\)).
+Hence, the overall objective of minimising inertia is addressed by maximising
+cohesion. Meanwhile, the silhouette coefficient has the added benefit of being
+normalised and takes values in the interval \(\left[-1, 1\right]\).
 
 Repeating the trials with the same parameters as with inertia, the silhouette
 fitness function yields the results summarised in
