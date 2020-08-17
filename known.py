@@ -22,6 +22,7 @@ words = {
     "Voronoi",
     "argmin",
     "argv",
+    "cd",
     "centroid",
     "centroidal",
     "centroids",
