@@ -623,16 +623,16 @@ of~\eqref{eq:inertia}.~\cite{Wilde2020:edo} included the case where
 \(r_{min}=3\) in this example, and the EA successfully identified it before
 promptly getting stuck there.
 
-\begin{figure}[htbp]
+\begin{figure}
     \centering
     \begin{subfigure}{\imgwidth}
-        \includegraphics[width=\linewidth]{kmeans_inertia_fitness.pdf}
-        \label{fig:kmeans_inertia_fitness}
+        \includegraphics[width=\linewidth]{kmeans_inertia_fitness.pdf}%
+        \caption{}\label{fig:kmeans_inertia_fitness}
     \end{subfigure}
 
     \begin{subfigure}{\imgwidth}
-        \includegraphics[width=\linewidth]{kmeans_inertia_nrows.pdf}
-        \label{fig:kmeans_inertia_nrows}
+        \includegraphics[width=\linewidth]{kmeans_inertia_nrows.pdf}%
+        \caption{}\label{fig:kmeans_inertia_nrows}
     \end{subfigure}
     \caption{%
         Progressions for final inertia and the number of rows
@@ -650,7 +650,7 @@ the body of datasets that have been generated. This transparency in the history
 and progression of the EDO method sets it apart from other methods such as GANs
 which have a reputation of providing so-called `black box' solutions.
 
-\begin{figure}[htbp]
+\begin{figure}
     \centering
     \includegraphics[width=\imgwidth]{kmeans_inertia_inds.pdf}
     \caption{%
@@ -776,9 +776,45 @@ f(X) := S(X) - \left|\rho(X)\right|
 
 \noindent where \(S(X)\) is the silhouette coefficient of a dataset \(X\) when
 clustered by \(k\)-means and \(\rho(X)\) is the Pearson correlation coefficient
-of the columns of \(X\).
+of the columns of \(X\). This function will be referred to as the `discounted
+silhouette' fitness function.
 
-The same method could be used with inertia alone but 
+The same method could be used with inertia but the effect of the discounting
+term would be lost when inertia is high --- as is common in the early stages of
+the EA (see Figure~\ref{fig:kmeans_inertia_fitness}) --- rendering the exercise
+pointless. However, its effect integrates well with the silhouette coefficient:
+\begin{itemize}
+    \item The optimal score is the same (\(1 - 0 = 1\)) as the silhouette
+        fitness function while the worst score is similar (\(-1-1=-2\)).
+    \item A score of zero still indicates there is little to be gained in that
+        (at the extremes) the dataset has a perfect silhouette and perfect
+        correlation or no silhouette with no correlation, indicating a random
+        cloud.
+    \item Negative scores indicate a dataset with either low-to-negative
+        silhouette and high correlation (i.e.\ high inertia but correlated) or
+        negative silhouette (i.e.\ the clustering is inappropriate) and
+        arbitrary correlation.
+\end{itemize}
+
+Figures~\ref{fig:discounted_progression}~and~\ref{fig:kmeans_discounted_inds}
+show a summary of the results generated using this discounted silhouette
+function with the same parameters as used in the previous examples.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{kmeans_discounted_fitness.pdf}%
+    \caption{%
+        Progression plot for the discounted silhouette fitness function
+    }\label{fig:discounted_progression}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\imgwidth]{kmeans_discounted_inds_no_hulls.pdf}
+    \caption{%
+        Representative individuals from EDO trials with discounted silhouette
+    }\label{fig:kmeans_discounted_inds}
+\end{figure}
 
 \subsection{Comparison with DBSCAN}\label{subsec:dbscan}
 
