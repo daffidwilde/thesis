@@ -514,6 +514,8 @@ task which is fundamentally wrong. Therefore, as a starting point, the first
 example uses inertia as the fitness function in EDO.\ That is, EDO is used to
 find datasets that minimise the final inertia found by \(k\)-means clustering.
 
+% TODO include a list of known results dressed as `hypotheses'?
+
 For visualisation purposes, these examples will restrict EDO to datasets that
 are two-dimensional, i.e. \(C = ((2, 2))\). Then, for simplicity, each dataset
 will be clustered into three parts, i.e. \(k = 3\), and have its columns formed
@@ -669,8 +671,8 @@ dataset~\cite{Du2006}. When restricted to a single dimension and with \(k = 3\),
 the optimal tessellation is equivalent to finding a clustering that matches the
 tertiles of a set of numbers, and when \(k = 2\) this is the same as finding the
 median.
-% TODO maybe a plot of mean distance from the Voronoi cells to the true
-% tertiles?
+
+% TODO a plot of difference between the cell boundaries and the true tertiles?
 
 In the first example of~\cite{Wilde2020:edo}, the best and median individuals
 showed clusters that were all virtually the same point. Although having
@@ -682,7 +684,7 @@ the scaling step before the application of the \(k\)-means algorithm. By scaling
 the dataset, the entire unit square must be used by every individual, thus
 reducing the effect of that otherwise dominant behaviour.
 
-In this way, inertia could be considered a flawed fitness function; without the
+In this way, inertia could be considered a flawed fitness function. Without the
 scaling step, for instance, inertia produces near-trivial results, which begs
 the question: is there anything else to be learnt here? The answer is,
 ``probably''. There are two options available to draw more learning from this
@@ -691,7 +693,7 @@ function. Given that useful results have already been found with this parameter
 set, and to avoid cherry-picking any further results by tweaking parameters,
 this study considers the latter for the remaining examples.
 
-\subsection{Discounted silhouette coefficients}
+\subsection{The silhouette coefficient}
 
 In the example above, the presence of strong positive correlations stood out
 when using inertia as the fitness function --- as such, counteracting that
@@ -726,34 +728,32 @@ Hence, the overall objective of minimising inertia is addressed by maximising
 cohesion. Meanwhile, the silhouette coefficient has the added benefit of being
 normalised and takes values in the interval \(\left[-1, 1\right]\).
 
-Repeating the trials with the same parameters as with inertia, the silhouette
-fitness function yields the results summarised in
-Figures~\ref{fig:small-silhouette}~and~\ref{fig:large-silhouette}. Irrespective
-of row limits, the datasets produced show increased separation from one another
-whilst maintaining low values in the final inertia of the clustering as shown in
-Figure~\ref{fig:silhouette-inds}. Again, the form of the individual clusters is
-much the same. The low values of inertia correspond to tight clusters, and the
-tightest clusters are those with a minimal number of points, i.e.\ a single
-point. As with the previous example, albeit at a much slower rate, the
-preferable individuals are those leading toward this case. That this gradual
-reduction in the dimension of the individuals occurs despite adjusting the
-fitness function and considering the space which excludes the trivial case
-bolsters the claim that the base case is also optimal.
+The silhouette fitness function, with the same EDO parameters, yields the
+results summarised in Figure~\ref{fig:kmeans_silhouette_fitness} and
+Figure~\ref{fig:kmeans_silhouette_inds}. Note that the order of the individuals
+is from worst to best here since the fitness function should be maximised.
+
+As was the case in the previous example, there is a steep learning curve
+followed by steady, incremental improvements to the population fitness.
+Moreover, the produced datasets are exceptionally similar to those created using
+inertia.  In~\cite{Wilde2020:edo}, it was seen that the clusters had an
+``increased separation from one another whilst maintaining low values in the
+final inertia'' when using this fitness function. In this case, the produced
+datasets appear to be no different from those made using inertia, for which the
+scaling step is mostly responsible. By preprocessing the data to fill the unit
+interval, the notion of cluster separation has, in effect, been maximised,
+leaving only cohesion to be optimised. Therefore, this silhouette fitness
+function is broadly equivalent to the previous inertia fitness function.  This
+equivalence is seen further by the close fit of inertia scores in the
+better-performing representative individuals displayed in
+Figure~\ref{fig:kmeans_silhouette_inds}.
 
 \begin{figure}
     \centering
-    \begin{subfigure}{\imgwidth}
-        \includegraphics[width=\linewidth]{kmeans_silhouette_fitness.pdf}
-        \label{fig:kmeans_silhouette_fitness}
-    \end{subfigure}
-
-    \begin{subfigure}{\imgwidth}
-        \includegraphics[width=\linewidth]{kmeans_silhouette_nrows.pdf}
-        \label{fig:kmeans_silhouette_nrows}
-    \end{subfigure}
+    \includegraphics[width=\imgwidth]{kmeans_silhouette_fitness.pdf}
     \caption{%
-        Progressions for silhouette and number of rows
-    }\label{fig:silhouette_progression}
+        Progression plot for the silhouette fitness function
+    }\label{fig:kmeans_silhouette_fitness}
 \end{figure}
 
 \begin{figure}
@@ -763,6 +763,22 @@ bolsters the claim that the base case is also optimal.
         Representative individuals from EDO trials with silhouette
     }\label{fig:kmeans_silhouette_inds}
 \end{figure}
+
+So, solely using the silhouette coefficient provides no further insight.
+However, given that it is normalised, it can be discounted in a meaningful way.
+The previous example found that positive correlation was a driving force in the
+learning achieved by EDO. The same is evident here. Therefore, a sensible
+adjustment to the fitness function would be to penalise positive correlation
+directly --- as such, the adjusted fitness function is:
+\begin{equation}\label{eq:discounted_silhouette}
+f(X) := S(X) - \left|\rho(X)\right|
+\end{equation}
+
+\noindent where \(S(X)\) is the silhouette coefficient of a dataset \(X\) when
+clustered by \(k\)-means and \(\rho(X)\) is the Pearson correlation coefficient
+of the columns of \(X\).
+
+The same method could be used with inertia alone but 
 
 \subsection{Comparison with DBSCAN}\label{subsec:dbscan}
 
