@@ -64,8 +64,8 @@ deem those with the smallest value to be `best'.
 Objectively, there is nothing illicit about comparing methods in this way except
 for the semantics of the outcome, i.e.\ outperforming a method on a dataset with
 a metric is insufficient evidence to categorise one method as `better' than
-another. Each case can be qualified with something along the lines of `Method
-\(A\) performs better than Method \(B\) under the given conditions', but there
+another. Each case can be qualified with something along the lines of ``Method
+\(A\) performs better than Method \(B\) under the given conditions'', but there
 are concerns about this process that persist beyond linguistic hair-splitting. 
 
 A significant concern presented by this process is in how benchmark examples are
@@ -229,11 +229,11 @@ following parameters:
         overall search space. For instance, the family of normal distributions,
         denoted by \(N(\mu, \sigma^2)\), would have limits on values for the
         mean, \(\mu\), and the standard deviation, \(\sigma\).
-    \item A maximum number of `subtypes' for each family in \(\mathcal{P}\). A
-        subtype is an independent copy of the family distribution that
-        progresses separately from the other subtypes in that family. These are
-        the actual distribution objects which are traversed in the optimisation
-        and that are passed to the individuals.
+    \item A maximum number of \emph{subtypes} for each family in
+        \(\mathcal{P}\). A subtype is an independent copy of the family
+        distribution that progresses separately from the other subtypes in that
+        family. These are the actual distribution objects which are traversed in
+        the optimisation and that are passed to the individuals.
     \item A probability vector to sample distributions from \(\mathcal{P}\),
         \(w = \left(w_1, \ldots, w_{|\mathcal{P}|}\right)\).
     \item Limits on the number of rows an individual dataset can have,
@@ -296,11 +296,11 @@ examples include:
 \subsection{Individuals}
 
 Evolutionary algorithms operate in an iterative process. At each iteration, the
-EA acts on a population (generation) of individuals. Each individual corresponds
-to a solution to the problem in question according to some representation or
-encoding. In a genetic algorithm, an individual is a solution encoded as a bit
-string of typically fixed length and is treated as a chromosome-like object to
-be manipulated.
+EA acts on a population (generation) of \emph{individuals}. Each individual
+corresponds to a solution to the problem in question according to some
+representation or encoding. In a genetic algorithm, an individual is a solution
+encoded as a bit string of typically fixed length and is treated as a
+chromosome-like object to be manipulated.
 
 In EDO, individuals are represented primarily as the dataset that defines them,
 without an encoding. This is because the objective of EDO is to generate
@@ -314,7 +314,7 @@ individual-creation process.
 In addition to the dataset, an individual is represented by a list of
 probability distributions. These distributions are created using the elements
 of~\(\mathcal{P}\) and correspond to the columns of the dataset. This list is
-referred to as the individual's `metadata'. The metadata acts as a set of
+referred to as the individual's \emph{metadata}. The metadata acts as a set of
 instructions for sampling new values for the columns (as in mutation). Also, the
 metadata is a record of how that column was created.
 
@@ -333,12 +333,12 @@ formal conclusions are made about these relationships.
 
 \subsection{Selection}
 
-The selection operator describes the process by which individuals are chosen
-from the current population to generate the next. Almost always, the fitness of
-an individual determines the likelihood of their selection to be a parent. By
-selecting individuals in this way, the hope is for the preservation of some
-favourable qualities (thus improving the population). Also, to encourage some
-homogeneity within future generations~\cite{Back1994}.
+The \emph{selection} operator describes the process by which individuals are
+chosen from the current population to generate the next. Almost always, the
+fitness of an individual determines the likelihood of their selection to be a
+parent. By selecting individuals in this way, the hope is for the preservation
+of some favourable qualities (thus improving the population). Also, to encourage
+some homogeneity within future generations~\cite{Back1994}.
 
 \inputtikz{selection}{%
     The selection process with the inclusion of some lucky individuals
@@ -348,9 +348,9 @@ homogeneity within future generations~\cite{Back1994}.
 A modified truncation selection method is used in EDO, as is illustrated in
 Figure~\ref{fig:selection}. Truncation is perhaps the simplest selection method
 wherein a fixed number, \(n_b = \left\lceil b N\right\rceil\), of the fittest
-individuals in a population are taken forward and used as the `parents' of the
-next generation. Note that this means that an individual could potentially be
-present throughout the entirety of the algorithm.
+individuals in a population are taken forward and used as the \emph{parents} of
+the next generation. Note that this means that an individual could potentially
+be present throughout the entirety of the algorithm.
 
 Despite its efficiency as a selection operator, truncation selection can lead to
 premature convergence at local optima~\cite{Jebari2013,Motoki2002}. EDO provides
@@ -393,7 +393,7 @@ of extensive exploration and is considered to be decidedly optional.
 Crossover is the operation of combining two individuals in order to create a new
 individual (or individuals). It is also the opportunity to have the favourable
 qualities preserved through selection interact with one another in potentially
-new ways. The term `crossover' originates from its application in genetic
+new ways. The term \emph{crossover} originates from its application in genetic
 algorithms where it is quite literal. In genetic algorithms, two bit-strings are
 crossed at a point to create two new bit strings.
 
@@ -404,7 +404,7 @@ and matrix representations~\cite{Chen2018,Semenkin2012}. EDO makes use of a form
 of uniform crossover that has been adapted to support the representation of
 individuals in the EA. Put simply: a new offspring is created by uniformly
 sampling each of its components (i.e.\ dimensions and columns) from a set of two
-`parent' individuals, as depicted in Figure~\ref{fig:crossover} and described in
+parent individuals, as depicted in Figure~\ref{fig:crossover} and described in
 Algorithm~\ref{alg:crossover}.
 
 \inputtikz{crossover}{%
@@ -425,7 +425,7 @@ Conversely, surplus values are trimmed from the bottom of all longer columns.
 
 \subsection{Mutation}\label{subsection:mutation}
 
-The mutation operator is used in EAs to maintain a level of variety in a
+The \emph{mutation} operator is used in EAs to maintain a level of variety in a
 population. This operator effectively forces the algorithm to explore more of
 the search space at each generation. It is typical of mutation operators to
 affect all aspects of an individual. In genetic algorithms, this is as simple as
@@ -473,7 +473,7 @@ when restricted to two dimensions.
 \subsection{Inertia and \(k\)-means clustering}
 
 The \(k\)-means algorithm is an iterative, centroid-based method that aims to
-minimise the `inertia' of the current partition, \(Z = \left\{Z_1, \ldots,
+minimise the \emph{inertia} of the current partition, \(Z = \left\{Z_1, \ldots,
 Z_k\right\}\), of some dataset \(X\):
 \begin{equation}
     I(Z, X) := \frac{1}{|X|} \sum_{j=1}^{k} \sum_{x \in Z_j} {d(x, z_j)}^2
@@ -548,11 +548,11 @@ so that there is greater confidence in any given fitness score.
 The examples in this study make use of a command-line tool,
 \href{https://github.com/daffidwilde/edolab}{\mintinline{python}{edolab}}, for
 running experiments with the library. This tool allows for a lot of otherwise
-repeated code to be replaced by a simple `experiment' script.
-Snippet~\ref{snp:inertia} shows the experiment script used for this example, and
-Snippet~\ref{snp:edolab} shows how to use that script with the command-line
-tool. Other than the fitness function definition, this script is identical to
-that of every example in this section.
+repeated code to be replaced by a simple \emph{experiment} script, configuring
+the parameters of the experiment.  Snippet~\ref{snp:inertia} shows the
+experiment script used for this example, and Snippet~\ref{snp:edolab} shows how
+to use that script with the command-line tool. Other than the fitness function
+definition, this script is identical to that of every example in this section.
 
 \begin{listing}
 \begin{sourcepy}
@@ -605,7 +605,7 @@ distributions = [Uniform]
 \end{listing}
 
 Once the EDO algorithm has terminated, a body of datasets, and information about
-those datasets, is recorded. This output is referred to as a `history'.
+those datasets, is recorded. This output is referred to as a \emph{history}.
 Figure~\ref{fig:inertia_progression} shows the progression of the fitness
 function (inertia) and the number of rows at 10 generation intervals across the
 history generated with the parameters defined above. There is a steep learning
@@ -755,7 +755,7 @@ Figure~\ref{fig:kmeans_silhouette_inds}.
         Progression plot for the silhouette fitness function
     }\label{fig:kmeans_silhouette_fitness}
 \end{figure}
-
+}
 \begin{figure}
     \centering
     \includegraphics[width=\imgwidth]{kmeans_silhouette_inds.pdf}
@@ -769,17 +769,17 @@ However, given that it is normalised, it can be discounted in a meaningful way.
 The previous example found that positive correlation was a driving force in the
 learning achieved by EDO. The same is evident here. Therefore, a sensible
 adjustment to the fitness function would be to penalise positive correlation
-directly --- as such, the adjusted fitness function is:
+directly. As such, the adjusted fitness function is:
 \begin{equation}\label{eq:discounted_silhouette}
 f(X) := S(X) - \left|\rho(X)\right|
 \end{equation}
 
 \noindent where \(S(X)\) is the silhouette coefficient of a dataset \(X\) when
 clustered by \(k\)-means and \(\rho(X)\) is the Pearson correlation coefficient
-of the columns of \(X\). This function will be referred to as the `discounted
-silhouette' fitness function.
+of the columns of \(X\).  This function will be referred to as the
+\emph{discounted silhouette} fitness function. 
 
-The same method could be used with inertia but the effect of the discounting
+The same method could be used with inertia, but the effect of the discounting
 term would be lost when inertia is high --- as is common in the early stages of
 the EA (see Figure~\ref{fig:kmeans_inertia_fitness}) --- rendering the exercise
 pointless. However, its effect integrates well with the silhouette coefficient:
@@ -790,10 +790,10 @@ pointless. However, its effect integrates well with the silhouette coefficient:
         (at the extremes) the dataset has a perfect silhouette and perfect
         correlation or no silhouette with no correlation, indicating a random
         cloud.
-    \item Negative scores indicate a dataset with either low-to-negative
-        silhouette and high correlation (i.e.\ high inertia but correlated) or
-        negative silhouette (i.e.\ the clustering is inappropriate) and
-        arbitrary correlation.
+    \item Negative scores indicate a dataset with either a low-to-negative
+        silhouette coefficient and high correlation (i.e.\ high inertia but
+        correlated) or negative silhouette (i.e.\ the clustering is
+        inappropriate) and arbitrary correlation.
 \end{itemize}
 
 Figures~\ref{fig:discounted_progression}~and~\ref{fig:kmeans_discounted_inds}
@@ -816,66 +816,77 @@ function with the same parameters as used in the previous examples.
     }\label{fig:kmeans_discounted_inds}
 \end{figure}
 
+% TODO Write discussion for this part of the example.
+% Mention the same pattern of decreasing number of rows.
+% It'd be nice to draw on the convexity point coming up in the next example?
+% Perhaps a scatter of fitness and convexity for the parents.
+% A hypothesis test even? Depends on the scatter, I guess.
+
+% TODO Conclude the subsection.
+
 \subsection{Comparison with DBSCAN}\label{subsec:dbscan}
 
 The extent of the capabilities EDO holds as a tool to better understand an
 algorithm are especially apparent when comparing an algorithm against another
-(or set of others) simultaneously. This is done by utilising the freedom of
-choice in a fitness function for EDO.\ Consider two algorithms, \(A\) and \(B\),
-and some common metric between them, \(g\). Then their similarities and
-contrasts can be explored by considering the differences in this metric on the
-two algorithms. In terms of EDO, this means using \(f = g_A - g_B\), \(f = g_B -
-g_A\) or \(f = \left| g_B - g_A \right|\) as the fitness function. By doing so,
-pitfalls, edge cases or fundamental conditions for the method may be
-highlighted. Overall, this process allows the researcher to more deeply learn
-about the method of interest beyond the traditional method of literature
-comparison on a particular example.
+(or set of others) simultaneously. To compare a set of algorithms, one must
+utilise the freedom of choice in a fitness function for EDO.\ Consider two
+algorithms, \(A\) and \(B\), and some common metric between them, \(g\). Then
+their similarities and contrasts can be explored by considering the differences
+in this metric on the two algorithms. In terms of EDO, this means using \(f =
+g_A - g_B\), \(f = g_B - g_A\) or \(f = \left| g_B - g_A \right|\) as the
+fitness function. Doing so can highlight pitfalls, edge cases or fundamental
+conditions for the method(s). Overall, this process affords a deeper level of
+learning about the method of interest beyond the traditional empirical method of
+literature comparison on a particular example.
 
-Consider the following use case with another clustering algorithm of a different
-form, Density Based Spatial Clustering of Applications with Noise (DBSCAN). In
-this particular case, the objective is to find datasets for which the method of
-interest, \(k\)-means, outperforms its alternative, DBSCAN.\ Here there is no
-concept of inertia as DBSCAN is density-based and is able to identify
-outliers~\cite{Ester1996}. As such, a valid metric must be chosen. One such
-metric is the silhouette score as defined in~(\ref{eq:silhouette}).
-
-In this case, however, an adjustment to the fitness function must be made so as
-to accommodate for the condition of the silhouette coefficient that there must
-be more than one cluster present. Let \(S_k (X)\) and \(S_D (X)\) denote the
-silhouette coefficients of the clustering found by \(k\)-means and DBSCAN
-respectively. Then the fitness function is defined to be:
+The final example in this case study considers a comparison of \(k\)-means with
+another clustering algorithm of a different form: Density-Based Spatial
+Clustering of Applications with Noise (DBSCAN). To begin with, the objective is
+to find datasets for which \(k\)-means outperforms its alternative, DBSCAN.\
+There is no concept of inertia in DBSCAN as it is based on density (as opposed
+to raw distance) and identifies outliers~\cite{Ester1996}. As such, a valid
+metric must be chosen. Again, the silhouette coefficient is one such metric. The
+standard silhouette function is used here over that defined
+in~\eqref{eq:discounted_silhouette} for two reasons. First, the relationship
+between correlation and DBSCAN has not yet been established in this study, and
+second, to simplify the final fitness function. An adjustment
+to~\eqref{eq:silhouette} must be made since the silhouette coefficient requires
+at least two clusters and DBSCAN need only cluster a subset of a dataset
+(referred to as the \emph{core~points}), labelling the remainder as outliers.
+Let \(S_k (X)\) and \(S_D (X)\) denote the silhouette coefficients of the
+clustering found by \(k\)-means and DBSCAN respectively, and let \(Z_D \subseteq
+X\) be the clustering by DBSCAN. Then the fitness function is defined to be:
 \begin{equation}
     f(X) =
         \begin{cases}
-            S_D (X) - S_k (X), &\quad \text{%
+            S_k (X) - S_D (X), &\quad \text{%
                 \begin{tabular}{l}%
-                    if DBSCAN identifies two or
-                    \\
-                    more clusters (inc.\ noise)
+                    if \(\left|Z_D\right| > 1\)
                 \end{tabular}
             }\\
-            \infty &\quad \ \ \text{otherwise.}
+            - \infty &\quad \ \ \text{otherwise}
         \end{cases}\label{eq:dbscan-fitness}
 \end{equation}
+% TODO include a statement of DBSCAN? It's quite long 
 
-There are several remarks to be made here. First, note the order of the
-subtraction here as EDO minimises fitness functions by default. Also, \(f\)
-takes values in the range \([-2, 2]\) where \(-2\) is the best, i.e.\ \(S_D(X) =
--1\) and \(S_k(X) = 1\). Likewise, 2 is the worst score. Finally, the silhouette
-coefficient requires at least two clusters to be present and so if DBSCAN
-identifies a single cluster then that individual will be penalised heavily under
-this fitness function when, in fact, that clustering may be of high quality. As
-such, this fitness function may require adjustment.
+There are three remarks to be made here. First, note the order of the
+subtraction indicates that this fitness function should be maximised. Second,
+while \(f\) can have a value of \(-\infty\), `valid' individuals provide values
+in the range \([-2, 2]\) where \(2\) is the best, i.e.\ \(S_D(X) = -1\) and
+\(S_k(X) = 1\). Likewise, -2 is the worst score. Finally, any individual that is
+not clustered into at least two parts by DBSCAN is penalised heavily under this
+fitness function when, in fact, that clustering may be of high quality. As such,
+this fitness function may require more nuanced adjustment.
 
-It must also be acknowledged that \(k\)-means and DBSCAN share no common
-parameters and so direct comparison is more difficult. For the purposes of this
-example, only one set of parameters is used but a thorough investigation should
-include a parameter sweep in similar, real-world use cases. The parameters being
-used are \(k~=~3\) for \(k\)-means, and \(\epsilon~=~0.1,\ MinPoints~=~5\) for
-DBSCAN.\ This set was chosen following informal experimentation using the Python
-library Scikit-learn~\cite{scikit} to find comparable parameters in the given
-search space defined by the EDO parameters used previously with
-\(R~=~(50,100)\).
+Acknowledge also that \(k\)-means and DBSCAN share no common parameters, and so
+direct comparison is difficult. This example only uses one set of parameters,
+but a more thorough investigation should include a parameter sweep. The
+parameters being used are \(k=3\) for \(k\)-means, and \(\epsilon=0.14\) and
+\(MinPoints=5\) for DBSCAN.\ Investigating the datasets from the other examples
+in this study informed this parameter set. In particular, a
+\(MinPoints\)-nearest-neighbour distance plot was constructed for each dataset
+(as is commonly done) using the Python library Scikit-learn~\cite{scikit}, which
+confirmed that an appropriate value for \(\epsilon\) was just less than 0.15.
 
 \begin{figure}
     \centering
@@ -945,7 +956,7 @@ adequate results for either inertia or silhouette. DBSCAN, on the other hand,
 does not have this condition and is able to detect non-convex clusters so long
 as they are dense enough. Figure~\ref{fig:dbscan-inds} shows the clustering
 found by each method and the respective convex and concave hulls of the clusters
-found. The `concave hull' of a cluster is taken to be the \(\alpha\)-shape of
+found. The \emph{concave hull} of a cluster is taken to be the \(\alpha\)-shape of
 the cluster's data points~\cite{Edelsbrunner1983} where \(\alpha\) is determined
 to be the smallest value such that all the points in the cluster are contained
 in a single polygon. The convexity of cluster \(Z_j\), denoted
