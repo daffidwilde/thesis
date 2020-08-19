@@ -841,12 +841,12 @@ literature comparison on a particular example.
 
 The final example in this case study considers a comparison of \(k\)-means with
 another clustering algorithm of a different form: Density-Based Spatial
-Clustering of Applications with Noise (DBSCAN). To begin with, the objective is
-to find datasets for which \(k\)-means outperforms its alternative, DBSCAN.\
-There is no concept of inertia in DBSCAN as it is based on density (as opposed
-to raw distance) and identifies outliers~\cite{Ester1996}. As such, a valid
-metric must be chosen. Again, the silhouette coefficient is one such metric. The
-standard silhouette function is used here over that defined
+Clustering of Applications with Noise (DBSCAN). The objective of the first part
+of this example is to find datasets for which \(k\)-means outperforms its
+alternative, DBSCAN.\ There is no concept of inertia in DBSCAN as it is based on
+density (as opposed to raw distance) and identifies outliers~\cite{Ester1996}.
+As such, a valid metric must be chosen. Again, the silhouette coefficient is one
+such metric. The standard silhouette function is used here over that defined
 in~\eqref{eq:discounted_silhouette} for two reasons. First, the relationship
 between correlation and DBSCAN has not yet been established in this study, and
 second, to simplify the final fitness function. An adjustment
@@ -854,8 +854,9 @@ to~\eqref{eq:silhouette} must be made since the silhouette coefficient requires
 at least two clusters and DBSCAN need only cluster a subset of a dataset
 (referred to as the \emph{core~points}), labelling the remainder as outliers.
 Let \(S_k (X)\) and \(S_D (X)\) denote the silhouette coefficients of the
-clustering found by \(k\)-means and DBSCAN respectively, and let \(Z_D \subseteq
-X\) be the clustering by DBSCAN. Then the fitness function is defined to be:
+clustering found by \(k\)-means and DBSCAN respectively, and let \(Z_D
+\subseteq X\) be the clustering by DBSCAN. Then the fitness function is defined
+to be:
 \begin{equation}
     f(X) =
         \begin{cases}
