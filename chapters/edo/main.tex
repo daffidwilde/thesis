@@ -608,14 +608,14 @@ distributions = [Uniform]
 Once the EDO algorithm has terminated, a body of datasets, and information about
 those datasets, is recorded. This output is referred to as a \emph{history}.
 Figure~\ref{fig:inertia_progression} shows the progression of the fitness
-function (inertia) and the number of rows at 10 generation intervals across the
+function (inertia) and the number of rows at ten generation intervals across the
 history generated with the parameters defined above. There is a steep learning
 curve here; within the first ten generations the population fitness gains
 substantially, and although there is constant improvement to the median and best
 fitness scores, the pace slows over the remaining generations.
 
-The same quick convergence is evident in the number of rows where it is apparent
-that there is a preference for datasets with fewer rows. Wanting fewer rows is
+The same quick convergence is evident in the number of rows where it is there is
+a clear preference for datasets with fewer rows. Wanting fewer rows is
 expected given that inertia is the sum of the mean error from each cluster
 centre. Then, with \(k\) fixed a priori, a quick (although not guaranteed) way
 of reducing this mean error is to reduce the number of points in each cluster;
@@ -723,13 +723,13 @@ silhouette value, \(S(x)\), of each point \(x \in Z_j\) in each cluster:
 
 The optimisation of the silhouette coefficient is analogous to finding a dataset
 which maximises both cohesion (the inverse of \(A\)) and separation (\(B\)).
-Hence, the overall objective of minimising inertia is addressed by maximising
-cohesion. Meanwhile, the silhouette coefficient has the added benefit of being
-normalised and takes values in the interval \(\left[-1, 1\right]\). Although,
-\(k\)-means will not (in general) produce a clustering with a negative
-silhouette score since the clusters are formed from a partition of the plane and
-cannot overlap, meaning that the range of expected silhouette scores should be
-\(\left[0, 1\right]\).
+Hence, the silhouette coefficient addresses the overall objective of minimising
+inertia by maximising cohesion. Meanwhile, the silhouette coefficient has the
+added benefit of being normalised and takes values in the interval \(\left[-1,
+1\right]\). Although, \(k\)-means will not (in general) produce a clustering
+with a negative silhouette score since the clusters are formed from a partition
+of the plane and cannot overlap, meaning that the range of expected silhouette
+scores should be \(\left[0, 1\right]\).
 
 The silhouette fitness function, with the same EDO parameters, yields the
 results summarised in Figure~\ref{fig:kmeans_silhouette_fitness}, and the
@@ -802,14 +802,15 @@ coefficient:
 
 Figures~\ref{fig:discounted_progression}~and~\ref{fig:kmeans_discounted_inds}
 show a summary of the results generated using this discounted silhouette
-function with the same parameters as used in the previous examples. There is a
-steady increase in the fitness of the better individuals at each generation ---
-as has been the case with the first two cases. This means that EDO is certainly
-doing its job of optimising across the search space. However, there appears to
-be some variation in the population fitness here, which may indicate that the
-parameter set requires some tweaking or, simply, that the environment in which
-individuals exist is more competitive in a sense. Since the EA is still
-producing passable results the parameters will not be adjusted.
+function with the same parameters as used in the previous examples. The fitness
+progression shows a steady increase for the best individuals at each generation
+--- as has been the case with the first two cases --- and there is the same
+preference for datasets with fewer rows. This trend in the fitness means that
+EDO is certainly doing its job of optimising across the search space. However,
+there appears to be some variation in the population fitness here, which may
+indicate that the parameter set requires some tweaking or, simply, that the
+environment in which individuals exist is more competitive in a sense. Since the
+EA is still producing passable results, the parameters will not be adjusted.
 
 \begin{figure}
     \centering
@@ -841,25 +842,25 @@ producing passable results the parameters will not be adjusted.
 \end{figure}
 
 Figure~\ref{fig:kmeans_discounted_inds} highlights the impact of a well-adjusted
-fitness function. Consider the leftmost frame of either plot, where th
-e worst-performing individual is shown. This kind of individual would have been
+fitness function. Consider the leftmost frame of either plot, where the
+worst-performing individual is shown. This kind of individual would have been
 selected immediately with either of the previous fitness functions, and its
-cluster centres separated along the diagonal. Instead, it has been relegated to
-the bottom of the population because of the simple adjustment to the fitness
-function. Then, inspecting the other two datasets shows that EDO has generated
-more `realistic' individuals that offer an improved silhouette without being
-reductive. Although this is somewhat of a toy example, this demonstrates how a
-genuinely useful, well-formed dataset may be created objectively.
+cluster centres separated along the diagonal. Instead, the simple modification
+to the fitness function has relegated it to the bottom of the population. Then,
+inspecting the other two datasets shows that EDO has generated more `realistic'
+individuals that offer a more polished silhouette without being reductive.
+Although this is somewhat of a toy example, this demonstrates how a genuinely
+useful and well-formed dataset may be created objectively.
 
 Another point of interest here is the convexity of the clusters. A known
 condition for the success of \(k\)-means is that the presented clusters are of
 roughly equal size and are convex. Without this condition, up to the correct
-choice of \(k\), the algorithm will fail to produce adequate results for either
-inertia or silhouette. This condition is derived from the link between
-\(k\)-means and Voronoi tessellation. According to~\cite{Sonka1993}, one measure
-of the convexity of a set of points (such as a cluster), denoted \(\mathcal C\),
-is the ratio of the area of its concave hull, \(H_c\), to the area of its convex
-hull, \(H_v\):
+choice of \(k\), the algorithm will fail to produce satisfactory results for
+either inertia or silhouette. This condition is derived from the link between
+\(k\)-means and Voronoi tessellation.~\cite{Sonka1993} defines one measure of
+the convexity of a set of points (such as a cluster), denoted \(\mathcal C\), is
+the ratio of the areas of its concave and convex hulls, denoted \(H_c\) and
+\(H_v\), respectively:
 \begin{equation}
     \mathcal C :=
     \frac{\text{area}\left(H_c\right)}{\text{area}\left(H_v\right)}
@@ -869,8 +870,7 @@ With this definition, it should be clear that a perfectly convex cluster, such
 as a single point, line or convex polygon, would have \(\mathcal{C} = 1\). Also,
 it appears that the mean convexity of the clustering increases as fitness
 increase --- save for the `invalid' individual --- and suggests that this
-condition for convex clusters is being sought out during the optimisation
-process.
+condition for convex clusters is sought out during the optimisation process.
 
 % TODO Perhaps a scatter of fitness and convexity for the parents.
 % TODO A hypothesis test even? Depends on the scatter, I guess.
@@ -989,7 +989,6 @@ toward the upper limit of 100 rows. Both of these observations are suggestive of
 a more competitive environment where slight changes to an individual can
 drastically alter their fitness.
 
-
 Figure~\ref{fig:kmeans_preferable_inds} exemplifies these consequences, which
 shows the representative individuals for this example from worst to best. Each
 dataset is shown with its clustering (and associated silhouette) by
@@ -1068,22 +1067,22 @@ data points. Therefore, a realistic best fitness score is \(1\) (when \(S_D(X) =
 1\) and \(S_k(X) = 0\)) whereas the worst is \(-2\) (when \(S_D(X) = -1\) and
 \(S_k(X) = 1\)).
 
-Upon inspection of the latter figure it is apparent that there is a move toward
+Upon inspection of the latter figure, it is apparent that there is a move toward
 less densely packed datasets --- something that may be inferred by the reduced
 number of rows exhibited in the lower plot of
 Figure~\ref{fig:dbscan_preferable_progression}. Here, EDO has recognised that
 DBSCAN identifies and clusters only the core points of a dataset, whereas
-\(k\)-means must partition the entire sample space. As a result \(k\)-means is
-forced to have clusters with somewhat lower cohesion, and DBSCAN is able to
-ignore significant parts of the sample space to identify a small number of
-dense hotspots with impunity. Then, as fitness improves, the clusters become
-smaller, contain fewer points and are further apart. All of these factors serve
-to maximise the silhouette of the DBSCAN clustering, while leaving that of
-\(k\)-means largely unchanged. In general, being able to identify outliers is
-one of DBSCAN's core strengths. However, this success is so reliant on being
-able to ignore the majority of the data points and finding more delicate cases
-for the success of DBSCAN should adapt the fitness function to mitigate this
-behaviour, perhaps with a penalty. 
+\(k\)-means must partition the entire sample space. As a result, \(k\)-means is
+forced to have clusters with somewhat lower cohesion, and DBSCAN can ignore
+significant parts of the sample space to identify a small number of dense
+hotspots with impunity. Then, as fitness improves, the clusters become smaller,
+contain fewer points and are further apart. All of these factors serve to
+maximise the silhouette of the DBSCAN clustering while leaving that of
+\(k\)-means mostly unchanged. In general, being able to identify outliers is one
+of DBSCAN's core strengths. However, this success is so reliant on being able to
+ignore the majority of the data points and finding more delicate cases for the
+success of DBSCAN should adapt the fitness function to mitigate this behaviour,
+perhaps with a penalty.  
 
 As has already been stated, the software implementation of the EDO method has
 been produced in line with the best practices of open source software
@@ -1093,12 +1092,14 @@ DOI \href{https://doi.org/10.5281/zenodo.3492236}{10.5281/zenodo.3492236}.
 Likewise, all the data produced to support this case study have been archived
 under the DOI
 \href{https://doi.org/10.5281/zenodo.3492228}{10.5281/zenodo.3492228}.
+% TODO Update these DOIs.
+% TODO Move this paragraph up to the top of the section.
 
 % TODO The end of this section needs revising
 
 \section{Conclusion}
 
-In this paper we have introduced a novel approach to understanding the quality
+This chapter has introduced a novel approach to understanding the quality
 of an algorithm by exploring the space in which their well-performing datasets
 exist. Following a detailed explanation of its internal mechanisms, a case study
 in \(k\)-means clustering was offered as validation for the proposed method.
