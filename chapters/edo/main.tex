@@ -1097,74 +1097,87 @@ under the DOI
 
 % TODO The end of this section needs revising
 
-\section{Conclusion}
+\section{Chapter summary}
 
-This chapter has introduced a novel approach to understanding the quality
-of an algorithm by exploring the space in which their well-performing datasets
-exist. Following a detailed explanation of its internal mechanisms, a case study
-in \(k\)-means clustering was offered as validation for the proposed method.
-The method was able to reveal some known results without prior knowledge when
-investigating \(k\)-means in several scenarios, and again when comparing
-\(k\)-means and another leading clustering method, DBSCAN.\
+This chapter has introduced a novel approach to understanding the quality of an
+algorithm by exploring the space in which their well-performing datasets exist.
+Following a detailed explanation of its internal mechanisms, a case study in
+\(k\)-means clustering was offered as validation for the proposed method known
+as Evolutionary Dataset Optimisation. The EDO method was able to reveal some
+known results without prior knowledge when investigating \(k\)-means in several
+scenarios, and again when comparing \(k\)-means and another prominent clustering
+method, DBSCAN.
 
-The method itself utilises biological operators to traverse a potentially broad
-region of the space of all possible datasets. This is done in an organic way
-with a minimal external framework attached. The generative nature of the
-proposed method also provides transparency and richness to the solution when
-compared to other contemporary techniques for artificial data generation as the
-entire history of individuals is preserved. While other search and optimisation
-methods exist, the decision to use an EA here was down to this transparency and
-the ease with which to implement biological operators that are both meaningful
-and easily understood.
+The method itself is an EA and utilises biological operators to traverse a
+potentially broad region of the space of all possible datasets. This
+optimisation occurs with a minimal external framework attached, and without a
+need for large banks of training data. The generative nature of the proposed
+method also provides transparency and richness to the solution when compared to
+other contemporary techniques for artificial data generation as the entire
+history of individuals is preserved. While other search and optimisation methods
+exist, the decision to use an EA here was down to this transparency and the ease
+with which to implement biological operators that are both meaningful and easily
+understood.
 
-The Evolutionary Dataset Optimisation method is dependent on a number of
-parameters set out in this work one of which is the choice of distribution
-families, \(\mathcal{P}\); these families go on to define the general
-statistical shape of the columns of the datasets that are produced and also
-control the present data types. The relationship between columns and their
-associated distribution is not causal and appropriate methods should be employed
-to understand the structure and characteristics of the data produced before
-formal conclusions are made as set out in the case study provided.
-
-It is known that EAs might terminate at a local optimum and may not be able to
-traverse the entire sample space~\cite{Vikhar2016}, or even a sufficient part of
-it. This would be even more problematic in the case presented in this work where
-the sample space is not even of a fixed size or data type. In all experiments
-carried out for this work, this theoretic limitation has not arisen.
-Figure~\ref{fig:coverage} shows an exploration of the sample space and it is
-evident that the EDO method was able to explore a large proportion of it. In the
-early stages, it is also clear here how the EA got stuck in small parts of the
-search space before later moving toward a subregion of the unit square.
+An obvious downside to EAs is that they might terminate at a local optimum ---
+as occurred in the early examples of the case study in this chapter --- and, as
+such, an EA may not be able to traverse the entire sample
+space~\cite{Vikhar2016} or even a sufficient part of it. This limited
+exploration would be even more problematic under the framework of EDO, given
+that the sample space is not of a fixed size or data type. Thankfully, this
+limitation did not occur in most of the examples considered in this chapter. As
+an example, Figure~\ref{fig:coverage} shows how the distribution of the parents
+from the examples in Section~\ref{subsec:silhouette}. In particular, each part
+of the figure shows density and scatter plots of all of the parent datasets. The
+datasets are presented without scaling to demonstrate how the EA explored the
+sample space. Consider the first plot (corresponding to the raw silhouette
+coefficient example). Here, the EDO method got stuck and failed to adequately
+explore the unit square as indicated by the distinct diagonal line through the
+square. However, by properly considering the limitations of that fitness
+function, the EDO method was able to explore a large proportion of the unit
+square, as shown in the second plot (with the discounted silhouette).
 
 \begin{figure}[htbp]
-    \includegraphics[width=\imgwidth]{coverage.pdf}
+    \centering
+    \begin{subfigure}{\imgwidth}
+        \includegraphics[width=\imgwidth]{kmeans_silhouette_coverage.pdf}
+        \caption{%
+            with the silhouette fitness function%
+        }\label{fig:silhouette_coverage}
+    \end{subfigure}
+
+    \vspace{1em}
+    \begin{subfigure}{\imgwidth}
+        \includegraphics[width=\imgwidth]{kmeans_discounted_coverage.pdf}
+        \caption{with the discounted silhouette fitness function}
+    \end{subfigure}
     \caption{%
-        A scatter and density plot of the selected parents at 10 epoch intervals
-        from the last example of Section~\ref{subsec:dbscan}
+        Scatter and density plots of the selected parents at 10 epoch
+        intervals from the examples in Section~\ref{subsec:silhouette}
     }\label{fig:coverage}
 \end{figure}
 
 Although this does provide evidence to say that the current design of the EA can
-sufficiently explore its given search space, it does not provide any guarantee
-that this will happen, even in expectation. Proving this theoretically is an
-area for further investigation.
+sufficiently explore its given search space with an appropriate fitness
+function, it does not provide any guarantee that this will happen, even in
+expectation, with any fitness function.
 
-Something that does stand against EAs is their tendency to find the `easy' way
-out. That is, reducing down to the simplest solution which solves the given
+Another weakness of EAs is their tendency to find the `easy' way out. That is,
+reducing down to the most straightforward solution which solves the given
 problem. In most cases, that is not a problem and is often, in fact, favourable.
-Throughout the case study provided, this is seen to happen.
-Figure~\ref{fig:coverage} shows this behaviour again by the strong diagonal
-region in later generations. In that particular example, the easiest solution
-for the EA (i.e.\ for \(k\)-means to outperform DBSCAN) was to collapse one
-dimension of the search space to make the problem one-dimensional. This kind of
-behaviour is not necessarily a bad thing as trivial, basic and simple cases are
-of great importance when understanding an algorithm's quality.
+The concentrated diagonal in Figure~\ref{fig:silhouette_coverage} shows this
+sort of reductive behaviour. In that particular example, the most natural
+solution for the EA (i.e.\ to maximise the silhouette coefficient with
+\(k\)-means) was to attempt to collapse one dimension of the search space to
+make the problem one-dimensional. This kind of behaviour is not necessarily a
+bad thing as trivial, basic and straightforward cases are of great importance
+when understanding an algorithm's quality.
 
 However, should that be a problem, then the objective function could be adjusted
-accordingly. In the case study, several iterations of fitness functions were
-examined but each was adjusted by hand according to what was apparent at the
-time. Due to the architecture of the implementation of this method, this could
-be done in practicality. For instance, a similar strategy could be employed
+accordingly. The case study in this chapter examined several iterations of
+fitness functions, but each was adjusted according to what was apparent at the
+time. These adjustments were possible because of the architecture of the
+implementation of this method. A similar strategy could be employed
 automatically by a more sophisticated fitness function that retains some
 information about the datasets generated from previous runs of EDO on a
 particular (or at least similar) parameter set. In this way, the currently
@@ -1173,8 +1186,8 @@ less helpful solutions (via some penalty, say) and toward previously unexplored
 behaviours. This automatic, iterative application of the proposed method would
 likely reveal more sophisticated insights into a particular algorithm.
 
-In essence, the proposed method is merely a tool that demonstrates the benefit
-of the flipped paradigm set out in this work. The concept of where `good'
-datasets exist is not something that is well-documented in literature and the
-hope of this work is that Evolutionary Dataset Optimisation acts as a starting
-point for further works to come.
+In essence, the EDO method is merely a tool that demonstrates the benefit of the
+flipped paradigm set out in this work. The concept of where `good' datasets
+exist is not well-documented in the literature, and this thesis hopes that
+Evolutionary Dataset Optimisation acts as a starting point for further works to
+come.
