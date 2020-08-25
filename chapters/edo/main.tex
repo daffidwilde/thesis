@@ -127,10 +127,10 @@ characteristics which lead to good or bad performance to those attributes
 present in the set of example datasets. Another example from computer
 vision,~\cite{Torralba2011}, shows that Support Vector Machines (SVMs) --- a
 method that is ubiquitous in classification --- fail to perform well when tested
-on a dataset containing comparable and broadly equivalent items to the one they
-on which they have been trained. So, despite the abundant use of SVMs, even in
-the then-`best' image classifier, there should be concerns about the robustness
-of the model.
+on a dataset containing comparable and broadly equivalent items to the one on
+which they have been trained. So, despite the abundant use of SVMs, even in the
+then-`best' image classifier, there should be concerns about the robustness of
+the model.
 
 Taking a step back from examples of empirical algorithm evaluation, consider the
 space between algorithms and data more generally. To evaluate an
@@ -705,10 +705,11 @@ This study aims to understand \(k\)-means clustering, and therefore, the fitness
 function(s) used should somehow measure the efficacy of the identified
 clustering. The silhouette coefficient is one such metric. The silhouette
 coefficient evaluates what is colloquially referred to as the `appropriateness'
-of a particular clustering of a dataset. The metric considers both the
-intra-cluster cohesion and inter-cluster separation of a clustering. The
-silhouette coefficient of a clustering, \(Z\), is given by the mean of the
-silhouette value, \(S(x)\), of each point \(x \in Z_j\) in each cluster:
+of a particular clustering of a dataset~\cite{Rousseeuw1987}. The metric
+considers both the intra-cluster cohesion and inter-cluster separation of a
+clustering. The silhouette coefficient of a clustering, \(Z\), is given by the
+mean of the silhouette value, \(S(x)\), of each point \(x \in Z_j\) in each
+cluster:
 \begin{equation}
     \begin{gathered}
         A(x) := \frac{1}{|Z_j| - 1} \sum_{y \in Z_j \setminus \{x\}} d(x, y),
@@ -899,9 +900,9 @@ another clustering algorithm of a different form: Density-Based Spatial
 Clustering of Applications with Noise (DBSCAN). The objective of the first part
 of this example is to find datasets for which \(k\)-means outperforms its
 alternative, DBSCAN.\ There is no concept of inertia in DBSCAN as it is based on
-density (as opposed to raw distance) and identifies outliers~\cite{Ester1996}.
-As such, a valid metric must be chosen. Again, the silhouette coefficient is one
-such metric.
+density (as opposed to raw distance) and identifies outliers. A full statement
+of the algorithm is given in~\cite{Ester1996}. Without inertia, a valid metric
+must be chosen. Again, the silhouette coefficient is one such metric.
 
 The standard silhouette function is used here over that defined
 in~\eqref{eq:discounted_silhouette} for two reasons. First, the relationship
@@ -925,7 +926,6 @@ function is defined to be:
             - \infty &\quad \ \ \text{otherwise}
         \end{cases}
 \end{equation}
-% TODO include a statement of DBSCAN? It's quite long 
 
 There are three remarks to be made here. First, note the order of the
 subtraction indicates that this fitness function should be maximised. Second,
