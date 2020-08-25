@@ -46,7 +46,7 @@ and its components, as well as a revised case study which concludes the chapter.
 
 \section{Introduction}\label{section:introduction}
 
-This chapter introduces a method known as Evolutionary Dataset Optimisation
+This chapter introduces a novel method called Evolutionary Dataset Optimisation
 (EDO). At its core, EDO is an evolutionary algorithm that acts on datasets to
 optimise some real-valued function. While it is possible to perform simple
 optimisation tasks with this method, its primary application is in learning the
@@ -56,7 +56,7 @@ some combination of its robustness, and its strengths and weaknesses.
 When developing an algorithm to solve a given problem, questions are raised
 about its performance, both objectively and relative to existing methods.
 Determining convincing answers to these questions is an inherently difficult
-task. However, under the current regime, there is a standard response: take some
+task. However, under the current regime, there is a standard response: take 
 benchmark datasets and a common metric (or set thereof) amongst the proposed
 method, and its competitors, then assess the methods based on this metric and
 deem those with the smallest value to be `best'.
@@ -518,7 +518,7 @@ find datasets that minimise the final inertia found by \(k\)-means clustering.
 % TODO include a list of known results dressed as `hypotheses'?
 
 For visualisation purposes, these examples will restrict EDO to datasets that
-are two-dimensional,~i.e. \(C = ((2, 2))\). Then, for simplicity, each dataset
+are two-dimensional,~i.e. \(C = ((2, 2))\). For simplicity, each dataset
 will be clustered into three parts,~i.e. \(k = 3\), and have its columns formed
 from uniform distributions, denoted by \(U\), enclosed by the unit interval.
 Thus, the search space is the unit square, and the only element of
@@ -806,10 +806,10 @@ function with the same parameters as used in the previous examples. The fitness
 progression shows a steady increase for the best individuals at each generation
 --- as has been the case with the first two cases --- and there is the same
 preference for datasets with fewer rows. This trend in the fitness means that
-EDO is certainly doing its job of optimising across the search space. However,
+EDO is indeed optimising across the search space. However,
 there appears to be some variation in the population fitness here, which may
 indicate that the parameter set requires some tweaking or, simply, that the
-environment in which individuals exist is more competitive in a sense. Since the
+environment in which individuals exist is more competitive. Since the
 EA is still producing passable results, the parameters will not be adjusted.
 
 \begin{figure}
