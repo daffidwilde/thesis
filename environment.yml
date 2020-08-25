@@ -5,6 +5,7 @@ channels:
 dependencies:
  - python=3.7
  - dask=2.21.0
+ - ipykernel=5.3.2
  - matplotlib=3.2.2
  - numpy=1.18.5
  - pandas=1.0.5
@@ -15,7 +16,7 @@ dependencies:
    - alphashape==1.0.1
    - bibtexparser==1.2.0
    - descartes==1.1.0
-   - edo==0.2.1
+   - edo>=0.3
    - invoke==1.4.1
    - graphviz==0.14.1
    - pygments==2.5.2

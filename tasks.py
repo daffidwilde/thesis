@@ -8,14 +8,14 @@ from collections import Counter
 from difflib import SequenceMatcher
 
 import bibtexparser
-
-import known
 import numpy as np
 import pandas as pd
 from bibtexparser.bibdatabase import BibDatabase
 from bibtexparser.bparser import BibTexParser
 from bibtexparser.bwriter import BibTexWriter
 from invoke import task
+
+import known
 
 
 @task
@@ -97,7 +97,9 @@ def get_citations_to_export(bibentries):
         print("Checking", key)
         titles = entries["title"].unique()
         if SequenceMatcher(None, *titles).ratio() > 0.7:
-            citations_to_export = citations_to_export.append(entries.iloc[0, :])
+            citations_to_export = citations_to_export.append(
+                entries.iloc[-1, :]
+            )
 
         else:
             for i, entry in enumerate(entries):

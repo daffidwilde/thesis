@@ -11,7 +11,7 @@ from github import Github
 def read_json(filepath):
     """ Read a json file as a dictionary. """
 
-    with open(filepath, 'r') as f:
+    with open(filepath, "r") as f:
         return json.load(f)
 
 
@@ -35,9 +35,9 @@ def get_summary():
 def get_pull_request(gh, event):
     """ Get the pull request from `gh` client associated with `event`. """
 
-    branch_label = event['pull_request']['head']['label']
-    repo = gh.get_repo(event['repository']['full_name'])
-    prs = repo.get_pulls(state='open', sort='created', head=branch_label)
+    branch_label = event["pull_request"]["head"]["label"]
+    repo = gh.get_repo(event["repository"]["full_name"])
+    prs = repo.get_pulls(state="open", sort="created", head=branch_label)
 
     return prs[0]
 
@@ -55,8 +55,8 @@ def existing_comment(pr):
 def main():
     """ Add a comment to the most recent PR with the word count summary. """
 
-    gh = Github(os.getenv('GITHUB_TOKEN'))
-    event = read_json(os.getenv('GITHUB_EVENT_PATH'))
+    gh = Github(os.getenv("GITHUB_TOKEN"))
+    event = read_json(os.getenv("GITHUB_EVENT_PATH"))
     pr = get_pull_request(gh, event)
 
     comment = get_summary()

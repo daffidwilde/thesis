@@ -55,7 +55,7 @@
     \bibliographystyle{abbrvurl}
 
 % Algorithms and code blocks
-\usepackage[boxruled]{algorithm2e}
+\usepackage[ruled,algochapter,linesnumbered]{algorithm2e}
 \usepackage{xcolor}
 \usepackage{tcolorbox}
 \usepackage[newfloat,chapter]{minted}
@@ -93,22 +93,29 @@
 
 \definecolor{cyan}{RGB}{0, 164, 216}
 \definecolor{magenta}{RGB}{226, 62, 138}
-\definecolor{deepblue}{RGB}{0,0,0.5}
-\definecolor{deepred}{RGB}{0.6,0,0}
-\definecolor{deepgreen}{RGB}{0,0.5,0}
+\definecolor{deepblue}{RGB}{0,0,150}
+\definecolor{deepred}{RGB}{200,0,0}
+\definecolor{deepgreen}{RGB}{0,150,0}
 
 % Code snippet stuff
 \usemintedstyle{friendly}
-\setminted{fontsize=\scriptsize, framerule=\textwidth}
+\setminted{fontsize=\scriptsize, breaklines=true, framerule=\linewidth}
 \setmintedinline{fontsize=\normalsize}
 
 
 %%% Commands and environments
 
 % URLs
-\renewcommand{\UrlFont}{\color{myurl}\ttfamily\footnotesize\relax}
-\hypersetup{%
-    %urlbordercolor=false
+\hypersetup{
+    colorlinks=true,
+    citecolor=deepgreen,
+    linkcolor=deepred,
+    urlcolor=myurl,
+}
+
+% Line rule
+\newcommand{\myrule}{%
+    \begin{center}\noindent\rule[0.5ex]{.8\linewidth}{1pt}\end{center}
 }
 
 % Code snippets
@@ -118,11 +125,13 @@
 }
 
 \renewcommand{\theFancyVerbLine}{%
-    \ttfamily
     \color{linenums}{%
-        \scriptsize\oldstylenums{\arabic{FancyVerbLine}}
+        \scriptsize%
+        \oldstylenums{%
+            \usefont{T1}{DejaVuSansMono-TLF}{m}{n}\selectfont%
+            \arabic{FancyVerbLine}
+        }
     }%
-    %\hspace{-2em}%  % If using line numbers [LN]
 }
 
 \newenvironment{sourcepy}{%
@@ -130,11 +139,13 @@
     \begin{tcolorbox}[%
         colback=sourcebg,
         colframe=sourcefr,
-        %left=2em%  % [LN]
+        left=2em,
+        right=2em,
     ]%
     \begin{minted}[%
         bgcolor=sourcebg,
-        %linenos=true%  % [LN]
+        linenos=true,
+        numbersep=0ex,
     ]{python}%
 }{\end{minted}\end{tcolorbox}}
 
@@ -169,13 +180,9 @@
 }
 
 \newcommand{\algpath}{}
-\newcommand{\inputalg}[2][\algpath]{%
-    \input{#1/#2}\label{alg:#2}
-}
+\newcommand{\inputalg}[2][\algpath]{\input{#1/#2}}
 
-\newcommand{\balg}[1][htbp]{%
-    \begin{algorithm}[#1]\DontPrintSemicolon
-}
+\newcommand{\balg}[1][htbp]{\begin{algorithm}[#1]\DontPrintSemicolon}
 \newcommand{\ealg}{\end{algorithm}}
 
 
@@ -237,11 +244,16 @@
 \input{preamble/abstract}
 \input{preamble/acknowledgements}
 \input{preamble/dissemination}
-\tableofcontents%
-\listoffigures%
-\listoftables%
-\listofalgorithms%
-\listoflisting%
+
+{
+  \hypersetup{hidelinks}
+
+    \tableofcontents%
+    \listoffigures%
+    \listoftables%
+    \listofalgorithms%
+    \listoflisting%
+}
 
 % Main text
 \mainmatter%
