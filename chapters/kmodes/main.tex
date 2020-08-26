@@ -2,6 +2,7 @@
 
 \graphicspath{{chapters/kmodes/paper/img/}}
 \renewcommand{\algpath}{chapters/kmodes/paper/tex/algorithms}
+\renewcommand{\texpath}{chapters/kmodes/paper/tex}
 
 \begin{center}
     The research reported in this chapter has led to a manuscript
@@ -15,7 +16,7 @@
     Available online at: \arxiv{2002.02701}\\
 
     Associated data: \doi{10.5281/zenodo.3638035}\\
-    and source code: \doi{10.5281/zenodo.3639282}\\[1em]
+    Source code: \doi{10.5281/zenodo.3639282}\\[1em]
 
     The abstract of the manuscript is as follows:\\[1em]
 \end{center}
@@ -25,15 +26,15 @@ This paper presents a new way of selecting an initial solution for the
 classic initialisations, namely those by Huang and Cao, do not. The method,
 which utilises the Hospital-Resident Assignment Problem to find the set of
 initial cluster centroids, is compared with two initialisation methods for
-\(k\)-modes~\cite{Haung1998} as well as the next most popular method present in
-the literature~\cite{Cao2009}. In order to highlight the merits of the proposed
-method two stages of analysis are presented. The paper concludes with an
-analysis of these methods against the proposed and it is demonstrated that the
-proposed method is able to outperform them both.  The aim of this analysis is
-two-fold: first, to highlight the merits of the method in a familiar setting by
-clustering well-known benchmark datasets; and second, to provide a deeper
-insight into how the methods perform against one another by generating
-artificial datasets using the method set out in~\cite{Wilde2019}.
+\(k\)-modes: the original presented in \cite{Huang1998} and the next most
+popular method present in the literature~\cite{Cao2009}. In order to highlight
+the merits of the proposed method two stages of analysis are presented. The
+paper concludes with an analysis of these methods against the proposed and it is
+demonstrated that the proposed method is able to outperform them both. The aim
+of this analysis is two-fold: first, to highlight the merits of the method in a
+familiar setting by clustering well-known benchmark datasets; and second, to
+provide a deeper insight into how the methods perform against one another by
+generating artificial datasets using the method set out in~\cite{Wilde2019}.
 
 \myrule%
 
@@ -398,20 +399,9 @@ purposes of this analysis, incomplete instances (i.e.\ where data is missing)
 are excluded and the remaining dataset characteristics are reported as
 `adjusted'.
 
-\begin{table}[htbp]
-    \resizebox{\textwidth}{!}{%
-\begin{tabular}{lrrrrrrr}
-\toprule
-{} &      N &   m &  No. classes &  Missing values &  Adjusted N &  Adjusted no. classes &  No. clusters found \\
-\midrule
-Breast cancer &    699 &  10 &            2 &            True &         683 &                     2 &                   8 \\
-Mushroom      &   8124 &  22 &            2 &            True &        5644 &                     2 &                  17 \\
-Nursery       &  12960 &   8 &            5 &           False &       12960 &                     5 &                  23 \\
-Soybean       &    307 &  35 &           19 &            True &         266 &                    15 &                   8 \\
-\bottomrule
-\end{tabular}
-
-    }\caption{A summary of the benchmark datasets.}\label{tab:dataset_summary}
+\begin{table}
+    \resizebox{\textwidth}{!}{\input{\texpath/dataset_summary}}
+    \caption{A summary of the benchmark datasets}\label{tab:dataset_summary}
 \end{table}
 
 This analysis does not consider evaluative metrics related to classification
@@ -443,8 +433,8 @@ strategy was chosen over other popular methods such as the `elbow' method as its
 results are definitive.
 
 The knee point detection algorithm was employed over values of \(k\) from 2 up
-to \(\lfloor\sqrt N\rfloor\) for each dataset. The number of clusters determined
-by this strategy is reported in the final column of
+to \(\lfloor\sqrt N\rfloor\) for each dataset. The number of clusters
+determined by this strategy is reported in the final column of
 Table~\ref{tab:dataset_summary}.
 
 
@@ -457,67 +447,35 @@ algorithm. Each column shows the mean value of each metric and its standard
 250
 repetitions of the \(k\)-modes algorithm.
 
-\begin{table}[htbp]
+\begin{table}
     \centering
-    \resizebox{\tablewidth}{!}{%
-\begin{tabular}{lllll}
-\toprule
-{} &       Initial cost &        Final cost & No. iterations &          Time \\
-\midrule
-Cao      &    3118.00 (0.000) &   2774.00 (0.000) &   4.00 (0.000) &  0.30 (0.012) \\
-Huang    &  2856.50 (104.245) &  2748.83 (64.514) &   2.68 (0.817) &  0.22 (0.046) \\
-Matching &  2870.11 (101.869) &  2752.59 (52.387) &   2.72 (0.760) &  0.16 (0.021) \\
-\bottomrule
-\end{tabular}
-
+    \resizebox{\textwidth}{!}{%
+        \input{\texpath/knee/breast_cancer_summary.tex}
     }
-    \captionof{table}{Summative metric results for the breast cancer dataset
-    with \(k=8\).}\label{tab:breast_cancer_knee}\vspace{20pt}
+    \captionof{table}{%
+        Summative metric results for the breast cancer dataset with \(k=8\).
+    }\label{tab:breast_cancer_knee}\vspace{2em}
 
-    \resizebox{\tablewidth}{!}{%
-\begin{tabular}{lllll}
-\toprule
-{} &         Initial cost &          Final cost & No. iterations &          Time \\
-\midrule
-Cao      &     20381.00 (0.000) &    20376.00 (0.000) &   2.00 (0.000) &  4.68 (0.205) \\
-Huang    &  23027.24 (1209.753) &  21869.06 (747.766) &   2.90 (0.934) &  5.11 (1.138) \\
-Matching &  23279.36 (1498.324) &  21855.50 (751.641) &   3.02 (0.936) &  2.77 (0.325) \\
-\bottomrule
-\end{tabular}
-
+    \resizebox{\textwidth}{!}{%
+        \input{\texpath/knee/mushroom_summary.tex}
     }
-    \captionof{table}{Summative metric results for the mushroom dataset with
-    \(k=17\).}\label{tab:mushroom_knee}\vspace{20pt}
+    \captionof{table}{%
+        Summative metric results for the mushroom dataset with \(k=17\).
+    }\label{tab:mushroom_knee}\vspace{2em}
 
-    \resizebox{\tablewidth}{!}{%
-\begin{tabular}{lllll}
-\toprule
-{} &        Initial cost &          Final cost & No. iterations &          Time \\
-\midrule
-Cao      &    35544.00 (0.000) &    35544.00 (0.000) &   1.00 (0.000) &  4.98 (0.152) \\
-Huang    &  37535.06 (372.596) &  37535.06 (372.596) &   1.00 (0.000) &  3.58 (0.121) \\
-Matching &  37484.29 (327.467) &  37484.29 (327.467) &   1.00 (0.000) &  3.14 (0.141) \\
-\bottomrule
-\end{tabular}
-
+    \resizebox{\textwidth}{!}{%
+        \input{\texpath/knee/nursery_summary.tex}
     }
-    \captionof{table}{Summative metric results for the nursery dataset with
-    \(k=23\).}\label{tab:nursery_knee}\vspace{20pt}
+    \captionof{table}{%
+        Summative metric results for the nursery dataset with \(k=23\).
+    }\label{tab:nursery_knee}\vspace{2em}
 
-    \resizebox{\tablewidth}{!}{%
-\begin{tabular}{lllll}
-\toprule
-{} &      Initial cost &        Final cost & No. iterations &          Time \\
-\midrule
-Cao      &   1654.00 (0.000) &   1585.00 (0.000) &   4.00 (0.000) &  0.28 (0.014) \\
-Huang    &  1829.31 (92.308) &  1708.55 (69.740) &   3.58 (1.019) &  0.28 (0.063) \\
-Matching &  1827.76 (86.852) &  1711.49 (73.319) &   3.42 (0.963) &  0.17 (0.022) \\
-\bottomrule
-\end{tabular}
-
+    \resizebox{\textwidth}{!}{%
+        \input{\texpath/knee/soybean_summary.tex}
     }
-    \captionof{table}{Summative metric results for the soybean dataset with
-    \(k=8\).}\label{tab:soybean_knee}
+    \captionof{table}{%
+        Summative metric results for the soybean dataset with \(k=8\).
+    }\label{tab:soybean_knee}
 \end{table}
 
 By examining these tables it would seem that the proposed method and Huang's
@@ -650,65 +608,33 @@ the benchmark datasets over the same number of repetitions.
 
 \begin{table}[htbp]
     \centering
-    \resizebox{\tablewidth}{!}{%
-\begin{tabular}{lllll}
-\toprule
-{} &       Initial cost &         Final cost & No. iterations &          Time \\
-\midrule
-Cao      &    3315.00 (0.000) &    3172.00 (0.000) &   2.00 (0.000) &  0.13 (0.005) \\
-Huang    &  3393.80 (120.772) &  3348.51 (144.849) &   1.54 (0.653) &  0.10 (0.024) \\
-Matching &  3406.73 (111.686) &  3355.56 (144.621) &   1.61 (0.638) &  0.09 (0.018) \\
-\bottomrule
-\end{tabular}
-
+    \resizebox{\textwidth}{!}{%
+        \input{\texpath/nclasses/breast_cancer_summary.tex}
     }
-    \captionof{table}{Summative metric results for the breast cancer dataset
-    with \(k=2\).}\label{tab:breast_cancer_nclasses}\vspace{20pt}
+    \captionof{table}{%
+        Summative metric results for the breast cancer dataset with \(k=2\).
+    }\label{tab:breast_cancer_nclasses}\vspace{2em}
 
-    \resizebox{\tablewidth}{!}{%
-\begin{tabular}{lllll}
-\toprule
-{} &         Initial cost &           Final cost & No. iterations &          Time \\
-\midrule
-Cao      &     37662.00 (0.000) &     37662.00 (0.000) &   1.00 (0.000) &  0.94 (0.035) \\
-Huang    &  41974.07 (2393.889) &  39226.25 (2483.933) &   3.11 (1.430) &  1.92 (0.679) \\
-Matching &  42175.54 (2520.163) &  39617.53 (2637.574) &   3.03 (1.439) &  1.38 (0.491) \\
-\bottomrule
-\end{tabular}
-
+    \resizebox{\textwidth}{!}{%
+        \input{\texpath/nclasses/mushroom_summary.tex}
     }
-    \captionof{table}{Summative metric results for the mushroom dataset with
-    \(k=2\).}\label{tab:mushroom_nclasses}\vspace{20pt}
+    \captionof{table}{%
+        Summative metric results for the mushroom dataset with \(k=2\).
+    }\label{tab:mushroom_nclasses}\vspace{2em}
 
-    \resizebox{\tablewidth}{!}{%
-\begin{tabular}{lllll}
-\toprule
-{} &        Initial cost &          Final cost & No. iterations &          Time \\
-\midrule
-Cao      &    49060.00 (0.000) &    49060.00 (0.000) &   1.00 (0.000) &  1.80 (0.090) \\
-Huang    &  51229.45 (902.503) &  51229.45 (902.503) &   1.00 (0.000) &  1.72 (0.116) \\
-Matching &  51107.52 (910.258) &  51101.95 (903.525) &   1.00 (0.063) &  1.37 (0.128) \\
-\bottomrule
-\end{tabular}
-
+    \resizebox{\textwidth}{!}{%
+        \input{\texpath/nclasses/nursery_summary.tex}
     }
-    \captionof{table}{Summative metric results for the nursery dataset with
-    \(k=5\).}\label{tab:nursery_nclasses}\vspace{20pt}
+    \captionof{table}{%
+        Summative metric results for the nursery dataset with \(k=5\).
+    }\label{tab:nursery_nclasses}\vspace{2em}
 
-    \resizebox{\tablewidth}{!}{%
-\begin{tabular}{lllll}
-\toprule
-{} &      Initial cost &        Final cost & No. iterations &          Time \\
-\midrule
-Cao      &   1364.00 (0.000) &   1314.00 (0.000) &   2.00 (0.000) &  0.33 (0.009) \\
-Huang    &  1588.89 (83.682) &  1446.22 (59.844) &   4.02 (1.081) &  0.45 (0.085) \\
-Matching &  1582.56 (87.418) &  1447.08 (60.154) &   4.01 (1.128) &  0.24 (0.025) \\
-\bottomrule
-\end{tabular}
-
+    \resizebox{\textwidth}{!}{%
+        \input{\texpath/nclasses/soybean_summary.tex}
     }
-    \captionof{table}{Summative metric results for the soybean dataset with
-    \(k=15\).}\label{tab:soybean_nclasses}
+    \captionof{table}{%
+        Summative metric results for the soybean dataset with \(k=15\).
+    }\label{tab:soybean_nclasses}
 \end{table}
 
 An immediate comparison to the previous tables is that for all datasets bar the
