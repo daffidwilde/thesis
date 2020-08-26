@@ -1,4 +1,5 @@
-\chapter{A game-theoretic initialisation for the \(k\)-modes algorithm}
+\chapter{A game-theoretic initialisation for the \(k\)-modes algorithm}%
+\label{chp:kmodes}
 
 \graphicspath{{chapters/kmodes/paper/img/}}
 \renewcommand{\algpath}{chapters/kmodes/paper/tex/algorithms}
@@ -40,27 +41,29 @@ generating artificial datasets using the method set out in~\cite{Wilde2019}.
 
 \section{Introduction}\label{sec:intro}
 
-This work focusses on \(k\)-modes clustering --- an extension to
-\(k\)-means that permits the sensible clustering of categorical (i.e.\ ordinal,
-nominal or otherwise discrete) data as set out in the seminal works by
+This chapter focuses on \(k\)-modes clustering, an extension to \(k\)-means that
+permits the sensible clustering of categorical (i.e.\ ordinal, nominal or
+otherwise discrete) data as set out in the seminal works by
 Huang~\cite{Huang1997a,Huang1997b,Huang1998}. In particular, the interest of
-this paper is in how the performance of the \(k\)-modes algorithm is affected by
-the quality of its initial solution. The initialisation method proposed in this
-work extends the method presented by Huang~\cite{Huang1998} by using results
-from game theory to ensure mathematical fairness and to lever the full learning
-opportunities presented by the data being clustered. In addition to the method
-presented by Huang, the literature revealed that the next most commonly cited
-initialisation was presented in~\cite{Cao2009}. This initialisation also forms
-the basis of a number of other initialisations where a notion of density is
-central to that method. The paper concludes with an analysis of these methods
-against the proposed and it is demonstrated that the proposed method is able to
-outperform them both. The aim of this analysis is two-fold: first, to highlight
-the merits of the method in a familiar setting by clustering well-known
-benchmark datasets; and second, to provide a deeper insight into how the methods
-perform against one another by generating artificial datasets using the method
-set out in~\cite{Wilde2019}.
+this chapter is how the performance of the \(k\)-modes algorithm is affected by
+its initial solution. The initialisation method described herein extends the
+method presented by Huang~\cite{Huang1998} by using results from game theory
+to ensure mathematical fairness, and to lever the full learning opportunities
+presented by the data being clustered.
 
-The paper is structured as follows:
+In addition to the method presented by Huang, the literature revealed that the
+next most commonly cited initialisation was presented in~\cite{Cao2009}. This
+initialisation also forms the basis of a number of other initialisations where a
+notion of density is central. This chapter builds up to an analysis of these
+methods against the proposed, and it is demonstrated that the proposed method is
+able to outperform them both. The aim of this analysis is two-fold: first, to
+highlight the merits of the method in a familiar setting by clustering
+well-known benchmark datasets; and second, to provide a deeper insight into how
+the methods perform against one another by generating artificial datasets using
+the Evolutionary Dataset Optimisation method introduced in
+Chapter~\ref{chp:edo}.
+
+The chapter is structured as follows:
 \begin{itemize}
     \item Section~\ref{sec:intro} introduces the \(k\)-modes algorithm and its
         established initialisation methods.
@@ -69,18 +72,18 @@ The paper is structured as follows:
         initialisation.
     \item Section~\ref{sec:results} presents analyses of the initialisations
         on benchmark and new, artificial datasets.
-    \item Section~\ref{sec:conclusion} concludes the paper.
+    \item Section~\ref{sec:conclusion} concludes the chapter.
 \end{itemize}
 
 
 \subsection{The \(k\)-modes algorithm}\label{subsec:kmodes}
 
-The following notation will be used throughout this work to describe the objects
-associated with clustering a categorical dataset:
+The following notation will be used throughout this chapter to describe the
+objects associated with clustering a categorical dataset:
 
 \begin{itemize}
     \item Let \(\mathcal{A} := A_1 \times \cdots \times A_m\) denote the
-        \emph{attribute~space}. In this work, only categorical attributes are
+        \emph{attribute~space}. In this chapter, only categorical attributes are
         considered, i.e.\ for each \(j = 1, \ldots, m\) it follows that \(A_j :=
         \left\{a_1^{(j)}, \ldots, a_{d_j}^{(j)}\right\}\) where \(d_j = |A_j|\)
         is the size of the \(j^{th}\) attribute.
@@ -278,7 +281,7 @@ in the dataset. Specifically, this means that in any practical implementation of
 this method the order in which a set of potential modes is iterated over can
 affect the set of initial modes. Thus, there is no guarantee of consistency.
 
-The initialisation proposed in this work extends Huang's method to be
+The initialisation proposed in this chapter extends Huang's method to be
 order-invariant in the final allocation --- thereby eliminating its greedy
 component --- and provides a more intuitive starting point for the \(k\)-modes
 algorithm. This is done by constructing and solving a matching game between the
@@ -388,7 +391,7 @@ in Algorithm~\ref{alg:proposed_method}.
 \section{Experimental results}\label{sec:results}
 
 To give comparative results on the quality of the initialisation processes
-considered in this work, four well-known, categorical, labelled datasets ---
+considered in this chapter, four well-known, categorical, labelled datasets ---
 breast cancer, mushroom, nursery, and soybean (large) --- will be clustered by
 the \(k\)-modes algorithm with each of the initialisation processes. These
 datasets have been chosen to fall in line with the established literature, and
@@ -427,7 +430,7 @@ for each dataset. An immediate choice is the number of classes that are present
 in a dataset but this is not necessarily an appropriate choice since the classes
 may not be representative of true clusters~\cite{Memoli2011}. However, this
 analysis will consider this case as there may be practical reasons to limit the
-value of \(k\). The other strategy for choosing \(k\) considered in this work
+value of \(k\). The other strategy for choosing \(k\) considered in this chapter
 uses the knee point detection algorithm introduced in~\cite{Satopaa2011}. This
 strategy was chosen over other popular methods such as the `elbow' method as its
 results are definitive.
@@ -744,7 +747,7 @@ one repetition with the matching initialisation method.
 
 The primary conclusion from this analysis is that while Huang's method is
 largely comparable to the proposed extension, there is no substantial evidence
-from these use cases to use Huang's method over the one proposed in this work.
+from these use cases to use Huang's method over the one proposed in this chapter.
 In fact, Figure~\ref{fig:soybean_nclasses} is the only instance where Huang's
 method was able to outperform the proposed method. Other than this, the proposed
 method consistently performing better (or as well as) Huang's method in terms of
@@ -752,8 +755,8 @@ minimal final costs and computational time over a number of runs in both the
 cases where an external framework is imposed on the data (by choosing \(k\) to
 be the number of classes) and not. Furthermore, though not discussed in this
 work, the matching initialisation method has the scope to allow for expert or
-prior knowledge to be included in an initial clustering by using some \textit{ad
-hoc} preference list mechanism.
+prior knowledge to be included in an initial clustering by using some ad hoc
+preference list mechanism.
 
 
 \subsection{Artificial datasets}\label{subsec:artificial}
