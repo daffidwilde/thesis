@@ -43,7 +43,7 @@ This chapter differs from the manuscript by including a more detailed
 description of the \(k\)-modes algorithm and its setting (in
 Section~\ref{sec:intro}) and omits much of the discussion around matching games
 (Section~\ref{sec:inits}) which has now been expanded to form parts of
-Chapter~\ref{chp:matching}).
+Chapter~\ref{chp:matching}.
 
 \section{Introduction}\label{sec:intro}
 
@@ -287,11 +287,13 @@ method selects initial modes according to their density in the dataset whilst
 forcing dissimilarity between them. Definition~\ref{def:density} formalises the
 concept of categorical density. The definition also considers the relationship
 between density and relative frequency when using the measure defined
-in~\eqref{eq:dissim}. Further to its alternative, density-based approach, the
-method (which is described in Algorithm~\ref{alg:cao}) is deterministic.
-Therefore, when using \(k\)-modes with Cao's initialisation, only one run of the
-algorithm is required to identify a clustering, making it an attractive option
-if computational time is critical.
+in~\eqref{eq:dissim}.
+
+Further to its alternative density-based approach, the method (which is
+described in Algorithm~\ref{alg:cao}) is deterministic.  Therefore, when using
+\(k\)-modes with Cao's initialisation, only one run of the algorithm is required
+to identify a clustering, making it an attractive option if computational time
+is critical.
 
 \begin{definition}\label{def:density}
     Consider a dataset \(\mathcal{X} \subset \mathcal{A} = \{A_1,\ldots,A_m\}\).
@@ -310,13 +312,13 @@ if computational time is critical.
                 \left\{X^{(t)} \in \mathcal{X} : x_j^{(i)} = x_j^{(t)}\right\}
             }
         }{N}
+        = \frac{n \left(x_j^{(i)}\right)}{N}
     \end{equation}
 
-    Observe that \(\text{Dens}_j \left(X^{(i)}\right)\) is the relative
-    frequency of \(x_j^{(i)}\) in \(\mathcal X\), and:
+    That is, \(\text{Dens}_j \left(X^{(i)}\right)\) is the relative
+    frequency of \(x_j^{(i)}\) in \(\mathcal X\). Also, observe that:
     \begin{equation}
         \abs*{\left\{X^{(t)} \in \mathcal{X} : x_j^{(i)} = x_j^{(t)}\right\}}%
-        = n \left(x_j^{(i)}\right)
         = \sum_{t=1}^N \left(1 - \delta\left(x_j^{(i)}, x_j^{(t)}\right)\right)
     \end{equation}
 
@@ -347,19 +349,32 @@ of the method. When the set of potential modes is identified, it is replaced by
 a set of instances in the dataset. Specifically, this means that in any
 practical implementation of this method, the order in which a set of potential
 modes is iterated over can affect the set of initial modes. Thus, there is no
-guarantee of consistency.
+guarantee of consistency. The same is true for any arbitrary tie breaks that may
+occur.
 
 The initialisation proposed in this chapter extends Huang's method to be
 order-invariant in the final allocation. Doing so eliminates its greedy
 component and provides a more intuitive starting point for the \(k\)-modes
 algorithm by constructing and solving a matching game between the set of
-potential modes and some subset of the data. The particular constraints of this
-case --- where the \(k\) potential modes must be allocated to a nearby unique
-data point --- mirror those of the hospital-resident assignment problem (HR)
-discussed in Chapter~\ref{chp:matching}. A contextual summary of the HR game
-components and those of the proposed initialisation is given in
-Table~\ref{tab:components}. Algorithm~\ref{alg:proposed_method} provides a
-formal statement of the proposed method.
+potential modes and some subset of the data.
+
+As is mentioned in Chapter~\ref{chp:matching}, the stable marriage problem (SM)
+is one of the simplest matching games. Despite its simplicity, using SM here
+would reduce the proposed method to Huang's method. This can be seen as follows.
+Since both parties in the game must be of the same size, \(k\) data points must
+be considered. The most straightforward way of selecting these points is to
+allow each potential mode to add its closest point that has not already been
+selected. Then, upon solving the game, and up to an arbitrary breaking of any
+ties in the preference lists, each potential mode is assigned to its chosen data
+point.
+
+The particular constraints of this case --- where the \(k\) potential modes must
+be allocated to a nearby and unique data point --- mirror those of the
+hospital-resident assignment problem (HR) discussed in
+Chapter~\ref{chp:matching}. In particular, this scenario can be modelled by an
+instance of HR where each hospital has a capacity of one. A contextual summary
+of the remaining HR game components and those of the proposed initialisation is
+given in Table~\ref{tab:components}.
 
 \begin{table}[htbp]
     \resizebox{\textwidth}{!}{%
@@ -383,7 +398,20 @@ formal statement of the proposed method.
     }\label{tab:components}
 \end{table}
 
+A limitation of using HR is the common occurrence of ties when using the
+distance measure defined in~\eqref{eq:dissim}. A tie in the distance between
+points corresponds to a tie in the preference lists. As is discussed in
+Chapter~\ref{chp:matching}, extensions to HR do exist for handling ties in
+preferences that would alleviate the reliance on having to break ties. However,
+the notion of stability becomes tiered under such extensions, and the guarantee
+of a stable matching does not exist. Therefore, they are not considered here.
+Instead, the proposed method employs the standard form of HR and mitigates the
+effect of ties by considering a potentially large number of candidate points (up
+to \(k^2\)). Algorithm~\ref{alg:proposed_method} provides a formal statement of
+the proposed method.
+
 \inputalg{proposed_method}
+
 
 \section{Experimental results}\label{sec:results}
 
