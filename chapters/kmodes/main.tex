@@ -22,7 +22,7 @@
     The abstract of the manuscript is as follows:\\[1em]
 \end{center}
 
-This paper presents a new way of selecting an initial solution for the
+This chapter presents a new way of selecting an initial solution for the
 \(k\)-modes algorithm that allows for a notion of game theoretic fairness that
 classic initialisations, namely those by Huang and Cao, do not. The method,
 which utilises the Hospital-Resident Assignment Problem to find the set of
@@ -746,70 +746,69 @@ initial clustering by using some ad hoc preference list mechanism.
 
 \subsection{Artificial datasets}\label{subsec:artificial}
 
-Following on from the conclusions of the analysis thus far, the competition
-between Cao's method and the proposed matching method may be studied more
-deeply. All of the results leading up to this point were conducted using
-benchmark datasets and while there are certainly benefits to comparing methods
-in this way, it does not afford a rich understanding of how any of them perform
-more generally. This stage of the analysis relies on a method for generating
+All of the results leading up to this point were created using benchmark
+datasets, and while there are certainly benefits to comparing methods in this
+way, it does not afford a rich understanding of how any of them perform more
+generally. This stage of the analysis relies on a method for generating
 artificial datasets introduced in~\cite{Wilde2019}. In essence, this method is
 an evolutionary algorithm which acts on entire datasets to explore the space in
-which potentially all possible datasets exist. The key component of this method
-is an objective function that takes a dataset and returns a value that is to be
-minimised; this function is referred to as the fitness function.
+which potentially all possible datasets exist. The critical component of this
+method is an objective function that takes a dataset and returns a value that is
+to be minimised; this function is referred to as the fitness function.
 
 In order to reveal the nuances in the performance of Cao's method and the
-proposed initialisation on a particular dataset, two cases are considered:
-where Cao's method outperforms the proposed, and vice versa. Both cases use the
-same fitness function --- with the latter using its negative --- which is
-defined as follows:
+proposed initialisation on a particular dataset, two cases are considered: where
+Cao's method outperforms the proposed, and vice versa. Both cases use the same
+fitness function --- with the latter using its negative --- which is defined as
+follows:
 \begin{equation}\label{eq:fitness}
     f\left(\mathcal X\right) = C_{\mathrm{cao}} - C_{\mathrm{match}}
 \end{equation}
-where \(C_{\mathrm{cao}}\) and \(C_{\mathrm{match}}\) are the final costs when a
+
+Here, \(C_{\mathrm{cao}}\) and \(C_{\mathrm{match}}\) are the final costs when a
 dataset \(\mathcal X\) is clustered using Cao's method and the proposed matching
 method respectively with \(k = 3\). For the sake of computational time, the
-proposed initialisation was given 25 repetitions as opposed to the 250
-repetitions in the remainder of this section. Apart from the sign of \(f\), the
-dataset generation processes used identical parameters in each case and the
-datasets considered here are all of comparable shape.
+proposed initialisation was given 25 repetitions. Apart from the sign of \(f\),
+the dataset generation processes used identical parameters in each case and the
+datasets considered here are all of a similar shape.
 
 \begin{figure}
     \centering
     \includegraphics[width=\imgwidth]{Fig9.pdf}
-    \caption{Histograms of fitness for the top performing percentile in each
-             case.}\label{fig:fitness}
+    \caption{%
+        Histograms of fitness for the top performing percentile in each case.
+    }\label{fig:fitness}
 \end{figure}
 
 This process yielded approximately 35,000 unique datasets for each case, and the
-ensuing analysis only considers the top-performing percentile of datasets from
-each. Figure~\ref{fig:fitness} shows the fitness distribution of the top
+subsequent analysis only considers the top-performing percentile of datasets
+from each. Figure~\ref{fig:fitness} shows the fitness distribution of the top
 percentile in each case. It should be clear from~\eqref{eq:fitness} that large
 negative values are preferable here. With that, and bearing in mind that the
-generation of these datasets was parameterised in a consistent manner, it
-appears that the attempt to outperform Cao's method proved somewhat easier. This
-is indicated by the substantial difference in the locations of the fitness
+generation of these datasets was parameterised consistently, it appears that the
+attempt to outperform Cao's method proved somewhat more straightforward, as is
+indicated by the substantial difference in the locations of the fitness
 distributions.
 
 Given the quantity of data available, to understand the patterns that have
 emerged, they must be summarised; in this case, univariate statistics are used.
 Despite the datasets all being of similar shapes, there are some discrepancies.
-With the number of rows this is less of an issue but any comparison of
+With the number of rows, this is less of an issue, but any comparison of
 statistics across datasets of different widths is difficult without prior
 knowledge of the datasets. Moreover, there is no guarantee of contingency
 amongst the attributes, and the comparison of more than a handful of variables
 becomes complicated even when the attributes are identifiable. To combat this
-and bring uniformity to the datasets, each dataset is represented as their first
+and bring uniformity to the datasets each dataset is represented as their first
 principal component obtained via centred Principal Component Analysis
 (PCA)~\cite{Jolliffe1986}. While some subtleties may be lost, this
-representation captures the most important characteristics of each dataset in a
+representation captures the essential characteristics of each dataset in a
 single variable meaning they can be compared directly.
 
 Since the transformation by PCA is centred, all measures for central tendency
-are moot. In fact, the mean and median are not interpretable here given that the
+are moot. The mean and median are not interpretable here, given that the
 original data is categorical. As such, the univariate statistics used here
-describe the spread and shape of the principal components, and are split into
-two groups:
+describe the spread and shape of the principal components and are split into two
+groups:
 \begin{itemize}
     \item Central moments: variance, skewness and kurtosis.
     \item Empirical quantiles: interquartile range, lower decile and upper
@@ -823,28 +822,28 @@ estimate~\cite{Bashtannyk2001} to accentuate the general shape of the
 histograms. What becomes immediately clear from each of these plots is that for
 datasets where Cao's method succeeds, the general spread of their first
 principal component is much tighter than in the case where the proposed
-initialisation method succeeds. This is particularly evident in
+initialisation method succeeds. This observation is particularly evident in
 Figure~\ref{fig:edo_variance} where relatively low variance in the first case
 indicates a higher level of density in the original categorical data.
 
-The patterns in the quantiles further this. Although Figure~\ref{fig:edo_iqr}
+The quantiles echo this same observation. Although Figure~\ref{fig:edo_iqr}
 suggests that the components of Cao-preferable datasets can have higher
 interquartile ranges than in the second case, the lower and upper deciles tend
 to be closer together as is seen in
-Figures~\ref{fig:edo_lower}~\&~\ref{fig:edo_upper}. This suggests that despite
-the body of the component being spread, its extremities are not.
+Figures~\ref{fig:edo_lower}~\&~\ref{fig:edo_upper}, suggesting that despite the
+body of the component is spread, its extremities are not.
 
 In Figures~\ref{fig:edo_skewness}~\&~\ref{fig:edo_kurtosis}, the most notable
 contrast between the two cases is the range in values for both skewness and
-kurtosis. This supports the evidence thus far that individual datasets have
+kurtosis, which supports the evidence thus far that individual datasets have
 higher densities and lower variety (i.e.\ tighter extremities) when Cao's method
 succeeds over the proposed initialisation. In particular, larger values of
-skewness and kurtosis translate to high similarity between the instances in a
-categorical dataset which is equivalent to having high density.
+skewness and kurtosis translate to a high level of similarity between the
+instances in a categorical dataset which is equivalent to having high density.
 
 Overall, this analysis has revealed that if a dataset shows clear evidence of
 high-density points, then Cao's method should be used over the proposed method.
-However, if there is no such evidence, the proposed method is able to find a
+However, if there is no such evidence, the proposed method can find a
 substantially better clustering than Cao's method.
 
 \begin{figure}
@@ -893,13 +892,13 @@ substantially better clustering than Cao's method.
 
 
 
-\section{Conclusion}\label{sec:conclusion}
+\section{Chapter summary}\label{sec:summary}
 
-In this paper a novel initialisation method for the \(k\)-modes was introduced
-that built on the method set out in the seminal paper~\cite{Huang1998}. The new
-method models the final `replacement' process in the original as an instance of
-the Hospital-Resident Assignment Problem that may be solved to be mathematically
-fair and stable.
+This chapter has introduced a novel initialisation method for the \(k\)-modes
+algorithm that builds on the method set out in the seminal
+paper~\cite{Huang1998}; the new method models the final `replacement' process in
+the original as an instance of the Hospital-Resident Assignment Problem that may
+be solved to be mathematically fair and stable.
 
 Following a thorough description of the \(k\)-modes algorithm and the
 established initialisation methods, a comparative analysis was conducted amongst
@@ -910,7 +909,7 @@ mathematically rigorous elbow method. However, the proposed method was unable to
 beat Cao's method (established in~\cite{Cao2009}) when an external framework was
 imposed on each dataset by choosing \(k\) to be the number of classes present.
 
-The proposed method should be employed over Cao's when there are no hard
-restrictions on what \(k\) may be, or if there is no immediate evidence that the
+The proposed method should be employed over Cao's when there are no rigid
+restrictions on what \(k\) may be, or if there is no direct evidence that the
 dataset at hand has some notion of high density. Otherwise, Cao's method remains
 the most reliable initialisation in terms of computational time and final cost.
