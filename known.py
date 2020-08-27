@@ -20,6 +20,7 @@ words = {
     "KMeans",
     "MinMaxScaler",
     "MinPoints",
+    "Ng's",
     "PCA",
     "SVMs",
     "Scikit",

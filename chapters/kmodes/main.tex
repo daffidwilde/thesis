@@ -39,18 +39,52 @@ generating artificial datasets using the method set out in~\cite{Wilde2019}.
 
 \myrule%
 
+This chapter differs from the manuscript by including a more detailed
+description of the \(k\)-modes algorithm and its setting (in
+Section~\ref{sec:intro}) and omits much of the discussion around matching games
+(Section~\ref{sec:method}) which has now been expanded to form parts of
+Chapter~\ref{chp:matching}).
+
 \section{Introduction}\label{sec:intro}
 
-In addition to the method presented by Huang, the literature revealed that the
-next most commonly cited initialisation was presented in~\cite{Cao2009}. This
-initialisation also forms the basis of many other initialisations where a notion
-of density is central. This chapter ends with an analysis of these methods
-against the proposed that demonstrates that the proposed method can outperform
-them both. The aim of this analysis is two-fold: first, to highlight the merits
-of the method in a familiar setting by clustering well-known benchmark datasets;
-and second, to provide a more in-depth insight into how the methods perform
-against one another by generating artificial datasets using the Evolutionary
-Dataset Optimisation method introduced in Chapter~\ref{chp:edo}.
+The case study at the end of Chapter~\ref{chp:edo} examined the \(k\)-means
+algorithm --- a method for clustering a set of numeric data into \(k\) parts
+using Euclidean distance and the cluster means. This chapter considers another
+algorithm in the \(k\)-means paradigm, \(k\)-modes, described in a set of
+seminal papers by Huang~\cite{Huang1997a, Huang1997b, Huang1998}. The
+\(k\)-modes algorithm makes use of similar principles to \(k\)-means, i.e.
+adjusting the partition toward some Voronoi tessellation according to a measure
+of centrality. However, the method allows for the clustering of categorical data
+by considering a cluster's modal values rather than its mean.
+
+The focus of this chapter is on the initialisation of the \(k\)-modes algorithm.
+Like \(k\)-means, there is no guarantee that any two runs of \(k\)-modes will
+provide the same clusters; this is due to the stochastic nature of its
+initialisation. Therefore, the performance of the algorithm is contingent upon
+the quality of this initial solution.
+
+This chapter introduces a novel initialisation for the \(k\)-modes algorithm
+that extends the method presented in~\cite{Huang1998}, referred to as Huang's
+method. This new initialisation simulates an instance of the hospital-resident
+assignment problem (HR) to incorporate mathematical fairness to the initial
+solution and to eliminate the greedy component of Huang's method.
+
+In addition to Huang's method, the literature revealed that the next most
+commonly cited initialisation was presented by Cao in~\cite{Cao2009}. This
+initialisation (referred to as Cao's method) forms the basis of many other
+initialisations where a notion of density is central. These two initialisations
+form the set of established methods against which the proposed shall be
+measured.
+
+This chapter concludes with an analysis of all three initialisations and
+demonstrates that the proposed method can outperform both of the established
+initialisations using the traditional approach with benchmark datasets. In
+addition to this, the method introduced in Chapter~\ref{chp:edo} provides a more
+in-depth examination of the methods and how they perform against one another.
+The first stage of this analysis serves the purpose of highlighting the merits
+of each method in a familiar setting, and while the second stage bolsters these
+observations, it provides a vigorous defence of the proposed method and exposes
+the scenarios in which it excels.
 
 The chapter is structured as follows:
 \begin{itemize}
@@ -67,15 +101,18 @@ The chapter is structured as follows:
 
 \subsection{The \(k\)-modes algorithm}\label{subsec:kmodes}
 
-The following notation will be used throughout this chapter to describe the
-objects associated with clustering a categorical dataset:
+Although the case study in Chapter~\ref{chp:edo} made use of the \(k\)-means
+algorithm, its notation was never formally introduced. Since this chapter
+considers the \(k\)-modes algorithm more directly, its notation is. As such, the
+following notation will be used throughout this chapter to describe the objects
+associated with clustering a categorical dataset:
 
 \begin{itemize}
     \item Let \(\mathcal{A} := A_1 \times \cdots \times A_m\) denote the
         \emph{attribute~space}. In this chapter, only categorical attributes are
-        considered, i.e.\ for each \(j = 1, \ldots, m\) it follows that \(A_j :=
-        \left\{a_1^{(j)}, \ldots, a_{d_j}^{(j)}\right\}\) where \(d_j = |A_j|\)
-        is the size of the \(j^{th}\) attribute.
+        considered. So, for each \(j = 1, \ldots, m\), it follows that
+        \(A_j := \left\{a_1^{(j)}, \ldots, a_{d_j}^{(j)}\right\}\) where
+        \(d_j=|A_j|\) is the size of the \(j^{th}\) attribute.
 
     \item Let \(\mathcal{X} := \left\{X^{(1)}, \ldots, X^{(N)}\right\} \subset
         \mathcal{A}\) denote a \emph{dataset} where each \(X^{(i)} \in
@@ -97,8 +134,22 @@ objects associated with clustering a categorical dataset:
         z^{(k)}\right\}\).
 \end{itemize}
 
-Definition~\ref{def:dissim} describes a dissimilarity measure between
-categorical data points.
+As has already been mentioned, the \(k\)-modes algorithm relies on another
+distance measure to traditional Euclidean distance since it breaks down in a
+categorical attribute space; if the space were ordinal, like the natural
+numbers, then some sense of Euclidean distance could be recovered. However, in
+the absence of direction, this distance has no sensible meaning. To demonstrate:
+what does it mean to measure the distance between `cat' and `dog'?
+
+There are numerous measures available for the handling of categorical data.
+Definition~\ref{def:dissim} describes what is perhaps the simplest of those
+measures, and is the measure used in the seminal works by Huang. The pitfall of
+this measure is that it democratises the attribute space. In doing so, it does
+not fully consider the frequency (and, thus, density) of the attributes' values,
+which may result in some loss of learning by the algorithm. Examples of
+categorical distance measures that do consider such properties of the attribute
+space include Ng's distance~\cite{Ng2007} and, more recently, the metric
+introduced in~\cite{Cao2012}.
 
 \begin{definition}\label{def:dissim}
     Let \(\mathcal{X} \subset \mathcal A\) be a dataset and consider any
@@ -114,19 +165,20 @@ categorical data points.
     \end{equation}
 \end{definition}
 
-With this metric, the notion of a representative point of a cluster can be
-addressed. With numeric data and \(k\)-means, such a point is simply the mean of
-the points within the cluster. With categorical data, however, the mode is used
-as the measure for central tendency. This change follows from the concept of
-dissimilarity in that the point that best represents (i.e.\ is closest to) those
-in a cluster is one with the most frequent attribute values of the points in the
-cluster. The following definitions and theorem formalise this and a method to
-find such a point.
+With the definition of a categorical distance metric, the notion of a
+representative point of a cluster can be addressed. When considering numeric
+data with \(k\)-means, a representative point is the mean of the points within
+the cluster. With categorical data, however, the mode is used as the measure for
+central tendency. This change follows from the concept of dissimilarity in that
+the point that best represents (i.e.\ is closest to) those in a cluster is one
+with the most frequent attribute values of the points in the cluster. The
+following definitions formalise this notion, and Theorem~\ref{thm:mode} provides
+a method to find such a point.
 
 \begin{definition}\label{def:mode}
     Let \(\mathcal{X} \subset \mathcal{A}\) be a dataset and consider some point
     \(z = \left(z_1, \ldots, z_m\right) \in \mathcal{A}\). Then \(z\) is called
-    a \emph{mode} of \(\mathcal{X}\) if it minimises the following:
+    a \emph{mode} of \(\mathcal{X}\) if it minimises the summed dissimilarity:
     \begin{equation}\label{eq:summed-dissim}
         D\left(\mathcal{X}, z\right) = \sum_{i=1}^{N} d\left(X^{(i)}, z\right)
     \end{equation}
@@ -135,8 +187,8 @@ find such a point.
 \begin{definition}\label{def:rel-freq}
     Let \(\mathcal{X} \subset \mathcal{A}\) be a dataset. Then
     \(n\left(a_s^{(j)}\right)\) denotes the \emph{frequency} of the \(s^{th}\)
-    category \(a_s^{(j)}\) of \(A_j\) in \(\mathcal{X}\), i.e.\ for each \(A_j
-    \in \mathcal{A}\) and each \(s = 1, \ldots, d_j\):
+    category \(a_s^{(j)}\) of \(A_j\) in \(\mathcal{X}\), i.e. for each \(A_j
+    \in \mathcal{A}\) and each \(s = 1, \ldots, d_j\), it follows that:
     \begin{equation}
         n\left(a_s^{(j)}\right) := \abs*{%
             {\left\{X^{(i)} \in \mathcal{X}: x_j^{(i)} = a_s^{(j)}\right\}}
@@ -151,17 +203,17 @@ find such a point.
     Consider a dataset \(\mathcal{X} \subset \mathcal{A}\) and some \(U = (u_1,
     \ldots, u_m) \in \mathcal{A}\). Then \(D(\mathcal{X}, U)\) is minimised if
     and only if \(n\left(u_j\right) \geq n\left(a_s^{(j)}\right)\) for all
-    \(s=1, \ldots, d_j\) for each \(j = 1, \ldots, m\).
+    \(s=1, \ldots, d_j\) and each \(j = 1, \ldots, m\).
 
     A proof of this theorem can be found in the Appendix of~\cite{Huang1998}.
 \end{theorem}
 
 Theorem~\ref{thm:mode} defines the process by which cluster modes are updated in
-\(k\)-modes (see Algorithm~\ref{alg:update}), and so the final component from
-the \(k\)-means paradigm to be configured is the objective (cost) function. This
-function is defined in Definition~\ref{def:cost}, and following that a practical
-statement of the \(k\)-modes algorithm is given in Algorithm~\ref{alg:kmodes} as
-set out in~\cite{Huang1998}.
+\(k\)-modes --- specifically, in Algorithm~\ref{alg:update}. Therefore, the
+final component from the \(k\)-means paradigm to be configured is the objective
+(cost) function. This function is defined in Definition~\ref{def:cost}, and
+following that a practical statement of the \(k\)-modes algorithm is given in
+Algorithm~\ref{alg:kmodes} as set out in~\cite{Huang1998}.
 
 \begin{definition}\label{def:cost}
     Let \(\mathcal{Z} = \left\{Z_1, \ldots, Z_k\right\}\) be a clustering of a
