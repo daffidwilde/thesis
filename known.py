@@ -43,6 +43,7 @@ words = {
     "de",
     "decile",
     "deciles",
+    "dissim",
     "edo",
     "edolab",
     "eq",
