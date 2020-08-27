@@ -164,6 +164,7 @@ introduced in~\cite{Cao2012}.
         \end{cases}
     \end{equation}
 \end{definition}
+% TODO include proof of being distance metric?
 
 With the definition of a categorical distance metric, the notion of a
 representative point of a cluster can be addressed. When considering numeric
@@ -240,38 +241,56 @@ Algorithm~\ref{alg:kmodes} as set out in~\cite{Huang1998}.
 
 \subsection{Initialisation processes}\label{subsec:inits}
 
-The standard selection method to initialise \(k\)-modes is to randomly sample
-\(k\) distinct points in the dataset. In all cases, the initial modes must be
-points in the dataset to ensure that there are no empty clusters in the first
-iteration of the algorithm. The remainder of this section describes two
-well-established initialisation methods that aim to lever the structure of the
-data at hand preemptively.
+The \(k\)-modes algorithm is stochastic, in that it is dependent on its starting
+point. The process of finding an initial solution for the algorithm is called
+the initialisation. As with many algorithms in the paradigm, the standard
+initialisation for \(k\)-modes is to randomly sample \(k\) distinct points in
+the dataset, call them the initial modes and assign each data point to its
+closest mode.
+
+The initial set of modes must be instances in the dataset to ensure that there
+are no empty clusters in the first iteration of the algorithm.  However, this
+set of points need not be determined entirely at random. The remainder of this
+section describes two well-established initialisations for \(k\)-modes that aim
+to lever the structure of the data at hand preemptively to select these initial
+modes.
 
 \subsubsection{Huang's method}\label{subsec:huang}
 
 Among the original works by Huang, an alternative initialisation method was
 presented that selects modes by distributing frequently-occurring values from
 the attribute space among \(k\) potential modes~\cite{Huang1998}. The process
-referred to as Huang's method is described in full in Algorithm~\ref{alg:huang}.
-Huang's method considers a set of potential modes, \(\widehat Z \subset \mathcal
-A\), that is then replaced by a set of real initial modes, \(\overline Z \subset
-\mathcal X\). The process of selecting this set of potential modes is ambiguous
-in the original paper --- as is alluded to in~\cite{Jiang2016}.  Here, as is
-done in practical implementations of \(k\)-modes, this is interpreted as being
-done via a weighted random sample (see Algorithm~\ref{alg:potential_modes}).
+(referred to as Huang's method) is described in full in
+Algorithm~\ref{alg:huang}. Huang's method considers a set of potential modes,
+\(\widehat Z \subset \mathcal A\), that is then replaced by a set of real
+initial modes, \(\overline Z \subset \mathcal X\).
+
+The process of selecting this set of potential modes is ambiguous in the
+original paper --- as is alluded to in~\cite{Jiang2016}.~\cite{Huang1998} states
+that the potential modes should be created by assigning to them the ``most
+frequent categories equally''. Here, as is done in practical implementations of
+\(k\)-modes, this assignment is interpreted as a weighted random sample.
+Algorithm~\ref{alg:potential_modes} contains a description of the sampling
+process using the relative frequencies of the values (categories) in the
+attribute space.
 
 \inputalg{huang}
 
 
 \subsubsection{Cao's method}\label{subsec:cao}
 
-The second initialisation process that is widely used with \(k\)-modes is known
-as Cao's method~\cite{Cao2009}. This method selects the initial modes according
-to their density in the dataset whilst forcing dissimilarity between them.
-Definition~\ref{def:density} formalises the concept of density and its
-relationship to relative frequency. The method, described in
-Algorithm~\ref{alg:cao}, is deterministic --- unlike Huang's method, which
-relies on random sampling.
+The second initialisation considered in this chapter is known as Cao's
+method~\cite{Cao2009}. This method differs significantly from Huang's method,
+and has formed the basis of several other initialisations. In essence, the
+method selects initial modes according to their density in the dataset whilst
+forcing dissimilarity between them. Definition~\ref{def:density} formalises the
+concept of categorical density. The definition also considers the relationship
+between density and relative frequency when using the measure defined
+in~\eqref{eq:dissim}. Further to its alternative, density-based approach, the
+method (which is described in Algorithm~\ref{alg:cao}) is deterministic.
+Therefore, when using \(k\)-modes with Cao's initialisation, only one run of the
+algorithm is required to identify a clustering, making it an attractive option
+if computational time is critical.
 
 \begin{definition}\label{def:density}
     Consider a dataset
@@ -305,6 +324,10 @@ relies on random sampling.
         \right)
         = 1 - \frac{1}{mN} D\left(\mathcal{X}, X^{(i)}\right)
     \end{equation}
+
+    This alternative definition highlights how identifying high-density data
+    points would mean finding data points with a low summed dissimilarity, i.e.
+    true modes of the dataset.
 \end{definition}
 
 \inputalg{cao}
