@@ -17,7 +17,7 @@
     Available online at: \arxiv{2002.02701}\\
 
     Associated data: \doi{10.5281/zenodo.3638035}\\
-    Source code: \doi{10.5281/zenodo.3639282}\\[1em]
+    Source code: \doi{10.5281/zenodo.3639282}\vfill
 
     The abstract of the manuscript is as follows:\\[1em]
 \end{center}
@@ -341,16 +341,15 @@ is critical.
 
 \subsection{The proposed method}\label{subsec:method}
 
-Both of the initialisation methods described in the above subsections have a
-greedy component. Cao's method essentially chooses the densest point that has
-not already been chosen whilst forcing some separation between the set of
-initial modes. In the case of Huang's, the greediness only comes toward the end
-of the method. When the set of potential modes is identified, it is replaced by
-a set of instances in the dataset. Specifically, this means that in any
-practical implementation of this method, the order in which a set of potential
-modes is iterated over can affect the set of initial modes. Thus, there is no
-guarantee of consistency. The same is true for any arbitrary tie breaks that may
-occur.
+Both of the initialisation methods described in this section have a greedy
+component. Cao's method essentially chooses the densest point that has not
+already been chosen whilst forcing some separation between the set of initial
+modes. In the case of Huang's, the greediness only comes toward the end of the
+method. When the set of potential modes is identified, it is replaced by a set
+of instances in the dataset. Specifically, this means that in any practical
+implementation of this method, the order in which a set of potential modes is
+iterated over can affect the set of initial modes. Thus, there is no guarantee
+of consistency. The same is true for any arbitrary tie breaks that may occur.
 
 The initialisation proposed in this chapter extends Huang's method to be
 order-invariant in the final allocation. Doing so eliminates its greedy
@@ -405,10 +404,10 @@ Chapter~\ref{chp:matching}, extensions to HR do exist for handling ties in
 preferences that would alleviate the reliance on having to break ties. However,
 the notion of stability becomes tiered under such extensions, and the guarantee
 of a stable matching does not exist. Therefore, they are not considered here.
-Instead, the proposed method employs the standard form of HR and mitigates the
-effect of ties by considering a potentially large number of candidate points (up
-to \(k^2\)). Algorithm~\ref{alg:proposed_method} provides a formal statement of
-the proposed method.
+Instead, the proposed method employs the standard form of HR and aims to
+mitigate the effect of ties by considering a potentially large number of
+candidate points (up to \(k^2\)). Algorithm~\ref{alg:proposed_method} provides a
+formal statement of the proposed method.
 
 \inputalg{proposed_method}
 
@@ -419,12 +418,14 @@ To give comparative results on the quality of the initialisation processes
 considered in this chapter, four well-known, categorical, labelled datasets ---
 breast cancer, mushroom, nursery, and soybean (large) --- will be clustered by
 the \(k\)-modes algorithm with each of the initialisation processes. These
-datasets have been chosen to fall in line with the established literature.
-Further, they exhibit a range of sizes and complexities. Each dataset is openly
-available under the UCI Machine Learning Repository~\cite{Dua2019}, and their
-characteristics are summarised in Table~\ref{tab:dataset_summary}. This analysis
-excludes all incomplete instances (i.e.\ where data is missing), and the
-remaining dataset characteristics are reported as `adjusted'.
+datasets have been chosen to fall in line with the established literature, and
+particularly the works in which Huang's and Cao's methods were introduced.
+Further, the datasets exhibit a range of sizes, complexities and applications.
+Each dataset is openly available under the UCI Machine Learning
+Repository~\cite{Dua2019}, and their characteristics are summarised in
+Table~\ref{tab:dataset_summary}. This analysis excludes all incomplete instances
+(i.e.\ where data is missing), and the remaining dataset characteristics are
+reported as `adjusted'.
 
 \begin{table}
     \resizebox{\textwidth}{!}{\input{\texpath/dataset_summary}}
@@ -432,21 +433,27 @@ remaining dataset characteristics are reported as `adjusted'.
 \end{table}
 
 This analysis does not consider evaluative metrics related to classification
-such as accuracy, recall or precision as is commonly done~\cite{%
+such as accuracy, recall or precision --- although this is commonly done. A
+selection of articles from the last 20 or so years that employ this approach
+include~\cite{%
     Arthur2007,Cao2009,Cao2012,Huang1998,%
     Ng2007,Olaode2014,Schaeffer2007,Sharma2015%
 }. Instead, only internal measures are considered, such as the cost function
-defined in~\eqref{eq:cost}. This metric is label-invariant, and its values are
-comparable across the different initialisation methods. Furthermore, the cost
-function captures the effect of each initialisation method on the initial and
-final clustering of each dataset. An additional, and often useful, metric is the
-silhouette coefficient, which measures the ratio between the intra-cluster
-cohesion and inter-cluster separation of a particular clustering. Therefore, it
-could reveal the effect of each initialisation method at the beginning and end
-of a run of \(k\)-modes.  Unfortunately, this metric loses its intuition under
-the distance measure employed here and, as such, has been omitted. The remaining
-performance measures used are the number of iterations for the \(k\)-modes
-algorithm to terminate and the time to terminate in seconds.
+defined in~\eqref{eq:cost}. Like inertia with \(k\)-means, this metric is
+label-invariant, and its values are comparable across the different
+initialisation methods on the same dataset. Furthermore, the cost function
+captures the effect of each initialisation method on the initial and final
+clustering of each dataset.
+
+An additional, and often useful, metric for clustering is the silhouette
+coefficient. In Chapter~\ref{chp:edo}, the silhouette served as an extension to
+the cost function to ensure intra-cluster cohesion and inter-cluster separation.
+Therefore, it would be sensible to believe that it could provide insight into
+the effect of each initialisation method to the \(k\)-modes algorithm. On the
+contrary, and unfortunately, this metric loses its intuition under the distance
+measure employed here. As such, it has been omitted. The remaining performance
+measures used are the number of iterations for the \(k\)-modes algorithm to
+terminate after the initialisation and the time to terminate in seconds.
 
 The final piece of information required in this analysis is a choice for \(k\)
 for each dataset. An immediate choice is the number of classes that are present
@@ -466,62 +473,69 @@ Table~\ref{tab:dataset_summary}.
 
 \subsection{Using knee point detection algorithm for \(k\)}\label{subsec:knee}
 
-Tables~\ref{tab:breast_cancer_knee}---\ref{tab:soybean_knee} summarise the
-results of each initialisation method on the benchmark datasets. In each case,
-the number of clusters was determined using the knee point detection algorithm.
-Each column shows the mean value of each metric and its standard
+Table~\ref{tab:metrics_knee} summarises the results of each initialisation
+method on the benchmark datasets. In each case, the number of clusters was
+determined using the knee point detection algorithm. Each column shows the mean
+value of each metric and its standard deviation across
 \input{\texpath/repetitions.tex}repetitions of the \(k\)-modes algorithm.
 
 \begin{table}
-    \centering
-    \resizebox{\textwidth}{!}{%
-        \input{\texpath/knee/breast_cancer_summary.tex}
-    }
-    \captionof{table}{%
-        Summary metric results for the breast cancer dataset with \(k=8\).
-    }\label{tab:breast_cancer_knee}\vspace{2em}
+    \begin{subtable}{\textwidth}
+        \resizebox{\textwidth}{!}{%
+            \input{\texpath/knee/breast_cancer_summary.tex}
+        }
+        \caption{%
+            the breast cancer dataset with \(k=8\)%
+        }\label{tab:breast_cancer_knee}
+    \end{subtable}\vspace{1em}
 
-    \resizebox{\textwidth}{!}{%
-        \input{\texpath/knee/mushroom_summary.tex}
-    }
-    \captionof{table}{%
-        Summary metric results for the mushroom dataset with \(k=17\).
-    }\label{tab:mushroom_knee}\vspace{2em}
+    \begin{subtable}{\textwidth}
+        \resizebox{\textwidth}{!}{\input{\texpath/knee/mushroom_summary.tex}}
+        \caption{%
+            the mushroom dataset with \(k=17\)%
+        }\label{tab:mushroom_knee}
+    \end{subtable}\vspace{1em}
 
-    \resizebox{\textwidth}{!}{%
-        \input{\texpath/knee/nursery_summary.tex}
-    }
-    \captionof{table}{%
-        Summary metric results for the nursery dataset with \(k=23\).
-    }\label{tab:nursery_knee}\vspace{2em}
+    \begin{subtable}{\textwidth}
+        \resizebox{\textwidth}{!}{\input{\texpath/knee/nursery_summary.tex}}
+        \caption{%
+            the nursery dataset with \(k=23\)
+        }\label{tab:nursery_knee}
+    \end{subtable}\vspace{1em}
 
-    \resizebox{\textwidth}{!}{%
-        \input{\texpath/knee/soybean_summary.tex}
-    }
-    \captionof{table}{%
-        Summary metric results for the soybean dataset with \(k=8\).
-    }\label{tab:soybean_knee}
+    \begin{subtable}{\textwidth}
+        \resizebox{\textwidth}{!}{\input{\texpath/knee/soybean_summary.tex}}
+        \caption{%
+            the soybean dataset with \(k=8\)
+        }\label{tab:soybean_knee}
+    \end{subtable}
+
+    \caption{%
+        Metric results for the benchmark datasets using the knee point detection
+        algorithm
+    }\label{tab:metrics_knee}
 \end{table}
 
 By examining these tables, it would seem that the proposed method and Huang's
-method are comparable across the board --- although the proposed method is
-faster despite taking more iterations in general which may relate to a more
-intuitive initialisation. More importantly, though, it appears that Cao's method
-performs the best out of the three initialisation methods: in terms of initial
-and final costs Cao's method improves, on average, by roughly 10\% against the
-next best method for the three datasets that it succeeds with; the number of
-iterations is comparable; the computation time is substantially less than the
-other two considering it is a deterministic method and need only be run once to
-achieve this performance.
+method are fairly comparable across the board. Although, the proposed method is
+faster despite taking more iterations in general which suggests a more intuitive
+initialisation. More importantly, though, it appears that Cao's method performs
+the best out of the three initialisation methods: in terms of initial and final
+costs Cao's method improves, on average, by roughly 10\% against the next best
+method for the three datasets that it succeeds with; the number of iterations is
+comparable; the computation time is substantially less than the other two
+methods. This last observation is expected given it is a deterministic method
+and need only be run once to achieve this performance.
 
-However, in the \(k\)-means paradigm, a particular clustering is selected based
-on it having the minimal final cost over several runs of the algorithm --- not
-the mean --- and while Cao's method is very reliable, in that there is no
-variation at all, it does not always produce the best clustering possible. There
-is a trade-off to be made between computational time and performance here. In
-order to gain more insight into the performance of each method, less granular
-analysis is required.
+As useful as these metrics are, in the \(k\)-means paradigm, a particular
+clustering is selected based on it having the minimal final cost over several
+runs of the algorithm --- not the mean --- and while Cao's method is very
+reliable, in that there is no variation at all, it does not always produce the
+best clustering possible. There is a trade-off to be made between computational
+time and performance here.
 
+In order to gain more insight into the performance of each method, a less
+granular form of analysis is required.
 Figures~\ref{fig:breast_cancer_knee}---\ref{fig:soybean_knee} display the cost
 function results for each dataset in the form of a scatter plot and two
 empirical cumulative density function (CDF) plots, highlighting the breadth and
@@ -530,28 +544,29 @@ depth of the behaviours exhibited by each initialisation method.
 Looking at Figure~\ref{fig:breast_cancer_knee}, it is clear that in terms of the
 final cost, Cao's method is middling when compared to the other methods. This
 so-so performance is apparent from Table~\ref{tab:breast_cancer_knee} and,
-indeed, Huang's and the proposed method are both very comparable when looking at
-the main body of the results. However, since the criterion for the best
-clustering (in practical terms) is having the minimal final cost, it is evident
-that the proposed method is superior; that the method produces clusterings with
-a broader range of costs (indicated by the trailing right-hand side of each CDF
-plot) is irrelevant for the same reason.
+indeed, Huang's and the proposed method appear indistinguishable when looking
+at the body of the results. However, since the criterion for the best clustering
+(in practical terms) is having the minimal final cost, the proposed method is
+superior; that the method produces clusterings with a broader range of costs
+(indicated by the trailing right-hand side of each CDF plot) is irrelevant for
+the same reason.
 
 This pattern of broadly similar behaviour between Huang's and the proposed
-method is apparent in each of the figures here, and in each case, the proposed
+method is apparent in each of the figures here, and in all cases, the proposed
 method outperforms Huang's. In fact, for all cases except for the nursery
 dataset, the proposed method achieves the lowest final cost of all the methods.
 As such, it performs the best in practical terms on these particular datasets.
 
 In the case of the nursery dataset, Cao's method is unquestionably the best
-performing initialisation method. It should be noted that none of the methods
-was able to find an initial clustering that could be improved on, and that this
-dataset exactly describes the entire attribute space in which it exists. This
-property could be why the other methods fall behind Cao's method so decisively
-in that it can definitively choose the \(k\) most dense-whilst-separated points
-from the attribute space as the initial cluster centres whereas the other two
-methods are in essence randomly sampling from this space. That each initial
-solution in these repetitions is locally optimal remains a mystery.
+performing initialisation method. There are two things of note here: first, not
+one of the methods was able to find an initial clustering that \(k\)-modes could
+improve upon; and, second, the nursery dataset exactly describes the entire
+attribute space in which it exists. This property could be why the other methods
+fall behind Cao's method so decisively. In such a scenario, Cao's method can
+definitively choose the \(k\) most dense-whilst-separated points from that
+space as the initial cluster centres. Meanwhile, the two remaining methods are,
+in essence, randomly sampling from this space. That each initial solution in
+these repetitions is locally optimal remains a mystery.
 
 \begin{figure}
     \begin{subfigure}{.5\textwidth}
@@ -627,39 +642,46 @@ solution in these repetitions is locally optimal remains a mystery.
 As is discussed above, the often automatic choice for \(k\) is the number of
 classes present in the data. This subsection repeats the analysis from the
 previous subsection but with this traditional choice for \(k\).
-Tables~\ref{tab:breast_cancer_nclasses}---\ref{tab:soybean_nclasses} contain the
-analogous summaries of each initialisation method's performance on the benchmark
-datasets over the same number of repetitions.
+Table~\ref{tab:metrics_nclasses} contains the analogous summaries of each
+initialisation method's performance on the benchmark datasets over the same
+number of repetitions.
 
-\begin{table}[htbp]
-    \centering
-    \resizebox{\textwidth}{!}{%
-        \input{\texpath/nclasses/breast_cancer_summary.tex}
-    }
-    \captionof{table}{%
-        Summary metric results for the breast cancer dataset with \(k=2\).
-    }\label{tab:breast_cancer_nclasses}\vspace{2em}
+\begin{table}
+    \begin{subtable}{\textwidth}
+        \resizebox{\textwidth}{!}{%
+            \input{\texpath/nclasses/breast_cancer_summary.tex}
+        }
+        \caption{%
+            the breast cancer dataset with \(k=2\)%
+        }\label{tab:breast_cancer_nclasses}
+    \end{subtable}\vspace{1em}
 
-    \resizebox{\textwidth}{!}{%
-        \input{\texpath/nclasses/mushroom_summary.tex}
-    }
-    \captionof{table}{%
-        Summary metric results for the mushroom dataset with \(k=2\).
-    }\label{tab:mushroom_nclasses}\vspace{2em}
+    \begin{subtable}{\textwidth}
+        \resizebox{\textwidth}{!}{%
+            \input{\texpath/nclasses/mushroom_summary.tex}
+        }
+        \caption{%
+            the mushroom dataset with \(k=2\)%
+        }\label{tab:mushroom_nclasses}
+    \end{subtable}\vspace{1em}
 
-    \resizebox{\textwidth}{!}{%
-        \input{\texpath/nclasses/nursery_summary.tex}
-    }
-    \captionof{table}{%
-        Summary metric results for the nursery dataset with \(k=5\).
-    }\label{tab:nursery_nclasses}\vspace{2em}
+    \begin{subtable}{\textwidth}
+        \resizebox{\textwidth}{!}{\input{\texpath/nclasses/nursery_summary.tex}}
+        \caption{%
+            the nursery dataset with \(k=5\)
+        }\label{tab:nursery_nclasses}
+    \end{subtable}\vspace{1em}
 
-    \resizebox{\textwidth}{!}{%
-        \input{\texpath/nclasses/soybean_summary.tex}
-    }
-    \captionof{table}{%
-        Summary metric results for the soybean dataset with \(k=15\).
-    }\label{tab:soybean_nclasses}
+    \begin{subtable}{\textwidth}
+        \resizebox{\textwidth}{!}{\input{\texpath/nclasses/soybean_summary.tex}}
+        \caption{%
+            the soybean dataset with \(k=15\)
+        }\label{tab:soybean_nclasses}
+    \end{subtable}
+
+    \caption{%
+        Metric results for the benchmark datasets using the number of classes
+    }\label{tab:metrics_nclasses}
 \end{table}
 
 An immediate comparison to the previous tables is that the mean costs are
@@ -672,10 +694,9 @@ within-cluster dissimilarity and therefore cost.
 Looking at these tables on their own reveals that Cao's method is the superior
 initialisation method on average: the means are substantially lower in terms of
 initial and final cost; there is no deviation in these results; again, the total
-computational time is a fraction of the other two methods. It is also apparent
-that Huang's method and the proposed extension are very comparable on average.
-As before, a more nuanced investigation will require finer visualisations.
-
+computational time is a fraction of the other two methods. It is apparent again
+that Huang's and the proposed method are comparable on average. Then, as before,
+a more nuanced investigation will require finer visualisations.
 Figures~\ref{fig:breast_cancer_nclasses}---\ref{fig:soybean_nclasses} show the
 analogous plots as in the previous subsection except with this traditional
 choice for \(k\).
@@ -685,20 +706,20 @@ that a particular behaviour emerged during the runs of the \(k\)-modes
 algorithm. Specifically, each solution falls into one of (predominantly) two
 types: effectively no improvement on the initial clustering, or terminating at
 some clustering with a cost that is bounded below across all such solutions.
-Invariably, Cao's method achieves or approaches this lower bound, and unless
-Cao's method is used, these particular choices for \(k\) mean that the
-performance of the \(k\)-modes algorithm is susceptible to its initial
-clustering. Moreover, the other two methods are effectively indistinguishable in
-these cases, and so if a robust solution is required, Cao's method is the only
-viable option.
+Invariably, Cao's method achieves this lower bound, and unless Cao's method is
+used, these particular choices for \(k\) mean that the performance of the
+\(k\)-modes algorithm is highly susceptible to its initial clustering. Moreover,
+the other two methods are effectively indistinguishable in these cases, and so
+if a robust solution is required, Cao's method is the only viable option.
 
 Figure~\ref{fig:nursery_nclasses} corresponds to the nursery dataset results
 with \(k=5\). In this set of runs, the same pattern emerges as in
 Figure~\ref{fig:nursery_knee} where sampling the initial centres from amongst
 the densest points (via Huang's method and the proposed) is an inferior strategy
 to one considering the entire attribute space such as with Cao's method. Again,
-no method can improve on the initial solution except for one repetition with the
-matching initialisation method.
+no method can improve on the initial solution (except for one repetition with the
+matching initialisation method) although the disparity between Cao's method and
+the others is significantly less.
 
 \begin{figure}
     \begin{subfigure}{.5\textwidth}
@@ -768,17 +789,18 @@ matching initialisation method.
     \label{fig:soybean_nclasses}
 \end{figure}
 
-The primary conclusion from this analysis is that while Huang's method is mostly
-comparable to the proposed extension, there is no substantial evidence from
-these use cases to use Huang's method over the one proposed in this chapter.
-Figure~\ref{fig:soybean_nclasses} is the only instance where Huang's method was
-able to outperform the proposed method. Other than this, the proposed method
-consistently performs better (or as well as) Huang's method in terms of minimal
-final costs and computational time. This success occurs when an external
+The primary conclusion from this analysis of benchmark datasets is that while
+Huang's method is mostly comparable to the proposed extension, there is no
+substantial evidence to use Huang's method over the one proposed in this
+chapter. Figure~\ref{fig:soybean_nclasses} shows the only instance where Huang's
+method was able to outperform the proposed method. Other than this, the proposed
+method consistently performs better (or as well as) Huang's method in terms of
+minimal final costs and computational time. This success occurs when an external
 framework is imposed on the data (by choosing \(k\) to be the number of classes)
 and not. Furthermore, though not discussed here, the matching initialisation
 method has the scope to allow for expert or prior knowledge to be included in an
-initial clustering by using some ad hoc preference list mechanism.
+initial clustering by using some expedient or specific preference list
+mechanism.
 
 \subsection{Artificial datasets}\label{subsec:artificial}
 
