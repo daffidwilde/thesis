@@ -24,6 +24,7 @@ words = {
     "PCA",
     "SVMs",
     "Scikit",
+    "Shapley",
     "Taf",
     "UCI",
     "Voronoi",
