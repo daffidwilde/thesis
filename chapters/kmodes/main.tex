@@ -16,8 +16,8 @@
 
     Available online at: \arxiv{2002.02701}\\
 
-    Associated data: \doi{10.5281/zenodo.3638035}\\
-    Source code: \doi{10.5281/zenodo.3639282}\vfill
+    Associated data:~\doi{10.5281/zenodo.3638035}\\
+    Source code:~\doi{10.5281/zenodo.3639282}\vfill
 
     The abstract of the manuscript is as follows:\\[1em]
 \end{center}
@@ -173,8 +173,58 @@ in~\cite{Cao2012}.
             1, & \text{otherwise.}
         \end{cases}
     \end{equation}
+
+    This distance measure satisfies the properties of identity, positivity,
+    symmetry and the triangle inequality, making it a metric on the attribute
+    space. A proof of this can be seen as follows.
+
+    \begin{proof}
+        Let \(\mathcal A\) be a categorical attribute space. For \(d\) to be a
+        metric, it must satisfy the following conditions for every \(A, B, C \in
+        \mathcal A\):
+        \begin{enumerate}
+            \item Identity: \(d(A, B) = 0 \iff A = B\)
+            \item Positivity: \(d(A, B) \geq 0\)
+            \item Symmetry: \(d(A, B) = d(B, A)\)
+            \item The triangle inequality: \(d(A, C) \leq d(A, B) + d(B, C)\)
+        \end{enumerate}
+
+        So, consider any \(A, B, C \in \mathcal A\).
+        \begin{enumerate}
+            \item Consider any \(A, B \in \mathcal A\) such that
+                \(d(A, B) = 0\). Then:
+                \[
+                    \begin{aligned}
+                        d(A, B) = 0
+                        & \iff \delta\left(a_j, b_j\right) = 0 \text{, for all }
+                            j=1,\ldots,m\\
+                        & \iff a_j = b_j \text{, for all } j=1,\ldots,m\\
+                        & \iff A = B
+                    \end{aligned}
+                \]
+            \item If \(A = B\), then it follows from the above that
+                \(d(A, B) = 0\). Otherwise, \(\delta\left(a_j, b_j\right) = 1\)
+                for at least one \(j = 1, \ldots, m\). Therefore,
+                \(d(A, B) \geq 1 > 0\).
+            \item This follows immediately from the definition of \(\delta\)
+                in~\eqref{eq:dissim}.
+            \item Let \(\epsilon(A, B) = \left\{j : a_j \neq b_j\right\}\) for
+                every \(A, B \in \mathcal A\), i.e. let us consider the set of
+                indices where two points differ. Then it follows that
+                \(d(A, B) = \abs*{\epsilon (A, B)}\). Hence:
+                \[
+                    \begin{aligned}
+                        d(A, C) = \abs*{\epsilon(A, C)}
+                        & \leq \abs*{\epsilon(A, B) \cup \epsilon(B, C)}\\
+                        & \leq \abs*{\epsilon(A, B)} + \abs*{\epsilon(B, C)}\\
+                        & = d(A, B) + d(B, C)
+                    \end{aligned}
+                \]
+        \end{enumerate}
+
+        Therefore, \(d\) satisfies the required conditions and is a metric.
+    \end{proof}
 \end{definition}
-% TODO include proof of being distance metric?
 
 With the definition of a categorical distance metric, the notion of a
 representative point of a cluster can be addressed. When considering numeric
@@ -854,7 +904,7 @@ in the generated datasets will have at least one category but no more than 10.
 
 This process yielded approximately 35,000 unique datasets for each case, and the
 subsequent analysis only considers the top-performing percentile of datasets
-from each. The datasets are available online at \doi{10.5281/zenodo.3638035}.
+from each. The datasets are available online at~\doi{10.5281/zenodo.3638035}.
 Figure~\ref{fig:fitness} shows the fitness distribution of the top
 percentile in each case. It should be clear from~\eqref{eq:fitness} that large
 negative values are preferable here. With that, and bearing in mind that the
