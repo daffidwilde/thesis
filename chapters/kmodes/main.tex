@@ -61,7 +61,7 @@ The focus of this chapter is on the initialisation of the \(k\)-modes algorithm.
 Like \(k\)-means, there is no guarantee that any two runs of \(k\)-modes will
 provide the same clusters; this is due to the stochastic nature of its
 initialisation. Therefore, the performance of the algorithm is contingent upon
-the quality of this initial solution.
+the quality of this initial solution~\cite{Huang1998}.
 
 This chapter introduces a novel initialisation for the \(k\)-modes algorithm
 that extends the method presented in~\cite{Huang1998}, referred to as Huang's
@@ -143,13 +143,14 @@ sensible meaning.
 
 There are numerous measures available for the handling of categorical data.
 Definition~\ref{def:dissim} describes what is perhaps the simplest of those
-measures, and is the measure used in the seminal works by Huang. The pitfall of
-this measure is that it democratises the attribute space. In doing so, it does
-not fully consider the frequency (and, thus, density) of the attributes' values,
-which may result in some loss of learning by the algorithm. Examples of
-categorical distance measures that do consider such properties of the attribute
-space include Ng's distance~\cite{Ng2007} and, more recently, the metric
-introduced in~\cite{Cao2012}.
+measures, and is the measure used in the seminal works by
+Huang~\cite{Huang1997a,Huang1997b,Huang1998}. The pitfall of this measure is
+that it democratises the attribute space. In doing so, it does not fully
+consider the frequency (and, thus, density) of the attributes' values, which may
+result in some loss of learning by the algorithm. Examples of categorical
+distance measures that do consider such properties of the attribute space
+include Ng's distance~\cite{Ng2007} and, more recently, the metric introduced
+in~\cite{Cao2012}.
 
 \begin{definition}\label{def:dissim}
     Let \(\mathcal{X} \subset \mathcal A\) be a dataset and consider any
@@ -242,12 +243,12 @@ Algorithm~\ref{alg:kmodes} as set out in~\cite{Huang1998}.
 
 \section{Initialisation processes}\label{sec:inits}
 
-The \(k\)-modes algorithm is stochastic, in that it is dependent on a stochastic choice of starting
-point. The process of finding an initial solution for the algorithm is called
-the initialisation. As with many algorithms in the paradigm, the standard
-initialisation for \(k\)-modes is to randomly sample \(k\) distinct points in
-the dataset, call them the initial modes and assign each data point to its
-closest mode.
+The \(k\)-modes algorithm is stochastic, in that it is dependent on a stochastic
+choice of starting point. The process of finding an initial solution for the
+algorithm is called the initialisation. As with many algorithms in the paradigm,
+the standard initialisation for \(k\)-modes is to randomly sample \(k\) distinct
+points in the dataset, call them the initial modes and assign each data point to
+its closest mode.
 
 The initial set of modes must be instances in the dataset to ensure that there
 are no empty clusters in the first iteration of the algorithm. However, this set
@@ -342,14 +343,15 @@ is critical.
 \subsection{The proposed method}\label{subsec:method}
 
 Both of the initialisation methods described in this section have a greedy
-component. Cao's method essentially chooses the point with highest density that has not
-already been chosen whilst forcing some separation between the set of initial
-modes. In the case of Huang's, the greediness only comes toward the end of the
-method. When the set of potential modes is identified, it is replaced by a set
-of instances in the dataset. Specifically, this means that in any practical
-implementation of this method, the order in which a set of potential modes is
-iterated over can affect the set of initial modes. Thus, there is no guarantee
-of consistency. The same is true for any arbitrary tie breaks that may occur.
+component. Cao's method essentially chooses the point with highest density that
+has not already been chosen whilst forcing some separation between the set of
+initial modes. In the case of Huang's, the greediness only comes toward the end
+of the method. When the set of potential modes is identified, it is replaced by
+a set of instances in the dataset. Specifically, this means that in any
+practical implementation of this method, the order in which a set of potential
+modes is iterated over can affect the set of initial modes. Thus, there is no
+guarantee of consistency. The same is true for any arbitrary tie breaks that may
+occur.
 
 The initialisation proposed in this chapter extends Huang's method to be
 order-invariant in the final allocation. Doing so eliminates its greedy
@@ -827,8 +829,9 @@ Here, \(C_{\mathrm{cao}}\) and \(C_{\mathrm{match}}\) are the final costs when a
 dataset \(\mathcal X\) is clustered using Cao's method and the proposed matching
 method respectively with \(k = 3\). Given that costs should be minimised, this
 function is given to EDO to be minimised. As such, the case that uses \(f\) will
-be referred to as Cao-preferable and \(-f\) will be referred to as matching-preferable. For the sake of computational time, the
-proposed initialisation is given 25 repetitions.
+be referred to as Cao-preferable and \(-f\) will be referred to as
+matching-preferable. For the sake of computational time, the proposed
+initialisation is given 25 repetitions.
 
 Apart from the sign of \(f\), each case uses identical EDO parameters: a
 population size of \(N = 500\); row and column limits of \(R = (50, 500)\) and
@@ -848,7 +851,8 @@ in the generated datasets will have at least one category but no more than 10.
 
 This process yielded approximately 35,000 unique datasets for each case, and the
 subsequent analysis only considers the top-performing percentile of datasets
-from each. Figure~\ref{fig:fitness} shows the fitness distribution of the top
+from each. The datasets are available online at \doi{10.5281/zenodo.3638035}.
+Figure~\ref{fig:fitness} shows the fitness distribution of the top
 percentile in each case. It should be clear from~\eqref{eq:fitness} that large
 negative values are preferable here. With that, and bearing in mind that the
 generation of these datasets was parameterised consistently, it appears that the
