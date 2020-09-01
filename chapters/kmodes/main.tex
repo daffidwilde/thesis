@@ -57,7 +57,16 @@ adjusting the partition toward some Voronoi tessellation according to a measure
 of centrality. However, the method allows for the clustering of categorical data
 by considering a cluster's modal values rather than its mean.
 
-The focus of this chapter is on the initialisation of the \(k\)-modes algorithm.
+The \(k\)-modes algorithm will be used to cluster patient records based on a
+number of features in Chapter~\ref{chp:copd}, of which some are categorical. To
+cluster data of mixed type in the \(k\)-means paradigm, the \(k\)-prototypes
+algorithm may be used. The \(k\)-prototypes algorithm was introduced
+in~\cite{Huang1998} with \(k\)-modes and works by separating the data into
+numeric and categorical attributes before performing \(k\)-means on the numeric
+data while performing \(k\)-modes on the categorical.
+
+The focus of this chapter is on the initialisation of the \(k\)-modes algorithm
+--- its initialisation is also used as the initialisation of \(k\)-prototypes.
 Like \(k\)-means, there is no guarantee that any two runs of \(k\)-modes will
 provide the same clusters; this is due to the stochastic nature of its
 initialisation. Therefore, the performance of the algorithm is contingent upon
@@ -84,7 +93,10 @@ in-depth examination of the methods and how they perform against one another.
 The first stage of this analysis serves the purpose of highlighting the merits
 of each method in a familiar setting, and while the second stage bolsters these
 observations, it provides a vigorous defence of the proposed method and exposes
-the scenarios in which it excels.
+the scenarios in which it excels. In turn, this second analysis not only allows
+us to confirm the merit of the novel initialisation method as used in
+Chapter~\ref{chp:copd}, but it also serves as a further case study highlighting
+the importance of the paradigm described in Chapter~\ref{chp:edo}.
 
 The chapter is structured as follows:
 \begin{itemize}
