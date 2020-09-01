@@ -134,8 +134,8 @@ associated with clustering a categorical dataset:
         z^{(k)}\right\}\).
 \end{itemize}
 
-As has already been mentioned, the \(k\)-modes algorithm relies on another
-distance measure to traditional Euclidean distance since it breaks down in a
+As has already been mentioned, the \(k\)-modes algorithm relies on a
+different metric to the traditional Euclidean distance since it breaks down in a
 categorical attribute space; if the space were ordinal, like the natural
 numbers, then some sense of Euclidean distance could be recovered. However, in
 the absence of direction or what comes between two points, this distance has no
@@ -242,7 +242,7 @@ Algorithm~\ref{alg:kmodes} as set out in~\cite{Huang1998}.
 
 \section{Initialisation processes}\label{sec:inits}
 
-The \(k\)-modes algorithm is stochastic, in that it is dependent on its starting
+The \(k\)-modes algorithm is stochastic, in that it is dependent on a stochastic choice of starting
 point. The process of finding an initial solution for the algorithm is called
 the initialisation. As with many algorithms in the paradigm, the standard
 initialisation for \(k\)-modes is to randomly sample \(k\) distinct points in
@@ -342,7 +342,7 @@ is critical.
 \subsection{The proposed method}\label{subsec:method}
 
 Both of the initialisation methods described in this section have a greedy
-component. Cao's method essentially chooses the densest point that has not
+component. Cao's method essentially chooses the point with highest density that has not
 already been chosen whilst forcing some separation between the set of initial
 modes. In the case of Huang's, the greediness only comes toward the end of the
 method. When the set of potential modes is identified, it is replaced by a set
@@ -827,7 +827,7 @@ Here, \(C_{\mathrm{cao}}\) and \(C_{\mathrm{match}}\) are the final costs when a
 dataset \(\mathcal X\) is clustered using Cao's method and the proposed matching
 method respectively with \(k = 3\). Given that costs should be minimised, this
 function is given to EDO to be minimised. As such, the case that uses \(f\) will
-be referred to as Cao-preferable. For the sake of computational time, the
+be referred to as Cao-preferable and \(-f\) will be referred to as matching-preferable. For the sake of computational time, the
 proposed initialisation is given 25 repetitions.
 
 Apart from the sign of \(f\), each case uses identical EDO parameters: a
@@ -882,7 +882,7 @@ of the six univariate statistics across all of the principal components in each
 case. In addition to this, they show a fitted Gaussian kernel density
 estimate~\cite{Bashtannyk2001} to accentuate the general shape of the
 histograms. What is immediately clear from each of these plots is that for
-datasets where Cao's method succeeds, the general spread of their first
+datasets where Cao's method performs better, the general spread of their first
 principal component is much tighter than in the case where the proposed
 initialisation method succeeds. This observation is particularly evident in
 Figure~\ref{fig:edo_variance} where relatively low variance indicates a higher
@@ -974,7 +974,7 @@ had been optimised somewhat. However, the proposed method was unable to beat
 Cao's method when an external, and frankly separate, framework was imposed on
 each dataset by choosing \(k\) to be the number of classes present.
 
-The latter analysis showed that proposed method should be employed over Cao's if
+The latter analysis showed that the proposed method should be employed over Cao's if
 there is no direct evidence that the dataset at hand has some notion of high
 density. Otherwise, Cao's method remains the most reliable initialisation in
 terms of computational time and final cost.
