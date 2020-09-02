@@ -48,7 +48,7 @@ geographic distribution of patients in the dataset is given in
 Figure~\ref{fig:proportion_wales}, where it is clear that the patient population
 are mostly from the local area.
 
-\begin{figure}[htbp]
+\begin{figure}
     \centering
     \includegraphics[width=\imgwidth]{proportion_wales.pdf}
     \caption{%
@@ -138,35 +138,35 @@ the spells provided under the care of the health board, the majority are
 day-cases. Also, the patients being treated are one-time users of the hospital
 system.
 
-\begin{figure}[htbp]
+\begin{figure}
     \centering
     \includegraphics[width=\imgwidth]{nspells_bar.pdf}
-    \caption{Bar chart for the number of spells associated with a patient}%
+    \caption{Number of spells associated with each patient}%
     \label{fig:no_spells}
 \end{figure}
 
-\begin{figure}[htbp]
+\begin{figure}
     \centering
     \includegraphics[width=\imgwidth]{los_bar.pdf}
-    \caption{Bar chart for the total length of a spell}%
+    \caption{Bar chart for length of stay}%
     \label{fig:los}
 \end{figure}
 
-\begin{figure}[htbp]
+\begin{figure}
     \centering
     \includegraphics[width=\imgwidth]{max_diags.pdf}
-    \caption{Bar chart for the maximum number of diagnoses in a spell}%
+    \caption{Maximum number of diagnoses in each spell}%
     \label{fig:no_diag}
 \end{figure}
 
-\begin{figure}[htbp]
+\begin{figure}
     \centering
     \includegraphics[width=\imgwidth]{no_procs.pdf}
-    \caption{Bar chart for the total number of procedures in a spell}%
+    \caption{Total number of procedures in each spell}%
     \label{fig:no_proc}
 \end{figure}
 
-\begin{figure}[htbp]
+\begin{figure}
     \centering
     \includegraphics[width=\imgwidth]{netcost.pdf}
     \caption{Kernel density estimate for the net cost of a spell}%
@@ -185,7 +185,7 @@ given the scale, is near uniform, spanning from approximately \pounds6,000 up to
 \pounds369,000. A more detailed look at the skeleton of this distribution, and
 those of the remaining key attributes, is given in Table~\ref{tab:summative}.
 
-\begin{table}[htbp]
+\begin{table}
     \centering
     \resizebox{\textwidth}{!}{%
         \input{\texpath/summative_stats.tex}
@@ -202,12 +202,13 @@ Section~\ref{sec:diabetes}. Baring this in mind, however, studying the
 distribution of age among the patients can provide another valuable insight into
 how costs may appear.
 
-\begin{figure}[htbp]
+\begin{figure}
     \centering
     \includegraphics[width=\imgwidth]{age.pdf}
-    \caption{Bar chart for the age of patients in the dataset against the
-        estimated UK population in 2016}%
-    \label{fig:age}
+    \caption{%
+        Age of patients in the dataset compared with the estimated UK population
+        in 2016
+    }\label{fig:age}
 \end{figure}
 
 Figure~\ref{fig:age} shows this distribution in contrast to a UK population
@@ -266,14 +267,13 @@ which variables have the most prominent levels of interaction.
     between attributes \(A_j\) and \(A_k\).
 \end{definition}
 
-\begin{figure}[htbp]
+\begin{figure}
     \resizebox{\textwidth}{!}{%
         \includegraphics[width=\linewidth]{corr_heatmap.pdf}
     }
-    \caption{A heat map of the pairwise correlation coefficients for the key
-        cost attributes. The attributes have been ordered according to their
-        summed absolute correlation coefficient.}%
-    \label{fig:corr_heatmap}
+    \caption{%
+        Pairwise correlation coefficients for the key cost attributes
+    }\label{fig:corr_heatmap}
 \end{figure}
 
 Upon inspection of the heat map, there are many cost components that have no
@@ -323,33 +323,33 @@ another. This measure is known as the coefficient of variation and is
 effectively the standard deviation scaled by the mean. While the sample
 variance, for instance, is a perfectly valid estimator for the variation of a
 variable, it is dependent on the scale of the data being considered. The effect
-of this non-scaling is evident in Table~\ref{tab:summative}.
+of this non-scaling is evident in the standard deviations of
+Table~\ref{tab:summative}.
 
 \begin{definition}
     Consider a population with mean \(\mu\) and standard deviation \(\sigma\).
     Then the \emph{coefficient of variation}, denoted by \(C_v\), is defined to
     be:
-
-    \[
+    \begin{equation}\label{eq:coeff_var}
         C_{v} := \frac{\sigma}{\mu}
-    \]
+    \end{equation}
 
     If only a sample of the data from a population is available then the
     coefficient of variation can be estimated using the sample standard
-    deviation and the sample mean analogously.
+    deviation and the sample mean.
 \end{definition}
 
-In Figure~\ref{fig:cost_variation}, the coefficient of variation for each of the
-cost components is shown as a bar chart. The components have been ranked as in
+Figure~\ref{fig:cost_variation} shows the coefficient of variation for each of
+the cost components. The components have been ranked as in
 Figure~\ref{fig:corr_heatmap} from the most to least correlated. It is
-immediately clear that there are a number of strongly variant cost components.
+immediately clear that there are a number of highly variant cost components.
 Take outpatient costs (OUTP) as an example: its standard deviation is over
-thirty times the size of its mean. This could go some way in explaining why
-there seemed to be no linear correlation with the other variables in
-Figure~\ref{fig:corr_heatmap} since these costs are so wildly varied.
+thirty times the size of its mean. This relative heterogeneity could go some way
+in explaining why there seemed to be no linear correlation with the other
+variables in Figure~\ref{fig:corr_heatmap}.
 
-At the other end of the chart, ward and overhead costs have some of the smallest
-variations. This would suggest that they are in some way consistent or
+At the other end of the figure, ward and overhead costs have some of the
+smallest variations. This would suggest that they are in some way consistent or
 predictable, as was commented on in Section~\ref{subsec:corr}. Despite this, the
 dominant conclusion is that all of the cost components are still quite highly
 varied when considering the entire dataset since the majority of coefficients of
@@ -358,15 +358,17 @@ variation found have size far greater than one.
 \begin{figure}[h]
     \centering
     \includegraphics[width=\imgwidth]{cost_variation.pdf}
-    \caption{Bar chart showing the coefficient of variation \(C_{v}\) of each
-        cost component, and the net and total costs.}\label{fig:cost_variation}
+    \caption{%
+        Coefficient of variation of each cost component, and the net and total
+        costs
+    }\label{fig:cost_variation}
 \end{figure}
 
-At this point, knowing which of the cost components are the most highly varied
-is not sufficient to decide whether they are worth pursuing further. In order to
-determine the relative importance of these findings, the contribution of each
-cost component to the net cost of a spell must be considered. Then, with a sense
-of the scale of the variation acquired, the components that make the most
+Knowing which of the cost components are the most highly varied is not
+sufficient to decide whether they are worth pursuing further. To determine the
+importance of these components, the contribution of each
+cost component to the net cost of a spell should be considered. Then, with a
+sense of the scale of the variation acquired, the components that make the most
 significant impacts on net costs can be isolated. These quantities are
 calculated by taking each cost component in a spell, dividing it by its
 corresponding net cost and taking the mean over all of these values. This mean
@@ -377,36 +379,39 @@ cost component and the net cost.
 \begin{figure}[h]
     \centering
     \includegraphics[width=\imgwidth]{cost_contribution.pdf}
-    \caption{Bar chart showing the average contribution of each cost component
-        to the net cost of a spell.}\label{fig:cost_contribution}
+    \caption{%
+        Average contribution of each cost component to the net cost of a spell
+    }\label{fig:cost_contribution}
 \end{figure}
 
 By inspecting Figure~\ref{fig:cost_contribution}, it is seen that ward, overhead
 and medical (MED) costs are the largest contributors to the net cost of a spell
-by a large margin. When looking across the remaining bars, the contribution is
-substantially smaller for the department-specific cost components. Not only that
-but it appears that the most varied components (from
+by a significant margin. When looking across the remaining bars, the
+contribution is substantially smaller for the department-specific cost
+components. Not only that but it appears that the most varied components (from
 Figure~\ref{fig:cost_variation}) have near negligible average contributions to
 the net cost of a spell.
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=\linewidth]{cost_bubble.pdf}
-    \caption{A bubble plot showing the average contribution to the net cost of a
-    spell along the vertical, and the coefficient of variation for that
-    component as the size of its marker.}\label{fig:cost_bubble}
-\end{figure}
 
 So the question left to be answered is: can these small but highly varied
 components be considered especially important? And what about the other
 components? The midriffs of each of these figures contain many of the same
-components but the relationships are less clear. In order to attain some
-understanding of how these two quantities relate to one another, a bubble plot
-is used. Such a plot allows for three-dimensional data to be displayed in the
-two-dimensional plane; by running their common variable along the horizontal
-axis, both of the quantities can be visualised together by using the vertical
-axis and size as two separate dimensions, as illustrated in
-Figure~\ref{fig:cost_bubble}.
+components but the relationships are less clear. In order to visualise how these
+two quantities relate to one another, a bubble plot is used. Such a plot allows
+for three-dimensional data to be displayed in the two-dimensional plane; by
+running their common variable along the horizontal axis, both of the quantities
+can be visualised simultaneously. The bubble plot in
+Figure~\ref{fig:cost_bubble} uses the vertical axis and marker size to show net
+cost contribution and variation, respectively. The same ordering has been used
+for the components here as in the rest of the analysis.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{cost_bubble.pdf}
+    \caption{%
+        A bubble plot showing the average contribution to the net cost of a
+        spell and the coefficient of variation for each cost component
+    }\label{fig:cost_bubble}
+\end{figure}
 
 This figure can be interpreted either by first reading along the vertical axis
 to find the components that make the most considerable contribution to treating
@@ -417,32 +422,33 @@ how much of an impact that has on the net cost, as has been done above. The crux
 of interpreting this plot is that the further away a large marker is from the
 zero line, the more important that component is to be considered. However, small
 markers are also of interest since these components indicate that the level of
-variation is relatively low --- the reasons as to why are still unknown.
+variation is relatively low there, perhaps indicating the component has been
+optimised somehow.
 
-It is easily seen from this figure that the conclusions made previously still
-hold. That is, the largest contributors have some of the smallest measures of
+This figure clearly indicates that the conclusions made previously still hold:
+that the largest contributors have some of the smallest measures of
 variation. Meanwhile, the smallest average contributors are more strongly
-varied.  What is of interest is the jump between these groups of cost
-components. There does not seem to be any particular component in the midriff of
-contributors that has large, or indeed small, variation. This suggests that a
-deeper investigation is required to properly analyse individual components and
+varied. What is of interest is the jump between these components and the others.
+There does not seem to be any particular component in the midriff of
+contributors that has large, or small, variation. As such, a deeper
+investigation is required to properly analyse individual components and
 their relationships with specific types of patient.
 
 
 \section{Diabetic patient analysis}\label{sec:diabetes}
 \graphicspath{{chapters/data/paper/img/diabetes/}}
 
-The main conclusion to be taken away from the previous summative analysis is
-that the dataset contains a huge amount of variation. Therefore, in order to
+The main conclusion to be taken away from the previous analysis was that the
+dataset contains a significant amount of variation. Therefore, in order to
 conduct more meaningful analysis, more homogeneous subsets of the data must be
 considered.
 
-Classically, patients are categorised by age or condition. However, it has been
-shown that doing so often gives an unrepresentative slice of
-patients~\cite{Vuik2016a}. In this section, the focus will be on the diabetic
-population within the dataset despite this potential danger as it provides a
-good example of condition-based slicing and is of interest to public health
-groups.
+Classically, patients are categorised by age or condition. However, doing so
+often gives an unrepresentative slice of patients~\cite{Vuik2016a}. In this
+section, the focus will be on the diabetic population within the dataset despite
+this potential danger as it provides a good example of condition-based slicing.
+Furthermore, diabetes is a condition of growing interest to public health
+research.
 
 Since diabetes is recorded only as a primary or secondary condition in the
 dataset and is not distinguished by type, the diabetic population is considered
@@ -480,7 +486,7 @@ illness, and this is bolstered by the complete difference in the shape of the
 distribution of maximal diagnosis numbers pictured in
 Figure~\ref{fig:diab_no_diag}.
 
-\begin{figure}[htbp]
+\begin{figure}
     \centering
     \includegraphics[width=\imgwidth]{no_spells.pdf}
     \caption{Bar chart for the number of spells associated with a patient in the
@@ -488,7 +494,7 @@ Figure~\ref{fig:diab_no_diag}.
     \label{fig:diab_no_spells}
 \end{figure}
 
-\begin{figure}[htbp]
+\begin{figure}
     \centering
     \includegraphics[width=\imgwidth]{los.pdf}
     \caption{Bar chart for the total length of a spell in the presence of
@@ -496,7 +502,7 @@ Figure~\ref{fig:diab_no_diag}.
     \label{fig:diab_los}
 \end{figure}
 
-\begin{figure}[htbp]
+\begin{figure}
     \centering
     \includegraphics[width=\imgwidth]{no_diag.pdf}
     \caption{Bar chart for the maximum number of diagnoses in a spell in the
@@ -504,7 +510,7 @@ Figure~\ref{fig:diab_no_diag}.
     \label{fig:diab_no_diag}
 \end{figure}
 
-\begin{figure}[htbp]
+\begin{figure}
     \centering
     \includegraphics[width=\imgwidth]{no_proc.pdf}
     \caption{Bar chart for the total number of procedures in a spell in the
@@ -512,7 +518,7 @@ Figure~\ref{fig:diab_no_diag}.
     \label{fig:diab_no_proc}
 \end{figure}
 
-\begin{figure}[htbp]
+\begin{figure}
     \centering
     \includegraphics[width=\imgwidth]{netcost.pdf}
     \caption{Estimated probability density for the net cost of a spell in the
@@ -536,7 +542,7 @@ breakdown of the skeleton for each of these attributes as well as the other key
 attributes is given in Table~\ref{tab:diab_summative}. This table also shows a
 comparison between both populations being considered in this section.
 
-\begin{figure}[htbp]
+\begin{figure}
     \centering
     \includegraphics[width=\imgwidth]{age.pdf}
     \caption{Bar chart for the age of patients in the presence of diabetes and
@@ -589,7 +595,7 @@ population. Again, the attributes have been ranked in descending order according
 to their summed absolute correlation coefficient~\eqref{eq:abs_corr} to
 determine those with the highest levels of interaction.
 
-\begin{figure}[htbp]
+\begin{figure}
     \resizebox{\textwidth}{!}{%
         \includegraphics[width=\linewidth]{corr_heatmap.pdf}
     }
@@ -599,7 +605,7 @@ determine those with the highest levels of interaction.
     \label{fig:diab_corr_heatmap}
 \end{figure}
 
-\begin{figure}[htbp]
+\begin{figure}
     \resizebox{\textwidth}{!}{%
         \includegraphics[width=\linewidth]{corr_diff_heatmap.pdf}
     }
@@ -832,7 +838,7 @@ part, to the changes in NHS policy referenced above but also the ever-increasing
 pressure put on the hospital system to move patients through the system
 efficiently in order to save on idle costs such as ward costs and overheads.
 
-\begin{figure}[htbp]
+\begin{figure}
     \centering
     \includegraphics[width=.95\imgwidth]{admissions_time.pdf}
     \caption{Monthly averages for the proportion of daily admissions presenting
@@ -840,7 +846,7 @@ efficiently in order to save on idle costs such as ward costs and overheads.
     \label{fig:admissions}
 \end{figure}
 
-\begin{figure}[htbp]
+\begin{figure}
     \centering
     \includegraphics[width=.95\imgwidth]{netcost_time.pdf}
     \caption{Monthly averages for the proportion of daily net cost spending
@@ -849,7 +855,7 @@ efficiently in order to save on idle costs such as ward costs and overheads.
     \label{fig:netcost_proportions}
 \end{figure}
 
-\begin{figure}[htbp]
+\begin{figure}
     \centering
     \includegraphics[width=.95\imgwidth]{los_time.pdf}
     \caption{Monthly averages for the average length of a diabetic patient's
