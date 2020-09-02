@@ -7,6 +7,7 @@ words = {
     "CRIT",
     "Centroids",
     "Charlson",
+    "Comorbidity",
     "Cwm",
     "DBSCAN",
     "DBSCAN's",
