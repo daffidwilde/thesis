@@ -445,23 +445,23 @@ considered.
 
 Classically, patients are categorised by age or condition. However, doing so
 often gives an unrepresentative slice of patients~\cite{Vuik2016a}. In this
-section, the focus will be on the diabetic population within the dataset despite
-this potential danger as it provides a good example of condition-based slicing.
-Furthermore, diabetes is a condition of growing interest to public health
-research.
+section, the focus will be on the diabetic population within the dataset,
+despite this potential danger, as it provides a good example of condition-based
+slicing. Furthermore, diabetes is a condition of growing interest to public
+health research.
 
 Since diabetes is recorded only as a primary or secondary condition in the
 dataset and is not distinguished by type, the diabetic population is considered
 to be any instance where diabetes is present.
 
-The ensuing analysis will provide evidence that the diabetic population is
+The following analysis will provide evidence that the diabetic population is
 increasing in the Cwm Taf area, and that, despite this, the relative resource
 consumption by diabetic patients has been stagnant over the data period. It will
 also be seen that this population holds too much variation to make meaningful 
 conclusions about the population on the whole. However, by considering a subset
 based on a condition such as this, there is a natural opportunity to compare
 the subset with its complement; by considering the differences and similarities
-between these two datasets a new dimension is added to the analysis.
+between these two groups, a new dimension is added to the analysis.
 
 
 \subsection{Distributions and summary statistics}%
@@ -471,102 +471,80 @@ In much the same way as in Section~\ref{subsec:distributions_statistics}, taking
 an overview of the key attributes provides some idea about how costs are
 represented in the data.
 Figures~\ref{fig:diab_no_spells}~---~\ref{fig:diab_netcost} show
-the same statistics as in the summary analysis though these figures have two
+the same statistics as in the summary analysis, although these figures have two
 additional components: (a) in the case of bar charts, separate plots for overall
 frequency and frequency density, and (b) a comparison with the non-diabetic
-population on the same axes. The purpose of the separate bar charts is to show,
-firstly, the relative sizes between the groups and their bins, and then to be
-able to directly compare their distributions.
+population on the same axes. The purpose of the separate bar charts is to show
+the relative sizes of the groups, and then to be able to directly compare their
+distributions.
 
 As before, the distributions of the diabetic population have long tails but they
 are often heavier than the general or non-diabetic populations which are
 arguably interchangeable given their sizes. This extra weight in the tails
 suggests that diabetic patients are more likely to experience severe periods of
 illness, and this is bolstered by the complete difference in the shape of the
-distribution of maximal diagnosis numbers pictured in
+distribution of maximum spell diagnoses pictured in
 Figure~\ref{fig:diab_no_diag}.
 
 \begin{figure}
     \centering
     \includegraphics[width=\imgwidth]{no_spells.pdf}
-    \caption{Bar chart for the number of spells associated with a patient in the
-        presence of diabetes and not.}%
-    \label{fig:diab_no_spells}
+    \caption{%
+        Bar chart for the number of spells associated with a patient in the
+        presence of diabetes and not
+    }\label{fig:diab_no_spells}
 \end{figure}
 
 \begin{figure}
     \centering
     \includegraphics[width=\imgwidth]{los.pdf}
-    \caption{Bar chart for the total length of a spell in the presence of
-        diabetes and not, clipped at 21 days. \textit{Maximum 705 days.}}%
-    \label{fig:diab_los}
+    \caption{%
+        Bar chart for the total length of a spell in the presence of diabetes
+        and not
+    }\label{fig:diab_los}
 \end{figure}
 
 \begin{figure}
     \centering
     \includegraphics[width=\imgwidth]{no_diag.pdf}
-    \caption{Bar chart for the maximum number of diagnoses in a spell in the
-        presence of diabetes and not.}%
-    \label{fig:diab_no_diag}
+    \caption{%
+        Bar chart for the maximum number of diagnoses in a spell in the presence
+        of diabetes and not
+    }\label{fig:diab_no_diag}
 \end{figure}
 
 \begin{figure}
     \centering
     \includegraphics[width=\imgwidth]{no_proc.pdf}
-    \caption{Bar chart for the total number of procedures in a spell in the
-        presence of diabetes and not.}%
-    \label{fig:diab_no_proc}
+    \caption{%
+        Bar chart for the total number of procedures in a spell in the presence
+        of diabetes and not
+    }\label{fig:diab_no_proc}
 \end{figure}
 
 \begin{figure}
     \centering
     \includegraphics[width=\imgwidth]{netcost.pdf}
-    \caption{Estimated probability density for the net cost of a spell in the
-        presence of diabetes and not, clipped at \pounds12,500. \textit{Maximum
-        approx. \pounds369,000.}}%
-    \label{fig:diab_netcost}
+    \caption{%
+        Kernel density estimate for the net cost of a spell in the presence of
+        diabetes and not
+    }\label{fig:diab_netcost}
 \end{figure}
 
-Other than diagnosis numbers, the shapes of the distributions here are
-comparable. As stated, the tails are heavier across the board for the diabetic
+Other than diagnosis numbers, the shapes of the distributions here are broadly
+equivalent, but the tails are heavier across the board for the diabetic
 population. With that being true, it follows that the noses are substantially
-lighter, which is most clearly evident in Figures~\ref{fig:diab_no_spells},~%
-\ref{fig:diab_los},~\ref{fig:diab_no_proc}~and~\ref{fig:diab_netcost}. These
-figures imply that diabetic patients are more likely to return, have more
-procedures and stay longer in the hospital. As a result, they will typically
-incur higher costs than non-diabetic patients. All of these observations suggest
-that diabetic patients represent a population of patients and spells that are
-more severe on average than the typical patient. Therefore, they will likely
-have a larger effect on the hospital system on the whole. Again, a more detailed
-breakdown of the skeleton for each of these attributes as well as the other key
-attributes is given in Table~\ref{tab:diab_summary}. This table also shows a
-comparison between both populations being considered in this section.
-
-\begin{figure}
-    \centering
-    \includegraphics[width=\imgwidth]{age.pdf}
-    \caption{Bar chart for the age of patients in the presence of diabetes and
-        not}%
-    \label{fig:diab_age}
-\end{figure}
-
-The distribution of patients' age is given in Figure~\ref{fig:diab_age} and
-quite clearly shows how unrepresentative a slice the diabetic population can be
---- as was discussed above. Here, when looking at the frequency density plot,
-all the intricacies in the shape of the age distribution for the entire dataset
-and the non-diabetic population are dropped. Instead, the distribution indicates
-negative skew and disproportionate amount of older patients. Thus, considering
-the diabetic population is similar to just considering older patients since they
-dominate the population.
-
-However, the small number of younger diabetic patients
-that remain could be polluting the population and this analysis. A remedy for
-this would be to consider two or more diabetic populations based on their age
-and perhaps a combination of other attributes including severity or total cost.
-Deciding meaningful populations like these would require a large amount of
-potentially arbitrary splitting on, or estimation of, such attributes. As such,
-these methods will be avoided since they are not guaranteed to be appropriate or
-robust.
+lighter, which is most clearly evident in Figure~\ref{fig:diab_los} and
+Figure~\ref{fig:diab_netcost}. These figures, and the others in this group,
+imply that diabetic patients are more likely to return, have more procedures and
+stay longer in the hospital. As a result, they will typically incur higher costs
+than non-diabetic patients. All of these observations suggest that diabetic
+patients represent a population whose spells are more severe on average than the
+typical patient. Therefore, they will likely have a larger effect on the
+hospital system on the whole. Again, a more detailed breakdown of the skeleton
+for each of these attributes as well as the other key attributes is given in
+Table~\ref{tab:diab_summary}. This table also shows a comparison between both
+populations being considered in this section.
 
 \afterpage{%
     \clearpage%
@@ -585,172 +563,192 @@ robust.
     \end{landscape}
 }
 
+\begin{figure}
+    \centering
+    \includegraphics[width=\imgwidth]{age.pdf}
+    \caption{%
+        Bar chart for the age of patients in the presence of diabetes and not
+    }\label{fig:diab_age}
+\end{figure}
+
+The patient age distribution for each group is given in
+Figure~\ref{fig:diab_age}. This figure quite clearly shows how unrepresentative
+a slice the diabetic population can be. When looking at the frequency density
+plot, all the intricacies in the shape of the non-diabetic population are
+dropped. Instead, the distribution has a distinct negative skew with a
+disproportionate number of older patients. Thus, studying the entire diabetic
+population is akin to considering some subset of all older patients. In effect,
+this would ignore the younger diabetic population.
+
+Conversely, the small number of younger diabetic patients that remain could be
+confusing the population somehow, and then any subsequent analysis of that
+population. A remedy for this would be to consider two or more diabetic
+populations based on their age and perhaps a combination of other attributes
+including severity or total cost. Deciding meaningful populations like these
+would require a significant amount of potentially arbitrary splitting on, or
+estimation of, such attributes. In Chapter~\ref{chp:copd}, an automatic approach
+to separating a condition-specific population on features like these is used
+without the need for such clinical expertise or exertion.
+
+
 \subsection{Pairwise correlation}\label{subsec:diab_correlation}
 
 With an overview of how the key attributes are distributed in mind, as before,
 it is a good idea to see how these attributes interact with one another. In
 Figure~\ref{fig:diab_corr_heatmap}, the Pearson correlation coefficients
 are shown between each of the pairs of the key attributes in the diabetic
-population. Again, the attributes have been ranked in descending order according
-to their summed absolute correlation coefficient~\eqref{eq:abs_corr} to
-determine those with the highest levels of interaction.
+population.
+
+Again, the attributes have been ranked in descending order according to their
+summed absolute correlation coefficient~\eqref{eq:abs_corr} to determine those
+with the highest levels of interaction. The correlation matrix for the
+non-diabetic population has been omitted as it is similar to that of the general
+population.
 
 \begin{figure}
     \resizebox{\textwidth}{!}{%
         \includegraphics[width=\linewidth]{corr_heatmap.pdf}
     }
-    \caption{A heat map of the pairwise correlation coefficients for the key
-        cost attributes in diabetic patients. The attributes have been ordered
-        according to their summed absolute correlation coefficient.}%
-    \label{fig:diab_corr_heatmap}
+    \caption{%
+        A heat map of the pairwise correlation coefficients for the key
+        attributes in diabetic patients
+    }\label{fig:diab_corr_heatmap}
 \end{figure}
 
 \begin{figure}
     \resizebox{\textwidth}{!}{%
         \includegraphics[width=\linewidth]{corr_diff_heatmap.pdf}
     }
-    \caption{A heat map of the difference in pairwise correlation coefficients
-        between the diabetic and general populations. These attributes have been
-        ordered according to the sum of their absolute values.}%
-    \label{fig:diab_corr_difference}
+    \caption{%
+        A heat map of the difference in pairwise correlation coefficients
+        between the diabetic and general populations
+    }\label{fig:diab_corr_difference}
 \end{figure}
 
-To more clearly see the subtleties between these correlation coefficients and
-those in Figure~\ref{fig:corr_heatmap}, another heat map has been included to
-show their differences in Figure~\ref{fig:diab_corr_difference}. This heat
-map utilises a different colour map to reflect this, and the attributes have
-been ranked in descending order of their summed absolute differences. From this
-figure it is seen that drug and therapy costs (DRUG and THER respectively) have
-the largest total difference in correlation coefficients. In fact, the sign of
-these differences are in line with those coefficients in both of the previous
-heat maps meaning that these attributes are more strongly correlated among
-diabetic patients than for the general population.
+To more directly see the subtleties between these correlation coefficients and
+those of the general population (shown in Figure~\ref{fig:corr_heatmap}),
+another heat map has been included to show their differences in
+Figure~\ref{fig:diab_corr_difference}. This heat map utilises a different colour
+map to reflect this, and the attributes have been ranked in descending order of
+their summed absolute differences.
 
-However, other than a small number of attributes at the top, this difference
-heat map shows that the vast majority of correlation coefficients are unaffected
-by considering the diabetic population alone. Given the large amounts of
-variation and low levels of correlation seen in Section~\ref{subsec:corr}, this
-is unsurprising but where there are differences suggests potential areas of
-interest when comparing the corresponding diabetic variation with the
-non-diabetic and general populations.
+This figure indicates that drug and therapy costs (DRUG and THER respectively)
+have the largest total difference in correlation coefficients. In fact, the
+signs of each coefficient are the same, and so we can say that the diabetic
+population has more strongly correlated drug and therapy costs. The same
+pattern occurs with a number of other cost components, including the core
+components from the general population: ward, medical and overhead costs. These
+increased correlation coefficients may be indicative of some intrinsic property
+the diabetic population holds. However, they could merely be a coincidence of
+considering a subset of the dataset that is, by default, more homogeneous.
+
+Other than the few attributes at the top, this difference heat map shows that
+the vast majority of correlation coefficients are unaffected by considering the
+diabetic population alone. Given the large amounts of variation and low levels
+of correlation seen in Section~\ref{subsec:corr}, this is unsurprising, but
+where there are differences suggests potential areas of interest when comparing
+the corresponding diabetic variation with the non-diabetic and general
+populations.
 
 
 \subsection{Variation and relative importance}\label{subsec:diab_variation}
 
-Again, it has been established how the key attributes are distributed and
-interact in both the diabetic and non-diabetic populations. From here, the 
-remaining component of the methodology established in Section~\ref{sec:overview}
-is to investigate variation and importance.
+The distributions of the key attributes, and some notion of their
+interactions, have been established. The remaining stage of the methodology
+established in Section~\ref{sec:overview} is to investigate variation and the
+relative importance of the cost components themselves.
 Figures~\ref{fig:diab_variation}~and~\ref{fig:diab_contribution} show these
 quantities, and are ranked as in Figure~\ref{fig:diab_corr_heatmap}.
 
-\begin{figure}[h]
+\begin{figure}
     \centering
     \includegraphics[width=\imgwidth]{cost_variation.pdf}
-    \caption{Bar chart showing the coefficient of variation \(C_{v}\) of each
-        cost component, and the net and total costs, in the presence of diabetes
-        and not.}%
-    \label{fig:diab_variation}
+    \caption{%
+        Bar chart showing the coefficient of variation \(C_{v}\) of each cost
+        component, and the net and total costs, in the presence of diabetes and
+        not
+    }\label{fig:diab_variation}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}
     \centering
     \includegraphics[width=\imgwidth]{cost_contribution.pdf}
-    \caption{Bar chart showing the average contribution of each cost component
-        to the net cost of a spell in the presence of diabetes and not.}%
-    \label{fig:diab_contribution}
+    \caption{%
+        Bar chart showing the average contribution of each cost component
+        to the net cost of a spell in the presence of diabetes and not
+    }\label{fig:diab_contribution}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}
     \centering
     \includegraphics[width=\linewidth]{cost_bubble.pdf}
-    \caption{A bubble plot showing a comparison between the diabetic and
+    \caption{%
+        A bubble plot showing a comparison between the diabetic and
         non-diabetic populations' average contribution to the net cost of a
-        spell along the vertical, and the coefficient of variation for that
-        component as the size of its marker.}%
-    \label{fig:diab_bubble}
+        spell, and the coefficient of variation, for each cost component
+    }\label{fig:diab_bubble}
 \end{figure}
 
 Aside from the change in the order of the attributes compared with
 Figure~\ref{fig:cost_variation}, this plot is largely similar: more weakly
 correlated attributes tend to be more highly varied and the overall level of
 relative variation is high. Having said that, the diabetic population is
-consistently less than, or similarly, varied in each instance except operating
-theatre (OPTH), radiotherapy (RADTH) and endoscopy (ENDO) costs which implies
-that this subset of the dataset is in fact somewhat more homogeneous, as
-desired.
+consistently less than, or similarly, varied than the non-diabetic population in
+each instance; this is true for except operating theatre (OPTH), radiotherapy
+(RADTH) and endoscopy (ENDO) costs. Regardless, the decrease in overall cost
+variation indicates that this subset of the dataset is in fact somewhat more
+homogeneous, as has been noted, and as is desired.
 
-Inspecting Figure~\ref{fig:diab_contribution} tells a similar story as with the
-general population. That is, the dominant cost components are still overheads,
+Inspecting Figure~\ref{fig:diab_contribution} tells a similar story to that of
+the general population: the dominant cost components are still overheads,
 medical and ward costs, and the least correlated (and often most varied)
-components are insignificant in their contribution to net costs. However, there
-is a certain interest in the increased contribution from ward costs and those
-from specific departments such as pharmacy (PHAR), pathology (PATH), and imaging
-(IMG). The apparent increase in the likelihood, severity and length of diabetic
-patient spells seen in Table~\ref{tab:diab_summary} --- and alluded to by the
-heavier tails in
-Figures~\ref{fig:diab_no_spells}~---~\ref{fig:diab_no_proc} --- seems to
-be linked to a rise in costs more generally which can be rationalised given
-that this population all exhibit at least one chronic disease that is known to
-have several comorbidities and knock-on effects more widely associated with a
-patient's well-being~\cite{Deschenes2015}~\cite{Klimek2015}~\cite{Walker2016}.
+components are insignificant in their contributions to net costs. However,
+there is a certain interest in the increased contribution from ward costs and
+those from specific departments such as pharmacy (PHAR), pathology (PATH), and
+imaging (IMG). The apparent increase in the likelihood, severity and length of
+diabetic patient spells seen in Table~\ref{tab:diab_summary} --- and the figures
+in Section~\ref{subsec:diab_dists_stats} --- seems to be linked to a rise in
+costs more generally. This increase can be rationalised given that the patients
+within this population all exhibit at least one chronic disease that is known to
+have several comorbidities and knock-on effects more widely associated with the
+well-being of a patient~\cite{Deschenes2015,Klimek2015,Walker2016}.
 
-In much the same way as in the previous section, the bubble plot shown in
-Figure~\ref{fig:diab_bubble} allows these quantities to be considered
-simultaneously, and again, there is little to gain from its information. There
-are no distinctly important components here and the system seems to be optimised
-for both the diabetic and non-diabetic populations. That is, to the point where
-the smallest relative variation of a component is still twice its mean.
-
-So what was there to gain by looking at the diabetic population? From this
-surface-level analysis, it was found that the diabetic population is marginally
-more homogeneous than the general or non-diabetic population but that it still
-exhibits a large amount of variation. This was to be expected since the decision
-to look at diabetic patients was effectively arbitrary, and was not descriptive
-enough to indicate that any particular kind of patient was being investigated
-other than that they must exhibit this one condition. So, in that way, there was
-little to gain. However, as has been noted throughout this analysis, taking a
-subset of the population allows for some comparison with its complement
-(depicted in most
-Figures~\ref{fig:diab_no_spells}~through~\ref{fig:diab_bubble}) as well
-as the entire dataset. Comparisons of the latter form will be discussed further
-in the remainder of this analysis.
+As in the previous section, the bubble plot in Figure~\ref{fig:diab_bubble}
+allows these quantities to be considered simultaneously. Again, and despite the
+efficacy of the visualisation itself, there is little insight to be gained.
+There are no distinctly important components here and the system seems to be
+optimised for both the diabetic and non-diabetic populations. This
+`optimisation' is only up to the point where the smallest relative variation of
+a component is still twice its mean.
 
 
 \subsection{Resource consumption}\label{subsec:diab_resources}
 
 The types of comparisons made between the non-diabetic and diabetic populations
 throughout this analysis are useful for observing their similarities in a direct
-way, and in understanding how the groups may relate to one another.
+way, and in understanding how the groups may relate to one another. However,
+these are not the only devices available for examining such a subset of the
+data. Particularly when looking at costing data such as this, another useful way
+of evaluating a subset is to quantify its contributions to those costs over time
+with regard to the general population. The attributes used to identify these
+contributions can give a sense of the level and nature of the resources that are
+consumed by the population in question. This stage of the analysis considers the
+following attributes: the proportion of net costs and admissions, and the length
+of stay. 
 
-However, these are not the only devices available for examining such a subset of
-the data. Particularly when looking at costing data such as this, another useful
-way of evaluating a subset is to quantify its size and representation in the
-data with respect to various cost-indicative attributes. These attributes can
-give a sense of the level and nature of the resources that are consumed by the
-population in question. Namely, these attributes are: the proportion of total
-net costs and admissions, and length of stay. During this part of the analysis,
-these attributes will be referred to as the ``chosen'' attributes.
-
-In addition, while considering that costs are the focus of this body of
-chapter, it can be useful to investigate how certain cost-related quantities
-evolve for a subset of the population. In this section of the analysis, the
-evolution of the aforementioned attributes will be discussed within the diabetic
-population as a part of the general data population. For these purposes, the
-data must be manipulated into a chronological form and so some approximations
-have to be made. Here, each of the chosen attributes is given with respect to a
-particular admission date, and has been calculated in the following way for each
-admission date:
-
+For these purposes, the data must be manipulated into a chronological form.
+Therefore, some approximations must be made. Here, each of the chosen attributes
+is given with respect to a particular admission date, and has been calculated in
+the following way for each admission date:
 \begin{itemize}
-    \item \textbf{Proportion of total admissions:} Take the number of unique
+    \item Proportion of total admissions. Take the number of unique
         spells for diabetic patients admitted on that day, \(n_d\), and the
         total number of unique spells with that admission date, \(N\). The
         proportion of total admissions on that day from diabetic patients is
         given by \(\frac{n_d}{N}\).
-    \item \textbf{Average length of stay:} Take the mean over all lengths of
+    \item Average length of stay. Take the mean over all lengths of
         stay from the diabetic spells with that admission date.
-    \item \textbf{Proportion of net costs:} Take the net cost for each diabetic
+    \item Proportion of net costs. Take the net cost for each diabetic
         spell beginning on that admission date and sum them, denote this by
         \(c_d\). Do the same with the net cost of all spells with that admission
         date and denote this by \(C\). Then the proportion of net costs spent on
@@ -758,80 +756,44 @@ admission date:
 \end{itemize}
 
 The obvious benefit of taking the quantities in this way is that it allows for
-the data to be arranged with some sense of time, but there is a glaring issue.
-That being that the data will be misrepresented when manipulated in this way.
-For instance, the length of a spell has no definitive connection to the
-admission date of that spell. By grouping all the spells starting on that day
-together and taking their mean, any adversely long spells will push the mean
-upwards. Also, there is a time-related error when taking the net cost of a spell
-on any one day in that spell since that cost was not truly spent or incurred on
-that day necessarily.
+the data to be arranged with some sense of time. However, there is a glaring
+issue: that the data will be misrepresented when manipulated in this way. For
+instance, the length of a spell has no definitive connection to the admission
+date of that spell; by grouping all the spells starting on that day together and
+taking their mean, any adversely long spells will push the mean upwards. Also,
+there is a time-related error when taking the net cost of a spell on any one day
+in that spell since that cost was not truly spent or incurred on that day
+necessarily.
 
 Irrespective of these misrepresentations,
 Figures~\ref{fig:admissions}~---~\ref{fig:los_time} show how these quantities
-evolve over the entire data period. In each case, the monthly and year means are
-shown, and the standard deviation of the monthly averages in a year are given as
-error bars. The data has been aggregated into monthly and yearly averages rather
-than using the daily, or evenly weekly, data in an attempt to smooth out the
-misrepresentation that is described above. In addition to these plotted points,
-the data has been fitted with a standard linear regression model --- the
-statistics of which are given beneath the legend in each plot. These statistics
-are the R-squared value and standard error. These statistics help to describe
-the goodness of fit of the model and their definitions are given below.
-
-\begin{definition}
-    Consider a dataset with \(n\) values, denoted by \(x_1, \ldots, x_n\). Each
-    of these data points has associated with it a predicted value obtained from
-    the fitted model, denoted by \(y_1, \ldots, y_n\). Let the mean of the
-    dataset be denoted by \(\bar x\). The \emph{coefficient of determination},
-    denoted by \(R^2\), is defined to be:
-
-    \[
-        R^2 = 1 - \frac{\sum_{i=1}^{n} {\left(x_i - y_i\right)}^2}%
-                       {\sum_{i=1}^{n} {\left(x_i - \bar x\right)}^2}
-    \]
-
-    Intuitively, the R-squared value represents the proportion of variation in
-    the data that is explained by the model fitted, and thus should take a value
-    in the interval \(\left[0, 1\right]\).
-\end{definition}
-
-\begin{definition}
-    Consider a dataset with \(n\) values, \(x_1, \ldots, x_n\), and their
-    corresponding predicted values, \(y_1, \ldots, y_n\). Then the
-    \emph{standard error of the estimate}, denoted by \(SE\), is defined to be:
-
-    \[
-        SE = \sqrt{%
-            \frac{\sum_{i=1}^{n} {\left(x_i - y_i\right)}^2}{n}
-        }
-    \]
-
-    The standard error represents the average distance (error) of the data
-    points from the regression line. The benefit of this statistic is that it
-    gives a measure of the precision of the model on the scale of the variable
-    that has been predicted.
-\end{definition}
+evolve over the entire data period. In each case, the weekly, monthly and yearly
+means are shown. The data has been aggregated in this way, rather than using the
+daily data, in an attempt to smooth out the misrepresentation that is described
+above. In addition to these plotted points, the data has been fitted with a
+standard least-squares linear regression model.
 
 Figures~\ref{fig:admissions}~and~\ref{fig:netcost_proportions} suggest that the
-amount of resources consumed by the diabetic population is increasing, though
-slowly. The former indicates that on average the number of diabetic patients
-visiting the hospital is increasing slowly (approximately a one percent increase
-over five years), and from the latter it is seen that the yearly average
-proportion of net spending on diabetic patients has also experienced a shallow
-increase of roughly half a percent over the same period. So, indeed, these plots
-give evidence to support the claim.
+amount of resources consumed by the diabetic population is increasing slowly.
+The former indicates that, on average, the number of diabetic patients
+visiting the hospital is increasing at a rate of approximately one percent over
+five years. From the latter, it is seen that the yearly average proportion of
+net spending on diabetic patients has also experienced a shallow increase of
+roughly half a percent over the same period.
 
-In addition to this, both figures show a distinct divergence as time progresses
-as shown by both the spread in the monthly averages and the widening of the
-yearly error bars. This is an interesting phenomenon; there seems no apparent
-reason for this variability to increase in recent years with improved policy on
-prevention, diagnosis, management and
-treatment~\cite{NHS:ltp,NICE,Penn2018,PHE}.
+In addition to this, both figures show some form of divergence over time, as
+shown by the spread in the weekly and monthly averages. This is an interesting
+phenomenon; there seems no apparent reason for this variability to increase in
+recent years with improved policy on prevention, diagnosis, management and
+treatment~\cite{NHS:ltp,NICE,Penn2018,PHE}. The droops toward the end of the
+period in Figures~\ref{fig:netcost_proportions}~and~\ref{fig:los_time} are a
+result of both the chronological encoding and the data period ending. Towards
+the end of the period, there are fewer long-term patients included in the
+dataset as they have not completed their spell yet.
 
-With the final figure in this section it is clear that --- despite the slight
+With Figure~\ref{fig:los_time}, it is clear that --- despite the slight
 increase in the proportion of net costs and the number of diabetic admissions
-over the last five years --- there has been a distinct decline in the average
+over the last five years --- there has been a slight decline in the average
 length of stay for diabetic patients in the same period. This average has fallen
 from one week to roughly five and a half days. This decrease is likely due, in
 part, to the changes in NHS policy referenced above but also the ever-increasing
@@ -864,20 +826,24 @@ efficiently in order to save on idle costs such as ward costs and overheads.
     \label{fig:los_time}
 \end{figure}
 
-Across all three of the models summarised in the previous three figures, it is
-clear that none exhibit a particularly strong goodness of fit; though they all
-have appropriately small standard errors, the coefficients of determination are
-moderate at best (in the case of admissions and length of stay) and minuscule
-(in the case of net costs). This indicates that the models themselves are not
-wholly suitable in any case.
-
-It is notable, also, that there is a seasonal pattern in each of the plots which
-is consistent with the linear models not performing well. The inclusion of
-seasonal behaviour in a regression model has more to do more with the semantics
-of finding a ``good'' regression model than was intended here but it is an
-important concept nonetheless. If the purpose of this exercise was to accurately
-predict the quantities being plotted rather than just seeing the general trend,
-then a more elaborate model would have been fitted.
+Across each of the models displayed here, there appears to be some seasonality.
+The handling of seasonal behaviour in a regression model has more to do more
+with the semantics of finding a ``good'' regression model than was intended here
+but it is an important concept nonetheless. If the purpose of this exercise was
+to accurately predict the quantities being plotted rather than just seeing the
+general trend, then a more elaborate model should have been fitted.
 
 
 \section{Chapter summary}\label{sec:summary}
+
+So what was there to gain by looking at the diabetic population? From this
+surface-level analysis, it was found that the diabetic population is marginally
+more homogeneous than the general and non-diabetic populations, but it still
+exhibits a large amount of variation. The lack of novel insights may have been
+expected since the decision to look at diabetic patients was effectively
+arbitrary. Moreover, the decision framework was not descriptive enough to
+indicate that any particular kind of patient was being investigated other than
+that they must exhibit this one condition. So, in that way, there was little to
+gain. However, as has been noted throughout this analysis, taking a subset of
+the population allows for some comparison with its complement, as well as the
+entire dataset.
