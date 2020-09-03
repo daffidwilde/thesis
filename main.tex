@@ -91,8 +91,8 @@
 % Lengths
 \newlength{\imgwidth}
 \setlength{\imgwidth}{.95\textwidth}
-\newlength{\tablewidth}
-\setlength{\tablewidth}{.9\textwidth}
+\newlength{\tabwidth}
+\setlength{\tabwidth}{.9\textwidth}
 
 % Colours
 \definecolor{linenums}{HTML}{4c566a}
@@ -127,6 +127,10 @@
     citecolor=deepgreen,
     linkcolor=deepred,
     urlcolor=myurl,
+}
+
+\newcommand{\arxiv}[1]{%
+    \href{https://arxiv.org/abs/#1}{\nolinkurl{arXiv:#1}}%
 }
 
 \newcommand{\doi}[1]{%
