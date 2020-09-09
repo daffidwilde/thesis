@@ -50,6 +50,14 @@ COPD population before they arrive at the hospital.
 
 \section{Introduction}\label{sec:intro}
 
+The previous chapter attempted an exploratory analysis of a large,
+administrative, healthcare dataset, and found that the presence of high
+variation stifled the possibility of uncovering valuable insights about the
+whole population. However, there were some apparent benefits by considering a
+condition-specific population. This chapter utilises another administrative
+dataset of patients presenting chronic obstructive pulmonary disease (COPD), and
+demonstrates how actionable insights can be identified using data.
+
 Population health research is increasingly based on data-driven methods (as
 opposed to those designed solely by clinical experts) for patient-centred care
 through the advent of accessible software and a relative abundance of electronic
@@ -57,42 +65,38 @@ data. However, many such methods rely heavily on detailed data — about both th
 healthcare system and its population — which may limit research where
 sophisticated data pipelines are not yet in place.
 
-This work demonstrates a method of overcoming this, using routinely gathered,
+This chapter demonstrates a method of overcoming this, using routinely gathered,
 administrative hospital data to build a clustering that feeds into a multi-class
 queuing model, allowing for better understanding of the healthcare population
-and the system with which they interact. Specifically, this work examines
-records of patient spells from the National Health Service (NHS) Wales Cwm Taf
-Morgannwg University Health Board (UHB) presenting chronic obstructive pulmonary
-disease (COPD). COPD is a condition of particular interest to population health
-research, and to Cwm Taf Morgannwg UHB, as it is known to often present as a
-comorbidity in patients~\cite{Houben2019}, increasing the complexity of
-treatments among those with the condition. Moreover, an internal report by NHS
-Wales found the Cwm Taf Morgannwg UHB had the highest prevalence of the
-condition across all the Welsh health boards.
+and the system with which they interact. COPD is a condition of particular
+interest to population health research, and to Cwm Taf Morgannwg UHB, as it is
+known to often present as a comorbidity in patients~\cite{Houben2019},
+increasing the complexity of treatments among those with the condition.
+Moreover, an internal report by NHS Wales found the Cwm Taf Morgannwg UHB had
+the highest prevalence of the condition across all the Welsh health boards.
 
-This work draws upon several overlapping sources within mathematical research,
-and this work contributes to the literature in three ways: to theoretical
-queuing research by the estimation of missing queuing parameters with the
-Wasserstein distance; to operational healthcare research through the weaving
-together of the combination of methods used in this work despite data
-constraints; and to public health research by adding to the growing body of
-mathematical and operational work around a condition that is vital to understand
-operationally, socially and medically.
+The research in this chapter draws upon several overlapping sources within
+mathematical research, and this chapter contributes to the literature in three
+ways: to theoretical queuing research by the estimation of missing queuing
+parameters with the Wasserstein distance; to operational healthcare research
+through the weaving together of the combination of methods used in this chapter
+despite data constraints; and to public health research by adding to the growing
+body of mathematical and operational work around a condition that is vital to
+understand operationally, socially and medically.
 
-The remainder of the paper is structured as follows: Section~\ref{sec:intro}
-provides a literature review, and an overview of the dataset and its clustering;
-Section~\ref{sec:model} describes the queuing model used and the estimation of
-its parameters; Section~\ref{sec:scenarios} presents several what-if scenarios
-with insight provided by the model parameterisation and the clustering;
-Section~\ref{sec:conclusion} concludes the paper. Although the data is
+The chapter is structured as follows: Section~\ref{sec:intro} provides an
+overview of the dataset and its clustering; Section~\ref{sec:model} describes
+the queuing model used and the estimation of its parameters;
+Section~\ref{sec:scenarios} presents several what-if scenarios with insight
+provided by the model parameterisation and the clustering;
+Section~\ref{sec:conclusion} summarises the chapter. Although the data is
 confidential and may not be published, a synthetic analogue has been
-archived~\cite{Wilde2020synthetic} along with all the source code used in this
-paper~\cite{Wilde2020github}.
+archived under~\doi{10.5281/zenodo.3908167}.
 
 
 \subsection{Literature review}\label{subsec:review}
 
-Given the subject matter of this work, the relevant literature spans much of
+Given the subject matter of this chapter, the relevant literature spans much of
 operational research in healthcare, and the focus of this review is on the
 critical topics of segmentation analysis, queuing models applied to hospital
 systems, and the handling of missing or incomplete data for such queues.
@@ -108,7 +112,7 @@ system~\cite{Vuik2016b, Yoon2020}. For instance, clinical profiling often forms
 part of the broader analysis where each segment is summarised in a phrase or
 infographic~\cite{Vuik2016a, Yan2019}.
 
-The review for this work identified three commonplace groups of patient
+The review for this chapter identified three commonplace groups of patient
 characteristics used to segment a patient population: system utilisation
 metrics; clinical attributes; and the pathway. The last is not used to segment
 the patients directly, instead of grouping their movements through a healthcare
@@ -186,11 +190,11 @@ software. One example of such a piece of software is Ciw~\cite{Palmer2019}. Ciw
 is a discrete event simulation library written in Python that is fully
 documented and tested. The simulations constructed and studied in
 Sections~\ref{sec:model}~and~\ref{sec:scenarios} utilise this library and aid
-the overall reproducibility of this work.
+the overall reproducibility of this chapter.
 
 \subsubsection{Handling incomplete queue data}
 
-As is discussed in other parts of this section, the data available in this work
+As is discussed in other parts of this section, the data available in this chapter
 is not as detailed as in other comparative works. Without access to such data
 --- but intending to gain insight from what is available --- it is
 imperative to bridge the gap left by the incomplete data.
@@ -221,7 +225,7 @@ in single server and infinite server queues respectively.
 
 \subsection{Overview of the dataset and its clustering}\label{subsec:overview}
 
-The Cwm Taf Morgannwg UHB provided the dataset used in this work. The
+The Cwm Taf Morgannwg UHB provided the dataset used in this chapter. The
 dataset contains an administrative summary of 5,231 patients presenting COPD
 from February 2011 through March 2019 totalling 10,861 spells. A patient
 (hospital) spell is defined as the continuous stay of a patient using a hospital
@@ -295,7 +299,7 @@ over other initialisation methods.
 
 \begin{table}
     \centering
-    \resizebox{\tabwidth}{!}{%
+    \resizebox{\textwidth}{!}{%
         \input{\texpath/summary.tex}
     }\caption{%
         A summary of clinical and condition-specific characteristics for each
@@ -484,7 +488,7 @@ both interventions for their COPD (or either, in fact) have disproportionately
 fewer LTCs and concurrent ICDs when compared to the population. Aside from this,
 the profiles of each intervention are similar to one another.
 
-As discussed earlier, the purpose of this work is to construct a queuing model
+As discussed earlier, the purpose of this chapter is to construct a queuing model
 for the data described here. Insights have already been gained into the needs of
 the segments that have been identified in this section. However, to glean
 further insights, some parameters of the queuing model must be recovered from
@@ -502,7 +506,7 @@ particular,~\cite{Williams2015} shows how a single node, multiple server queue
 can be used to accurately predict bed capacity and length of stay distributions
 in a critical care unit using administrative data.
 
-In order to follow in the suit of recent literature, this work employs a single
+In order to follow in the suit of recent literature, this chapter employs a single
 node using the \(M/M/c\) queue to model a hypothetical ward of patients
 presenting COPD.\ In addition to this, the grouping found in
 Section~\ref{subsec:overview} provides a set of patient classes in the queue.
@@ -534,7 +538,7 @@ Without full details of the process order or idle periods during a spell, some
 assumption must be made about the actual `service' time of a patient in the
 hospital. It is assumed here that the mean service time of a group of patients
 may be approximated via their mean length of stay, i.e.\ the mean time spent in
-the system. For simplicity, this work assumes that for each cluster, \(i\), the
+the system. For simplicity, this chapter assumes that for each cluster, \(i\), the
 mean service time of that cluster, \(\frac{1}{\mu_i}\), is directly proportional
 to the mean total system time of that cluster, \(\frac{1}{\phi_i}\), such that:
 \begin{equation}\label{eq:services}
@@ -638,7 +642,7 @@ showing a precise fit by the best parameters across the board.
 
 \begin{table}
     \centering
-    \resizebox{\tabwidth}{!}{%
+    \resizebox{\textwidth}{!}{%
         \input{\texpath/comparison.tex}
     }
     \caption{A comparison of the observed data, and the best and worst simulated
@@ -805,7 +809,7 @@ public health event (such as a global pandemic) without overloading the system.
 \subsection{Moving arrivals between clusters}\label{subsec:moving}
 
 This scenario is perhaps the most relevant to actionable public health research
-of those presented here. The clusters identified in this work could be
+of those presented here. The clusters identified in this chapter could be
 characterised by their clinical complexities and resource requirements, as done
 in Section~\ref{subsec:overview}. Therefore, being able to model the movement of
 some proportion of patient spells from one cluster to another will reveal how
@@ -891,11 +895,11 @@ is found through inter-cluster transfers.
 
 \section{Conclusion}\label{sec:conclusion}
 
-This work presents a novel approach to investigating a healthcare population
+This chapter presents a novel approach to investigating a healthcare population
 that encompasses the topics of segmentation analysis, queuing models, and the
 recovery of queuing parameters from incomplete data. This investigation is done
 despite characteristic limitations in operational research concerning the
-availability of fine-grained data, and this work only uses administrative
+availability of fine-grained data, and this chapter only uses administrative
 hospital spell data from patients presenting COPD from the Cwm Taf Morgannwg
 UHB.\
 
@@ -909,7 +913,7 @@ inform actual public health policy.
 In particular, since neither the resource capacity of the system nor the
 clinical processes of the spells are evident in the data, service times and
 resource levels are not available. However, the length of stay is. Using what is
-available, this work assumes that mean service times can be parameterised using
+available, this chapter assumes that mean service times can be parameterised using
 mean lengths of stay. By using the Wasserstein distance to compare the
 distribution of the simulated lengths of stay data with the observed data, a
 best performing parameter set is found via a parameter sweep.
@@ -918,7 +922,7 @@ This parameterisation ultimately recovers a surrogate for service times for each
 cluster, and a universal number of servers to emulate resource availability. The
 parameterisation itself offers its strengths by being simple and effective.
 Despite its simplicity, a good fit to the observed data is found, and --- as is
-evident from the closing section of this work --- substantial and useful
+evident from the closing section of this chapter --- substantial and useful
 insights can be gained into the needs of the population under study.
 
 This mode of analysis, in effect, considers all types of patient arrivals and
