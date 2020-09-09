@@ -120,7 +120,7 @@ any given patient.
 
 \subsection{Cleaning the data}\label{subsec:formatting}
 
-As with any data analysis, a substantial amount of preprocessing and formatting
+As with any data analysis, a substantial amount of preprocessing
 is required to make the data sufficiently consistent and suitable for analysing.
 With the dataset at hand, this process included the removal of some superfluous
 attributes which added unwanted redundancy to the dataset, and a number of rows
@@ -151,7 +151,7 @@ of a patient's spell in hospital.
 When looking at the distributions of the key attributes on the whole dataset, as
 displayed in Figures~\ref{fig:no_spells}~---~\ref{fig:netcost}, it is clear that
 the data is weighted towards low-cost, short-stay, and otherwise low-impact
-patients. This behaviour is especially clear in
+patients. This is especially clear in
 Figures~\ref{fig:no_spells}~and~\ref{fig:los}. Here, it is clear that, of all
 the spells provided under the care of the health board, the majority are
 day-cases. Also, the patients being treated are one-time users of the hospital
@@ -192,7 +192,7 @@ system.
     \label{fig:netcost}
 \end{figure}
 
-In general, the distributions themselves have long, pronounced tails, suggesting
+In general, the distributions themselves have long tails, suggesting
 an adverse effect of severe cases, despite being a rarity. Moreover, although
 the length and returning frequency of the spells are minimal and tightly packed,
 their associated net costs are wildly variant. This variation is shown in
@@ -237,13 +237,13 @@ the late fifties where a decline appears as older people become less prevalent.
 Looking instead at the distribution belonging to the patients, it is clear that
 there are several peaks and troughs. The largest trough corresponds to
 adolescents which makes sense anecdotally since some of the least likely people
-to visit a hospital would be reaching their peak fitness biologically.
+to visit a hospital would be reaching their peak healthiness.
 Similarly, the distinct peaks around infancy and in the older age range often
 correspond to those people who are most vulnerable in terms of their health.
 Thus, a hospital should expect to see a disproportionate number of people at
 those ages.
 
-So, by looking at these key attributes, it would appear things are as expected:
+Looking at these key attributes, it would appear things are as expected:
 people tend to go to their local hospitals, and historically vulnerable people
 are more likely to go. However, there is significant spread in the costs,
 severity and lengths of hospital visits. Moreover, the likelihood of returning
@@ -257,8 +257,8 @@ typical, in some (broadly anecdotal) respects, of many other populations.
 \subsection{Pairwise correlation}\label{subsec:corr}
 
 Looking at the univariate distributions of the key attributes in the previous
-section gave a good base for understanding the scope of the data. As such, the
-next logical step is to investigate how these key attributes interact with one
+section gave a good base for understanding the scope of the data. The
+next step is to investigate how these key attributes interact with one
 another. In this analysis, correlation coefficients will be used to give a sense
 of this interaction.
 
@@ -296,7 +296,7 @@ which variables have the most prominent levels of interaction.
 
 Upon inspection of the heat map, there are many cost components that have no
 substantial linear correlation with any of the other attributes. The absence of
-correlation here only adds to the evidence that the patients present in the data
+correlation here only adds to the evidence that the patients in the data
 present themselves to hospital with a wide array of needs. Having said that,
 there are clear correlations between several of the attributes; some of these
 are easier to realise than others.
@@ -366,7 +366,7 @@ thirty times the size of its mean. This relative heterogeneity could go some way
 in explaining why there seemed to be no linear correlation with the other
 variables in Figure~\ref{fig:corr_heatmap}.
 
-At the other end of the figure, ward and overhead costs have some of the
+At the other end of Figure~\ref{fig:corr_heatmap}, ward and overhead costs have some of the
 smallest variations. This would suggest that they are in some way consistent or
 predictable, as was commented on in Section~\ref{subsec:corr}. Despite this, the
 dominant conclusion is that all the cost components are still quite highly
@@ -660,7 +660,7 @@ correlation coefficients may be indicative of some intrinsic property the
 diabetic population holds. However, they could merely be a coincidence of
 considering a subset of the dataset that is, by default, more homogeneous.
 
-Other than the few attributes at the top, this difference heat map shows that
+Other than the few attributes at the top, this heat map shows that
 the vast majority of correlation coefficients are unaffected by considering the
 diabetic population alone. Given the large amounts of variation and low levels
 of correlation seen in Section~\ref{subsec:corr}, this is unsurprising, but
@@ -755,7 +755,7 @@ following attributes: the proportion of net costs and admissions, and the length
 of stay. 
 
 For these purposes, the data must be manipulated into a chronological form.
-Therefore, some approximations must be made. Here, each of the chosen attributes
+Here, each of the chosen attributes
 is given with respect to a particular admission date, and has been calculated in
 the following way for each admission date:
 \begin{itemize}
@@ -862,13 +862,13 @@ gained beyond it conforming to some loosely anecdotal concept of an
 administrative healthcare dataset.
 
 Following this initial analysis, a similar methodology was employed on a slice
-of the dataset. As an act of familiarity, the diabetic population was used. The
+of the dataset. Following advice from the subject matter expert, the diabetic population was used. The
 hope of that analysis was that taking a slice according to some characteristic
 would result in a more homogeneous dataset, which was confirmed, although only
 marginally. Other than this, there were few actionable insights to be gained
 from this sort of exploratory analysis.
 
-So what was there to gain by looking at the diabetic population? The lack of
+So what was there to be gained by looking at the diabetic population? The lack of
 novel insights may have been expected since the decision to look at diabetic
 patients was effectively arbitrary. Moreover, the decision framework was not
 descriptive enough to indicate that any particular kind of patient was being
