@@ -120,7 +120,7 @@ to an overall contribution to the cost of care. Those attributes are:
 \subsection{Cleaning the data}\label{subsec:formatting}
 
 As with any data analysis, a substantial amount of preprocessing is required to
-make the data sufficiently consistent and suitable for analysing.  With the
+make the data sufficiently consistent and suitable for analysing. With the
 dataset at hand, this process included the removal of some superfluous
 attributes which added unwanted redundancy to the dataset, and a number of rows
 that had been corrupted or coded incorrectly. In addition to this, some columns
@@ -236,9 +236,9 @@ the late fifties where a decline appears as older people become less prevalent.
 Looking instead at the distribution belonging to the patients, it is clear that
 there are several peaks and troughs. The largest trough corresponds to
 adolescents which makes sense anecdotally since some of the least likely people
-to visit a hospital would be reaching their peak healthiness.  Similarly, the
+to visit a hospital would be reaching their peak healthiness. Similarly, the
 distinct peaks around infancy and in the older age range often correspond to
-those people who are most vulnerable in terms of their health.  Thus, a hospital
+those people who are most vulnerable in terms of their health. Thus, a hospital
 should expect to see a disproportionate number of people at those ages.
 
 Looking at these key attributes, it would appear things are as expected: people
@@ -298,26 +298,26 @@ clear correlations between several of the attributes; some of these are easier
 to realise than others.
 
 For instance, ignoring the main diagonal, the largest value is that between
-total costs (COST) and net costs (NetCost) with a value of 0.94. This high value
-indicates almost total positive linear correlation between these two variables,
-which makes sense given that the net cost of a spell is the total cost corrected
-for any reimbursable costs such as critical care costs (CRIT) and non-contracted
-income (NCI). Reimbursable costs are given as negative values in the dataset ---
-hence their distinctly negative correlation coefficients with the other
-variables. Typically, these deductible costs are small (see
-Table~\ref{tab:summary}) so a strong correlation between costs and net costs is
-to be expected.
+total costs ({\tt COST}) and net costs ({\tt NetCost}) with a value of 0.94.
+This high value indicates almost total positive linear correlation between these
+two variables, which makes sense given that the net cost of a spell is the total
+cost corrected for any reimbursable costs such as critical care costs ({\tt
+CRIT}) and non-contracted income ({\tt NCI}). Reimbursable costs are given as
+negative values in the dataset --- hence their distinctly negative correlation
+coefficients with the other variables. Typically, these deductible costs are
+small (see Table~\ref{tab:summary}) so a strong correlation between costs and
+net costs is to be expected.
 
-Other examples of strong correlation are those between length of stay
-(TRUE\_LOS) and ward and overhead costs (WARD and OVH respectively). These are
-well-known relationships that can be justified succinctly: the longer a patient
-spends in hospital, the more time they are likely to spend on a ward. Thus,
-incurring associated overheads like administrative work, cleaning costs and a
-larger proportion of rental costs. It should also be clear that these three
-attributes all share a strong linear correlation with the net cost of a spell,
-suggesting that these costs and the length of stay are strong indicators of the
-net cost of treating someone, and may suggest that the remaining cost components
-make up a substantially smaller part of the net cost.
+Other examples of strong correlation are those between length of stay ({\tt
+TRUE\_LOS}) and ward and overhead costs ({\tt WARD} and {\tt OVH} respectively).
+These are well-known relationships that can be justified succinctly: the longer
+a patient spends in hospital, the more time they are likely to spend on a ward.
+Thus, incurring associated overheads like administrative work, cleaning costs
+and a larger proportion of rental costs. It should also be clear that these
+three attributes all share a strong linear correlation with the net cost of a
+spell, suggesting that these costs and the length of stay are strong indicators
+of the net cost of treating someone, and may suggest that the remaining cost
+components make up a substantially smaller part of the net cost.
 
 
 \subsection{Measuring variation and importance in our cost components}
@@ -357,7 +357,7 @@ Figure~\ref{fig:cost_variation} shows the coefficient of variation for each of
 the cost components. The components have been ranked as in
 Figure~\ref{fig:corr_heatmap} from the most to least correlated. It is
 immediately clear that there are a number of highly variant cost components.
-Take outpatient costs (OUTP) as an example: its standard deviation is over
+Take outpatient costs ({\tt OUTP}) as an example: its standard deviation is over
 thirty times the size of its mean. This relative heterogeneity could go some way
 in explaining why there seemed to be no linear correlation with the other
 variables in Figure~\ref{fig:corr_heatmap}.
@@ -398,8 +398,8 @@ average of the spell-wise ratios between each cost component and the net cost.
 \end{figure}
 
 By inspecting Figure~\ref{fig:cost_contribution}, it is seen that ward, overhead
-and medical (MED) costs are the largest contributors to the net cost of a spell
-by a significant margin. When looking across the remaining bars, the
+and medical ({\tt MED}) costs are the largest contributors to the net cost of a
+spell by a significant margin. When looking across the remaining bars, the
 contribution is substantially smaller for the department-specific cost
 components. Not only that but it appears that the most varied components (from
 Figure~\ref{fig:cost_variation}) have near negligible average contributions to
@@ -646,14 +646,14 @@ Figure~\ref{fig:diab_corr_difference}. This heat map utilises a different colour
 map to reflect this, and the attributes have been ranked in descending order of
 their summed absolute differences.
 
-This figure indicates that drug and therapy costs (DRUG and THER respectively)
-have the largest total difference in correlation coefficients. In fact, the
-signs of each coefficient are the same, and so we can say that the diabetic
-population has more strongly correlated drug and therapy costs. The same pattern
-occurs with a number of other cost components, including the core components
-from the general population: ward, medical and overhead costs. These increased
-correlation coefficients may be indicative of some intrinsic property the
-diabetic population holds. However, they could merely be a coincidence of
+This figure indicates that drug and therapy costs ({\tt DRUG} and {\tt THER}
+respectively) have the largest total difference in correlation coefficients. In
+fact, the signs of each coefficient are the same, and so we can say that the
+diabetic population has more strongly correlated drug and therapy costs. The
+same pattern occurs with a number of other cost components, including the core
+components from the general population: ward, medical and overhead costs. These
+increased correlation coefficients may be indicative of some intrinsic property
+the diabetic population holds. However, they could merely be a coincidence of
 considering a subset of the dataset that is, by default, more homogeneous.
 
 Other than the few attributes at the top, this heat map shows that the vast
@@ -707,24 +707,25 @@ Figure~\ref{fig:cost_variation}, this plot is largely similar: more weakly
 correlated attributes tend to be more highly varied and the overall level of
 relative variation is high. Having said that, the diabetic population is
 consistently less than, or similarly, varied than the non-diabetic population in
-each instance; this is true for except operating theatre (OPTH), radiotherapy
-(RADTH) and endoscopy (ENDO) costs. Regardless, the decrease in overall cost
-variation indicates that this subset of the dataset is in fact somewhat more
-homogeneous, as has been noted, and as is desired.
+each instance; this is true for except operating theatre ({\tt OPTH}),
+radiotherapy ({\tt RADTH}) and endoscopy ({\tt ENDO}) costs. Regardless, the
+decrease in overall cost variation indicates that this subset of the dataset is
+in fact somewhat more homogeneous, as has been noted, and as is desired.
 
 Inspecting Figure~\ref{fig:diab_contribution} tells a similar story to that of
 the general population: the dominant cost components are still overheads,
 medical and ward costs, and the least correlated (and often most varied)
 components are insignificant in their contributions to net costs. However, there
 is a certain interest in the increased contribution from ward costs and those
-from specific departments such as pharmacy (PHAR), pathology (PATH), and imaging
-(IMG). The apparent increase in the likelihood, severity and length of diabetic
-patient spells seen in Table~\ref{tab:diab_summary} --- and the figures in
-Section~\ref{subsec:diab_dists_stats} --- seems to be linked to a rise in costs
-more generally. This increase can be rationalised given that the patients within
-this population all exhibit at least one chronic disease that is known to have
-several comorbidities and knock-on effects more widely associated with the
-well-being of a patient~\cite{Deschenes2015,Klimek2015,Walker2016}.
+from specific departments such as pharmacy ({\tt PHAR}), pathology ({\tt PATH}),
+and imaging ({\tt IMG}). The apparent increase in the likelihood, severity and
+length of diabetic patient spells seen in Table~\ref{tab:diab_summary} --- and
+the figures in Section~\ref{subsec:diab_dists_stats} --- seems to be linked to a
+rise in costs more generally. This increase can be rationalised given that the
+patients within this population all exhibit at least one chronic condition that
+is known to have several comorbidities and knock-on effects more widely
+associated with the well-being of a
+patient~\cite{Deschenes2015,Klimek2015,Walker2016}.
 
 As in the previous section, the bubble plot in Figure~\ref{fig:diab_bubble}
 allows these quantities to be considered simultaneously. Again, and despite the
