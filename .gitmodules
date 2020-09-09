@@ -1,20 +1,20 @@
 [submodule "chapters/edo/paper"]
 	path = chapters/edo/paper
-	url = https://github.com/daffidwilde/edo-paper
-    branch = main
+  url = https://github.com/daffidwilde/edo-paper
+  branch = main
 [submodule "chapters/kmodes/paper"]
-	path = chapters/kmodes/paper
-    url = https://github.com/daffidwilde/kmodes-init-paper
-    branch = main
+  path = chapters/kmodes/paper
+  url = https://github.com/daffidwilde/kmodes-init-paper
+  branch = main
 [submodule "chapters/data/paper"]
 	path = chapters/data/paper
-    url = https://github.com/daffidwilde/cwmtaf-analysis
-    branch = main
+  url = https://github.com/daffidwilde/cwmtaf-analysis
+  branch = main
 [submodule "chapters/matching/paper"]
 	path = chapters/matching/paper
-    url = https://github.com/daffidwilde/matching
-    branch = main
+  url = https://github.com/daffidwilde/matching
+  branch = main
 [submodule "chapters/copd/paper"]
-    path = chapters/copd/paper
-    url = https://github.com/daffidwilde/copd-paper
-    branch = main
+  path = chapters/copd/paper
+  url = https://github.com/daffidwilde/copd-paper
+  branch = main
