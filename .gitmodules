@@ -17,3 +17,4 @@
 [submodule "chapters/copd/paper"]
 	path = chapters/copd/paper
 	url = git@github.com:daffidwilde/copd-paper.git
+    branch = main
