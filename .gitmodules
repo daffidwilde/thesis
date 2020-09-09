@@ -10,11 +10,10 @@
 	path = chapters/data/paper
     url = https://github.com/daffidwilde/cwmtaf-analysis
     branch = main
-[submodule "chapters/copd/paper"]
-	path = chapters/copd/paper
-    url = https://github.com/daffidwilde/copd-paper
-    branch = main
 [submodule "chapters/matching/paper"]
 	path = chapters/matching/paper
     url = https://github.com/daffidwilde/matching
     branch = main
+[submodule "chapters/copd/paper"]
+	path = chapters/copd/paper
+	url = git@github.com:daffidwilde/copd-paper.git
