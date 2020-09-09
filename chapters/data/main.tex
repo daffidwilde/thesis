@@ -69,8 +69,8 @@ Looking at the episodes directly will be avoided in this analysis. Instead, this
 analysis favours aggregating a patient's episodes into spells. Statistics
 associated with these aggregates are referred to as \emph{spell-level}
 statistics. The reason for this level of aggregation is that it has been seen
-that episode-level statistics can lead to an overestimation of the
-resource or `activity' consumed by a hospital to treat a patient during that
+that episode-level statistics can lead to an overestimation of the resource or
+`activity' consumed by a hospital to treat a patient during that
 time~\cite{Aylin2004}.
 
 Furthermore, the processes of paying for treatments and reimbursing other
@@ -111,18 +111,18 @@ pays particular attention to those attributes which are considered to be linked
 to an overall contribution to the cost of care. Those attributes are: 
 
 \begin{itemize}
-    \item length of stay, 
-    \item the maximum number of diagnoses during a spell, 
-    \item the total number of procedures during a spell, 
-    \item and (separately) the number of spells associated with
-any given patient.
+    \item length of stay; 
+    \item the maximum number of diagnoses during a spell;
+    \item the total number of procedures during a spell;
+    \item and (separately) the number of spells associated with any given
+        patient.
 \end{itemize}
 
 \subsection{Cleaning the data}\label{subsec:formatting}
 
-As with any data analysis, a substantial amount of preprocessing
-is required to make the data sufficiently consistent and suitable for analysing.
-With the dataset at hand, this process included the removal of some superfluous
+As with any data analysis, a substantial amount of preprocessing is required to
+make the data sufficiently consistent and suitable for analysing.  With the
+dataset at hand, this process included the removal of some superfluous
 attributes which added unwanted redundancy to the dataset, and a number of rows
 that had been corrupted or coded incorrectly. In addition to this, some columns
 have been reformatted; namely those whose entries were intended to be used as
@@ -192,10 +192,10 @@ system.
     \label{fig:netcost}
 \end{figure}
 
-In general, the distributions themselves have long tails, suggesting
-an adverse effect of severe cases, despite being a rarity. Moreover, although
-the length and returning frequency of the spells are minimal and tightly packed,
-their associated net costs are wildly variant. This variation is shown in
+In general, the distributions themselves have long tails, suggesting an adverse
+effect of severe cases, despite being a rarity. Moreover, although the length
+and returning frequency of the spells are minimal and tightly packed, their
+associated net costs are wildly variant. This variation is shown in
 Figure~\ref{fig:netcost}. It appears that there is a distinct peak in the
 distribution, but closer inspection of the scale indicates that this peak is
 little more than a blip; the most probable net cost has a likelihood of less
@@ -237,19 +237,18 @@ the late fifties where a decline appears as older people become less prevalent.
 Looking instead at the distribution belonging to the patients, it is clear that
 there are several peaks and troughs. The largest trough corresponds to
 adolescents which makes sense anecdotally since some of the least likely people
-to visit a hospital would be reaching their peak healthiness.
-Similarly, the distinct peaks around infancy and in the older age range often
-correspond to those people who are most vulnerable in terms of their health.
-Thus, a hospital should expect to see a disproportionate number of people at
-those ages.
+to visit a hospital would be reaching their peak healthiness.  Similarly, the
+distinct peaks around infancy and in the older age range often correspond to
+those people who are most vulnerable in terms of their health.  Thus, a hospital
+should expect to see a disproportionate number of people at those ages.
 
-Looking at these key attributes, it would appear things are as expected:
-people tend to go to their local hospitals, and historically vulnerable people
-are more likely to go. However, there is significant spread in the costs,
-severity and lengths of hospital visits. Moreover, the likelihood of returning
-to hospital seems relatively low for the vast majority of the population served
-by the health board. All of these things are straightforward. However, they do
-not make this a fruitless exercise as getting to grips with any body of data is
+Looking at these key attributes, it would appear things are as expected: people
+tend to go to their local hospitals, and historically vulnerable people are more
+likely to go. However, there is significant spread in the costs, severity and
+lengths of hospital visits. Moreover, the likelihood of returning to hospital
+seems relatively low for the vast majority of the population served by the
+health board. All of these things are straightforward. However, they do not make
+this a fruitless exercise as getting to grips with any body of data is
 essential. In fact, the analysis thus far has shown that this population is
 typical, in some (broadly anecdotal) respects, of many other populations.
 
@@ -257,20 +256,18 @@ typical, in some (broadly anecdotal) respects, of many other populations.
 \subsection{Pairwise correlation}\label{subsec:corr}
 
 Looking at the univariate distributions of the key attributes in the previous
-section gave a good base for understanding the scope of the data. The
-next step is to investigate how these key attributes interact with one
-another. In this analysis, correlation coefficients will be used to give a sense
-of this interaction.
+section gave a good base for understanding the scope of the data. The next step
+is to investigate how these key attributes interact with one another. In this
+analysis, correlation coefficients will be used to give a sense of this
+interaction.
 
 Figure~\ref{fig:corr_heatmap} shows the Pearson correlation coefficient between
 all the pairs of key attributes. These correlation coefficients have been
 presented in the form of a heat map with a colour bar, indicating the scale of
-the correlation between any two variables. Using a visualisation such as this is
-more intuitive than reading directly from an array of numbers, and makes gaining
-insight from the relationships between variables easier. The attributes
-themselves have been arranged into descending order according to their summed
-absolute correlation coefficient. This reordering makes it easier to deduce
-which variables have the most prominent levels of interaction.
+the correlation between any two variables. The attributes themselves have been
+arranged into descending order according to their summed absolute correlation
+coefficient. This reordering makes it easier to deduce which variables have the
+most prominent levels of interaction.
 
 \begin{definition}
     Consider a dataset with \(m \in \mathbb{N}\) columns,
@@ -296,10 +293,10 @@ which variables have the most prominent levels of interaction.
 
 Upon inspection of the heat map, there are many cost components that have no
 substantial linear correlation with any of the other attributes. The absence of
-correlation here only adds to the evidence that the patients in the data
-present themselves to hospital with a wide array of needs. Having said that,
-there are clear correlations between several of the attributes; some of these
-are easier to realise than others.
+correlation here only adds to the evidence that the patients in the data present
+themselves to hospital with a wide array of needs. Having said that, there are
+clear correlations between several of the attributes; some of these are easier
+to realise than others.
 
 For instance, ignoring the main diagonal, the largest value is that between
 total costs (COST) and net costs (NetCost) with a value of 0.94. This high value
@@ -308,9 +305,9 @@ which makes sense given that the net cost of a spell is the total cost corrected
 for any reimbursable costs such as critical care costs (CRIT) and non-contracted
 income (NCI). Reimbursable costs are given as negative values in the dataset ---
 hence their distinctly negative correlation coefficients with the other
-variables. Typically, these deductible costs are small
-(see Table~\ref{tab:summary}) so a strong correlation between costs and net
-costs is to be expected.
+variables. Typically, these deductible costs are small (see
+Table~\ref{tab:summary}) so a strong correlation between costs and net costs is
+to be expected.
 
 Other examples of strong correlation are those between length of stay
 (TRUE\_LOS) and ward and overhead costs (WARD and OVH respectively). These are
@@ -366,12 +363,12 @@ thirty times the size of its mean. This relative heterogeneity could go some way
 in explaining why there seemed to be no linear correlation with the other
 variables in Figure~\ref{fig:corr_heatmap}.
 
-At the other end of Figure~\ref{fig:corr_heatmap}, ward and overhead costs have some of the
-smallest variations. This would suggest that they are in some way consistent or
-predictable, as was commented on in Section~\ref{subsec:corr}. Despite this, the
-dominant conclusion is that all the cost components are still quite highly
-varied when considering the entire dataset since the majority of coefficients of
-variation found have size far greater than one. 
+At the other end of Figure~\ref{fig:corr_heatmap}, ward and overhead costs have
+some of the smallest variations. This would suggest that they are in some way
+consistent or predictable, as was commented on in Section~\ref{subsec:corr}.
+Despite this, the dominant conclusion is that all the cost components are still
+quite highly varied when considering the entire dataset since the majority of
+coefficients of variation found have size far greater than one. 
 
 \begin{figure}[h]
     \centering
@@ -384,15 +381,14 @@ variation found have size far greater than one.
 
 Knowing which of the cost components are the most highly varied is not
 sufficient to decide whether they are worth pursuing further. To determine the
-importance of these components, the contribution of each
-cost component to the net cost of a spell should be considered. Then, with a
-sense of the scale of the variation acquired, the components that make the most
-significant impacts on net costs can be isolated. These quantities are
-calculated by taking each cost component in a spell, dividing it by its
-corresponding net cost and taking the mean over all of these values. This mean
-is referred to as the average contribution (or proportion) to the net cost,
-although it is more accurately an average of the spell-wise ratios between each
-cost component and the net cost.
+importance of these components, the contribution of each cost component to the
+net cost of a spell should be considered. Then, with a sense of the scale of the
+variation acquired, the components that make the most significant impacts on net
+costs can be isolated. These quantities are calculated by taking each cost
+component in a spell, dividing it by its corresponding net cost and taking the
+mean over all of these values. This mean is referred to as the average
+contribution (or proportion) to the net cost, although it is more accurately an
+average of the spell-wise ratios between each cost component and the net cost.
 
 \begin{figure}[h]
     \centering
@@ -473,13 +469,14 @@ dataset and is not distinguished by type, the diabetic population is considered
 to be any instance where diabetes is present.
 
 The following analysis will provide evidence that the diabetic population is
-increasing in the Cwm Taf area, and that, despite this, the relative resource
-consumption by diabetic patients has been stagnant over the data period. It will
-also be seen that this population holds too much variation to make meaningful
-conclusions about the population on the whole. However, by considering a subset
-based on a condition such as this, there is a natural opportunity to compare the
-subset with its complement; by considering the differences and similarities
-between these two groups, a new dimension is added to the analysis.
+increasing in the Cwm Taf Morgannwg UHB, and that, despite this, the relative
+resource consumption by diabetic patients has been stagnant over the data
+period. It will also be seen that this population holds too much variation to
+make meaningful conclusions about the population on the whole. However, by
+considering a subset based on a condition such as this, there is a natural
+opportunity to compare the subset with its complement; by considering the
+differences and similarities between these two groups, a new dimension is added
+to the analysis.
 
 
 \subsection{Distributions and summary statistics}%
@@ -488,8 +485,8 @@ between these two groups, a new dimension is added to the analysis.
 In much the same way as in Section~\ref{subsec:distributions_statistics}, taking
 an overview of the key attributes provides some idea about how costs are
 represented in the data.
-Figures~\ref{fig:diab_no_spells}~---~\ref{fig:diab_netcost} show
-the same statistics as in the summary analysis, although these figures have two
+Figures~\ref{fig:diab_no_spells}~---~\ref{fig:diab_netcost} show the same
+statistics as in the summary analysis, although these figures have two
 additional components: (a) in the case of bar charts, separate plots for overall
 frequency and frequency density, and (b) a comparison with the non-diabetic
 population on the same axes. The purpose of the separate bar charts is to show
@@ -613,8 +610,8 @@ without the need for such clinical expertise or exertion.
 
 With an overview of how the key attributes are distributed in mind, as before,
 it is a good idea to see how these attributes interact with one another. In
-Figure~\ref{fig:diab_corr_heatmap}, the Pearson correlation coefficients
-are shown between each of the pairs of the key attributes in the diabetic
+Figure~\ref{fig:diab_corr_heatmap}, the Pearson correlation coefficients are
+shown between each of the pairs of the key attributes in the diabetic
 population.
 
 Again, the attributes have been ranked in descending order according to their
@@ -660,13 +657,12 @@ correlation coefficients may be indicative of some intrinsic property the
 diabetic population holds. However, they could merely be a coincidence of
 considering a subset of the dataset that is, by default, more homogeneous.
 
-Other than the few attributes at the top, this heat map shows that
-the vast majority of correlation coefficients are unaffected by considering the
-diabetic population alone. Given the large amounts of variation and low levels
-of correlation seen in Section~\ref{subsec:corr}, this is unsurprising, but
-where there are differences suggests potential areas of interest when comparing
-the corresponding diabetic variation with the non-diabetic and general
-populations.
+Other than the few attributes at the top, this heat map shows that the vast
+majority of correlation coefficients are unaffected by considering the diabetic
+population alone. Given the large amounts of variation and low levels of
+correlation seen in Section~\ref{subsec:corr}, this is unsurprising, but where
+there are differences suggests potential areas of interest when comparing the
+corresponding diabetic variation with the non-diabetic and general populations.
 
 
 \subsection{Variation and relative importance}\label{subsec:diab_variation}
@@ -755,9 +751,9 @@ following attributes: the proportion of net costs and admissions, and the length
 of stay. 
 
 For these purposes, the data must be manipulated into a chronological form.
-Here, each of the chosen attributes
-is given with respect to a particular admission date, and has been calculated in
-the following way for each admission date:
+Here, each of the chosen attributes is given with respect to a particular
+admission date, and has been calculated in the following way for each admission
+date:
 \begin{itemize}
     \item Proportion of total admissions. Take the number of unique
         spells for diabetic patients admitted on that day, \(n_d\), and the
@@ -792,11 +788,11 @@ standard least-squares linear regression model.
 
 Figures~\ref{fig:admissions}~and~\ref{fig:netcost_proportions} suggest that the
 amount of resources consumed by the diabetic population is increasing slowly.
-The former indicates that, on average, the number of diabetic patients
-visiting the hospital is increasing at a rate of approximately one percent over
-five years. From the latter, it is seen that the yearly average proportion of
-net spending on diabetic patients has also experienced a shallow increase of
-roughly half a percent over the same period.
+The former indicates that, on average, the number of diabetic patients visiting
+the hospital is increasing at a rate of approximately one percent over five
+years. From the latter, it is seen that the yearly average proportion of net
+spending on diabetic patients has also experienced a shallow increase of roughly
+half a percent over the same period.
 
 In addition to this, both figures show some form of divergence over time, as
 shown by the spread in the weekly and monthly averages. This is an interesting
@@ -808,14 +804,14 @@ result of both the chronological encoding and the data period ending. Towards
 the end of the period, there are fewer long-term patients included in the
 dataset as they have not completed their spell yet.
 
-With Figure~\ref{fig:los_time}, it is clear that --- despite the slight
-increase in the proportion of net costs and the number of diabetic admissions
-over the last five years --- there has been a slight decline in the average
-length of stay for diabetic patients in the same period. This average has fallen
-from one week to roughly five and a half days. This decrease is likely due, in
-part, to the changes in NHS policy referenced above but also the ever-increasing
-pressure put on the hospital system to move patients through the system
-efficiently in order to save on idle costs such as ward costs and overheads.
+With Figure~\ref{fig:los_time}, it is clear that --- despite the slight increase
+in the proportion of net costs and the number of diabetic admissions over the
+last five years --- there has been a slight decline in the average length of
+stay for diabetic patients in the same period. This average has fallen from one
+week to roughly five and a half days. This decrease is likely due, in part, to
+the changes in NHS policy referenced above but also the ever-increasing pressure
+put on the hospital system to move patients through the system efficiently in
+order to save on idle costs such as ward costs and overheads.
 
 \begin{figure}
     \centering
@@ -862,14 +858,14 @@ gained beyond it conforming to some loosely anecdotal concept of an
 administrative healthcare dataset.
 
 Following this initial analysis, a similar methodology was employed on a slice
-of the dataset. Following advice from the subject matter expert, the diabetic population was used. The
-hope of that analysis was that taking a slice according to some characteristic
-would result in a more homogeneous dataset, which was confirmed, although only
-marginally. Other than this, there were few actionable insights to be gained
-from this sort of exploratory analysis.
+of the dataset. Following advice from the subject matter expert, the diabetic
+population was used. The hope of that analysis was that taking a slice according
+to some characteristic would result in a more homogeneous dataset, which was
+confirmed, although only marginally. Other than this, there were few actionable
+insights to be gained from this sort of exploratory analysis.
 
-So what was there to be gained by looking at the diabetic population? The lack of
-novel insights may have been expected since the decision to look at diabetic
+So what was there to be gained by looking at the diabetic population? The lack
+of novel insights may have been expected since the decision to look at diabetic
 patients was effectively arbitrary. Moreover, the decision framework was not
 descriptive enough to indicate that any particular kind of patient was being
 investigated other than that they must exhibit this one condition. So, in that
