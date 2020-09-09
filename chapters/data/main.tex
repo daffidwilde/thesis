@@ -2,7 +2,7 @@
 
 \renewcommand{\texpath}{chapters/data/paper/tex}
 
-This chapter provides a exploratory analysis of a patient-episode dataset
+This chapter provides an exploratory analysis of a patient-episode dataset
 provided by the Cwm Taf Morgannwg University Health Board (UHB). This dataset
 details, among other administrative quantities, the costs associated with
 treating patients during their time in hospital.
@@ -19,7 +19,7 @@ tails with high levels of variation in each of these variables. As such, a more
 homogeneous part of the population should be considered to find more actionable
 results.
 
-In aid of this, a strategy for the analysis of slices within the data is
+In aid of this, an approach for the analysis of slices within the data is
 established, using the diabetic population as an example. This framework
 provides another dimension to the overall analysis through the use of comparison
 and contrast, but the intended impact is ultimately lost due, again, to high
@@ -112,8 +112,8 @@ date-time objects such as admission and discharge dates.
 It has already been stated that the majority of the attributes in the dataset
 will not be considered in this analysis. By ignoring these attributes, the focus
 is purely on how the costs of care appear in the data. The subset of chosen
-attributes will frequently be referred to as the set of \emph{key attributes}
-but this choice of name does not imply that the remaining attributes are not of
+attributes will frequently be referred to as the set of \emph{key attributes}.
+However, this name does not imply that the remaining attributes are not of
 interest nor that they are in any way unimportant.
 
 The key attributes provide a base for understanding how the costs and resources
@@ -130,8 +130,8 @@ of a patient's spell in hospital.
 \graphicspath{{chapters/data/paper/img/overview/}}
 
 When looking at the distributions of the key attributes on the whole dataset, as
-displayed in Figures~\ref{fig:no_spells}~---~\ref{fig:netcost}, it is clear
-that the data is weighted towards low-cost, short-stay, and otherwise low-impact
+displayed in Figures~\ref{fig:no_spells}~---~\ref{fig:netcost}, it is clear that
+the data is weighted towards low-cost, short-stay, and otherwise low-impact
 patients. This behaviour is especially clear in
 Figures~\ref{fig:no_spells}~and~\ref{fig:los}. Here, it is clear that, of all
 the spells provided under the care of the health board, the majority are
@@ -219,10 +219,10 @@ Looking instead at the distribution belonging to the patients, it is clear that
 there are several peaks and troughs. The largest trough corresponds to
 adolescents which makes sense anecdotally since some of the least likely people
 to visit a hospital would be reaching their peak fitness biologically.
-Similarly, the distinct peaks around infancy and in the older age range
-often correspond to those people who are most vulnerable in terms of their
-health. Thus, a hospital should expect to see a disproportionate number of
-people at those ages.
+Similarly, the distinct peaks around infancy and in the older age range often
+correspond to those people who are most vulnerable in terms of their health.
+Thus, a hospital should expect to see a disproportionate number of people at
+those ages.
 
 So, by looking at these key attributes, it would appear things are as expected:
 people tend to go to their local hospitals, and historically vulnerable people
@@ -231,9 +231,8 @@ severity and lengths of hospital visits. Moreover, the likelihood of returning
 to hospital seems relatively low for the vast majority of the population served
 by the health board. All of these things are straightforward. However, they do
 not make this a fruitless exercise as getting to grips with any body of data is
-absolutely essential. In fact, the analysis thus far has shown that this
-population is typical, in some (broadly anecdotal) respects, of many other
-populations.
+essential. In fact, the analysis thus far has shown that this population is
+typical, in some (broadly anecdotal) respects, of many other populations.
 
 
 \subsection{Pairwise correlation}\label{subsec:corr}
@@ -351,7 +350,7 @@ variables in Figure~\ref{fig:corr_heatmap}.
 At the other end of the figure, ward and overhead costs have some of the
 smallest variations. This would suggest that they are in some way consistent or
 predictable, as was commented on in Section~\ref{subsec:corr}. Despite this, the
-dominant conclusion is that all of the cost components are still quite highly
+dominant conclusion is that all the cost components are still quite highly
 varied when considering the entire dataset since the majority of coefficients of
 variation found have size far greater than one. 
 
@@ -425,14 +424,14 @@ markers are also of interest since these components indicate that the level of
 variation is relatively low there, perhaps indicating the component has been
 optimised somehow.
 
-This figure clearly indicates that the conclusions made previously still hold:
-that the largest contributors have some of the smallest measures of
-variation. Meanwhile, the smallest average contributors are more strongly
-varied. What is of interest is the jump between these components and the others.
-There does not seem to be any particular component in the midriff of
-contributors that has large, or small, variation. As such, a deeper
-investigation is required to properly analyse individual components and
-their relationships with specific types of patient.
+This figure indicates that the conclusions made previously still hold: that the
+largest contributors have some of the smallest measures of variation. Meanwhile,
+the smallest average contributors are more strongly varied. What is of interest
+is the jump between these components and the others. There does not seem to be
+any particular component in the midriff of contributors that has large, or
+small, variation. As such, a deeper investigation is required to properly
+analyse individual components and their relationships with specific types of
+patient.
 
 
 \section{Diabetic patient analysis}\label{sec:diabetes}
@@ -457,10 +456,10 @@ to be any instance where diabetes is present.
 The following analysis will provide evidence that the diabetic population is
 increasing in the Cwm Taf area, and that, despite this, the relative resource
 consumption by diabetic patients has been stagnant over the data period. It will
-also be seen that this population holds too much variation to make meaningful 
+also be seen that this population holds too much variation to make meaningful
 conclusions about the population on the whole. However, by considering a subset
-based on a condition such as this, there is a natural opportunity to compare
-the subset with its complement; by considering the differences and similarities
+based on a condition such as this, there is a natural opportunity to compare the
+subset with its complement; by considering the differences and similarities
 between these two groups, a new dimension is added to the analysis.
 
 
@@ -478,8 +477,8 @@ population on the same axes. The purpose of the separate bar charts is to show
 the relative sizes of the groups, and then to be able to directly compare their
 distributions.
 
-As before, the distributions of the diabetic population have long tails but they
-are often heavier than the general or non-diabetic populations which are
+As before, the distributions of the diabetic population have long tails, but
+they are often heavier than the general or non-diabetic populations which are
 arguably interchangeable given their sizes. This extra weight in the tails
 suggests that diabetic patients are more likely to experience severe periods of
 illness, and this is bolstered by the complete difference in the shape of the
@@ -534,8 +533,8 @@ Figure~\ref{fig:diab_no_diag}.
 Other than diagnosis numbers, the shapes of the distributions here are broadly
 equivalent, but the tails are heavier across the board for the diabetic
 population. With that being true, it follows that the noses are substantially
-lighter, which is most clearly evident in Figure~\ref{fig:diab_los} and
-Figure~\ref{fig:diab_netcost}. These figures, and the others in this group,
+lighter, which is most evident in Figure~\ref{fig:diab_los} and
+Figure~\ref{fig:diab_netcost}. These figures (and the others in this group)
 imply that diabetic patients are more likely to return, have more procedures and
 stay longer in the hospital. As a result, they will typically incur higher costs
 than non-diabetic patients. All of these observations suggest that diabetic
@@ -572,15 +571,15 @@ populations being considered in this section.
 \end{figure}
 
 The patient age distribution for each group is given in
-Figure~\ref{fig:diab_age}. This figure quite clearly shows how unrepresentative
-a slice the diabetic population can be. When looking at the frequency density
-plot, all the intricacies in the shape of the non-diabetic population are
-dropped. Instead, the distribution has a distinct negative skew with a
-disproportionate number of older patients. Thus, studying the entire diabetic
-population is akin to considering some subset of all older patients. In effect,
-this would ignore the younger diabetic population.
+Figure~\ref{fig:diab_age}. This figure shows how unrepresentative a slice the
+diabetic population can be. When looking at the frequency density plot, all the
+intricacies in the shape of the non-diabetic population are dropped. Instead,
+the distribution has a distinct negative skew with a disproportionate number of
+older patients. Thus, studying the entire diabetic population is akin to
+considering some subset of all older patients. In effect, this would ignore the
+younger diabetic population.
 
-Conversely, the small number of younger diabetic patients that remain could be
+Conversely, the small number of younger diabetic patients left could be
 confusing the population somehow, and then any subsequent analysis of that
 population. A remedy for this would be to consider two or more diabetic
 populations based on their age and perhaps a combination of other attributes
@@ -635,11 +634,11 @@ their summed absolute differences.
 This figure indicates that drug and therapy costs (DRUG and THER respectively)
 have the largest total difference in correlation coefficients. In fact, the
 signs of each coefficient are the same, and so we can say that the diabetic
-population has more strongly correlated drug and therapy costs. The same
-pattern occurs with a number of other cost components, including the core
-components from the general population: ward, medical and overhead costs. These
-increased correlation coefficients may be indicative of some intrinsic property
-the diabetic population holds. However, they could merely be a coincidence of
+population has more strongly correlated drug and therapy costs. The same pattern
+occurs with a number of other cost components, including the core components
+from the general population: ward, medical and overhead costs. These increased
+correlation coefficients may be indicative of some intrinsic property the
+diabetic population holds. However, they could merely be a coincidence of
 considering a subset of the dataset that is, by default, more homogeneous.
 
 Other than the few attributes at the top, this difference heat map shows that
@@ -653,10 +652,10 @@ populations.
 
 \subsection{Variation and relative importance}\label{subsec:diab_variation}
 
-The distributions of the key attributes, and some notion of their
-interactions, have been established. The remaining stage of the methodology
-established in Section~\ref{sec:overview} is to investigate variation and the
-relative importance of the cost components themselves.
+The distributions of the key attributes, and some notion of their interactions,
+have been established. The remaining stage of the methodology established in
+Section~\ref{sec:overview} is to investigate variation and the relative
+importance of the cost components themselves.
 Figures~\ref{fig:diab_variation}~and~\ref{fig:diab_contribution} show these
 quantities, and are ranked as in Figure~\ref{fig:diab_corr_heatmap}.
 
@@ -702,15 +701,15 @@ homogeneous, as has been noted, and as is desired.
 Inspecting Figure~\ref{fig:diab_contribution} tells a similar story to that of
 the general population: the dominant cost components are still overheads,
 medical and ward costs, and the least correlated (and often most varied)
-components are insignificant in their contributions to net costs. However,
-there is a certain interest in the increased contribution from ward costs and
-those from specific departments such as pharmacy (PHAR), pathology (PATH), and
-imaging (IMG). The apparent increase in the likelihood, severity and length of
-diabetic patient spells seen in Table~\ref{tab:diab_summary} --- and the figures
-in Section~\ref{subsec:diab_dists_stats} --- seems to be linked to a rise in
-costs more generally. This increase can be rationalised given that the patients
-within this population all exhibit at least one chronic disease that is known to
-have several comorbidities and knock-on effects more widely associated with the
+components are insignificant in their contributions to net costs. However, there
+is a certain interest in the increased contribution from ward costs and those
+from specific departments such as pharmacy (PHAR), pathology (PATH), and imaging
+(IMG). The apparent increase in the likelihood, severity and length of diabetic
+patient spells seen in Table~\ref{tab:diab_summary} --- and the figures in
+Section~\ref{subsec:diab_dists_stats} --- seems to be linked to a rise in costs
+more generally. This increase can be rationalised given that the patients within
+this population all exhibit at least one chronic disease that is known to have
+several comorbidities and knock-on effects more widely associated with the
 well-being of a patient~\cite{Deschenes2015,Klimek2015,Walker2016}.
 
 As in the previous section, the bubble plot in Figure~\ref{fig:diab_bubble}
@@ -730,7 +729,7 @@ way, and in understanding how the groups may relate to one another. However,
 these are not the only devices available for examining such a subset of the
 data. Particularly when looking at costing data such as this, another useful way
 of evaluating a subset is to quantify its contributions to those costs over time
-with regard to the general population. The attributes used to identify these
+within the general population. The attributes used to identify these
 contributions can give a sense of the level and nature of the resources that are
 consumed by the population in question. This stage of the analysis considers the
 following attributes: the proportion of net costs and admissions, and the length
@@ -755,15 +754,14 @@ the following way for each admission date:
         diabetic patients is given by \(\frac{c_d}{C}\).
 \end{itemize}
 
-The obvious benefit of taking the quantities in this way is that it allows for
-the data to be arranged with some sense of time. However, there is a glaring
-issue: that the data will be misrepresented when manipulated in this way. For
-instance, the length of a spell has no definitive connection to the admission
-date of that spell; by grouping all the spells starting on that day together and
-taking their mean, any adversely long spells will push the mean upwards. Also,
-there is a time-related error when taking the net cost of a spell on any one day
-in that spell since that cost was not truly spent or incurred on that day
-necessarily.
+The key benefit of taking the quantities in this way is that it allows for the
+data to be arranged with some sense of time. However, there is a glaring issue:
+that the data will be misrepresented when manipulated in this way. For instance,
+the length of a spell has no definitive connection to the admission date of that
+spell; by grouping all the spells starting on that day together and taking their
+mean, any adversely long spells will push the mean upwards. Also, there is a
+time-related error when taking the net cost of a spell on any one day in that
+spell since that cost was not truly spent or incurred on that day necessarily.
 
 Irrespective of these misrepresentations,
 Figures~\ref{fig:admissions}~---~\ref{fig:los_time} show how these quantities
@@ -830,7 +828,7 @@ Across each of the models displayed here, there appears to be some seasonality.
 The handling of seasonal behaviour in a regression model has more to do more
 with the semantics of finding a ``good'' regression model than was intended here
 but it is an important concept nonetheless. If the purpose of this exercise was
-to accurately predict the quantities being plotted rather than just seeing the
+to accurately predict the quantities being plotted, rather than only seeing the
 general trend, then a more elaborate model should have been fitted.
 
 
@@ -838,18 +836,18 @@ general trend, then a more elaborate model should have been fitted.
 
 This chapter provided a descriptive analysis of an administrative dataset
 provided by the Cwm Taf Morgannwg UHB. This dataset describes the episodes of
-all patients being treated at two of their hospitals over a five year period.
+all patients being treated at two of their hospitals over a five-year period.
 The scope of this exploration of the dataset was thwarted by the span and
 diversity of the episodes therein. In fact, there was little insight to be
-gained beyond its conforming to some loosely anecdotal concept of a
+gained beyond it conforming to some loosely anecdotal concept of an
 administrative healthcare dataset.
 
 Following this initial analysis, a similar methodology was employed on a slice
 of the dataset. As an act of familiarity, the diabetic population was used. The
 hope of that analysis was that taking a slice according to some characteristic
 would result in a more homogeneous dataset, which was confirmed, although only
-marginally. Other than this, there were very few actionable insights to be
-gained from this sort of exploratory analysis.
+marginally. Other than this, there were few actionable insights to be gained
+from this sort of exploratory analysis.
 
 So what was there to gain by looking at the diabetic population? The lack of
 novel insights may have been expected since the decision to look at diabetic
@@ -862,7 +860,7 @@ complement, as well as the general population.
 
 The next chapter considers another administrative dataset comprised of patients
 presenting another chronic condition. The work in that chapter incorporates some
-of the techniques introduced in the previous chapters, but it also builds on the
+techniques introduced in the previous chapters, but it also builds on the
 surface-level analyses employed here. The most important of these analyses is
 the slicing of a dataset to identify more homogeneous parts, and then comparing
 those. The process by which this is done incorporates more attributes of the
