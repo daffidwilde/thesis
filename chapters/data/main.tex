@@ -43,10 +43,9 @@ Before any analysis can be conducted, the structure of the data must be
 understood, as well as how it has been prepared. This dataset comprises
 approximately two and a half million episode records for patients from across
 Wales that were treated in the Prince Charles and Royal Glamorgan hospitals
-(South Wales) from April 2012 through April 2017. An approximation for the
-geographic distribution of patients in the dataset is given in
-Figure~\ref{fig:proportion_wales}, where it is clear that the patient population
-are mostly from the local area.
+(South Wales) from April 2012 through April 2017. This dataset contains some
+personal information, and given that sensitivity, it has not been made
+available.
 
 \begin{figure}
     \centering
@@ -59,21 +58,36 @@ are mostly from the local area.
 
 An episode is defined to be any continuous period of care provided by the same
 consultant in the same place~\cite{NHS:episode}. For instance, if a patient is
-admitted to a general medical ward for diagnosis and testing, and then is
-referred to a specialist consultant in oncology, then their first episode would
-end with their testing, and a second episode of care would begin on the oncology
-ward. Each of these episodes would correspond to a row in the dataset. If the
-patient was then immediately discharged, they would have completed a spell with
-two episodes.
+admitted to a general medical ward for diagnostic testing, and then is referred
+to a specialist consultant in oncology, then their first episode would end with
+their testing, and a second episode of care would begin on the oncology ward.
+Each of these episodes would correspond to a row in the dataset. If the patient
+was then immediately discharged, they would have completed a spell with two
+episodes.
 
 Looking at the episodes directly will be avoided in this analysis. Instead, this
 analysis favours aggregating a patient's episodes into spells. Statistics
 associated with these aggregates are referred to as \emph{spell-level}
-statistics. The reason for this level of aggregation is that, since the
-introduction of the `payment by results' system for financial flows, it has been
-seen that episode-level statistics can lead to an overestimation in the amount
-of resource or `activity' consumed by a hospital to treat a patient during that
-period~\cite{Aylin2004}.
+statistics. The reason for this level of aggregation is that it has been seen
+that episode-level statistics can lead to an overestimation of the
+resource or `activity' consumed by a hospital to treat a patient during that
+time~\cite{Aylin2004}.
+
+Furthermore, the processes of paying for treatments and reimbursing other
+organisations in NHS Wales is much simpler than in England. Within NHS England,
+a more transparent, albeit complex, method is used wherein an NHS organisation
+takes `payment-by-results' according to a National Tariff~\cite{BMA2020,UK2011}.
+This system for financial flows is not necessary in Wales since patients tend to
+receive treatment within the jurisdiction of the Health Board they reside in.
+Figure~\ref{fig:proportion_wales} shows an approximation for the geographic
+distribution of the patients in this dataset, and it is evident that the vast
+majority live in the Cwm Taf Morgannwg UHB area of South Wales. Since patients
+are treated locally, inter-organisation disputes are uncommon and NHS Wales
+continues to utilise block contracts for the majority of its
+payments~\cite{BMA2020}. The critical issue with block contracts is that they
+lack the precision of a payment-by-results system that can attribute costs (and
+accountability) to an organisation on a fine scale. Therefore, aggregating the
+episodes into spells may smooth out any unpredictability in the episode costs.
 
 Each episode is recorded as a row of roughly 260 attributes or columns,
 including:
