@@ -880,7 +880,7 @@ cluster centres separated along the diagonal. Instead, the simple modification
 to the fitness function has relegated it to the bottom of the population. Then,
 inspecting the other two datasets shows that EDO has generated more `realistic'
 individuals that offer a more polished silhouette without being reductive.
-Although this is somewhat of a toy example, this demonstrates how a genuinely
+Although this is a somewhat simplistic example, it demonstrates how a genuinely
 useful and well-formed dataset may be created objectively.
 
 Another point of interest here is the convexity of the clusters. A known
@@ -1038,9 +1038,24 @@ clusters the same dataset, the method identifies three clusters of core points
 that exist within the convex hulls of one another, meaning there are overlapping
 clusters and, hence, a negative silhouette coefficient.
 
-% TODO Something about convexity
+The final observation from Figure~\ref{fig:kmeans_preferable_inds} is that there
+are no truly distinct patterns in the convexity of the individuals. It is true
+that the best-performing individual by \(k\)-means is more convex than the
+others (according to the mean cluster convexity), but there is a slight dip for
+the median individual.
 
-Now, to add to the discussion above, the opposing optimisation should be
+This pattern is mirrored by those clusters found by DBSCAN. Furthermore, the
+clusters by \(k\)-means do not show any strong, visual improvements to their
+convexities. The absence of this continuous improvement to convexity may be
+caused by the sort of clustering found in the median individual by DBSCAN. In
+this case, there is a distinct overlap between the two largest clusters, but the
+clusters themselves are comfortably bowed. While the clustering by \(k\)-means
+exhibits a similar crookedness in its concave hulls, that is merely coincidental
+and the boundary between the clusters is more closely defined by the convex
+hulls. For DBSCAN, this is not the case, and highlights one of its strengths:
+that a cluster need not be convex to be appropriate.
+
+To add to the discussion above, the opposing optimisation should be
 considered,~i.e. using the same parameters to find the datasets for which DBSCAN
 outperforms \(k\)-means with some altered silhouette coefficient. In this case,
 the alteration is to use \(-f\) except with the same penalty of \(-\infty\) for
