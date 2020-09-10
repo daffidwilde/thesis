@@ -16,5 +16,5 @@
   branch = main
 [submodule "chapters/copd/paper"]
 	path = chapters/copd/paper
-	url = git@github.com:daffidwilde/copd-paper.git
+	url = git@github.com:daffidwilde/copd-paper
   branch = main
