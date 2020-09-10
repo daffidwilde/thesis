@@ -53,7 +53,7 @@ been archived under \doi{10.5281/zenodo.4000327}.
 
 This chapter introduces a novel method called Evolutionary Dataset Optimisation
 (EDO). At its core, EDO is an evolutionary algorithm that acts on datasets to
-optimise some real-valued function. While it is possible to perform simple
+optimise some real-valued function. While it is possible to perform classical
 optimisation tasks with this method, its primary application is in learning the
 quality of an algorithm. The concept of an algorithm's quality here refers to
 some combination of its robustness, and its strengths and weaknesses.
@@ -79,7 +79,7 @@ frequent use. Although there do exist benchmark dataset suites that are curated
 to be relevant, diverse and comprehensive for some problem domains --- such as
 machine learning~\cite{Dua2019,Olson2017} and time series~\cite{UCRArchive2018}
 --- it is often the case that a dataset becomes a benchmark for merely being
-longstanding and used many times. This title awards the dataset with the
+long-standing and used many times. This title awards the dataset with the
 accolades of being reliable and trustworthy. However, this is not guaranteed.
 
 Computer vision is one such domain where these questionable de facto benchmarks
@@ -96,7 +96,7 @@ Data'.
 
 As an example of the reality of these systemic biases, in 2015, it was made
 public that the automatic classifier developed as part of \emph{Google Photos}
-had been incorrectly labelling images of Black people as gorillas. Google
+had been incorrectly labelling images of people of colour as gorillas. Google
 publicly apologised and vowed to fix the problem, but since then the only action
 taken to mitigate this has been to remove several primates from the set of
 labels available to their model~\cite{Simonite2018}.
@@ -158,7 +158,7 @@ The EDO method belongs to a new paradigm that aims to flip the process described
 here by allowing the data itself to be unfixed. EDO achieves this fluidity by
 generating data for which the algorithm of interest performs well (or better
 than some other) through the use of an evolutionary algorithm. The purpose of
-doing so is not to simply create a bank of useful datasets but rather to allow
+doing so is not only to create a bank of useful datasets, but rather to allow
 for the subsequent studying of those datasets. Undergoing this study describes
 the attributes and characteristics which lead to the success (or failure) of the
 algorithm, giving a broader understanding of the algorithm on the whole.
@@ -217,6 +217,8 @@ The remainder of this chapter is structured as follows:
     \item Section 4 summarises the chapter.
 \end{itemize}
 
+In addition to the case study at the end of this chapter, the EDO method is
+instrumental in evaluating the algorithm presented in Chapter~\ref{chp:kmodes}.
 
 \section{The evolutionary algorithm}\label{sec:algorithm}
 
@@ -1100,8 +1102,12 @@ Following a detailed explanation of its internal mechanisms, a case study in
 \(k\)-means clustering was offered as validation for the proposed method known
 as Evolutionary Dataset Optimisation. The EDO method was able to reveal some
 known results without prior knowledge when investigating \(k\)-means in several
-scenarios, and again when comparing \(k\)-means and another prominent clustering
-method, DBSCAN.
+scenarios, and again when comparing \(k\)-means and another prominent
+clustering method, DBSCAN. This application of the EDO method is used again in
+the closing sections of Chapter~\ref{chp:kmodes} to compare a proposed algorithm
+with an established contemporary. Ultimately, it is this method that provides
+useful insights into the limitations of each algorithm --- as well as where they
+are most appropriate.
 
 The method itself is an EA and utilises biological operators to traverse a
 potentially broad region of the space of all possible datasets. This
@@ -1111,15 +1117,15 @@ method also provides transparency and richness to the solution when compared to
 other contemporary techniques for artificial data generation as the entire
 history of individuals is preserved. While other search and optimisation methods
 exist, the decision to use an EA here was down to this transparency and the ease
-with which to implement biological operators that are both meaningful and easily
-understood.
+with which to implement biological operators that are both meaningful and
+understandable.
 
-An obvious downside to EAs is that they might terminate at a local optimum ---
+A well-known downside to EAs is that they might terminate at a local optimum ---
 as occurred in the early examples of the case study in this chapter --- and, as
 such, an EA may not be able to traverse the entire sample
 space~\cite{Vikhar2016} or even a sufficient part of it. This limited
 exploration would be even more problematic under the framework of EDO, given
-that the sample space is not of a fixed size or data type. Thankfully, this
+that the sample space is not of a fixed size or data type. Fortunately, this
 limitation did not occur in most of the examples considered in this chapter. As
 an example, Figure~\ref{fig:coverage} shows how the distribution of the parents
 from the examples in Section~\ref{subsec:silhouette}. In particular, each part
