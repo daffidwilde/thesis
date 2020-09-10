@@ -1,5 +1,5 @@
 [submodule "chapters/edo/paper"]
-	path = chapters/edo/paper
+  path = chapters/edo/paper
   url = https://github.com/daffidwilde/edo-paper
   branch = main
 [submodule "chapters/kmodes/paper"]
@@ -7,11 +7,11 @@
   url = https://github.com/daffidwilde/kmodes-init-paper
   branch = main
 [submodule "chapters/data/paper"]
-	path = chapters/data/paper
+  path = chapters/data/paper
   url = https://github.com/daffidwilde/cwmtaf-analysis
   branch = main
 [submodule "chapters/matching/paper"]
-	path = chapters/matching/paper
+  path = chapters/matching/paper
   url = https://github.com/daffidwilde/matching
   branch = main
 [submodule "chapters/copd/paper"]
