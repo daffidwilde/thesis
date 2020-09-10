@@ -1045,15 +1045,16 @@ others (according to the mean cluster convexity), but there is a slight dip for
 the median individual.
 
 This pattern is mirrored by those clusters found by DBSCAN. Furthermore, the
-clusters by \(k\)-means do not show any strong, visual improvements to their
-convexities. The absence of this continuous improvement to convexity may be
-caused by the sort of clustering found in the median individual by DBSCAN. In
-this case, there is a distinct overlap between the two largest clusters, but the
-clusters themselves are comfortably bowed. While the clustering by \(k\)-means
-exhibits a similar crookedness in its concave hulls, that is merely coincidental
-and the boundary between the clusters is more closely defined by the convex
-hulls. For DBSCAN, this is not the case, and highlights one of its strengths:
-that a cluster need not be convex to be appropriate.
+clusters by \(k\)-means do not show any strong, visual improvements to the
+convexity of each cluster. The absence of this continuous improvement to
+convexity may be caused by the sort of clustering found in the median individual
+by DBSCAN. In this case, there is a distinct overlap between the two largest
+clusters, but the clusters themselves are comfortably bowed. While the
+clustering by \(k\)-means exhibits a similar crookedness in its concave hulls,
+that is merely coincidental and the boundary between the clusters is more
+closely defined by the convex hulls. For DBSCAN, this is not the case, and
+highlights one of its strengths: that a cluster need not be convex to be
+appropriate.
 
 To add to the discussion above, the opposing optimisation should be
 considered,~i.e. using the same parameters to find the datasets for which DBSCAN
