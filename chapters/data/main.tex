@@ -320,7 +320,7 @@ of the net cost of treating someone, and may suggest that the remaining cost
 components make up a substantially smaller part of the net cost.
 
 
-\subsection{Measuring variation and importance in our cost components}
+\subsection{Variation and relative importance}
 
 The broader purpose of this chapter is to better understand the factors leading
 to variation in the cost of treating patients. Therefore, it would be fitting to
@@ -798,7 +798,7 @@ In addition to this, both figures show some form of divergence over time, as
 shown by the spread in the weekly and monthly averages. This is an interesting
 phenomenon; there seems no apparent reason for this variability to increase in
 recent years with improved policy on prevention, diagnosis, management and
-treatment~\cite{NHS:ltp,NICE,Penn2018,PHE}. The droops toward the end of the
+treatment~\cite{NHS:ltp,NICE,Penn2018,PHE}. The drops toward the end of the
 period in Figures~\ref{fig:netcost_proportions}~and~\ref{fig:los_time} are a
 result of both the chronological encoding and the data period ending. Towards
 the end of the period, there are fewer long-term patients included in the
@@ -817,26 +817,24 @@ order to save on idle costs such as ward costs and overheads.
     \centering
     \includegraphics[width=.95\imgwidth]{admissions_time.pdf}
     \caption{Monthly averages for the proportion of daily admissions presenting
-        diabetes. Fitted with a linear least-squares regression model.}%
-    \label{fig:admissions}
+        diabetes
+    }\label{fig:admissions}
 \end{figure}
 
 \begin{figure}
     \centering
     \includegraphics[width=.95\imgwidth]{netcost_time.pdf}
     \caption{Monthly averages for the proportion of daily net cost spending
-        toward diabetic patients given their admission date. Fitted with a
-        linear least-squares regression model.}%
-    \label{fig:netcost_proportions}
+        toward diabetic patients given their admission date
+    }\label{fig:netcost_proportions}
 \end{figure}
 
 \begin{figure}
     \centering
     \includegraphics[width=.95\imgwidth]{los_time.pdf}
     \caption{Monthly averages for the average length of a diabetic patient's
-        spell given their admission date. Fitted with a linear least-squares
-        regression model.}%
-    \label{fig:los_time}
+        spell given their admission date
+    }\label{fig:los_time}
 \end{figure}
 
 Across each of the models displayed here, there appears to be some seasonality.
@@ -857,8 +855,8 @@ diversity of the episodes therein. In fact, there was little insight to be
 gained beyond it conforming to some loosely anecdotal concept of an
 administrative healthcare dataset.
 
-Following this initial analysis, a similar methodology was employed on a slice
-of the dataset. Following advice from the subject matter expert, the diabetic
+After this initial analysis, a similar methodology was employed on a slice of
+the dataset. Following advice from the subject matter expert, the diabetic
 population was used. The hope of that analysis was that taking a slice according
 to some characteristic would result in a more homogeneous dataset, which was
 confirmed, although only marginally. Other than this, there were few actionable
@@ -874,8 +872,8 @@ chapter, taking a subset of the population allows for some comparison with its
 complement, as well as the general population.
 
 The next chapter considers another administrative dataset comprised of patients
-presenting another chronic condition. The work in that chapter incorporates some
-techniques introduced in the previous chapters, but it also builds on the
+presenting another chronic condition. The work in that chapter relies on the
+clustering algorithm presented in Chapter~\ref{chp:kmodes}, and builds on the
 surface-level analyses employed here. The most important of these analyses is
 the slicing of a dataset to identify more homogeneous parts, and then comparing
 those. The process by which this is done incorporates more attributes of the
