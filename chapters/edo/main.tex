@@ -552,10 +552,10 @@ The remaining parameters are as follows: \(N=100\), \(R=(50,100)\), \(M=100\),
 \(b=0.1\), \(l=0\), \(p_m=0.01\), and shrinkage is excluded. This set of
 parameters has been adapted from that used in~\cite{Wilde2020:edo}. The changes
 are: omitting the trivial case where the number of rows equals \(k\); shortening
-the run time to reduce computational resources, and because the EA produces as
-useful results, indicating the identification of a local optimum; and, finally,
-increasing the selective pressure (by reducing \(b\)) to mitigate the effect of
-noise in later generations.
+the run time to reduce computational resources, and because the EA produces
+datasets of the same form in less time, indicating the identification of a local
+optimum; and, finally, increasing the selective pressure (by reducing \(b\)) to
+mitigate the effect of noise in later generations.
 
 In addition to these parameter changes, the fitness function has been altered.
 In this study, every individual is scaled using a min-max scaler so their values
