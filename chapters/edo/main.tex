@@ -626,7 +626,18 @@ distributions = [Uniform]
 \end{listing}
 
 Once the EDO algorithm has terminated, a body of datasets, and information about
-those datasets, is recorded. This output is referred to as a \emph{history}.
+those datasets, is recorded. This output is referred to as a \emph{history}. A
+history created by EDO can be exceptionally large: some of the preliminary
+experiments conducted for this chapter produced hundreds of gigabytes of data;
+each experiment in Chapter~\ref{chp:kmodes} that uses EDO produced tens of
+thousands of unique datasets. Having volumes of data of these sizes certainly
+provide a rich source for study, but they can be cumbersome to the point of
+being completely infeasible. As such, one should be mindful of the storage
+capacity of the computer being used. Further to that, if fitting the data
+comfortably into memory is concern then not all of the data must be studied; the
+analysis in Chapter~\ref{chp:kmodes}, for instance, only considers the fittest
+percentile of datasets produced.
+
 Figure~\ref{fig:inertia_progression} shows the progression of the fitness
 function (inertia) and the number of rows at ten generation intervals across the
 history generated with the parameters defined above. There is a steep learning
