@@ -30,7 +30,7 @@ picture of the performance of an algorithm by generating artificial data through
 genetic evolution, the purpose of which is to create populations of datasets for
 which a particular algorithm performs well on a given metric. These datasets can
 be studied so as to learn what attributes lead to a particular progression of a
-given algorithm.  Following a detailed description of the algorithm as well as a
+given algorithm. Following a detailed description of the algorithm as well as a
 brief description of an open source implementation, a case study in clustering
 is presented. This case study demonstrates the performance and nuances of the
 method which we call Evolutionary Dataset Optimisation. In this study, a number
@@ -460,10 +460,22 @@ search space compared with its inclusion.
 \inputtikz{mutation}{The mutation process}
 
 Each of the potential mutations occurs with the same probability \(p_m\).
-However, how the columns are maintained assure that (assuming appropriate
-choices for \(f\) and \(\mathcal{P}\)) even multiple mutations in the dataset
-will only result in some incremental change in the individual's fitness relative
-to, say, a completely new individual.
+However, the way in which columns are formed and stored (with their associated
+metadata) ensures that even multiple mutations in the dataset will only result
+in some incremental change in the individual's fitness relative to, say, a
+completely new individual. This assertion relies on appropriate choices for
+\(f\) and \(\mathcal{P}\).
+
+The following section addresses how over-sensitivity and observable weak points
+in a fitness function impact the performance of the method. Addressing how to
+make a good choice families is not as clear-cut a process, but all use cases of
+this method have indicated that even a basic choice of distribution is
+sufficient. The following case study requires a continuous variable so the
+uniform distribution is used. Despite its simplicity, the EDO method is able to
+generate datasets with interesting structural properties. The analysis in
+Chapter~\ref{chp:kmodes} makes use of a discrete uniform distribution and,
+likewise, the EDO method is able to offer up datasets with more interest than a
+random cloud, as could be expected with a uniform distribution.
 
 \inputalg{mutation}
 
