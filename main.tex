@@ -3,7 +3,7 @@
 %%% Packages
 
 % Setting up page
-\usepackage[a4paper,top=25mm,right=25mm,bottom=25mm,left=40mm]{geometry}
+\usepackage[a4paper,top=25mm,right=25mm,bottom=30mm,left=40mm]{geometry}
 \usepackage{emptypage}
 
 % Mathematics
@@ -82,6 +82,10 @@
 \setlength{\imgwidth}{.95\textwidth}
 \newlength{\tablewidth}
 \setlength{\tablewidth}{.9\textwidth}
+
+\makeatletter
+\renewcommand*\l@algocf{\l@figure}
+\makeatother
 
 % Colours
 \definecolor{linenums}{HTML}{4c566a}
