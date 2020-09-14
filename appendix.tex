@@ -1,3 +1,24 @@
-\chapter*{Appendix}
+\chapter*{Appendices}
+\renewcommand{\thesection}{\Alph{section}}
+\renewcommand{\thetable}{\Alph{section}.\arabic{table}}
+\pagestyle{appendixstyle}
 
-This is the appendix.
+\appendix%
+\section{Supplementary tables}\label{app:tables}
+
+This appendix contains tables that add to the exploratory analysis conducted in
+Chapter~\ref{chp:data}. In particular, these tables consider the key attributes
+of the dataset that are connected with costs.
+
+\begin{table}
+        \centering
+    \rotatebox{90}{%
+        \resizebox{.75\paperheight}{!}{%
+            \input{\texpath/diab_summary.tex}
+        }
+    }
+        \caption{%
+            Spell-level statistics for each of the key attributes in the
+            diabetic population (and non-diabetic population in parentheses)
+        }\label{tab:diab_summary}
+    \end{table}
