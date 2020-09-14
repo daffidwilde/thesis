@@ -283,7 +283,7 @@ most prominent levels of interaction.
 \end{definition}
 
 \begin{figure}
-    \resizebox{\textwidth}{!}{%
+    \resizebox{.95\textwidth}{!}{%
         \includegraphics[width=\linewidth]{corr_heatmap.pdf}
     }
     \caption{%
@@ -558,8 +558,21 @@ patients represent a population whose spells are more severe on average than the
 typical patient. Therefore, they will likely have a larger effect on the
 hospital system on the whole. A more detailed breakdown of the skeleton for each
 of these attributes as well as the other key attributes is given in
-Appendix~\ref{app:tables}. Table~\ref{tab:diab_summary} also shows a comparison
-between both populations being considered in this section.
+Table~\ref{tab:diab_summary}. This table also shows a comparison between both
+populations being considered in this section.
+
+\begin{sidewaystable}
+    \centering
+%    \rotatebox{90}{%
+        \resizebox{.8\paperheight}{!}{%
+            \input{\texpath/diab_summary.tex}
+        }
+%    }
+    \caption{%
+        Spell-level statistics for each of the key attributes in the diabetic
+        population (and non-diabetic population in parentheses)
+    }\label{tab:diab_summary}
+\end{sidewaystable}
 
 \begin{figure}
     \centering
@@ -604,7 +617,8 @@ non-diabetic population has been omitted as it is similar to that of the general
 population.
 
 \begin{figure}
-    \resizebox{\textwidth}{!}{%
+    \centering
+    \resizebox{.95\textwidth}{!}{%
         \includegraphics[width=\linewidth]{corr_heatmap.pdf}
     }
     \caption{%
@@ -614,7 +628,8 @@ population.
 \end{figure}
 
 \begin{figure}
-    \resizebox{\textwidth}{!}{%
+    \centering
+    \resizebox{.95\textwidth}{!}{%
         \includegraphics[width=\linewidth]{corr_diff_heatmap.pdf}
     }
     \caption{%
