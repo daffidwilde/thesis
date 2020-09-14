@@ -353,11 +353,12 @@ framework.
 
 \begin{figure}
     \centering
-    \begin{subfigure}{.5\imgwidth}
+    \begin{subfigure}{\imgwidth}
         \includegraphics[width=\linewidth]{cluster_true_los}
         \caption{}\label{fig:cluster_los}
-    \end{subfigure}\hfill%
-    \begin{subfigure}{.5\imgwidth}
+    \end{subfigure}
+
+    \begin{subfigure}{\imgwidth}
         \includegraphics[width=\linewidth]{intervention_true_los}
         \caption{}\label{fig:intervention_los}
     \end{subfigure}
@@ -369,11 +370,12 @@ framework.
 
 \begin{figure}
     \centering
-    \begin{subfigure}{.5\imgwidth}
+    \begin{subfigure}{\imgwidth}
         \includegraphics[width=\linewidth]{cluster_spell_cost}
         \caption{}\label{fig:cluster_cost}
-    \end{subfigure}\hfill%
-    \begin{subfigure}{.5\imgwidth}
+    \end{subfigure}
+
+    \begin{subfigure}{\imgwidth}
         \includegraphics[width=\linewidth]{intervention_spell_cost}
         \caption{}\label{fig:intervention_cost}
     \end{subfigure}
@@ -404,11 +406,12 @@ the distribution of costs when splitting by intervention.
 
 \begin{figure}
     \centering
-    \begin{subfigure}{.5\imgwidth}
+    \begin{subfigure}{\imgwidth}
         \includegraphics[width=\linewidth]{cluster_charlson_gross}
         \caption{}\label{fig:cluster_charlson}
-    \end{subfigure}\hfill%
-    \begin{subfigure}{.5\imgwidth}
+    \end{subfigure}
+
+    \begin{subfigure}{\imgwidth}
         \includegraphics[width=\linewidth]{intervention_charlson_gross}
         \caption{}\label{fig:intervention_charlson}
     \end{subfigure}
@@ -429,11 +432,12 @@ distributions regardless of intervention.
 
 \begin{figure}
     \centering
-    \begin{subfigure}{.5\imgwidth}
+    \begin{subfigure}{\imgwidth}
         \includegraphics[width=\linewidth]{cluster_ltcs}
         \caption{}\label{fig:cluster_ltcs}
-    \end{subfigure}\hfill%
-    \begin{subfigure}{.5\imgwidth}
+    \end{subfigure}
+
+    \begin{subfigure}{\imgwidth}
         \includegraphics[width=\linewidth]{intervention_ltcs}
         \caption{}\label{fig:intervention_ltcs}
     \end{subfigure}
@@ -446,11 +450,12 @@ distributions regardless of intervention.
 
 \begin{figure}
     \centering
-    \begin{subfigure}{.5\imgwidth}
+    \begin{subfigure}{\imgwidth}
         \includegraphics[width=\linewidth]{cluster_icds}
         \caption{}\label{fig:cluster_icds}
-    \end{subfigure}\hfill%
-    \begin{subfigure}{.5\imgwidth}
+    \end{subfigure}
+
+    \begin{subfigure}{\imgwidth}
         \includegraphics[width=\linewidth]{intervention_icds}
         \caption{}\label{fig:intervention_icds}
     \end{subfigure}
@@ -596,15 +601,15 @@ p^*\right)\) is given by:
     \right\}
 \end{equation}
 
-\begin{figure}
+\begin{sidewaysfigure}
     \centering%
-    \resizebox{\imgwidth}{!}{%
+    \resizebox{\textheight}{!}{%
         \input{\texpath/process.tex}
     }
     \caption{%
         A diagrammatic depiction of the queuing parameter recovery process.
     }\label{fig:process}
-\end{figure}
+\end{sidewaysfigure}
 
 The parameter sweep included values of each \(p_i\) from \(0.5\) to \(1.0\) with
 a granularity of \(5.0 \times 10^{-2}\) and values of \(c\) from \(40\) to
@@ -617,11 +622,12 @@ each leaving two years of simulated data from each repetition.
 
 \begin{figure}
     \centering%
-    \begin{subfigure}{.5\imgwidth}
+    \begin{subfigure}{\imgwidth}
         \includegraphics[width=\linewidth]{best_params}
         \caption{}\label{fig:best_params}
-    \end{subfigure}\hfill%
-    \begin{subfigure}{.5\imgwidth}
+    \end{subfigure}
+
+    \begin{subfigure}{\imgwidth}
         \includegraphics[width=\linewidth]{worst_params}
         \caption{}\label{fig:worst_params}
     \end{subfigure}
@@ -700,11 +706,12 @@ is given by:
 
 \begin{figure}
     \centering
-    \begin{subfigure}{.5\imgwidth}
+    \begin{subfigure}{\imgwidth}
         \includegraphics[width=\linewidth]{lambda_time}
         \caption{}\label{fig:lambda_time}
-    \end{subfigure}\hfill%
-    \begin{subfigure}{.5\imgwidth}
+    \end{subfigure}
+
+    \begin{subfigure}{\imgwidth}
         \includegraphics[width=\linewidth]{lambda_util}
         \caption{}\label{fig:lambda_util}
     \end{subfigure}
@@ -758,11 +765,12 @@ real world.
 
 \begin{figure}
     \centering
-    \begin{subfigure}{.5\imgwidth}
+    \begin{subfigure}{\imgwidth}
         \includegraphics[width=\linewidth]{servers_time}
         \caption{}\label{fig:servers_time}
-    \end{subfigure}\hfill%
-    \begin{subfigure}{.5\imgwidth}
+    \end{subfigure}
+
+    \begin{subfigure}{\imgwidth}
         \includegraphics[width=\linewidth]{servers_util}
         \caption{}\label{fig:servers_util}
     \end{subfigure}
@@ -877,7 +885,7 @@ is found through inter-cluster transfers.
 
 \begin{figure}
     \centering
-    \includegraphics[width=\imgwidth]{moving_time}
+    \includegraphics[width=\textwidth]{moving_time}
     \caption{%
         Plots of proportions of each cluster moving to another against relative
         system time.
@@ -886,7 +894,7 @@ is found through inter-cluster transfers.
 
 \begin{figure}
     \centering
-    \includegraphics[width=\imgwidth]{moving_util}
+    \includegraphics[width=\textwidth]{moving_util}
     \caption{%
         Plots of proportions of each cluster moving to another on relative
         server utilisation.
