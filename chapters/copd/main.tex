@@ -48,6 +48,11 @@ COPD population before they arrive at the hospital.
 
 \myrule%
 
+This chapter differs from the manuscript by expanding the literature review into
+Chapter~\ref{chp:lit}, providing a detailed discussion of the clustering
+algorithm, and using a more precise range of values for the parameter sweep that
+informs the model in Sections~\ref{sec:model}~and~\ref{sec:scenarios}.
+
 \section{Introduction}\label{sec:intro}
 
 The previous chapter attempted an exploratory analysis of a large,
@@ -133,8 +138,8 @@ In addition to the above, the following attributes were engineered for each
 spell:
 \begin{itemize}
     \item Age and spell cost data were linked to approximately half of the
-        spells in the dataset from another administrative dataset provided by
-        the Cwm Taf Morgannwg UHB;
+        spells in the dataset from the administrative dataset analysed in
+        Chapter~\ref{chp:data};
     \item The presenting ICD codes were generalised to their categories
         according to NHS documentation and counts for each category were
         attached. This reduced the number of values from
@@ -146,30 +151,67 @@ spell:
 
 Although there is a fair amount of information here, it is limited to
 COPD-related admissions. Therefore, rather than segmenting the patients
-themselves, the spells will be. The clustering algorithm of choice is a variant
-of \(k\)-means, called \(k\)-prototypes, allows for the clustering of mixed-type
-data by performing \(k\)- means on the numeric attributes and \(k\)-modes on the
-categorical. Both \(k\)-prototypes and \(k\)-modes were presented
-in~\cite{Huang1998}.
+themselves, the spells will be. The attributes included in the clustering
+encompass both utilisation metrics and clinical attributes relating to the
+spell. They comprise the summary clinical path attributes, the CCI contributions
+and condition indicators, the WIMD rank, length of stay (LOS), COPD intervention
+status, and the engineered attributes (not including age and costs due to lack
+of coverage between the two datasets).
 
-The attributes included in the clustering encompass both utilisation metrics and
-clinical attributes relating to the spell. They comprise the summary clinical
-path attributes, the CCI contributions and condition indicators, the WIMD rank,
-length of stay (LOS), COPD intervention status, and the engineered attributes
-(not including age and costs due to lack of coverage).
+With these attributes selected, a clustering algorithm must be chosen. Two
+critical specifications of the algorithm used are that it must handle mixed-type
+data, and that it should be interpretable by stakeholders. As such, the
+\(k\)-prototypes algorithm is a strong candidate. The \(k\)-prototypes
+algorithm was mentioned in Chapter~\ref{chp:kmodes} and is a mixed-type
+extension to the \(k\)-modes and \(k\)-means algorithms. A full statement of the
+algorithm is given in Algorithm~\ref{alg:kprototypes}. In essence, the
+\(k\)-prototypes algorithm separates the given dataset into its numeric and
+categorical attributes before applying \(k\)-means and \(k\)-modes on the
+respective parts.
 
-To determine the optimal number of clusters, \(k\), the knee point detection
-algorithm introduced in~\cite{Satopaa2011} was used with a range of potential
-values for \(k\) from two to 10. This range was chosen based on what may be
-considered feasibly informative to stakeholders. The knee point detection
-algorithm can be considered a deterministic version of the widely known `elbow
-method' for determining the number of clusters. Applying this algorithm
-revealed an optimal value for \(k\) of four, but both three and five clusters
-were considered. Both of these cases were eliminated due to a lack of clear
-separation in the characteristics of the clusters. Additionally, the
-initialisation method used for \(k\)-prototypes was presented
-in~\cite{Wilde2020} as it was found to give an improvement in the clustering
-over other initialisation methods.
+These parts are combined using a modified dissimilarity function, defined
+in~\eqref{eq:kprototypes}. This function is a linear combination of the squared
+Euclidean distance and the dissimilarity function defined in~\eqref{eq:dissim}
+with a weight parameter, \(\gamma \in \mathbb R\). Using some of the same
+notation as in Chapter~\ref{chp:kmodes}, let the attribute space be written as
+\(\mathcal A = \left(A^{(n)}_1, \ldots, A^{(n)}_p, A^{(c)}_{p+1}, \ldots,
+A^{(c)}_m\right)\), where \(A^{(n)}\) and \(A^{(c)}\) denote numeric and
+categorical attributes, respectively. Then, the dissimilarity between two
+points, \(X, Y \in \mathcal A\), is defined to be:
+\begin{equation}\label{eq:kprototypes}
+    d(X, Y) = \sum_{j=1}^{p} \left(x_j - y_j\right)^2 + \gamma \sum_{j=p+1}^{m}
+    \delta \left(x_j, y_j\right)
+\end{equation}
+
+Since it can be more practical to split the problem of clustering mixed-type
+data by running \(k\)-means and \(k\)-modes separately, this dissimilarity
+function is not used directly in implementations of the \(k\)-prototypes
+algorithm. Instead, the clustering at each iteration is evaluated by considering
+the same linear combination of the categorical cost function (defined
+in~\eqref{eq:}) and inertia (defined in~\eqref{eq:inertia}). The choice of
+\(\gamma\) is of particular importance as it balances the contribution of each
+data type to the objective function. The seminal work by Huang~\cite{Huang1997a}
+investigated the effect of various \(\gamma\) values when clustering with
+\(k\)-prototypes. This investigation determined that a sensible and robust value
+for \(\gamma\) is the average of the standard deviations for the numeric
+attributes. The analysis that informed the clustering in this chapter found that
+this value for \(\gamma\) provided a useful clustering; as such, no further
+modifications were made.
+
+To determine the optimal number of clusters, \(k\), the same knee point
+detection algorithm used at the end of Chapter~\ref{chp:kmodes} was used with a
+range of potential values for \(k\) from two to 10. This range was chosen based
+on what may be considered feasibly informative to stakeholders. Applying this
+algorithm revealed an optimal value for \(k\) of four, but both three and five
+clusters were considered. Both of these cases were eliminated due to a lack of
+clear separation in the characteristics of the clusters.
+
+Additionally, the initialisation method used for \(k\)-prototypes was the
+matching initialisation presented in Chapter~\ref{chp:kmodes}. This
+initialisation gave a slight improvement over Cao's method in terms of the
+objective function.
+% TODO Should there be more here? The improvement is *very* slight but has the
+% scope for ad-hoc matching -- is that worth mentioning?
 
 \begin{table}
     \centering
@@ -177,18 +219,19 @@ over other initialisation methods.
         \input{\texpath/summary.tex}
     }\caption{%
         A summary of clinical and condition-specific characteristics for each
-        cluster and the population. A negative length of stay indicates that the
-        patient died prior to arriving at the hospital.
+        cluster and the population
     }\label{tab:summary}
 \end{table}
 
 Although the dataset is confidential and may not be published, a synthetic
 analogue derived from this clustering has been archived
 under~\doi{10.5281/zenodo.3908167}. A summary of the dataset and its clustering
-is provided in Table~\ref{tab:summary}. This table separates each cluster and
-the overall dataset (referred to as the population).  From this table, helpful
-insights can be gained about the segments identified by the clustering. For
-instance, the needs of the spells in each cluster can be summarised succinctly:
+is provided in Table~\ref{tab:summary}. A negative length of stay indicates that
+the patient had passed away prior to arriving at the hospital.This table
+separates each cluster and the overall dataset (referred to as the population).
+From this table, helpful insights can be gained about the segments identified by
+the clustering. For instance, the needs of the spells in each cluster can be
+summarised succinctly:
 
 \begin{itemize}
     \item Cluster 0 represents those spells with relatively low clinical
@@ -241,7 +284,7 @@ framework.
     \end{subfigure}
     \caption{%
         Histograms for length of stay by (\subref{fig:cluster_los}) cluster and
-        (\subref{fig:intervention_los}) intervention.
+        (\subref{fig:intervention_los}) intervention
     }\label{fig:los}
 \end{figure}
 
@@ -258,7 +301,7 @@ framework.
     \end{subfigure}
     \caption{%
         Histograms for spell cost by (\subref{fig:cluster_cost}) cluster and
-        (\subref{fig:intervention_cost}) intervention.
+        (\subref{fig:intervention_cost}) intervention
     }\label{fig:cost}
 \end{figure}
 
@@ -294,7 +337,7 @@ the distribution of costs when splitting by intervention.
     \end{subfigure}
     \caption{%
         Histograms for CCI by (\subref{fig:cluster_charlson}) cluster and
-        (\subref{fig:intervention_charlson}) intervention.
+        (\subref{fig:intervention_charlson}) intervention
     }\label{fig:charlson}
 \end{figure}
 
@@ -321,7 +364,7 @@ distributions regardless of intervention.
     \caption{%
         Proportions of the number of concurrent LTCs in a spell by
         (\subref{fig:cluster_ltcs}) cluster and (\subref{fig:intervention_ltcs})
-        intervention.
+        intervention
     }\label{fig:ltcs}
 \end{figure}
 
@@ -339,7 +382,7 @@ distributions regardless of intervention.
     \caption{%
         Proportions of the number of concurrent ICDs in a spell by
         (\subref{fig:cluster_icds}) cluster and (\subref{fig:intervention_icds})
-        intervention.
+        intervention
     }\label{fig:icds}
 \end{figure}
 
@@ -420,9 +463,10 @@ Without full details of the process order or idle periods during a spell, some
 assumption must be made about the actual `service' time of a patient in the
 hospital. It is assumed here that the mean service time of a group of patients
 may be approximated via their mean length of stay, i.e.\ the mean time spent in
-the system. For simplicity, this chapter assumes that for each cluster, \(i\), the
-mean service time of that cluster, \(\frac{1}{\mu_i}\), is directly proportional
-to the mean total system time of that cluster, \(\frac{1}{\phi_i}\), such that:
+the system. For simplicity, this chapter assumes that for each cluster, \(i\),
+the mean service time of that cluster, \(\frac{1}{\mu_i}\), is directly
+proportional to the mean total system time of that cluster,
+\(\frac{1}{\phi_i}\), such that:
 \begin{equation}\label{eq:services}
     \mu_i = p_i \phi_i
 \end{equation}
@@ -484,7 +528,7 @@ p^*\right)\) is given by:
         \input{chapters/copd/paper/tex/process_vertical.tex}
     }
     \caption{%
-        A diagrammatic depiction of the queuing parameter recovery process.
+        A diagrammatic depiction of the queuing parameter recovery process
     }\label{fig:process}
 \end{figure}
 
@@ -510,7 +554,7 @@ each leaving two years of simulated data from each repetition.
     \end{subfigure}
     \caption{Histograms of the simulated and observed length of stay data for
              the (\subref{fig:best_params}) best and (\subref{fig:worst_params})
-             worst parameter sets.}\label{fig:params}
+             worst parameter sets}\label{fig:params}
 \end{figure}
 
 The results of this parameter sweep can be summarised in
@@ -530,7 +574,7 @@ showing a precise fit by the best parameters across the board.
     }
     \caption{A comparison of the observed data, and the best and worst simulated
         data based on the model parameters and summary statistics for length of
-    stay (LOS).}\label{tab:comparison}
+        stay}\label{tab:comparison}
 \end{table}
 
 In this section, the previously identified clustering enriched the overall
@@ -549,8 +593,7 @@ objective of these experiments is to address the following questions:
 \begin{itemize}
     \item How would the system be affected by a change in overall patient
         arrivals?
-    \item How is the system affected by a change in resource availability (i.e.\
-        a change in \(c\))?
+    \item How is the system affected by a change in resource availability?
     \item How is the system affected by patients moving between clusters?
 \end{itemize}
 
@@ -594,7 +637,7 @@ is given by:
     \end{subfigure}
     \caption{%
         Plots of \(\sigma\) against relative (\subref{fig:lambda_time})~system
-        time and (\subref{fig:lambda_util})~server utilisation.
+        time and (\subref{fig:lambda_util})~server utilisation
     }\label{fig:lambda}
 \end{figure}
 
@@ -654,7 +697,7 @@ real world.
     \caption{%
         Plots of the relative number of servers against relative
         (\subref{fig:servers_time})~system time and
-        (\subref{fig:servers_util})~server utilisation.
+        (\subref{fig:servers_util})~server utilisation
     }\label{fig:servers}
 \end{figure}
 
@@ -765,7 +808,7 @@ is found through inter-cluster transfers.
     \includegraphics[width=\textwidth]{moving_time}
     \caption{%
         Plots of proportions of each cluster moving to another against relative
-        system time.
+        system time
     }\label{fig:moving_time}
 \end{figure}
 
@@ -774,7 +817,7 @@ is found through inter-cluster transfers.
     \includegraphics[width=\textwidth]{moving_util}
     \caption{%
         Plots of proportions of each cluster moving to another on relative
-        server utilisation.
+        server utilisation
     }\label{fig:moving_util}
 \end{figure}
 
