@@ -50,8 +50,9 @@ COPD population before they arrive at the hospital.
 
 This chapter differs from the manuscript by expanding the literature review into
 Chapter~\ref{chp:lit}, providing a detailed discussion of the clustering
-algorithm, and using a more precise range of values for the parameter sweep that
-informs the model in Sections~\ref{sec:model}~and~\ref{sec:scenarios}.
+algorithm in Section~\ref{sec:intro}, and using a more precise range of values
+for the parameter sweep that informs the model in
+Sections~\ref{sec:model}~and~\ref{sec:scenarios}.
 
 \section{Introduction}\label{sec:intro}
 
@@ -165,46 +166,64 @@ critical specifications of the algorithm used are that it must handle mixed-type
 data, and that it should be interpretable by stakeholders. As such, the
 \(k\)-prototypes algorithm is a strong candidate. The \(k\)-prototypes algorithm
 was mentioned in Chapter~\ref{chp:kmodes} and is a mixed-type extension to the
-\(k\)-modes and \(k\)-means algorithms. A full statement of the algorithm
-(adapted from~\cite{Huang1997a}) is given in Algorithm~\ref{alg:kprototypes}. In
-essence, the \(k\)-prototypes algorithm separates the given dataset into its
-numeric and categorical attributes before applying \(k\)-means and \(k\)-modes
-on the respective parts.
+\(k\)-modes and \(k\)-means algorithms; in effect, the \(k\)-prototypes
+algorithm separates the given dataset into its numeric and categorical
+attributes before applying \(k\)-means and \(k\)-modes on the respective parts.
+The statement of the \(k\)-prototypes algorithm has been omitted since it is
+equivalent to that of \(k\)-modes (given in Algorithm~\ref{alg:kmodes}) with the
+exceptions that:
 
-\input{chapters/copd/paper/tex/kprototypes}
+\begin{itemize}
+    \item The \textsc{SelectClosest} function uses the dissimilarity measure
+        given in~\eqref{eq:dissim};
+    \item The \textsc{Update} function is as given in
+        Algorithm~\ref{alg:update}.
+\end{itemize}
 
 These parts are combined using a modified dissimilarity function, defined
 in~\eqref{eq:kprototypes}. This function is a linear combination of the squared
 Euclidean distance and the dissimilarity function defined in~\eqref{eq:dissim}
-according to a single weight, \(\gamma \in \mathbb R\). Using some of the same
-notation as in Chapter~\ref{chp:kmodes}, let the attribute space be written as:
+according to a single weight, \(\gamma \in \mathbb R\). The notation and
+terminology for clustering mixed-type data is much the same as in
+Chapter~\ref{chp:kmodes}. However, there are substantial differences: first,
+representative points are referred to as \emph{prototypes}; and, second, an
+attribute space \(\mathcal A\) of \(m\) mixed-type attributes can be written as
+the product of its numeric and categorical components:
 
 \begin{equation}
-    \mathcal A = \Pi_{j=1}^{p} A^{(n)}_j \times \Pi_{j=p+1}^{m} A^{(c)}_j
+    \mathcal A
+    = \prod_{j=1}^{p} A^{(n)}_j \times \prod_{j=p+1}^{m} A^{(c)}_j
+    = \mathcal A^{(n)} \times \mathcal A^{(c)}
 \end{equation}
 
-\noindent where \(A^{(n)}\) and \(A^{(c)}\) denote numeric and categorical
-attributes, respectively. Then, the dissimilarity between two points, \(X, Y \in
-\mathcal A\), is defined to be:
+Here, \(A^{(n)}\) and \(A^{(c)}\) denote individual numeric and categorical
+attributes, respectively. Meanwhile, \(\mathcal A^{(n)}\) and \(\mathcal
+A^{(c)}\) denote the numeric and categorical components of the space. With this
+notation, the dissimilarity between two points, \(X, Y \in \mathcal A\), is
+defined to be:
 \begin{equation}\label{eq:kprototypes}
     d(X, Y) = \sum_{j=1}^{p} \left(x_j - y_j\right)^2 + \gamma \sum_{j=p+1}^{m}
     \delta \left(x_j, y_j\right)
 \end{equation}
 
-Since it can be more practical to split the problem of clustering mixed-type
-data by running \(k\)-means and \(k\)-modes separately, this dissimilarity
-function is not used directly in implementations of the \(k\)-prototypes
-algorithm. Instead, the clustering at each iteration is evaluated by considering
-the same linear combination of the categorical cost function (defined
-in~\eqref{eq:}) and inertia (defined in~\eqref{eq:inertia}). The choice of
-\(\gamma\) is of particular importance as it balances the contribution of each
-data type to the objective function. The seminal work by Huang~\cite{Huang1997a}
-investigated the effect of various \(\gamma\) values when clustering with
-\(k\)-prototypes. This investigation determined that a sensible and robust value
-for \(\gamma\) is the average of the standard deviations for the numeric
-attributes. The analysis that informed the clustering in this chapter found that
-this value for \(\gamma\) provided a useful clustering; as such, no further
-modifications were made.
+\input{chapters/copd/paper/tex/kprototypes}
+
+In addition to this dissimilarity function, \(k\)-prototypes has a cost function
+that uses the same linear combination as its dissimilarity function to consider
+the numeric and categorical attributes. This function combines the categorical
+cost function (defined in~\eqref{eq:}) and inertia (defined
+in~\eqref{eq:inertia}) according to the same value of \(\gamma\). A proof that
+minimising this linear combination also minimises the intra-cluster
+\(k\)-prototypes dissimilarity is given in~\cite{Huang1997a}.
+
+The choice of \(\gamma\) is of particular importance as it balances the
+contribution of each data type to the objective function. The seminal work by
+Huang~\cite{Huang1997a} investigated the effect of various \(\gamma\) values
+when clustering with \(k\)-prototypes. This investigation determined that a
+sensible and robust value for \(\gamma\) is the average of the standard
+deviations for the numeric attributes. The analysis that informed the clustering
+in this chapter found that this value for \(\gamma\) provided a useful
+clustering; as such, no further modifications were made.
 
 To determine the optimal number of clusters, \(k\), the same knee point
 detection algorithm used at the end of Chapter~\ref{chp:kmodes} was used with a
