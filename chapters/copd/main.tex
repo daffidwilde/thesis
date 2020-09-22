@@ -211,7 +211,7 @@ defined to be:
 In addition to this dissimilarity function, \(k\)-prototypes has a cost function
 that uses the same linear combination as its dissimilarity function to consider
 the numeric and categorical attributes. This function combines the categorical
-cost function (defined in~\eqref{eq:}) and inertia (defined
+cost function (defined in~\eqref{eq:cost}) and inertia (defined
 in~\eqref{eq:inertia}) according to the same value of \(\gamma\). A proof that
 minimising this linear combination also minimises the intra-cluster
 \(k\)-prototypes dissimilarity is given in~\cite{Huang1997a}.
@@ -336,8 +336,8 @@ framework.
 Figure~\ref{fig:los} shows the length of stay distributions as histograms.
 Figure~\ref{fig:cluster_los} demonstrates the different bed resource
 requirements well for each cluster --- better than Table~\ref{tab:summary} might
---- in that the difference between the clusters is not just a matter of
-varying means and ranges, but entirely different shapes to their respective
+--- in that the difference between the clusters is not only a matter of varying
+means and ranges, but entirely different shapes to their respective
 distributions. Indeed, they are all positively skewed, but there is no real
 consistency beyond that. When comparing this to
 Figure~\ref{fig:intervention_los}, there is undoubtedly some variety, but the
@@ -516,7 +516,7 @@ choice among the last group (which may be considered distance-like) is the
 Kullback-Leibler divergence which measures relative information entropy from one
 probability distribution to another~\cite{Kullback1951}. A key issue with many
 of these methods is that they lack interpretability, something which is
-paramount when conveying information to stakeholders, not just from explaining
+paramount when conveying information to stakeholders, not only for explaining
 how something works but also how its results may be explained.
 
 As such, a reasonable candidate is the (first) Wasserstein metric, also known as
@@ -524,7 +524,7 @@ the `earth mover' or `digger' distance~\cite{Vaserstein1969}. The Wasserstein
 metric satisfies the conditions of a formal mathematical metric (like the
 typical Euclidean distance), and its values take the units of the distributions
 under comparison (in this case: days). These characteristics can aid
-understanding and explanation. In simple terms, the distance measures the
+understanding and explanation. In layperson's terms, the distance measures the
 approximate `minimal work' required to move between two probability
 distributions where `work' can be loosely defined as the product of how much of
 the distribution's mass moves and the distance by which it must be moved. More
@@ -633,9 +633,9 @@ particular, the data from each scenario is scaled by the corresponding median
 value in the base case, meaning that a metric having a value of 1 is ‘normal’.
 
 As mentioned in Section~\ref{sec:intro}, the source code used throughout this
-work is available has been archived online~\cite{Wilde2020github}. Also, the
-datasets generated from the simulations in this section, and the parameter
-sweep, have been archived online~\cite{Wilde2020results}.
+work is available has been archived online under~\doi{10.5281/zenodo.3936479}.
+Also, the datasets generated from the simulations in this section, and the
+parameter sweep, have been archived online~\doi{doi:10.5281/zenodo.3924715}.
 
 \subsection{Changes to overall patient arrivals}\label{subsec:arrivals}
 
@@ -684,7 +684,7 @@ expect: as arrivals increase, the strain on the system increases. However, it
 should be noted that it also appears that the model has some amount of slack
 relative to the base case. Looking at Figure~\ref{fig:lambda_time}, for
 instance, the relative system times (i.e.\ the relative length of stay for
-patients) remains unchanged up to \(\sigma \approx 1.2\), or an approximate 20\%
+patients) stays unchanged up to \(\sigma \approx 1.2\), or an approximate 20\%
 increase in arrivals of COPD patients. Beyond that, relative system times rise
 to an untenable point where the median time becomes orders of magnitude above
 the norm.
@@ -707,7 +707,7 @@ of \(n\) servers increase efficiency without exceeding a budget?
 
 To reiterate the beginning of this section: all suitable parameters are given in
 relative terms, including the number of servers here. By doing this, the
-changes in resource availability are more easily seen, and do away with any
+changes in resource availability are more readily seen, and do away with any
 concerns as to what a particular number of servers precisely reflects in the
 real world.
 
@@ -775,13 +775,13 @@ movement informed by a model such as this, then real change would be seen in the
 real system.
 
 In order to model the effects of spells moving between two clusters, the
-assumption is that services remain the same (and so does each cluster's
-\(p_i\)), but their arrival rates are altered according to some transfer
-proportion. Consider two clusters indexed at \(i, j\), and their respective
-arrival rates, \(\lambda_i, \lambda_j\), and let \(\delta \in [0, 1]\) denote
-the proportion of arrivals to be moved from cluster \(i\) to cluster \(j\). Then
-the new arrival rates for each cluster, denoted by \(\hat\lambda_i,
-\hat\lambda_j\) respectively, are:
+assumption is that each cluster's service time distribution stays the same (and
+so does each cluster's \(p_i\)), but their arrival rates are altered according
+to some transfer proportion. Consider two clusters indexed at \(i, j\), and
+their respective arrival rates, \(\lambda_i, \lambda_j\), and let \(\delta \in
+[0, 1]\) denote the proportion of arrivals to be moved from cluster \(i\) to
+cluster \(j\). Then the new arrival rates for each cluster, denoted by
+\(\hat\lambda_i, \hat\lambda_j\) respectively, are:
 \begin{equation}\label{eq:moving}
     \hat\lambda_i = \left(1 - \delta\right) \lambda_i
     \quad \text{and} \quad
@@ -877,7 +877,7 @@ best performing parameter set is found via a parameter sweep.
 This parameterisation ultimately recovers a surrogate for service times for each
 cluster, and a universal number of servers to emulate resource availability. The
 parameterisation itself offers its strengths by being straightforward and
-effective.  Despite its simplicity, a good fit to the observed data is found,
+effective. Despite its simplicity, a good fit to the observed data is found,
 and --- as is evident from the closing section of this chapter --- substantial
 and useful insights can be gained into the needs of the population under study.
 
