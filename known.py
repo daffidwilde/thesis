@@ -50,6 +50,7 @@ words = {
     "RADTH",
     "SVMs",
     "Scikit",
+    "SelectClosest",
     "Simul",
     "Smirnov",
     "THER",
