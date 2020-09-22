@@ -255,38 +255,39 @@ Although the dataset is confidential and may not be published, a synthetic
 analogue derived from this clustering has been archived
 under~\doi{10.5281/zenodo.3908167}. A summary of the dataset and its clustering
 is provided in Table~\ref{tab:summary}. A negative length of stay indicates that
-the patient had passed away prior to arriving at the hospital.This table
+the patient had passed away prior to arriving at the hospital. This table
 separates each cluster and the overall dataset (referred to as the population).
 From this table, helpful insights can be gained about the segments identified by
 the clustering. For instance, the needs of the spells in each cluster can be
 summarised succinctly:
 
 \begin{itemize}
-    \item Cluster 0 represents those spells with relatively low clinical
-        complexity but high resource requirements. The mean spell cost is almost
-        four times the population average, and the shortest spell is almost two
-        weeks long. Moreover, the median number of COPD-related admissions in
-        the last year is elevated, indicating that patients presenting in this
-        way require more interactions with the system.
+    \item Cluster 0 represents those spells with relatively {\slshape low
+        clinical complexity but high resource requirements}. The mean spell cost
+        is almost four times the population average, and the shortest spell is
+        almost two weeks long. Moreover, the median number of COPD-related
+        admissions in the last year is elevated, indicating that patients
+        presenting in this way require more interactions with the system.
     \item Cluster 1, the second-largest segment, represents the spells with
-        complex clinical profiles despite lower resource requirements.
-        Specifically, the spells in this cluster have the highest median CCI and
-        number of LTCs, and the highest condition prevalence across all clusters
-        but the second-lowest length of stay and spell costs.
-    \item Cluster 2 represents the majority of spells and those where resource
-        requirements and clinical complexities are minimal; these spells have
-        the shortest lengths, and the patients present with fewer diagnoses and
-        a lower median CCI than any other cluster. In addition to this, the
-        spells in Cluster 2 have the highest intervention prevalence. However,
-        they have the lowest condition prevalence across all clusters.
+        {\slshape complex clinical profiles despite lower resource
+        requirements}. Specifically, the spells in this cluster have the highest
+        median CCI and number of LTCs, and the highest condition prevalence
+        across all clusters but the second-lowest length of stay and spell
+        costs.
+    \item Cluster 2 represents the majority of spells and those where {\slshape
+        resource requirements and clinical complexities are minimal}; these
+        spells have the shortest lengths, and the patients present with fewer
+        diagnoses and a lower median CCI than any other cluster. In addition to
+        this, the spells in Cluster 2 have the highest intervention prevalence.
+        However, they have the lowest condition prevalence across all clusters.
     \item Cluster 3 represents the smallest section of the population but
-        perhaps the most critical: spells with high complexity and high resource
-        needs. The patients within Cluster 3 are the oldest in the population
-        and are some of the most frequently returning despite having the lowest
-        intervention rates. The lengths of stay vary between seven and 32 weeks,
-        and the mean spell cost is almost eight times the population average.
-        This cluster also has the second-highest median CCI, and the highest
-        median number of concurrent diagnoses.
+        perhaps the most critical: spells with {\slshape high complexity and
+        high resource needs.} The patients within Cluster 3 are the oldest in
+        the population and are some of the most frequently returning despite
+        having the lowest intervention rates. The lengths of stay vary between
+        seven and 32 weeks, and the mean spell cost is almost eight times the
+        population average. This cluster also has the second-highest median
+        CCI, and the highest median number of concurrent diagnoses.
 \end{itemize}
 
 The attributes listed in Table~\ref{tab:summary} can be studied beyond summaries
@@ -459,24 +460,23 @@ particular,~\cite{Williams2015} shows how a single node, multiple server queue
 can be used to accurately predict bed capacity and length of stay distributions
 in a critical care unit using administrative data.
 
-In order to follow in the suit of recent literature, this chapter employs a single
-node using the \(M/M/c\) queue to model a hypothetical ward of patients
+In order to follow in the suit of recent literature, this chapter employs a
+single node using the \(M/M/c\) queue to model a hypothetical ward of patients
 presenting COPD.\ In addition to this, the grouping found in
 Section~\ref{subsec:overview} provides a set of patient classes in the queue.
 Under this model, the following assumptions are made:
 \begin{enumerate}
     \item Inter-arrival and service times of patients are each exponentially
-        distributed with some mean. This distribution is used despite the system
-        time distributions shown in Figure~\ref{fig:cluster_los} in order to
-        simplify the model parameterisation.
+        distributed with some mean. This distribution is used to simplify the
+        model parameterisation.
     \item There are \(c \in \mathbb{N}\) servers available to arriving patients
         at the node representing the overall resource availability, including
         bed capacity and hospital staff.
     \item There is no queue or system capacity. In~\cite{Williams2015}, a
         queue capacity of zero is set under the assumption that any surplus
         arrivals would be sent to another suitable ward or unit. As this
-        hypothetical ward represents COPD patients potentially throughout a
-        hospital, this assumption is not held.
+        hypothetical ward represents the sole unit for COPD patients within the
+        health board, this assumption is not held.
     \item Without the availability of expert clinical knowledge, a
         first-in-first-out service policy is employed in place of some patient
         priority framework.
@@ -484,23 +484,45 @@ Under this model, the following assumptions are made:
 
 Each group of patients has its arrival distribution, the parameter of which is
 the reciprocal of the mean inter-arrival times for that group. This parameter
-is denoted by \(\lambda_i\) for each cluster \(i\).
+is denoted by \(\lambda_l\) for each cluster \(l\).
 
 Like arrivals, each group of patients has its service time distribution.
 Without full details of the process order or idle periods during a spell, some
 assumption must be made about the actual `service' time of a patient in the
 hospital. It is assumed here that the mean service time of a group of patients
 may be approximated via their mean length of stay, i.e.\ the mean time spent in
-the system. For simplicity, this chapter assumes that for each cluster, \(i\),
-the mean service time of that cluster, \(\frac{1}{\mu_i}\), is directly
-proportional to the mean total system time of that cluster,
-\(\frac{1}{\phi_i}\), such that:
-\begin{equation}\label{eq:services}
-    \mu_i = p_i \phi_i
+the system. As indicated by the distributions in Figure~\ref{fig:cluster_los},
+some of the length of stay distributions will require shifting prior to fitting
+an exponential distribution.
+
+Let \(T_l\) denote the set of observed lengths of stay for cluster \(l\). These
+times can be brought back to the origin by subtracting the minimum observed
+time. Thus, the \emph{shifted times} for cluster \(l\), denoted
+\(\widehat T_l\), are:
+
+\begin{equation}\label{eq:shifted}
+    \widehat T_l := \left\{t - \min T_l : t \in T_l\right\}
 \end{equation}
 
-\noindent where \(p_i \in \interval[open left]{0}{1}\) is some parameter to be
-determined for each group.
+An exponential distribution may be fitted to these shifted system times by
+using their mean, denoted by \(\widehat \phi_l\), as the distribution
+parameter:
+
+\begin{equation}\label{eq:shifted_mean}
+    \widehat \phi_l :=
+    \frac{1}{\abs*{\widehat T_l}} \sum_{t \in \widehat T_l} t
+\end{equation}
+
+For the sake of simplicity, it is assumed that for each cluster \(l\), the mean
+service time of that cluster, \(\widehat \mu_l\), is related to the
+corresponding mean shifted and minimum system times such that:
+\begin{equation}\label{eq:services}
+    \widehat \mu_i = \min T + p_i \widehat \phi_i
+\end{equation}
+
+Here, \(p_i \in \interval[open left]{0}{1}\) is a \emph{service proportion}
+parameter to be determined for each group. With this relationship established,
+all that is left is to reverse the shift. Hence, the 
 
 One of the few ground truths available in the provided data is the distribution
 of the total length of stay. Given that the length of stay and resource
