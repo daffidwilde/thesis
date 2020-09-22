@@ -111,6 +111,7 @@ from February 2011 through March 2019 totalling 10,861 spells. A patient
 bed on premises controlled by a healthcare provider and is made up of one or
 more patient episodes~\cite{NHS2020}. The following attributes describe the
 spells included in the dataset:
+
 \begin{itemize}
     \item Personal identifiers and information, i.e.\ patient and spell ID
         numbers, and identified gender;
@@ -136,6 +137,7 @@ spells included in the dataset:
 
 In addition to the above, the following attributes were engineered for each
 spell:
+
 \begin{itemize}
     \item Age and spell cost data were linked to approximately half of the
         spells in the dataset from the administrative dataset analysed in
@@ -161,23 +163,29 @@ of coverage between the two datasets).
 With these attributes selected, a clustering algorithm must be chosen. Two
 critical specifications of the algorithm used are that it must handle mixed-type
 data, and that it should be interpretable by stakeholders. As such, the
-\(k\)-prototypes algorithm is a strong candidate. The \(k\)-prototypes
-algorithm was mentioned in Chapter~\ref{chp:kmodes} and is a mixed-type
-extension to the \(k\)-modes and \(k\)-means algorithms. A full statement of the
-algorithm is given in Algorithm~\ref{alg:kprototypes}. In essence, the
-\(k\)-prototypes algorithm separates the given dataset into its numeric and
-categorical attributes before applying \(k\)-means and \(k\)-modes on the
-respective parts.
+\(k\)-prototypes algorithm is a strong candidate. The \(k\)-prototypes algorithm
+was mentioned in Chapter~\ref{chp:kmodes} and is a mixed-type extension to the
+\(k\)-modes and \(k\)-means algorithms. A full statement of the algorithm
+(adapted from~\cite{Huang1997a}) is given in Algorithm~\ref{alg:kprototypes}. In
+essence, the \(k\)-prototypes algorithm separates the given dataset into its
+numeric and categorical attributes before applying \(k\)-means and \(k\)-modes
+on the respective parts.
+
+\input{chapters/copd/paper/tex/kprototypes}
 
 These parts are combined using a modified dissimilarity function, defined
 in~\eqref{eq:kprototypes}. This function is a linear combination of the squared
 Euclidean distance and the dissimilarity function defined in~\eqref{eq:dissim}
-with a weight parameter, \(\gamma \in \mathbb R\). Using some of the same
-notation as in Chapter~\ref{chp:kmodes}, let the attribute space be written as
-\(\mathcal A = \left(A^{(n)}_1, \ldots, A^{(n)}_p, A^{(c)}_{p+1}, \ldots,
-A^{(c)}_m\right)\), where \(A^{(n)}\) and \(A^{(c)}\) denote numeric and
-categorical attributes, respectively. Then, the dissimilarity between two
-points, \(X, Y \in \mathcal A\), is defined to be:
+according to a single weight, \(\gamma \in \mathbb R\). Using some of the same
+notation as in Chapter~\ref{chp:kmodes}, let the attribute space be written as:
+
+\begin{equation}
+    \mathcal A = \Pi_{j=1}^{p} A^{(n)}_j \times \Pi_{j=p+1}^{m} A^{(c)}_j
+\end{equation}
+
+\noindent where \(A^{(n)}\) and \(A^{(c)}\) denote numeric and categorical
+attributes, respectively. Then, the dissimilarity between two points, \(X, Y \in
+\mathcal A\), is defined to be:
 \begin{equation}\label{eq:kprototypes}
     d(X, Y) = \sum_{j=1}^{p} \left(x_j - y_j\right)^2 + \gamma \sum_{j=p+1}^{m}
     \delta \left(x_j, y_j\right)
@@ -210,8 +218,9 @@ Additionally, the initialisation method used for \(k\)-prototypes was the
 matching initialisation presented in Chapter~\ref{chp:kmodes}. This
 initialisation gave a slight improvement over Cao's method in terms of the
 objective function.
-% TODO Should there be more here? The improvement is *very* slight but has the
-% scope for ad-hoc matching -- is that worth mentioning?
+% TODO Should there be more here? The improvement is *very* slight (even a
+% rounding error to be honest) but this method has the scope for some ad-hoc
+% matching -- is that worth mentioning?
 
 \begin{table}
     \centering
