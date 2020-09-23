@@ -254,11 +254,12 @@ objective function.
 Although the dataset is confidential and may not be published, a synthetic
 analogue derived from this clustering has been archived
 under~\doi{10.5281/zenodo.3908167}. A summary of the dataset and its clustering
-is provided in Table~\ref{tab:summary}. A negative length of stay indicates that
-the patient had passed away prior to arriving at the hospital. This table
-separates each cluster and the overall dataset (referred to as the population).
-From this table, helpful insights can be gained about the segments identified by
-the clustering. For instance, the needs of the spells in each cluster can be
+is provided in Table~\ref{tab:summary}. Note that a negative length of stay
+indicates that the patient had passed away prior to arriving at the hospital and
+so these spells have been omitted from further analysis. This table separates
+each cluster and the overall dataset (referred to as the population). From this
+table, helpful insights can be gained about the segments identified by the
+clustering. For instance, the needs of the spells in each cluster can be
 summarised succinctly:
 
 \begin{itemize}
@@ -460,6 +461,8 @@ particular,~\cite{Williams2015} shows how a single node, multiple server queue
 can be used to accurately predict bed capacity and length of stay distributions
 in a critical care unit using administrative data.
 
+\subsection{Deriving the model parameters}\label{subsec:derive}
+
 In order to follow in the suit of recent literature, this chapter employs a
 single node using the \(M/M/c\) queue to model a hypothetical ward of patients
 presenting COPD.\ In addition to this, the grouping found in
@@ -492,37 +495,56 @@ assumption must be made about the actual `service' time of a patient in the
 hospital. It is assumed here that the mean service time of a group of patients
 may be approximated via their mean length of stay, i.e.\ the mean time spent in
 the system. As indicated by the distributions in Figure~\ref{fig:cluster_los},
-some of the length of stay distributions will require shifting prior to fitting
-an exponential distribution.
+the length of stay distributions require shifting prior to fitting an
+exponential distribution.
 
-Let \(T_l\) denote the set of observed lengths of stay for cluster \(l\). These
-times can be brought back to the origin by subtracting the minimum observed
-time. Thus, the \emph{shifted times} for cluster \(l\), denoted
-\(\widehat T_l\), are:
+Let \(T_l\) denote the set of observed lengths of stay for cluster \(l\), and
+let \(m_l = \max \left\{0, \min T_l\right\}\) be its feasible minimum. Thus, the
+\emph{shifted times} for cluster \(l\), denoted \(\widehat T_l\), are:
 
 \begin{equation}\label{eq:shifted}
-    \widehat T_l := \left\{t - \min T_l : t \in T_l\right\}
+    \widehat T_l := \left\{t - m_l : t \in T_l\right\}
 \end{equation}
 
 An exponential distribution may be fitted to these shifted system times by
-using their mean, denoted by \(\widehat \phi_l\), as the distribution
-parameter:
+using their mean, denoted by \(\frac{1}{\phi_l}\), as the distribution
+parameter. For the sake of simplicity, it is assumed that for each cluster
+\(l\), the mean shifted service time of that cluster, \(\frac{1}{\mu_l}\), is
+proportional to the corresponding mean shifted system time such that:
 
-\begin{equation}\label{eq:shifted_mean}
-    \widehat \phi_l :=
-    \frac{1}{\abs*{\widehat T_l}} \sum_{t \in \widehat T_l} t
+\begin{equation}\label{eq:shifted_services}
+    \mu_l = p_l \phi_l
 \end{equation}
 
-For the sake of simplicity, it is assumed that for each cluster \(l\), the mean
-service time of that cluster, \(\widehat \mu_l\), is related to the
-corresponding mean shifted and minimum system times such that:
+\noindent where \(p_l \in \interval[open left]{0}{1}\) is a {\slshape service
+proportion} parameter to be determined for each group.
+
+With these definitions, the service time for cluster \(l\), denoted \(S_l\), is
+distributed by a {\slshape shifted exponential distribution} with a mean of
+\(\frac{1}{\mu_l}\) and shift of \(m_l\). The probability density function
+of this distribution is as follows:
+
+\begin{equation}\label{eq:shifted_pdf}
+    f(s) = \begin{cases}
+        \mu_l e^{-\mu_l (s - m_l)} & \quad \text{if \(s \ge m_l\)}\\
+        0 & \quad \text{otherwise}
+    \end{cases}
+\end{equation}
+
+Since this distribution is geometrically identical to the exponential
+distribution with rate \(\mu_l\) except for a shift of \(m_l\), its memoryless
+property holds for \(s \ge m_l\). However, since this model allows for multiple
+classes and the shift terms are not the same for each cluster, this model
+technically should be reclassified as a \(M/G/c\) model. Regardless of this, the
+mean service time for spells in cluster \(l\) is given by:
+
 \begin{equation}\label{eq:services}
-    \widehat \mu_i = \min T + p_i \widehat \phi_i
+    \mathbb E \left(S_l\right)
+    = \int_{m_l}^{\infty} \mu_l s e^{-\mu_l (s - m_l)} \mathrm ds
+    = m_l + \frac{1}{\mu_l}
 \end{equation}
 
-Here, \(p_i \in \interval[open left]{0}{1}\) is a \emph{service proportion}
-parameter to be determined for each group. With this relationship established,
-all that is left is to reverse the shift. Hence, the 
+\subsection{Validating the model}\label{subsec:validate}
 
 One of the few ground truths available in the provided data is the distribution
 of the total length of stay. Given that the length of stay and resource
