@@ -1,1 +1,243 @@
 \chapter{Matching games}
+\label{chp:matching}
+
+\graphicspath{{chapters/matching/paper/img/}}
+
+Matching games form a part of game theory that allow for the allocation of
+resources and partnerships in a fair way. Typically, a matching game is defined by two sets of players that each have
+preferences over at least some of the elements of the other set. The objective
+of the game is then to find a mapping between the sets of players in which
+everyone is \emph{happy enough} with their match.
+
+One of the most ubiquitous matching games is the Stable Marriage Problem
+(SM). In SM, there are two distinct player sets of size \(N\): a set of suitors
+\(S\) and a set of reviewers \(R\). Each suitor must strictly rank all of the
+reviewers, and vice versa. This arrangement of suitors, reviewers, and
+their preferences is called a game of size \(N\)~\cite{Gale1962}.
+
+In SM, a matching is any bijection \(M\) between \(S\) and \(R\), and it is
+considered to be stable (i.e. no one has a reason to modify their current match)
+if it contains no blocking pairs. A blocking pair is defined as any pair \((s,
+r) \in S \times R\) that would rather be matched to one another than their
+current match. This definition differs between matching games but the spirit is
+the same in that a pair blocks a matching if their envy is mutually rational.
+Irrational envy would be where one player wishes to be matched to another over
+their current match but the other player does not (or cannot) reciprocate.
+
+Consider the game of size three shown in Figure~\ref{fig:sm_matching} as an
+edgeless graph with suitors on the left and reviewers on the right. Beside each
+vertex is the name of the player and their associated ranking of the
+complementary set’s elements.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\imgwidth]{sm_matching}
+    \caption{A game of size three}\label{fig:sm_matching}
+\end{figure}
+
+
+\cite{Gale1962} presented an algorithm for finding a unique, stable and
+suitor-optimal matching to any instance of SM. The matching this algorithm
+produces is shown in Figure~\ref{fig:sm_stable}.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\imgwidth]{sm_stable}
+    \caption{%
+        A stable, suitor-optimal solution to the game in
+        Figure~\ref{fig:sm_matching}
+    }\label{fig:sm_stable}
+\end{figure}
+
+Using Matching, this matching can be computed as follows:
+
+\begin{usagepy}
+>>> from matching.games import StableMarriage
+>>> suitor_preferences = {
+...     "A": ["D", "E", "F"], "B": ["D", "F", "E"], "C": ["F", "D", "E"]
+... }
+>>> reviewer_preferences = {
+...     "D": ["B", "C", "A"], "E": ["A", "C", "B"], "F": ["C", "B", "A"]
+... }
+>>> game = StableMarriage.create_from_dictionaries(
+...     suitor_preferences, reviewer_preferences
+... )
+>>> game.solve()
+{A: E, B: D, C: F}
+
+\end{usagepy}
+
+While it is relatively easy to find solutions to games like this with pen and
+paper, instances of other matching games tend to have more players than this and
+require the use of software to be solved in reasonable time.
+
+In general, matching games are defined by two sets (parties) of players (often
+termed suitors and reviewers) in which each player creates a preference list of
+at least some of the players in the other party. The objective then is to find a
+mapping between the two sets of players such that no pair of players is
+(rationally) unhappy with their matching. Such a mapping is considered stable.
+Algorithms to find stable matchings to instances of matching games are often
+structured to be party-oriented and aim to maximise some form of social or
+party-based optimality~\cite{Fuku2006,Gale1962,Kwanashie2015}.
+
+One of the simplest matching games models the Stable Marriage Problem (SM). In
+this game the sets of players must be of equal size and rank each other strictly
+(i.e.\ no ties allowed) and entirely. An algorithm was presented in the seminal
+work by D.\ Gale and L.\ Shapley~\cite{Gale1962} that `solves' any instance of
+SM by finding for it a unique, suitor-optimal, stable matching. This kind of
+game is not considered in this work as it effectively reduces down to Huang's
+method. This can be seen as follows. Note that the concept of preference between
+points in an attribute space is synonymous with similarity. Thus, when
+constructing the game, each potential mode gets to pick the data point it is
+closest to but that has not already been picked. Then, up to an arbitrary
+breaking of any ties in the preference lists, each potential mode is assigned to
+its chosen data point.
+
+A number of issues arise from this particular model other than it reducing to
+Huang's method. For instance:
+\begin{itemize}
+    \item Ties are common when using the distance metric defined
+        in~(\ref{eq:dissim}).
+    \item There is no intuitively concrete way of constructing sets of players
+        or their preference lists.
+\end{itemize}
+
+Allowing for ties is a simple extension to SM but the notion of stability
+becomes tiered~\cite{Iwama2016,Iwama1999}. In each case of stability, if such a
+matching exists, then a polynomial-time algorithm will find one that is optimal
+for one set of players. However, there is no guarantee that such a
+level-of-stable matching exists and even in that case, the notion of
+party-optimality is lost~\cite{Erdil2017}. Therefore this extension is not
+considered here where a stable solution to the game is required, and is
+preferably party-optimal.
+
+Further to allowing ties, how preference lists are constructed is a point of
+interest in many applications of matching games~\cite{Iwama2008,Manlove2002}.
+Often this is a contextual problem and may be addressed in a number of ways. As
+in this case, where similarity and preference are considered equivalent, a
+bespoke distance metric may be used. Though not relevant to this work, if the
+game forms part of a larger, long-standing or otherwise complex model,
+introducing flexibility in preferences~\cite{Agarwal2017,Menzel2015} or
+estimating them on the fly~\cite{Rastegari2016} may be helpful to obtain
+meaningful matchings.
+
+Another method used to construct preference lists is to discount the preference
+lists presented by players. For instance, where acceptability of another player
+is the only criterion, binary preferences (i.e.\ incomplete preference lists
+with ties) can create games that are invulnerable to manipulative players'
+strategies~\cite{Bogomolnaia2004}. This approach can be adapted to cater for
+larger games, such as student-school allocation. In this case, each student
+submits a set of acceptable schools and the schools form strict rankings of the
+students. The result of this is a simpler game (in the practical sense) and a
+reduction in the set of possible stable
+matchings~\cite{Haeringer2014,Haeringer2019}.
+
+As this particular case has no interactive element, and must guarantee a stable
+matching (ideally with optimality), none of these extensions are used in the
+proposed method. Instead, so as to keep the method as simple as possible within
+these constraints, the game used will model an instance of the Hospital-Resident
+Assignment Problem (HR) which was presented with SM as a practical solution to
+the problem that gives it its namesake~\cite{Gale1962}.
+
+Like SM, there exists an algorithm that can provide a unique, party-optimal,
+stable matching to any instance of HR.\ The resident-optimal algorithm is
+presented in Algorithm~\ref{alg:hospital_resident} and is adapted from the
+original to take advantage of the structure of the game~\cite{Roth1984}. The
+game used to model HR, its matchings, and its notion of stability are defined in
+Definitions~\ref{def:game}---\ref{def:blocking}. A summary of these definitions
+in the context of the proposed \(k\)-modes initialisation is given in
+Table~\ref{tab:components}.
+
+\begin{definition}\label{def:game}
+    Consider two distinct sets \(R, H\) and refer to them residents and
+    hospitals. Each \(h \in H\) has a capacity \(c_h \in \mathbb{N}\) associated
+    with them. Each player \(r \in R\) and \(h \in H\) has associated 
+    with it a strict preference list of the other set's elements such that:
+    \begin{itemize}
+        \item Each \(r \in R\) ranks a non-empty subset of \(H\), denoted by
+            \(f(r)\).
+        \item Each \(h \in H\) ranks all and only those residents that have
+            ranked it, i.e.\ the preference list of \(h\), denoted \(g(h)\), is
+            a permutation of the set
+            \(\left\{r \in R \ | \ h \in f(r)\right\}\). If no such residents
+            exist, \(h\) is removed from \(H\).
+    \end{itemize}
+    This construction of residents, hospitals, capacities and preference lists
+    is called a \emph{game} and is denoted by \((R, H)\).
+\end{definition}
+\begin{definition}\label{def:matching}
+    Consider a game \((R, H)\). A \emph{matching} \(M\) is any mapping between
+    \(R\) and \(H\). If a pair \((r, h) \in R \times H\) are matched in \(M\)
+    then this relationship is denoted \(M(r) = h\) and \(r \in M^{-1}(h)\).
+    A matching is only considered \emph{valid} if all of the following hold for
+    all \(r \in R, h \in H\):
+    \begin{itemize}
+        \item If \(r\) is matched then \(M(r) \in f(r)\).
+        \item If \(h\) has at least one match then \(M^{-1}(h) \subseteq g(h)\).
+        \item \(h\) is not over-subscribed, i.e.\ \(\abs*{M^{-1}(h)} \leq c_h\).
+    \end{itemize}
+    A valid matching is considered \emph{stable} if it does not contain any
+    blocking pairs.
+\end{definition}
+\begin{definition}\label{def:blocking}
+    Consider a game \((R, H)\). Then a pair \((r, h) \in R \times H\) is said to
+    \emph{block} a matching \(M\) if all of the following hold:
+    \begin{itemize}
+        \item There is mutual preference, i.e.\ \(r \in g(h)\) and \(h \in
+            f(r)\).
+        \item Either \(r\) is unmatched or they prefer \(h\) to \(M(r)\).
+        \item Either \(h\) is under-subscribed or \(h\) prefers \(r\) to at
+            least one resident in \(M^{-1}(h)\).
+    \end{itemize}
+\end{definition}
+
+
+\section{Statement of Need}
+
+Matching games have applications in many fields where relationships between
+rational agents must be managed. Some example applications include: being able
+to inform on healthcare finance policy~\cite{Agarwal2017}; helping to reduce the
+complexity of automated wireless communication networks~\cite{Bayat2016}; and
+education infrastructure~\cite{Chiarandini2019}. Thus, having access to software
+implementations of algorithms that are able to solve such games is essential.
+
+The only current adversary to Matching is MatchingR~\cite{Tilly2018}. MatchingR
+is a package written in C++ with an R interface and its content overlaps well
+with that of Matching. However, the lack of a Python interface makes it less
+relevant to researchers and other users as Python's popularity grows both in
+academia and industry.
+
+Matching is a Python library that relies on one core library from the standard
+scientific Python stack -- NumPy~\cite{numpy} -- that currently implements
+algorithms for four types of matching games:
+
+- the stable marriage problem (SM)~\cite{Gale1962};
+- the hospital-resident assignment problem (HR)~\cite{Gale1962,Roth1984};
+- the student-project allocation problem (SA)~\cite{Abraham2007};
+- the stable roommates problem (SR)~\cite{Irving1985}.
+
+MatchingR implements all of these except SA but also implements an algorithm for
+the indivisible goods trading problem.
+
+In addition to this, Matching has been developed to a high degree of best
+practice in research software development~\cite{Jimenez2017}, and is thoroughly
+documented:
+\href{https://matching.readthedocs.io}{\nolinkurl{matching.readthedocs.io}}. The
+documentation has been written to maximise its effect as a resource for learning
+about matching games as well as for the software itself. Furthermore, the
+software is automatically tested using example, integration, and property-based
+unit tests with 100\% coverage. The current version of Matching has also been
+archived on Zenodo under~\doi{10.5281/zenodo.3931026}; as has all of the data
+used in the documentation tutorials.
+
+Matching has been designed to be used as a research tool and to aid in the
+education of game theory. It is currently being used by a number of
+undergraduate students and postgraduate researchers in universities around the
+world, and has been used to massively streamline the final year project
+allocation process for one of the largest schools at Cardiff University (as an
+instance of SA). Furthermore, Matching proved to be instrumental in the
+practical implementation of the novel initialisation method for a categorical
+clustering algorithm introduced in Chapter~\ref{chp:kmodes}. With Matching being
+written in Python, this tool is widely accessible by programmers and
+non-programmers alike as a readable, portable, and reproducible piece of
+software.
