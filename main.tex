@@ -27,11 +27,16 @@
 
 \renewcommand{\chaptermark}[1]{%
     \markboth{\MakeUppercase{\thechapter.\ #1}}{}  % Number and title only
-} 
+}
+
+\renewcommand{\sectionmark}[1]{%
+    \markright{\MakeUppercase{\thesection.\ #1}}{}  % Number and title only
+}
 
 \fancypagestyle{normal}{  % Used for most pages
     \fancyhf{}
-    \fancyhead[LE,RO]{\slshape\leftmark}  % Show chapter title on outer leaf
+    \fancyhead[LE]{\slshape\leftmark}  % Show chapter title on outer leaf
+    \fancyhead[RO]{\slshape\rightmark}
     \fancyfoot[LE,RO]{\thepage}  % Show page number on outer leaf
     \renewcommand{\headrulewidth}{1pt}
 }
@@ -42,13 +47,20 @@
 }
 \patchcmd{\chapter}{\thispagestyle{plain}}{\thispagestyle{chapterstyle}}{}{}
 
+\fancypagestyle{appendixstyle}{  % For appendices
+    \fancyhf{}
+    \fancyhead[LE,RO]{\slshape\rightmark}
+    \fancyfoot[LE,RO]{\thepage}
+}
+
 % Images, lists and tables
 \usepackage{booktabs}
 \usepackage{graphicx}
+\usepackage{rotating}
 \usepackage{standalone}
 \usepackage{tikz}
 
-% Bibliography and links
+% Bibliography, appendices and links
 \usepackage{float}  % Force hyperref to patch float [for minted]
 \usepackage{hyperref}
 \usepackage[numbers]{natbib}
@@ -60,9 +72,11 @@
 \usepackage{tcolorbox}
 \usepackage[newfloat,chapter]{minted}
 
-% Captions and subfigures
+% Captions, floats and subfigures
 \usepackage{caption}
 \usepackage{subcaption}
+\usepackage{pdflscape}
+\usepackage{afterpage}
 
 
 %%% Settings

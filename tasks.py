@@ -132,8 +132,8 @@ def export_citations(citations, destination):
 
 @task
 def bibliography(c, path="bibliography.bib", backup=True):
-    """ Merges the bibliography files for each chapter into one and cleans the
-    entries. """
+    """Merges the bibliography files for each chapter into one and cleans the
+    entries."""
 
     current = []
     if backup and pathlib.Path(path).exists():
