@@ -3,7 +3,7 @@
 %%% Packages
 
 % Setting up page
-\usepackage[a4paper,top=25mm,right=25mm,bottom=25mm,left=40mm]{geometry}
+\usepackage[a4paper,top=25mm,right=25mm,bottom=30mm,left=40mm]{geometry}
 \usepackage{emptypage}
 
 % Mathematics
@@ -83,6 +83,10 @@
 \newlength{\tablewidth}
 \setlength{\tablewidth}{.9\textwidth}
 
+\makeatletter
+\renewcommand*\l@algocf{\l@figure}
+\makeatother
+
 % Colours
 \definecolor{linenums}{HTML}{4c566a}
 \definecolor{sourcebg}{HTML}{d8dee9}
@@ -111,6 +115,10 @@
     citecolor=deepgreen,
     linkcolor=deepred,
     urlcolor=myurl,
+}
+
+\newcommand{\arxiv}[1]{%
+    \href{https://arxiv.org/abs/#1}{\nolinkurl{arXiv:#1}}%
 }
 
 \newcommand{\doi}[1]{%
@@ -182,6 +190,8 @@
         \caption{#3}\label{fig:#2}
     \end{figure}
 }
+
+\newcommand{\texpath}{}
 
 \newcommand{\algpath}{}
 \newcommand{\inputalg}[2][\algpath]{\input{#1/#2}}
