@@ -87,31 +87,30 @@ the components of SM.
     \end{equation}
 
     This construction of suitors, reviewers and preference lists is called a
-    \emph{game} of size \(N\), denoted \(\left(S, R\right)\), and is used to
+    \emph{game} of size \(N\), denoted \((S, R)\), and is used to
     model instances of SM.
 \end{definition}
 
 \begin{definition}\label{def:sm_matching}
-    Consider a game \(\left(S, R\right)\). A \emph{matching} \(M\) is any
-    bijection between \(S\) and \(R\). If a pair \(\left(s, r\right) \in S
+    Consider a game \((S, R)\). A \emph{matching} \(M\) is any
+    bijection between \(S\) and \(R\). If a pair \((s, r) \in S
     \times R\) are matched in \(M\), then that relationship is denoted \(M(s) =
     r\) and, equivalently, \(M^{-1}(r) = s\).
 
-    A matching is considered valid only if every player in \(\left(S, R\right)\)
+    A matching is considered valid only if every player in \((S, R)\)
     is matched to another player uniquely.
 \end{definition}
 
 \begin{definition}\label{def:sm_preference}
-    Let \(\left(S, R\right)\) be an instance of SM, and consider \(s \in S\) and
+    Let \((S, R)\) be an instance of SM, and consider \(s \in S\) and
     \(r, r' \in R\). Then \(s\) \emph{prefers} \(r\) to \(r'\) if \(r\) appears
     before \(r'\) in \(f(s)\). The definition of preference is equivalent for
     reviewers.
 \end{definition}
 
 \begin{definition}\label{def:sm_blocking}
-    Let \(\left(S, R\right)\) be an instance of SM and let \(M\) be a matching
-    of \(\left(S, R\right)\). A pair \(\left(s, r\right) \in S \times R\) is
-    said to \emph{block} \(M\) if:
+    Let \((S, R)\) be an instance of SM and let \(M\) be a matching of \((S,
+    R)\). A pair \((s, r) \in S \times R\) is said to \emph{block} \(M\) if:
 
     \begin{itemize}
         \item \(s\) and \(r\) are not matched by \(M\), i.e. \(M(s) \neq r\);
@@ -296,33 +295,33 @@ the National Resident Matching Program.
 
 HR is, in fact, a generalisation of SM. The game that models HR relaxes the
 conditions that the two player parties be the same size, and allows for multiple
-concurrent matches 
+concurrent matches by the reviewing party (the hospitals in this case).
+Definitions~\ref{def:hr_game}~through~\ref{def:hr_blocking} describe the
+components that make up the HR game.
 
-Like SM, there exists an algorithm that can provide a unique, party-optimal,
-stable matching to any instance of HR.\ The resident-optimal algorithm is
-presented in Algorithm~\ref{alg:hospital_resident} and is adapted from the
-original to take advantage of the structure of the game~\cite{Roth1984}. The
-game used to model HR, its matchings, and its notion of stability are defined in
-Definitions~\ref{def:game}---\ref{def:blocking}.
-
-\begin{definition}\label{def:game}
-    Consider two distinct sets \(R, H\) and refer to them residents and
-    hospitals. Each \(h \in H\) has a capacity \(c_h \in \mathbb{N}\) associated
-    with them. Each player \(r \in R\) and \(h \in H\) has associated 
-    with it a strict preference list of the other set's elements such that:
+\begin{definition}\label{def:hr_game}
+    Consider two distinct sets, \(R\) and \(H\), and refer to them as
+    \emph{residents} and \emph{hospitals}. Each hospital \(h \in H\) has a
+    capacity \(c_h \in \mathbb{N}\) associated with them. Each player \(r \in
+    R\) and \(h \in H\) has associated with them a strict preference list of the
+    other party's elements such that:
+    
     \begin{itemize}
-        \item Each \(r \in R\) ranks a non-empty subset of \(H\), denoted by
-            \(f(r)\).
+        \item Each resident \(r \in R\) ranks a non-empty subset of \(H\),
+            denoted by \(f(r)\);
         \item Each \(h \in H\) ranks all and only those residents that have
             ranked it, i.e.\ the preference list of \(h\), denoted \(g(h)\), is
             a permutation of the set
             \(\left\{r \in R \ | \ h \in f(r)\right\}\). If no such residents
             exist, \(h\) is removed from \(H\).
     \end{itemize}
+    
     This construction of residents, hospitals, capacities and preference lists
-    is called a \emph{game} and is denoted by \((R, H)\).
+    is called a \emph{game} and is denoted by \((R, H)\). The notion of
+    preference here is the same as in SM.
 \end{definition}
-\begin{definition}\label{def:matching}
+
+\begin{definition}\label{def:hr_matching}
     Consider a game \((R, H)\). A \emph{matching} \(M\) is any mapping between
     \(R\) and \(H\). If a pair \((r, h) \in R \times H\) are matched in \(M\)
     then this relationship is denoted \(M(r) = h\) and \(r \in M^{-1}(h)\).
@@ -336,7 +335,8 @@ Definitions~\ref{def:game}---\ref{def:blocking}.
     A valid matching is considered \emph{stable} if it does not contain any
     blocking pairs.
 \end{definition}
-\begin{definition}\label{def:blocking}
+
+\begin{definition}\label{def:hr_blocking}
     Consider a game \((R, H)\). Then a pair \((r, h) \in R \times H\) is said to
     \emph{block} a matching \(M\) if all of the following hold:
     \begin{itemize}
@@ -347,6 +347,13 @@ Definitions~\ref{def:game}---\ref{def:blocking}.
             least one resident in \(M^{-1}(h)\).
     \end{itemize}
 \end{definition}
+
+Like SM, there exists an algorithm that can provide a unique, party-optimal,
+stable matching to any instance of HR.\ The resident-optimal algorithm is
+presented in Algorithm~\ref{alg:hospital_resident} and is adapted from the
+original to take advantage of the structure of the game~\cite{Roth1984}. The
+game used to model HR, its matchings, and its notion of stability are defined in
+Definitions~\ref{def:game}---\ref{def:blocking}.
 
 Another method used to construct preference lists is to discount the preference
 lists presented by players. For instance, where acceptability of another player
