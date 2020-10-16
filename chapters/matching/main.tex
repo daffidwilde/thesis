@@ -301,7 +301,7 @@ hospital-resident assignment problem (HR). This rebranding comes from it
 providing a practical solution to the problem that gives it its namesake:
 assigning medical students to resident positions at hospitals in the United
 States. A variant of the algorithm given in this section is used to this day by
-the National Resident Matching Program.
+the National Resident Matching Program (NRMP).
 
 HR is, in fact, a generalisation of SM. The game that models HR relaxes the
 conditions that the two player parties be the same size, and allows for multiple
@@ -421,13 +421,14 @@ reveals that it is both resident- and hospital-optimal.
 This particular example also demonstrates how robust Gale-Shapley algorithms are
 for solving real-world matching games. Suppose this was a real application pool,
 then resident \(A\) has decided that the only acceptable hospital placement is
-at hospital \(C\), falsely assuming that this will guarantee them a place at
-\(C\). The HR game stipulates that a stable matching does not require all
-residents to be matched, and so, a situation could arise where \(A\) will not be
-assigned to a hospital. For instance, if \(C\) swapped \(A\) and \(S\) in its
-preference list then \((S, C)\) would form a blocking pair under this matching.
-The only resolution that gives a stable matching then is to leave \(A\) without
-a match, and for \(M(C) = \left\{S, D\right\}\).
+at hospital \(C\), perhaps falsely assuming that this will guarantee them a
+place at \(C\). On the contrary, the rules of the HR game do not stipulate that
+a stable matching must match all residents, and so a situation could arise where
+\(A\) will not be assigned to a hospital. For instance, if \(C\) swapped \(A\)
+and \(S\) in its preference list (because \(A\) did not meet certain academic
+requirements, say) then \((S, C)\) would form a blocking pair under this
+matching. The only resolution that gives a stable matching then is to leave
+\(A\) without a match, and for \(M(C) = \left\{S, D\right\}\).
 
 Like SM,~\cite{Gale1962} presented an algorithm that provides a unique,
 resident-optimal, stable matching to any instance of HR. However, further work
@@ -474,6 +475,18 @@ and removing successors from their favourite resident's preference list.
     }
 }
 \ealg%
+
+The same extensions to SM exist for HR where indifference and custom preference
+list constructors are included; the NRMP uses its own ranking system for the
+hospital agents, for instance. In a sense, the generalisation of SM to HR
+includes allowing for a form of indifference by allowing incomplete preference
+lists by residents. Not ranking any subset of the hospitals is equivalent to
+ranking them all the same: as unacceptable. Further to these extensions, HR has
+given rise to its own contextual problems. One of these is allowing for
+couples in the resident party. Studies on this problem have shown that no stable
+matching is guaranteed to exist, and so a related, NP-hard problem is considered
+instead where the objective is to identify an almost-stable matching that
+minimises the number of blocking pairs~\cite{Manlove2016}.
 
 Another method used to construct preference lists is to discount the preference
 lists presented by players. For instance, where acceptability of another player

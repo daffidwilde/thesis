@@ -22,6 +22,7 @@ words = {
     "MatchingR",
     "MinMaxScaler",
     "MinPoints",
+    "NRMP",
     "Ng's",
     "NumPy",
     "PCA",
