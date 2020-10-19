@@ -6,7 +6,7 @@
 Matching games form a part of game theory that were formally introduced by Gale
 and Shapley in their seminal work~\cite{Gale1962}. These games allow for the
 allocation of resources and partnerships in a mathematically fair way.
-Typically, a matching game is defined by two sets of players (called parties)
+Typically, a matching game is defined by two sets of players (referred to as parties)
 that each have preferences over at least some of the elements of the other set.
 The objective of the game is then to find a mapping between the sets of players
 in which everyone is \emph{happy enough} with their match(es).
@@ -29,7 +29,7 @@ Chapter~\ref{chp:edo}, the \matching\ documentation is hosted online at
 \href{https://matching.readthedocs.io}{\nolinkurl{matching.readthedocs.io}}.
 The documentation has been written to maximise its effect as a resource for
 learning about matching games as well as for the software itself. Furthermore,
-the library is registered on the Python Package Index and is \pip-installable.
+the library is registered on the Python Package Index and is installable using standard python practices.
 
 \begin{listing}
 \begin{usagesh}
@@ -39,20 +39,20 @@ the library is registered on the Python Package Index and is \pip-installable.
 \end{listing}
 
 Matching games have applications in many fields where relationships between
-rational agents must be managed. Some example applications include: being able
+rational agents must be arranged. Some example applications include: being able
 to inform on healthcare finance policy~\cite{Agarwal2017}; helping to reduce the
 complexity of automated wireless communication networks~\cite{Bayat2016}; and
 education infrastructure~\cite{Chiarandini2019}. Thus, having access to software
 implementations of algorithms that are able to solve such games is essential.
 
-The only current adversary to \matching\ is \matchingr~\cite{Tilly2018}.
+The only current software alternative to \matching\ is \matchingr~\cite{Tilly2018}.
 \matchingr\ is a package written in C++ with an R interface and its content
 overlaps well with that of \matching. However, the lack of a Python interface
 makes it less relevant to researchers and other users as Python's popularity
 grows both in academia and industry.
 
 At the time of writing, the \matching\ library offers facilities to handle and
-solve four types of matching game:
+solve four types of matching games:
 
 \begin{itemize}
     \item The stable marriage problem (SM)~\cite{Gale1962};
@@ -65,7 +65,7 @@ solve four types of matching game:
 This appendix goes through the details of the games for SM and HR, the latter
 of which is used in Chapter~\ref{chp:kmodes}. A further piece of work conducted
 during the production of this thesis that uses SA is provided in
-Appendix~\ref{app:biosci}.
+Appendix~\ref{app:biosci}.  % TODO Remember to add reference (if we publish it)
 
 \section{The stable marriage problem}
 
@@ -137,7 +137,7 @@ group, without any reward of a `better' partner.
 
 Consider the game of size three shown in Figure~\ref{fig:sm_matching} as an
 edgeless graph with suitors on the left and reviewers on the right. This
-representation of a matching game finds it origin in the bipartite matching
+representation of a matching game finds its origin in the bipartite matching
 problems of graph theory. Beside each vertex is the name of the player and their
 associated ranking of the complementary set’s elements.
 
@@ -161,8 +161,8 @@ In this matching, players \(A\), \(C\) and \(F\) are all matched to their
 favourite player while \(B\), \(D\) and \(E\) are matched to their least
 favourite. In particular, \(B\) and \(D\) form a blocking pair since they would
 both rather be matched to one another than their current match. Hence, this
-matching is unstable. As an attempt to rectify this instability, let the matches
-for the first two rows swap, as shown in Figure~\ref{fig:sm_stable}. This move
+matching is unstable. As an attempt to rectify this instability, swap the matches
+for the first two rows, as shown in Figure~\ref{fig:sm_stable}. This move
 does not form another blocking pair despite \(A\) having a worse match since
 \(D\) ranks \(A\) at the bottom of its preference list. Therefore, the envy
 exhibited by \(A\) is not reciprocated, and the matching is stable.
@@ -184,12 +184,12 @@ Finding a party-optimal, stable matching to an instance of a matching game is
 referred to as \emph{solving} the game. When there are only a handful of players
 to deal with, solving a game (or even finding a party-suboptimal, stable
 matching) is relatively straightforward with pen, paper and some time. However,
-solving the example above in two steps was little more than a coincidence,
-really. In the seminal paper on matching games~\cite{Gale1962}, Gale and Shapley
+solving the example above in two steps was little more than a coincidence. 
+In the seminal paper on matching games~\cite{Gale1962}, Gale and Shapley
 presented an algorithm for finding a unique, stable and suitor-optimal matching
 to any instance of SM. This algorithm has since become known as the Gale-Shapley
 algorithm, and is given in Algorithm~\ref{alg:stable_marriage}. The matching
-this algorithm produces is that shown in Figure~\ref{fig:sm_stable}.
+this algorithm produces is shown in Figure~\ref{fig:sm_stable}.
 
 \balg%
 \caption{The suitor-optimal algorithm for SM}\label{alg:stable_marriage}
@@ -499,5 +499,3 @@ scenario, each student submits a set of acceptable schools and the schools form
 strict rankings of the students. The result of this is a simpler game (in the
 practical sense) and a reduction in the set of possible stable
 matchings~\cite{Haeringer2014,Haeringer2019}.
-
-
