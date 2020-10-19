@@ -201,6 +201,7 @@ attributes, respectively. Meanwhile, \(\mathcal A^{(n)}\) and \(\mathcal
 A^{(c)}\) denote the numeric and categorical components of the space. With this
 notation, the dissimilarity between two points, \(X, Y \in \mathcal A\), is
 defined to be:
+
 \begin{equation}\label{eq:kprototypes}
     d(X, Y) = \sum_{j=1}^{p} \left(x_j - y_j\right)^2 + \gamma \sum_{j=p+1}^{m}
     \delta \left(x_j, y_j\right)
@@ -560,8 +561,8 @@ mean service time for spells in cluster \(l\) is given by:
 
 \subsection{Validating the model}\label{subsec:validate}
 
-One of the few ground truths available in the provided data is the set of
-observed lengths of stay. Given that the length of stay and resource
+One of the few ground truths available in the provided data is the observed
+length of stay distribution. Given that the length of stay and resource
 availability are connected, the approach here will be to simulate the length of
 stay distributions for a range of values \(p_i\) and \(c\), to find the
 parameters that best match the observed data.
@@ -587,23 +588,27 @@ distributions where `work' can be loosely defined as the product of how much of
 the distribution's mass moves and the distance by which it must be moved. More
 formally, the Wasserstein distance between two probability distributions \(U\)
 and \(V\) is defined as:
+
 \begin{equation}\label{eq:wasserstein}
     W(U, V) = \int_{0}^{1} \left\vert F^{-1}(t) - G^{-1}(t) \right\vert dt
 \end{equation}
 
-\noindent where \(F\) and \(G\) are the cumulative density functions of \(U\)
-and \(V\), respectively. A proof of~\eqref{eq:wasserstein} is presented
+Here, \(F\) and \(G\) are the cumulative density functions of \(U\) and \(V\),
+respectively. A proof of~\eqref{eq:wasserstein} is presented
 in~\cite{Ramdas2017}.
 
-The parameter set with the smallest maximum distance between any cluster's
-simulated system time distribution and the corresponding observed length of stay
-distribution is then taken to be the most appropriate. To be specific, let
-\(T_{l,c,p}\) denote the system time distribution for cluster \(l\) obtained
-from a simulation with \(c\) servers and \(p := \left(p_0,p_1,p_2,p_3\right)\).
-Then the optimal parameter set \(\left(c^*, p^*\right)\) is given by:
+Each trial used here takes a parameter set and simulates the ward across a
+series of independent runs. The parameter set with the smallest maximum distance
+between the simulated system time distribution and the observed length of stay
+distribution is taken to be the most appropriate. To be specific, let
+\(T_{c,p}\) denote the system time distribution obtained from a simulation with
+\(c\) servers and \(p := \left(p_0,p_1,p_2,p_3\right)\), and let \(T\) denote
+the observed length of stay distribution. Then the optimal parameter set
+\(\left(c^*, p^*\right)\) is given by:
+
 \begin{equation}\label{eq:parameters}
     \left(c^*, p^*\right) = \argmin_{c, p} \left\{%
-        \max_{l} \left\{ W\left(T_{l,c,p}, T_l\right) \right\}%
+        \max \left\{ W\left(T_{c,p}, T\right) \right\}%
     \right\}
 \end{equation}
 
@@ -703,6 +708,7 @@ using a scaling factor denoted by \(\sigma\in\mathbb{R}\). This scaling factor
 is applied to the model by multiplying each cluster's arrival rate by
 \(\sigma\). That is, for cluster \(i\), its new arrival rate, \(\hat\lambda_i\),
 is given by:
+
 \begin{equation}\label{eq:lambda}
     \hat\lambda_{i} = \sigma\lambda_i
 \end{equation}
@@ -837,6 +843,7 @@ their respective arrival rates, \(\lambda_i, \lambda_j\), and let \(\delta \in
 [0, 1]\) denote the proportion of arrivals to be moved from cluster \(i\) to
 cluster \(j\). Then the new arrival rates for each cluster, denoted by
 \(\hat\lambda_i, \hat\lambda_j\) respectively, are:
+
 \begin{equation}\label{eq:moving}
     \hat\lambda_i = \left(1 - \delta\right) \lambda_i
     \quad \text{and} \quad
