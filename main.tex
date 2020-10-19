@@ -40,11 +40,13 @@
     \fancyfoot[LE,RO]{\thepage}  % Show page number on outer leaf
     \renewcommand{\headrulewidth}{1pt}
 }
+
 \fancypagestyle{chapterstyle}{  % For chapter pages (no need for a header)
     \fancyhf{}
     \fancyfoot[LE,RO]{\thepage}
     \renewcommand{\headrulewidth}{0pt}% Line at the header invisible
 }
+
 \patchcmd{\chapter}{\thispagestyle{plain}}{\thispagestyle{chapterstyle}}{}{}
 
 \fancypagestyle{appendixstyle}{  % For appendices
@@ -61,6 +63,7 @@
 \usepackage{tikz}
 
 % Bibliography, appendices and links
+\usepackage{appendix}
 \usepackage{float}  % Force hyperref to patch float [for minted]
 \usepackage{hyperref}
 \usepackage[numbers]{natbib}
@@ -258,6 +261,13 @@
 }
 
 
+%% Shortcuts
+
+\newcommand{\edo}{\mintinline{console}{edo}}
+\newcommand{\matching}{\mintinline{console}{matching}}
+\newcommand{\matchingr}{\mintinline{console}{MatchingR}}
+\newcommand{\pip}{\mintinline{console}{pip}}
+
 
 %%% DOCUMENT %%%
 
@@ -289,7 +299,6 @@
 \input{chapters/intro/main}
 \input{chapters/lit/main}
 \input{chapters/edo/main}
-\input{chapters/matching/main}
 \input{chapters/kmodes/main}
 \input{chapters/data/main}
 \input{chapters/copd/main}
@@ -297,6 +306,6 @@
 
 % Post-text
 \bibliography{bibliography.bib}
-\input{appendix}
+\input{appendix/main}
 
 \end{document}

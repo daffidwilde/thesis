@@ -43,7 +43,7 @@ This chapter differs from the manuscript by including a more detailed
 description of the \(k\)-modes algorithm and its setting (in
 Section~\ref{sec:intro}) and omits much of the discussion around matching games
 (Section~\ref{sec:inits}) which has now been expanded to form parts of
-Chapter~\ref{chp:matching}.
+Appendix~\ref{app:matching}.
 
 \section{Introduction}\label{sec:intro}
 
@@ -418,12 +418,23 @@ component and provides a more intuitive starting point for the \(k\)-modes
 algorithm by constructing and solving a matching game between the set of
 potential modes and some subset of the data.
 
-As is mentioned in Chapter~\ref{chp:matching}, the stable marriage problem (SM)
-is one of the simplest matching games. Despite its simplicity, using SM here
-would reduce the proposed method to Huang's method. This can be seen as follows.
-Since both parties in the game must be of the same size, \(k\) data points must
-be considered. The most straightforward way of selecting these points is to
-allow each potential mode to add its closest point that has not already been
+Matching games are a construct from game theory that allow for the allocation of
+partnerships between agents (players) such that no pair of players is rationally
+envious of any partnership. Appendix~\ref{app:matching} provides an extensive
+introduction to several fundamental matching games, the most commonly found of
+which is the stable marriage problem (SM). SM, like many matching games,
+involves two distinct sets of players (parties), each of whom have a strict
+ranking of the players in the other set. Resolving these player preferences to
+find a matching in which no two players would rather be matched to one another
+than their current matches is called \emph{solving} the game.~\cite{Gale1962}
+formalised this problem and provided an algorithm that guarantees to find an
+stable, party-optimal matching to any instance of SM.
+
+Despite its simplicity, using SM in this scenario would reduce the proposed
+method to Huang's method. This can be seen as follows. Both parties in the game
+must be of the same size, and so \(k\) data points must be considered along with
+the potential modes. The most straightforward way of selecting these points is
+to allow each potential mode to add its closest point that has not already been
 selected. Then, upon solving the game, and up to an arbitrary breaking of any
 ties in the preference lists, each potential mode is assigned to its chosen data
 point.
@@ -431,7 +442,7 @@ point.
 The particular constraints of this case --- where the \(k\) potential modes must
 be allocated to a nearby and unique data point --- mirror those of the
 hospital-resident assignment problem (HR) discussed in
-Chapter~\ref{chp:matching}. In particular, this scenario can be modelled by an
+Appendix~\ref{app:matching}. In particular, this scenario can be modelled by an
 instance of HR where each hospital has a capacity of one. A contextual summary
 of the remaining HR game components and those of the proposed initialisation is
 given in Table~\ref{tab:components}.
@@ -461,7 +472,7 @@ given in Table~\ref{tab:components}.
 A limitation of using HR is the common occurrence of ties when using the
 distance measure defined in~\eqref{eq:dissim}. A tie in the distance between
 points corresponds to a tie in the preference lists. As is discussed in
-Chapter~\ref{chp:matching}, extensions to HR do exist for handling ties in
+Appendix~\ref{app:matching}, extensions to HR do exist for handling ties in
 preferences that would alleviate the reliance on having to break ties. However,
 the notion of stability becomes tiered under such extensions, and the guarantee
 of a stable matching does not exist. Therefore, they are not considered here.
