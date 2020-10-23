@@ -428,7 +428,8 @@ ranking of the players in the other set. Resolving these player preferences to
 find a matching in which no two players would rather be matched to one another
 than their current matches is called \emph{solving} the game.~\cite{Gale1962}
 formalised this problem and provided an algorithm that guarantees to find an
-stable, party-optimal matching to any instance of SM.
+stable, party-optimal matching to any instance of SM. This algorithm is given in
+Appendix~\ref{app:matching}.
 
 Despite its simplicity, using SM in this scenario would reduce the proposed
 method to Huang's method. This can be seen as follows. Both parties in the game
@@ -439,10 +440,44 @@ selected. Then, upon solving the game, and up to an arbitrary breaking of any
 ties in the preference lists, each potential mode is assigned to its chosen data
 point.
 
-The particular constraints of this case --- where the \(k\) potential modes must
-be allocated to a nearby and unique data point --- mirror those of the
-hospital-resident assignment problem (HR) discussed in
-Appendix~\ref{app:matching}. In particular, this scenario can be modelled by an
+A popular generalisation of SM is the hospital-resident assignment problem (HR),
+a matching game that addresses the practical problem from which it gets its
+name: assigning medical students to hospital placements. A variant of this game
+is still used by the National Resident Matching Program (NRMP) in the United
+States. A thorough description of HR, and the algorithms to solve instances of
+it, is provided in Appendix~\ref{app:matching}. However, a brief overview is
+provided here.
+
+Consider two distinct sets of players, \(R\) and \(H\), and call them the
+residents and hospitals, respectively. In HR, every resident \(r \in R\)
+provides a strict ranking of some nonempty subset of the hospitals, denoted
+\(f(r)\). Then, each hospital \(h \in H\) provides a preference list, \(g(h)\),
+strictly ranking all and only those residents that have ranked it, i.e. \(g(h)\)
+is some permutation of the set \(\left\{r \in R \ | \ h \in f(r)\right\}\). In
+addition to these preference lists, HR stipulates that every hospital \(h \in
+H\) has a strict upper limit on the number of residents they may be matched to
+at once, referred to as their capacity, and denoted \(c_h \in \mathbb N\). A
+general assumption, although not necessary, is that there is sufficient capacity
+across the hospitals for all of the residents to be assigned, i.e. that
+\(\sum_{h \in H} c_h \ge \lvert R \rvert\). This construction of residents,
+hospitals, preference lists and capacities form a \emph{game}, denoted by \((R,
+H)\).
+
+The objective of the game is to identify a many-to-one mapping (referred to as a
+\emph{matching}), \(M\), between the residents and the hospitals. In particular,
+the aim is to find a matching such that no resident-hospital pair could be, and
+would rather be, matched to one another than their current match(es). Such a
+matching is considered \emph{stable}. Finding a resident- or hospital-optimal,
+stable matching to an instance of HR is called \emph{solving} the
+game.~\cite{Gale1962} formalised this game and presented an algorithm that
+guaranteed such a solution to any instance of HR. Subsequent
+studies~\cite{Dubins1981,Roth1984} have improved on the original algorithm by
+leveraging structures within the game, such as the strict nature of the
+preference lists.
+
+Returning to the problem at hand, where the \(k\) potential modes must
+be allocated to a nearby and unique data point, it can be seen that HR mirrors
+the constraints well. In particular, this scenario can be modelled by an
 instance of HR where each hospital has a capacity of one. A contextual summary
 of the remaining HR game components and those of the proposed initialisation is
 given in Table~\ref{tab:components}.
