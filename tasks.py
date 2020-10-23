@@ -40,7 +40,7 @@ def doctest(c):
 def spellcheck(c):
     """ Check spelling. """
 
-    book = pathlib.Path("./chapters/").glob("*/main.tex")
+    book = pathlib.Path("./*/").glob("*/main.tex")
     exit_codes = [0]
     for path in book:
 
@@ -132,8 +132,8 @@ def export_citations(citations, destination):
 
 @task
 def bibliography(c, path="bibliography.bib", backup=True):
-    """ Merges the bibliography files for each chapter into one and cleans the
-    entries. """
+    """Merges the bibliography files for each chapter into one and cleans the
+    entries."""
 
     current = []
     if backup and pathlib.Path(path).exists():

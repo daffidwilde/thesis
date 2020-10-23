@@ -27,7 +27,11 @@
 
 \renewcommand{\chaptermark}[1]{%
     \markboth{\MakeUppercase{\thechapter.\ #1}}{}  % Number and title only
-} 
+}
+
+\renewcommand{\sectionmark}[1]{%
+    \markright{\MakeUppercase{\thesection.\ #1}}{}  % Number and title only
+}
 
 \fancypagestyle{normal}{  % Used for most pages
     \fancyhf{}
@@ -45,9 +49,16 @@
 
 \patchcmd{\chapter}{\thispagestyle{plain}}{\thispagestyle{chapterstyle}}{}{}
 
+\fancypagestyle{appendixstyle}{  % For appendices
+    \fancyhf{}
+    \fancyhead[LE,RO]{\slshape\rightmark}
+    \fancyfoot[LE,RO]{\thepage}
+}
+
 % Images, lists and tables
 \usepackage{booktabs}
 \usepackage{graphicx}
+\usepackage{rotating}
 \usepackage{standalone}
 \usepackage{tikz}
 
@@ -64,9 +75,11 @@
 \usepackage{tcolorbox}
 \usepackage[newfloat,chapter]{minted}
 
-% Captions and subfigures
+% Captions, floats and subfigures
 \usepackage{caption}
 \usepackage{subcaption}
+\usepackage{pdflscape}
+\usepackage{afterpage}
 
 
 %%% Settings
@@ -269,6 +282,8 @@
 \input{preamble/abstract}
 \input{preamble/acknowledgements}
 \input{preamble/dissemination}
+
+\addtocontents{toc}{\vspace{1em}\par\noindent\protect\myrule\par}
 
 {
   \hypersetup{hidelinks}
