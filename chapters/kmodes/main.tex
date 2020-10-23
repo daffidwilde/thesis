@@ -79,8 +79,8 @@ assignment problem (HR) to incorporate mathematical fairness to the initial
 solution and to eliminate the greedy component of Huang's method.
 
 In addition to Huang's method, the literature revealed that the next most
-commonly cited initialisation was presented by Cao in~\cite{Cao2009}. This
-initialisation (referred to as Cao's method) forms the basis of many other
+commonly cited initialisation was presented by Cao et al. in~\cite{Cao2009}.
+This initialisation (referred to as Cao's method) forms the basis of many other
 initialisations where a notion of density is central. These two initialisations
 form the set of established methods against which the proposed shall be
 measured.
@@ -428,7 +428,8 @@ ranking of the players in the other set. Resolving these player preferences to
 find a matching in which no two players would rather be matched to one another
 than their current matches is called \emph{solving} the game.~\cite{Gale1962}
 formalised this problem and provided an algorithm that guarantees to find an
-stable, party-optimal matching to any instance of SM.
+stable, party-optimal matching to any instance of SM. This algorithm is given in
+Appendix~\ref{app:matching}.
 
 Despite its simplicity, using SM in this scenario would reduce the proposed
 method to Huang's method. This can be seen as follows. Both parties in the game
@@ -439,10 +440,44 @@ selected. Then, upon solving the game, and up to an arbitrary breaking of any
 ties in the preference lists, each potential mode is assigned to its chosen data
 point.
 
-The particular constraints of this case --- where the \(k\) potential modes must
-be allocated to a nearby and unique data point --- mirror those of the
-hospital-resident assignment problem (HR) discussed in
-Appendix~\ref{app:matching}. In particular, this scenario can be modelled by an
+A popular generalisation of SM is the hospital-resident assignment problem (HR),
+a matching game that addresses the practical problem from which it gets its
+name: assigning medical students to hospital placements. A variant of this game
+is still used by the National Resident Matching Program (NRMP) in the United
+States. A thorough description of HR, and the algorithms to solve instances of
+it, is provided in Appendix~\ref{app:matching}. However, a brief overview is
+provided here.
+
+Consider two distinct sets of players, \(R\) and \(H\), and call them the
+residents and hospitals, respectively. In HR, every resident \(r \in R\)
+provides a strict ranking of some nonempty subset of the hospitals, denoted
+\(f(r)\). Then, each hospital \(h \in H\) provides a preference list, \(g(h)\),
+strictly ranking all and only those residents that have ranked it, i.e. \(g(h)\)
+is some permutation of the set \(\left\{r \in R \ | \ h \in f(r)\right\}\). In
+addition to these preference lists, HR stipulates that every hospital \(h \in
+H\) has a strict upper limit on the number of residents they may be matched to
+at once, referred to as their capacity, and denoted \(c_h \in \mathbb N\). A
+general assumption, although not necessary, is that there is sufficient capacity
+across the hospitals for all of the residents to be assigned, i.e. that
+\(\sum_{h \in H} c_h \ge \lvert R \rvert\). This construction of residents,
+hospitals, preference lists and capacities form a \emph{game}, denoted by \((R,
+H)\).
+
+The objective of the game is to identify a many-to-one mapping (referred to as a
+\emph{matching}), \(M\), between the residents and the hospitals. In particular,
+the aim is to find a matching such that no resident-hospital pair could be, and
+would rather be, matched to one another than their current match(es). Such a
+matching is considered \emph{stable}. Finding a resident- or hospital-optimal,
+stable matching to an instance of HR is called \emph{solving} the
+game.~\cite{Gale1962} formalised this game and presented an algorithm that
+guaranteed such a solution to any instance of HR. Subsequent
+studies~\cite{Dubins1981,Roth1984} have improved on the original algorithm by
+leveraging structures within the game, such as the strict nature of the
+preference lists.
+
+Returning to the problem at hand, where the \(k\) potential modes must
+be allocated to a nearby and unique data point, it can be seen that HR mirrors
+the constraints well. In particular, this scenario can be modelled by an
 instance of HR where each hospital has a capacity of one. A contextual summary
 of the remaining HR game components and those of the proposed initialisation is
 given in Table~\ref{tab:components}.
@@ -485,6 +520,20 @@ formal statement of the proposed method.
 
 
 \section{Experimental results}\label{sec:results}
+
+This section provides several analyses of the initialisation processes presented
+in this chapter. Each analysis herein requires the use of software, and
+specifically an implementation of the \(k\)-modes algorithm. The implementation
+used, called \mintinline{console}{kmodes}, is available on the Python Package
+Index and its source code is hosted on GitHub~\cite{deVos2015}. Huang's and
+Cao's methods are implemented already in \mintinline{console}{kmodes}, and the
+proposed matching initialisation has been included in a separate fork of the
+GitHub repository, available at~\doi{10.5281/zenodo.3713170}. This version of
+the \(k\)-modes implementation makes use of a Python library, \matching, the
+details of which can be found in Appendix~\ref{app:matching}. The version of the
+library used for these analyses is available at~\doi{10.5281/zenodo.2711847}.
+Furthermore, all of the source code used in this section is available
+at~\doi{10.5281/zenodo.3639282}.
 
 To give comparative results on the quality of the initialisation processes
 considered in this chapter, four well-known, categorical, labelled datasets ---

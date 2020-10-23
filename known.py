@@ -1,6 +1,9 @@
 """ A set of the words the spellchecker can't pick up. """
 
 words = {
+    "CDF",
+    "CNNs",
+    "COPD",
     "CCI",
     "CDF",
     "CNNs",
@@ -69,6 +72,7 @@ words = {
     "Unmatch",
     "Voronoi",
     "Zenodo",
+    "al",
     "argmin",
     "argv",
     "bijection",
@@ -92,6 +96,7 @@ words = {
     "edo",
     "edolab",
     "eq",
+    "et",
     "facto",
     "hoc",
     "hotspots",

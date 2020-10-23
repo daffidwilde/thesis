@@ -35,8 +35,8 @@
 
 \fancypagestyle{normal}{  % Used for most pages
     \fancyhf{}
-    \fancyhead[LE]{\slshape\leftmark}  % Show chapter title on outer leaf
-    \fancyhead[RO]{\slshape\rightmark}
+    \fancyhead[LE]{\slshape\leftmark}  % Show chapter title on left outer leaf
+    \fancyhead[RO]{\slshape\rightmark}  % Show section title on right outer leaf
     \fancyfoot[LE,RO]{\thepage}  % Show page number on outer leaf
     \renewcommand{\headrulewidth}{1pt}
 }
@@ -308,9 +308,6 @@
 
 % Post-text
 \bibliography{bibliography.bib}
-
-\addtocontents{toc}{\vspace{1em}\par\noindent\protect\myrule\par}
-
 \input{appendix/main}
 
 \end{document}
