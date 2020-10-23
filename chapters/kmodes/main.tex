@@ -521,6 +521,20 @@ formal statement of the proposed method.
 
 \section{Experimental results}\label{sec:results}
 
+This section provides several analyses of the initialisation processes presented
+in this chapter. Each analysis herein requires the use of software, and
+specifically an implementation of the \(k\)-modes algorithm. The implementation
+used, called \mintinline{console}{kmodes}, is available on the Python Package
+Index and its source code is hosted on GitHub~\cite{deVos2015}. Huang's and
+Cao's methods are implemented already in \mintinline{console}{kmodes}, and the
+proposed matching initialisation has been included in a separate fork of the
+GitHub repository, available at~\doi{10.5281/zenodo.3713170}. This version of
+the \(k\)-modes implementation makes use of a Python library, \matching, the
+details of which can be found in Appendix~\ref{app:matching}. The version of the
+library used for these analyses is available at~\doi{10.5281/zenodo.2711847}.
+Furthermore, all of the source code used in this section is available
+at~\doi{10.5281/zenodo.3639282}.
+
 To give comparative results on the quality of the initialisation processes
 considered in this chapter, four well-known, categorical, labelled datasets ---
 breast cancer, mushroom, nursery, and soybean (large) --- will be clustered by
