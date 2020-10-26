@@ -849,7 +849,7 @@ assumption is that each cluster's service time distribution stays the same (and
 so does each cluster's \(p_i\)), but their arrival rates are altered according
 to some transfer proportion. Consider two clusters indexed at \(l\) and \(m\),
 and their respective arrival rates, \(\lambda_l\), \(\lambda_m\). Let \(\delta
-\in [0, 1]\) denote the proportion of arrivals to be moved from cluster \(l\) to
+\in [0, 1)\) denote the proportion of arrivals to be moved from cluster \(l\) to
 cluster \(m\). Then the new arrival rates for each cluster, denoted by
 \(\hat\lambda_l, \hat\lambda_m\) respectively, are:
 
@@ -868,7 +868,7 @@ Figures~\ref{fig:moving_time}~and~\ref{fig:moving_util} show the effect of
 moving patient arrivals between clusters on relative system time and relative
 server utilisation, respectively. In each figure, the median and IQR for the
 corresponding attribute is shown, as in the previous scenarios. Each scenario
-was simulated using values of \(\delta\) from 0.0 to 1.0 at steps of \(2.0
+was simulated using values of \(\delta\) from 0.0 to 0.98 at steps of \(2.0
 \times 10^{-2}\).
 
 Considering Figure~\ref{fig:moving_time}, it is clear that there are some cases
@@ -883,6 +883,16 @@ needs arrivals in Cluster 2 moving to either cluster results in large jumps in
 the median system time for all arrivals, and soon after, as, in the previous
 scenario, any variation in the system times disappears indicating an overborne
 system.
+
+\begin{table}
+    \centering%
+    \resizebox{\imgwidth}{!}{%
+        \input{/Users/henrywilde/papers/copd/tex/moving_clusters_summary_util.tex}
+    }
+    \caption{%
+        Changes in median system time for selected cluster transfers
+    }\label{tab:moving_util}
+\end{table}
 
 With relative server utilisation, the story is much the same. The ordinary
 levels of high complexity, high resource arrivals from Cluster 3 are absorbed by
