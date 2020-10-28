@@ -113,7 +113,7 @@ more patient episodes~\cite{NHS2020}. The following attributes describe the
 spells included in the dataset:
 
 \begin{itemize}
-    \item Personal identifiers and information, i.e.\ patient and spell ID
+    \item Personal identifiers and information, i.e. patient and spell ID
         numbers, and identified gender;
     \item Admission/discharge dates and approximate times;
     \item Attributes summarising the clinical path of the spell including
@@ -437,7 +437,7 @@ present with at least nine ICDs suggesting a likely wide range of conditions and
 comorbidities beyond the LTCs used to calculate CCI.\
 
 However, little can be drawn from the intervention counterparts to these figures
-(i.e.\ Figures~\ref{fig:intervention_ltcs}~and~\ref{fig:intervention_icds}),
+(i.e. Figures~\ref{fig:intervention_ltcs}~and~\ref{fig:intervention_icds}),
 regarding the corresponding spells. One thing of note is that patients receiving
 both interventions for their COPD (or either, in fact) have disproportionately
 fewer LTCs and concurrent ICDs when compared to the population. Aside from this,
@@ -507,7 +507,7 @@ Like arrivals, each group of patients has its service time distribution.
 Without full details of the process order or idle periods during a spell, some
 assumption must be made about the actual `service' time of a patient in the
 hospital. It is assumed here that the mean service time of a group of patients
-may be approximated via their mean length of stay, i.e.\ the mean time spent in
+may be approximated via their mean length of stay, i.e. the mean time spent in
 the system. As indicated by the distributions in Figure~\ref{fig:cluster_los},
 the length of stay distributions require shifting prior to fitting an
 exponential distribution.
@@ -563,7 +563,7 @@ mean service time for spells in cluster \(l\) is given by:
 One of the few ground truths available in the provided data is the observed
 length of stay distribution. Given that the length of stay and resource
 availability are connected, the approach here will be to simulate the length of
-stay distributions for a range of values \(p_i\) and \(c\), to find the
+stay distributions for a range of values \(p_l\) and \(c\), to find the
 parameters that best match the observed data.
 
 Several methods are available for the statistical comparison of two or more
@@ -611,7 +611,7 @@ the observed length of stay distribution. Then the optimal parameter set
     \right\}
 \end{equation}
 
-The parameter sweep included values of each \(p_i\) from \(0.5\) to \(1.0\) with
+The parameter sweep included values of each \(p_l\) from \(0.5\) to \(1.0\) with
 a granularity of \(5.0 \times 10^{-2}\) and values of \(c\) from \(30\) to
 \(50\) at steps of five. These choices were informed by the assumptions of the
 model and formative analysis to reduce the parameter space given the
@@ -808,7 +808,7 @@ In Figure~\ref{fig:servers_time} this amounts to a maximum of 10\% slack in
 resources before relative system times are substantially affected; further
 reductions quickly result in a potentially tenfold increase in the median system
 time, and up to 100 times once resource availability falls by 50\%. Moreover,
-the variation in the body of the relative times (i.e.\ the IQR) decreases as
+the variation in the body of the relative times (i.e. the IQR) decreases as
 resource availability decreases. The reality of this is that patients arriving
 at a hospital are forced to consume more significant amounts of resources (by
 merely being in a hospital) regardless of their condition, putting added strains
@@ -846,7 +846,7 @@ real system.
 
 In order to model the effects of spells moving between two clusters, the
 assumption is that each cluster's service time distribution stays the same (and
-so does each cluster's \(p_i\)), but their arrival rates are altered according
+so does each cluster's \(p_l\)), but their arrival rates are altered according
 to some transfer proportion. Consider two clusters indexed at \(l\) and \(m\),
 and their respective arrival rates, \(\lambda_l\), \(\lambda_m\). Let \(\delta
 \in [0, 1)\) denote the proportion of arrivals to be moved from cluster \(l\) to
@@ -871,57 +871,6 @@ corresponding attribute is shown, as in the previous scenarios. Each scenario
 was simulated using values of \(\delta\) from 0.0 to 0.98 at steps of \(2.0
 \times 10^{-2}\).
 
-Considering Figure~\ref{fig:moving_time}, it is clear that there are some cases
-where reducing particular types of spells (by making them like another type of
-spell) does not affect overall system times. Namely, moving the high resource
-requirement spells that describe Cluster 0 and Cluster 3 to any other cluster.
-These clusters make up only 10\% of all arrivals, and this figure shows that in
-terms of system times, the model can handle them without concern under normal
-conditions. The concern comes when either of the other clusters moves to Cluster
-0 or Cluster 3. Even as few as one in five of the low complexity, low resource
-needs arrivals in Cluster 2 moving to either cluster results in large jumps in
-the median system time for all arrivals, and soon after, as, in the previous
-scenario, any variation in the system times disappears indicating an overborne
-system.
-
-\begin{table}
-    \centering%
-    \resizebox{\imgwidth}{!}{%
-        \input{chapters/copd/paper/tex/moving_util.tex}
-    }
-    \caption{%
-        Changes in median relative utilisation for selected cluster transfers
-    }\label{tab:moving_util}
-\end{table}
-
-\begin{table}
-    \centering%
-    \resizebox{\imgwidth}{!}{%
-        \input{chapters/copd/paper/tex/moving_time.tex}
-    }
-    \caption{%
-        Changes in median relative system time for selected cluster transfers
-    }\label{tab:moving_util}
-\end{table}
-
-With relative server utilisation, the story is much the same. The ordinary
-levels of high complexity, high resource arrivals from Cluster 3 are absorbed by
-the system and moving these arrivals to another cluster bears no effect on
-resource consumption levels. Likewise, either of the low-resource needs clusters
-moving even slightly toward high resource requirements completely overruns the
-system’s resources. However, the relative utilisation levels of the system
-resources can be reduced by moving arrivals from Cluster 0 to either Cluster 1
-or Cluster 2, i.e.\ by reducing the overall resource requirements of such spells.
-
-In essence, this entire analysis offers two messages: that there are several
-ways in which the system can get worse and even overwhelmed but, more
-importantly, that any meaningful impact on the system must come from a stimulus
-outside of the system that results in more healthy patients arriving at the
-hospital. This conclusion is non-trivial; the first two scenarios in this
-analysis show that there are no quick solutions to reduce the effect of COPD
-patients on hospital capacity or length of stay. The only effective intervention
-is found through inter-cluster transfers.
-
 \begin{figure}
     \centering
     \includegraphics[width=\textwidth]{moving_time}
@@ -939,6 +888,81 @@ is found through inter-cluster transfers.
         server utilisation
     }\label{fig:moving_util}
 \end{figure}
+
+Considering Figure~\ref{fig:moving_time}, it appears that each type of transfer
+falls into one of two categories: either completely derailing the system (such
+as moving any cluster to Cluster 3) or improving system times, albeit mildly. 
+The latter case occurs in the following transfers:
+
+\begin{itemize}
+    \item Cluster 0 to Clusters 1 or 2
+    \item Cluster 1 to Cluster 2
+    \item Cluster 3 to any other cluster
+\end{itemize}
+
+A finer look at the effect of these transfer types on relative system times is
+given in Table~\ref{tab:moving_time}. Likewise, their effects on relative server
+utilisation is given in Table~\ref{tab:moving_util}. 
+
+\begin{table}
+    \centering%
+    \resizebox{\textwidth}{!}{%
+        \input{chapters/copd/paper/tex/moving_time.tex}
+    }
+    \caption{%
+        Proportional changes in median relative system time for selected cluster
+        transfers
+    }\label{tab:moving_time}
+\end{table}
+
+\begin{table}
+    \centering%
+    \resizebox{\textwidth}{!}{%
+        \input{chapters/copd/paper/tex/moving_util.tex}
+    }
+    \caption{%
+        Proportional changes in median relative utilisation for selected cluster
+        transfers
+    }\label{tab:moving_util}
+\end{table}
+
+The message delivered by these transfers is that in order to improve system
+times in hospitals, the patients arriving at hospital must present with fewer
+resource requirements. Meanwhile, the complexity of their condition is less
+influential. Achieving such reductions is certainly no mean feat, but could be
+addressed by investing in more-advanced medical infrastructure in other parts of
+the healthcare system, beyond hospitals. Furthermore, this could be achieved by
+implementing some preventive policy that would help improve the overall health
+of the COPD population, with particular targeting for those most-affected by the
+condition.
+
+Conversely, the concern arises when either of the low resource requirement
+clusters moves to Cluster 0 or Cluster 3. Even as few as one in ten of the
+low-complexity, low-resource-needs arrivals in Cluster 2 moving to either
+cluster results in large jumps in the median system time for all arrivals. Soon
+after, as in the previous scenario, any variation in the system times
+disappears, indicating an overborne system.
+
+With relative server utilisation, the story is much the same. The ordinary
+levels of high-complexity, high-resource arrivals from Cluster 3 are absorbed by
+the system and moving these arrivals to another cluster bears little effect on
+resource consumption levels. Likewise, either of the low-resource needs clusters
+moving even slightly toward high resource requirements completely overruns the
+system’s resources. However, the relative utilisation levels of the system
+resources can be substantially reduced by moving arrivals from Cluster 0 to
+either Cluster 1 or Cluster 2, i.e. by reducing the overall resource
+requirements of such spells.
+
+In essence, this entire analysis offers two messages: that there are several
+ways in which the system can get worse and even overwhelmed but, more
+importantly, that any meaningful impact on the system must come from a stimulus
+outside of the system that results in a higher proportion of healthy patients
+arriving at the hospital. This conclusion is non-trivial; the first two
+scenarios in this analysis show that there are no quick solutions to reduce the
+effect of COPD patients on hospital capacity and length of stay. The only
+effective intervention for improving the system on the whole is found through
+inter-cluster transfers.
+
 
 \section{Chapter summary}\label{sec:summary}
 
