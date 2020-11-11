@@ -56,13 +56,13 @@ the model in Sections~\ref{sec:model}~and~\ref{sec:scenarios}.
 
 \section{Introduction}\label{sec:intro}
 
-The previous chapter attempted an exploratory analysis of a large,
+The previous chapter carried out an exploratory analysis of a large,
 administrative, healthcare dataset, and found that the presence of high
 variation stifled the possibility of uncovering valuable insights about the
 whole population. However, there were some apparent benefits by considering a
 condition-specific population. This chapter utilises another administrative
 dataset of patients presenting chronic obstructive pulmonary disease (COPD), and
-demonstrates how actionable insights can be identified using data.
+demonstrates how actionable insights can be identified.
 
 Population health research is increasingly based on data-driven methods (as
 opposed to those designed solely by clinical experts) for patient-centred care
@@ -154,12 +154,13 @@ spell:
 
 Although there is a fair amount of information here, it is limited to
 COPD-related admissions. Therefore, rather than segmenting the patients
-themselves, the spells will be. The attributes included in the clustering
-encompass both utilisation metrics and clinical attributes relating to the
-spell. They comprise the summary clinical path attributes, the CCI contributions
-and condition indicators, the WIMD rank, length of stay (LOS), COPD intervention
-status, and the engineered attributes (not including age and costs due to lack
-of coverage between the two datasets).
+themselves, the spells will be. 
+
+The attributes included in the clustering encompass both utilisation metrics and
+clinical attributes relating to the spell. They comprise the summary clinical
+path attributes, the CCI contributions and condition indicators, the WIMD rank,
+length of stay (LOS), COPD intervention status, and the engineered attributes
+(not including age and costs due to lack of coverage between the two datasets).
 
 With these attributes selected, a clustering algorithm must be chosen. Two
 critical specifications of the algorithm used are that it must handle mixed-type
@@ -228,7 +229,7 @@ clustering; as such, no further modifications were made.
 
 To determine the optimal number of clusters, \(k\), the same knee point
 detection algorithm used at the end of Chapter~\ref{chp:kmodes} was used with a
-range of potential values for \(k\) from two to 10. This range was chosen based
+range of potential values for \(k\) from two to ten. This range was chosen based
 on what may be considered feasibly informative to stakeholders. Applying this
 algorithm revealed an optimal value for \(k\) of four, but both three and five
 clusters were considered. Both of these cases were eliminated due to a lack of
@@ -253,7 +254,7 @@ objective function.
 \end{table}
 
 Although the dataset is confidential and may not be published, a synthetic
-analogue derived from this clustering has been archived
+analogue which illustrates the clustering has been archived
 under~\doi{10.5281/zenodo.3908167}. A summary of the dataset and its clustering
 is provided in Table~\ref{tab:summary}. Note that a negative length of stay
 indicates that the patient had passed away prior to arriving at the hospital and
@@ -478,11 +479,14 @@ described in this section.
 
 \subsection{Deriving the model parameters}\label{subsec:derive}
 
-In order to follow in the suit of recent literature, this chapter employs a
+Following in the suit of recent literature~\cite{Williams2015}, this chapter
+employs a
+% TODO add some more references here 
 single node using the \(M/M/c\) queue to model a hypothetical ward of patients
 presenting COPD.\ In addition to this, the grouping found in
 Section~\ref{subsec:overview} provides a set of patient classes in the queue.
 Under this model, the following assumptions are made:
+
 \begin{enumerate}
     \item Inter-arrival and service times of patients are each exponentially
         distributed with some mean. This distribution is used to simplify the
@@ -582,12 +586,11 @@ the `earth mover' or `digger' distance~\cite{Vaserstein1969}. The Wasserstein
 metric satisfies the conditions of a formal mathematical metric (like the
 typical Euclidean distance), and its values take the units of the distributions
 under comparison (in this case: days). These characteristics can aid
-understanding and explanation. In layperson's terms, the distance measures the
-approximate `minimal work' required to move between two probability
-distributions where `work' can be loosely defined as the product of how much of
-the distribution's mass moves and the distance by which it must be moved. More
-formally, the Wasserstein distance between two probability distributions \(U\)
-and \(V\) is defined as:
+understanding and explanation. The distance measures the approximate `minimal
+work' required to move between two probability distributions where `work' can be
+loosely defined as the product of how much of the distribution's mass moves and
+the distance by which it must be moved. More formally, the Wasserstein distance
+between two probability distributions \(U\) and \(V\) is defined as:
 
 \begin{equation}\label{eq:wasserstein}
     W(U, V) = \int_{0}^{1} \left\vert F^{-1}(t) - G^{-1}(t) \right\vert dt
@@ -598,9 +601,9 @@ respectively. A proof of~\eqref{eq:wasserstein} is presented
 in~\cite{Ramdas2017}.
 
 Each trial used here takes a parameter set and simulates the ward across a
-series of independent runs. The parameter set with the smallest maximum distance
-between the simulated system time distribution and the observed length of stay
-distribution is taken to be the most appropriate. To be specific, let
+series of independent repetitions. The parameter set with the smallest maximum
+distance between the simulated system time distribution and the observed length
+of stay distribution is taken to be the most appropriate. To be specific, let
 \(T_{c,p}\) denote the system time distribution obtained from a simulation with
 \(c\) servers and \(p := \left(p_0,p_1,p_2,p_3\right)\), and let \(T\) denote
 the observed length of stay distribution. Then the optimal parameter set
@@ -773,11 +776,10 @@ opportunity cost of adding service capacity to a system, e.g.\ would an increase
 of \(n\) servers sufficiently increase efficiency without exceeding a budget?
 
 To reiterate the beginning of this section: all suitable parameters are given in
-relative terms, including the number of servers here. By doing this, the
-changes in resource availability are more readily seen, and do away with any
-concerns as to what a particular number of servers precisely reflects in the
-real world, be it any combination of hospital beds, equipment availability and
-medical staff.
+relative terms, including the number of servers here. By doing this, the changes
+in resource availability are more evident, and do away with any concerns as to
+what a particular number of servers precisely reflects in the real world, be it
+any combination of hospital beds, equipment availability and medical staff.
 
 \begin{figure}
     \centering
@@ -928,14 +930,14 @@ utilisation is given in Table~\ref{tab:moving_util}.
 \end{table}
 
 The message delivered by these transfers is that in order to improve system
-times in hospitals, the patients arriving at hospital must present with fewer
-resource requirements. Meanwhile, the complexity of their condition is less
-influential. Achieving such reductions is certainly no mean feat, but could be
-addressed by investing in more-advanced medical infrastructure in other parts of
-the healthcare system, beyond hospitals. Furthermore, this could be achieved by
-implementing some preventive policy that would help improve the overall health
-of the COPD population, with particular targeting for those most-affected by the
-condition.
+times in hospitals, the only solution is for the patients arriving at hospital
+to present with fewer resource requirements. Meanwhile, the complexity of their
+condition is less influential. Achieving such reductions is certainly no mean
+feat, but could be addressed by investing in more-advanced medical
+infrastructure in other parts of the healthcare system, beyond hospitals.
+Furthermore, this could be achieved by implementing some preventive policy that
+would help improve the overall health of the COPD population, with particular
+targeting for those most-affected by the condition.
 
 Conversely, the concern arises when either of the low resource requirement
 clusters moves to Cluster 0 or Cluster 3. Even as few as one in ten of the
