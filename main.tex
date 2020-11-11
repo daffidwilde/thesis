@@ -3,7 +3,7 @@
 %%% Packages
 
 % Setting up page
-\usepackage[a4paper,top=25mm,right=25mm,bottom=25mm,left=40mm]{geometry}
+\usepackage[a4paper,top=25mm,right=25mm,bottom=30mm,left=40mm]{geometry}
 \usepackage{emptypage}
 
 % Mathematics
@@ -27,20 +27,33 @@
 
 \renewcommand{\chaptermark}[1]{%
     \markboth{\MakeUppercase{\thechapter.\ #1}}{}  % Number and title only
-} 
+}
+
+\renewcommand{\sectionmark}[1]{%
+    \markright{\MakeUppercase{\thesection.\ #1}}{}  % Number and title only
+}
 
 \fancypagestyle{normal}{  % Used for most pages
     \fancyhf{}
-    \fancyhead[LE,RO]{\slshape\leftmark}  % Show chapter title on outer leaf
+    \fancyhead[LE]{\slshape\leftmark}  % Show chapter title on left outer leaf
+    \fancyhead[RO]{\slshape\rightmark}  % Show section title on right outer leaf
     \fancyfoot[LE,RO]{\thepage}  % Show page number on outer leaf
     \renewcommand{\headrulewidth}{1pt}
 }
+
 \fancypagestyle{chapterstyle}{  % For chapter pages (no need for a header)
     \fancyhf{}
     \fancyfoot[LE,RO]{\thepage}
     \renewcommand{\headrulewidth}{0pt}% Line at the header invisible
 }
+
 \patchcmd{\chapter}{\thispagestyle{plain}}{\thispagestyle{chapterstyle}}{}{}
+
+\fancypagestyle{appendixstyle}{  % For appendices
+    \fancyhf{}
+    \fancyhead[LE,RO]{\slshape\rightmark}
+    \fancyfoot[LE,RO]{\thepage}
+}
 
 % Images, lists and tables
 \usepackage{booktabs}
@@ -60,7 +73,8 @@
         positioning,
     }
 
-% Bibliography and links
+% Bibliography, appendices and links
+\usepackage{appendix}
 \usepackage{float}  % Force hyperref to patch float [for minted]
 \usepackage{hyperref}
 \usepackage[numbers]{natbib}
@@ -72,9 +86,11 @@
 \usepackage{tcolorbox}
 \usepackage[newfloat,chapter]{minted}
 
-% Captions and subfigures
+% Captions, floats and subfigures
 \usepackage{caption}
 \usepackage{subcaption}
+\usepackage{pdflscape}
+\usepackage{afterpage}
 
 
 %%% Settings
@@ -94,6 +110,10 @@
 \setlength{\imgwidth}{.95\textwidth}
 \newlength{\tabwidth}
 \setlength{\tabwidth}{.9\textwidth}
+
+\makeatletter
+\renewcommand*\l@algocf{\l@figure}
+\makeatother
 
 % Colours
 \definecolor{linenums}{HTML}{4c566a}
@@ -304,6 +324,13 @@
     }
 }
 
+%% Shortcuts
+
+\newcommand{\edo}{\mintinline{console}{edo}}
+\newcommand{\matching}{\mintinline{console}{matching}}
+\newcommand{\matchingr}{\mintinline{console}{MatchingR}}
+\newcommand{\pip}{\mintinline{console}{pip}}
+
 
 %%% DOCUMENT %%%
 
@@ -318,6 +345,8 @@
 \input{preamble/abstract}
 \input{preamble/acknowledgements}
 \input{preamble/dissemination}
+
+\addtocontents{toc}{\vspace{1em}\par\noindent\protect\myrule\par}
 
 {
   \hypersetup{hidelinks}
@@ -335,7 +364,6 @@
 \input{chapters/intro/main}
 \input{chapters/lit/main}
 \input{chapters/edo/main}
-\input{chapters/matching/main}
 \input{chapters/kmodes/main}
 \input{chapters/data/main}
 \input{chapters/copd/main}
@@ -343,6 +371,6 @@
 
 % Post-text
 \bibliography{bibliography.bib}
-\input{appendix}
+\input{appendix/main}
 
 \end{document}

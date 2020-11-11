@@ -8,6 +8,8 @@
 
 \usepackage{sectsty}
     \chapterfont{\usefont{T1}{phv}{b}{n}\selectfont\huge}
+    \sectionfont{\usefont{T1}{phv}{b}{n}\selectfont\Large}
+    \subsectionfont{\usefont{T1}{phv}{b}{n}\selectfont\large}
 
 \usepackage[titles]{tocloft}
 
@@ -15,11 +17,19 @@
 \setlength{\cftlistingindent}{1.5em}
 \setlength{\cftlistingnumwidth}{2.5em}
 
+% ToC and Lo* titles
 \renewcommand{\cfttoctitlefont}  % ToC title
     {\usefont{T1}{phv}{b}{n}\selectfont\huge}
-\renewcommand{\cftchapfont}  % chapter titles
-    {\usefont{T1}{phv}{b}{n}\selectfont}
 \renewcommand{\cftloftitlefont}
     {\usefont{T1}{phv}{b}{n}\selectfont\huge}
 \renewcommand{\cftlottitlefont}
     {\usefont{T1}{phv}{b}{n}\selectfont\huge}
+
+% ToC chapter and section fonts
+\renewcommand{\cftchapfont}  % chapters
+    {\usefont{T1}{phv}{b}{n}\selectfont}
+\renewcommand{\cftsecfont}  % sections
+    {\bf}
+%    {\usefont{T1}{phv}{b}{n}\selectfont}
+%\renewcommand{\cftsubsecfont}  % subsections
+%    {\usefont{T1}{phv}{r}{n}\selectfont}

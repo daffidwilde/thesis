@@ -14,8 +14,8 @@ def add_HRG_Subchapter(df):
 
 
 def remove_extra_columns(df):
-    """ Removes extra columns added after collection: PODHRG, LogLOS,
-    LogNetCost, binary columns for age and days of the week. """
+    """Removes extra columns added after collection: PODHRG, LogLOS,
+    LogNetCost, binary columns for age and days of the week."""
 
     daysoftheweek = [
         "Monday",
@@ -71,8 +71,8 @@ def format_period_cols(df):
 
 
 def format_dates(df):
-    """ Reformats the EPISODE_START, EPISODE_END, ADMDATE, DISCDATE, LOAD_DATE,
-    procedure_date_dt. """
+    """Reformats the EPISODE_START, EPISODE_END, ADMDATE, DISCDATE, LOAD_DATE,
+    procedure_date_dt."""
 
     cols = [
         "EPISODE_START",
@@ -88,8 +88,8 @@ def format_dates(df):
 
 
 def true_length_of_stay(df):
-    """ Append a column showing the true length of stay by admission and
-    discharge dates. """
+    """Append a column showing the true length of stay by admission and
+    discharge dates."""
 
     if "TRUE_LOS" not in df.columns:
         df["TRUE_LOS"] = df["DISCDATE"] - df["ADMDATE"]
@@ -97,9 +97,9 @@ def true_length_of_stay(df):
 
 
 def drop_true_los_rows(df):
-    """ Some episodes and spells are encoded incorrectly leading to multiple
+    """Some episodes and spells are encoded incorrectly leading to multiple
     disharge dates or impossible lengths of stay within spells. Until this is
-    sorted out, we drop these rows. """
+    sorted out, we drop these rows."""
 
     multiple_dates = df.groupby("SPELL_ID").TRUE_LOS.nunique()
     spell_ids = list(multiple_dates.iloc[np.where(multiple_dates > 1)].index)
