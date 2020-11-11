@@ -37,13 +37,13 @@
     \fancyhf{}
     \fancyhead[LE]{\slshape\leftmark}  % Show chapter title on left outer leaf
     \fancyhead[RO]{\slshape\rightmark}  % Show section title on right outer leaf
-    \fancyfoot[LE,RO]{\thepage}  % Show page number on outer leaf
+    \fancyfoot[C]{\thepage}  % Show page number on outer leaf
     \renewcommand{\headrulewidth}{1pt}
 }
 
 \fancypagestyle{chapterstyle}{  % For chapter pages (no need for a header)
     \fancyhf{}
-    \fancyfoot[LE,RO]{\thepage}
+    \fancyfoot[C]{\thepage}
     \renewcommand{\headrulewidth}{0pt}% Line at the header invisible
 }
 
