@@ -453,11 +453,41 @@ the data.
 
 \section{Constructing the queuing model}\label{sec:model}
 
-The scarcity of data limits the options for the queuing model. However, there is
-a precedent for simplifying healthcare systems to a single node with parallel
-servers that emulate resource
-availability.~\cite{Steins2013}~and~\cite{Williams2015} provide examples of
-how this approach, when paired with discrete event simulation, can expose the
+The data available in this chapter is not as detailed as in comparative
+projects, limiting the options for how a queuing model may be constructed.
+Without access to such data --- but intending to gain insight from what is
+available --- it is imperative to bridge the gap left by the incomplete data.
+
+Moreover, it is often the case that in practical situations where suitable data
+is not (immediately) available, further inquiry in that line of research will
+stop. Queuing models in healthcare settings appear to be such a case; the line
+ends at incomplete queue data.~\cite{Asanjarani2017} is a bibliographic work
+that collates articles on the estimation of queuing system characteristics ---
+including their parameters. Despite its breadth of almost 300 publications from
+1955, only two articles have been identified as being applied to
+healthcare:~\cite{Mohammadi2012,Yom2014}. Both works are concerned with
+customers who can re-enter services during their time in the queuing system,
+which is mainly of value when considering the effect of unpredictable behaviour
+in intensive care units, for instance.~\cite{Mohammadi2012} seeks to approximate
+service and re-service densities through a Bayesian approach and by filtering
+out those customers seeking to be serviced again. Meanwhile,~\cite{Yom2014}
+considers an extension to the \(M/M/c\) queue with direct re-entries. The
+devised model is then used to determine resource requirements in two healthcare
+settings.
+
+Aside from healthcare-specific works, the approximation of queue parameters has
+formed a part of relevant modern queuing research. However, the scope is
+primarily focused on theoretic approximations rather than by
+simulation.~\cite{Djabali2018,Goldenshluger2016} are two such recent works that
+consider an underlying process to estimate a general service time distribution
+in single server and infinite server queues respectively.
+
+While these solutions are interesting, they do not necessarily tackle the issue
+in this scenario where information about the system is also missing. With that,
+there is a precedent for simplifying healthcare systems to a single node with
+parallel servers that emulate overall resource
+availability.~\cite{Steins2013}~and~\cite{Williams2015} provide examples of how
+this approach, when paired with discrete event simulation, can expose the
 resource needs of a system beyond deterministic queuing theory models. In
 particular,~\cite{Williams2015} shows how a single node, multiple server queue
 can be used to accurately predict bed capacity and length of stay distributions
@@ -479,11 +509,9 @@ described in this section.
 
 \subsection{Deriving the model parameters}\label{subsec:derive}
 
-Following in the suit of recent literature~\cite{Williams2015}, this chapter
-employs a
-% TODO add some more references here 
-single node using the \(M/M/c\) queue to model a hypothetical ward of patients
-presenting COPD.\ In addition to this, the grouping found in
+Following in the suit of recent literature~\cite{Steins2013,Williams2015}, this
+chapter employs a single node using the \(M/M/c\) queue to model a hypothetical
+ward of patients presenting COPD.\ In addition to this, the grouping found in
 Section~\ref{subsec:overview} provides a set of patient classes in the queue.
 Under this model, the following assumptions are made:
 
