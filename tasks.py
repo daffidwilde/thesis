@@ -2,6 +2,7 @@
 
 import glob
 import pathlib
+import re
 import subprocess
 import sys
 from collections import Counter
@@ -40,21 +41,37 @@ def doctest(c):
 def spellcheck(c):
     """ Check spelling. """
 
-    book = pathlib.Path("./*/").glob("*/main.tex")
+    frontmatter = pathlib.Path("preamble/").glob("*.tex")
+    chapters = pathlib.Path("chapters/").glob("*/main.tex")
+    appendices = pathlib.Path("appendix").glob("*/main.tex")
+    book = [*frontmatter, *chapters, *appendices]
+
     exit_codes = [0]
     for path in book:
 
+        print(f"Checking {path} 📖")
         latex = path.read_text()
         aspell_output = subprocess.check_output(
             ["aspell", "-t", "--list", "--lang=en_GB"], input=latex, text=True
         )
 
-        errors = set(aspell_output.split("\n")) - {""} - known.words
-        if len(errors):
-            print(f"In {path} the following words are not known: ")
-            for string in sorted(errors):
-                print(string)
+        errors = set(aspell_output.split("\n")) - {""}
+        unknowns = set()
+        for error in errors:
+            if not any(
+                re.fullmatch(word.lower(), error.lower())
+                for word in known.words
+            ):
+                unknowns.add(error)
+
+        if unknowns:
+            print(f"⚠️   In {path} the following words are not known:")
+            for string in sorted(unknowns):
+                print("     -", string)
+
             exit_codes.append(1)
+        else:
+            exit_codes.append(0)
 
     sys.exit(max(exit_codes))
 
