@@ -4,6 +4,7 @@ words = {
     "al",
     "argmin",
     "argv",
+    "aspland",
     "atkin",
     "biase",
     "bijection",
