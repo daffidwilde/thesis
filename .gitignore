@@ -10,7 +10,6 @@ rsc/*
 __pycache__
 *.pyc
 *.swp
-*.backup
 
 # Images
 *.gif

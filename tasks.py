@@ -119,9 +119,8 @@ def get_citations_to_export(bibentries):
             )
 
         else:
-            for i, entry in enumerate(entries):
-                entry["ID"] = entry["ID"] + f"_{i}"
-                citations_to_export = citations_to_export.append(entry)
+            print(f"Must reconcile {len(entries)} keys for {key}.")
+            citations_to_export = citations_to_export.append(entries)
 
     return citations_to_export
 

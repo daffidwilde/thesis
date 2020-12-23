@@ -18,3 +18,6 @@
     path = appendix/matching/paper
     url = https://github.com/daffidwilde/matching
     branch = main
+[submodule "chapters/lit/paper"]
+	path = chapters/lit/paper
+	url = git@github.com:daffidwilde/literature-review.git

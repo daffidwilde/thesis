@@ -110,6 +110,8 @@
 \setlength{\imgwidth}{.95\textwidth}
 \newlength{\tabwidth}
 \setlength{\tabwidth}{.9\textwidth}
+\newlength{\hierheight}
+\setlength{\hierheight}{.2\paperheight}
 
 \makeatletter
 \renewcommand*\l@algocf{\l@figure}
@@ -162,6 +164,10 @@
 \newcommand{\myrule}{%
     \begin{center}\noindent\rule[0.5ex]{.8\linewidth}{1pt}\end{center}
 }
+
+% Checkmarks
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
 
 % Code snippets
 \SetupFloatingEnvironment{listing}{%
