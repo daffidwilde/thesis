@@ -1,3 +1,7 @@
+[submodule "chapters/lit/paper"]
+    path = chapters/lit/paper
+    url = https://github.com/daffidwilde/literature-review
+    branch = main
 [submodule "chapters/edo/paper"]
 	path = chapters/edo/paper
 	url = https://github.com/daffidwilde/edo-paper
