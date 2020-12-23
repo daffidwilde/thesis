@@ -1,3 +1,7 @@
+[submodule "chapters/lit/paper"]
+    path = chapters/lit/paper
+    url = https://github.com/daffidwilde/literature-review
+    branch = main
 [submodule "chapters/edo/paper"]
 	path = chapters/edo/paper
 	url = https://github.com/daffidwilde/edo-paper
@@ -18,6 +22,3 @@
     path = appendix/matching/paper
     url = https://github.com/daffidwilde/matching
     branch = main
-[submodule "chapters/lit/paper"]
-	path = chapters/lit/paper
-	url = git@github.com:daffidwilde/literature-review.git
