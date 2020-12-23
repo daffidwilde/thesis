@@ -1,7 +1,7 @@
 \chapter{Literature review}
 \label{chp:lit}
 
-\section{Introduction}\label{sec:intro}
+\section{Introduction}
 
 Modern research, in all respects, is highly dependent on the use of data. The
 authors of \cite{Womack2015} consider a stratified sample of several thousand
@@ -42,7 +42,7 @@ efficacy in identifying otherwise unknown structures in a dataset, as well as
 straightforwardly garnering the attention of non-technical stakeholders has
 proven it to be an essential part of healthcare modelling
 research~\cite{Tomar2013,Yoo2011}, as is discussed in
-Section~\ref{subsec:healthcare}.
+Section~\ref{sec:healthcare}.
 
 Regardless of the particular methods that are to be implemented, the quality of
 a methodology must be evaluated as being fit-for-purpose before it can be used
@@ -62,24 +62,11 @@ potentially vast nature of the literature under study, formulating a reasonable
 slice that encompasses the state of the research is difficult. As such, this
 survey utilises two approaches, setting the following structure:
 
-\begin{itemize}
-    \item In Section~\ref{sec:review}, a review of a selection of representative
-        and innovative publications from across the aforementioned research
-        topics;
-    \item In Section~\ref{sec:bibliometric}, a software-based bibliometric study
-        of the literature from five academic publishers and preprint servers.
-\end{itemize}
-
-
-\section{Literature review}\label{sec:review}
-
-This section comprises what could be considered a classical literature review:
-an analysis of selected articles and publications that constitute the state and
-progress of each research topic.
+% TODO Reformulate structure of chapter
 
 % TODO Would a diagram of some sort be nice here?
 
-\subsection{Clustering}\label{subsec:clustering}
+\section{Clustering}\label{sec:clustering}
 \graphicspath{{chapters/lit/paper/img/clusters/}}
 
 Clustering, or \emph{cluster analysis}, is a generic term used to describe a
@@ -124,7 +111,7 @@ overviews and reviews of the methods belonging to the former,
 consider~\cite{Ferraro2019,Gosain2016,Li2016},
 and~\cite{Bouveyron2019,Fruhwirth2019,McNicholas2016} for the latter.
 
-\subsubsection{Centroid-based clustering}\label{subsubsec:kmeans}
+\subsection{Centroid-based clustering}\label{subsec:kmeans}
 
 The concept of \(k\)-means clustering is to partition a
 real-valued dataset into \(k \in \mathbb N\) homogeneous parts (clusters), where
@@ -374,7 +361,7 @@ determined by weighting, rather than the cluster locations. Finally, with
 Figure~\ref{fig:kmeans_spheres}, \(k\)-means performs well, correctly
 partitioning the dataset into its four clusters.
 
-\subsubsection{Hierarchical clustering}
+\subsection{Hierarchical clustering}
 
 Hierarchical clustering seeks to identify a hierarchy of the relationships
 between subsets of points in a dataset. A hierarchical clustering algorithm
@@ -395,7 +382,7 @@ recursively. For a dataset of \(n\) points, a complete search of the possible
 splits takes \(2^n\) calculations, and so divisive methods require efficient
 heuristics to be even remotely plausible on real-world data. A common choice is
 the \(k\)-means algorithm~\cite{Moseley2017,Peterson2018} which was discussed in
-Section~\ref{subsubsec:kmeans}.
+Section~\ref{subsec:kmeans}.
 
 In addition, hierarchical clustering has been successfully reframed as a
 combinatorial optimisation problem, as is done with divisive clustering
@@ -505,7 +492,7 @@ appears to perform well at identifying convex, linearly separable regions in the
 datasets. However, there are a handful of incorrectly clustered points along the
 borders of some regions.
 
-\subsubsection{Density-based clustering}
+\subsection{Density-based clustering}
 
 Density-based clustering differs from centroid-based methods in that
 it actively seeks more of the underlying structure of a dataset. In
@@ -616,10 +603,10 @@ exemplifies the sensitivity of DBSCAN and its parameters; a small number of
 points have been deemed outliers with the particular value of \(\epsilon\) used
 here. DBSCAN narrowly improves upon the hierarchical method for the spheres
 dataset, but is unable to correctly identify all of the data points.
-Section~\ref{subsubsec:clustering_evaluation} touches on the relevance of this
+Section~\ref{subsec:clustering_evaluation} touches on the relevance of this
 occurrence.
 
-\subsection{Healthcare modelling}\label{subsec:healthcare}
+\section{Healthcare modelling}\label{sec:healthcare}
 
 Healthcare modelling is a broad term that encompasses a plethora of techniques
 from a number of disciplines such as financial modelling and forecasting, and
@@ -660,7 +647,7 @@ capacity~\cite{Williams2015}, and the taxonomy of patient
 pathways~\cite{Rojas2016}.
 
 
-\subsubsection{Segmentation analysis}
+\subsection{Segmentation analysis}
 
 Segmentation analysis allows for the targeted analysis of otherwise
 heterogeneous healthcare datasets and encompasses several techniques from
@@ -692,7 +679,7 @@ proved useful in the study of comorbidity patterns (as
 in~\cite{Kuwornu2014,Larsen2017}) where combinations of demographic and clinical
 attributes are related to various subgroups of chronic diseases.
 
-As demonstrated in Section~\ref{subsec:clustering}, clustering includes a wide
+As demonstrated in Section~\ref{sec:clustering}, clustering includes a wide
 variety of methods where the common theme is to maximise homogeneity within, and
 heterogeneity between, each cluster. Of those methods, \(k\)-means clustering
 (or a variant thereof) is the most widely used in
@@ -720,7 +707,7 @@ complexity and communication are the limiting factors for stakeholders, and so
 the onus resides with researchers to make their models informative, effective
 and transferable.
 
-\subsubsection{Queuing models}\label{subsubsec:queuing}
+\subsection{Queuing models}\label{subsec:queuing}
 
 A queue models the arrival (and exit) of customers to (and from) a point of
 service. A queuing network describes how two or more queues may interact with
@@ -790,9 +777,9 @@ supports the common assumption that reducing the number of times a server must
 change the task they are completing will influence the overall throughput of
 that server; the article succeeds in demonstrating this.
 
-\subsubsection{Queuing and clustering}
+\subsection{Queuing and clustering}
 
-The beginning of Section~\ref{subsubsec:queuing} briefly mentions two methods
+The beginning of Section~\ref{subsec:queuing} briefly mentions two methods
 for investigating patient pathways --- process mining and patient flow analysis
 --- that are underpinned by a queuing network. In each case, the healthcare
 system is represented as a network of nodes through which patients and resources
@@ -840,7 +827,7 @@ revealed scarce research into the application of clustering to inform a
 multi-class queuing model, theoretical or otherwise.
 
 
-\subsection{Evaluating a model}
+\section{Evaluating a model}
 
 In~\cite{Caswell1976}, the author presents a seminal work discussing the proper
 evaluation of scientific models, drawing attention to a component of modelling
@@ -934,7 +921,7 @@ declined. The remainder of this section summarises the established evaluation
 processes for clustering algorithms and healthcare models, highlighting their
 limitations and the avenues for improvement in the literature.
 
-\subsubsection{Clustering}\label{subsubsec:clustering_evaluation}
+\subsection{Clustering}\label{subsec:clustering_evaluation}
 
 Algorithms for clustering, like many machine learning tasks, fall into the
 category of models that are primarily evaluated using confirmation processes. As
@@ -946,7 +933,7 @@ underlying structure of a dataset with knowledge that is fixed from the outset
 exclusively. However, the metrics used to evaluate clustering algorithms are
 often concerned with the retrieval of information such as accuracy, precision,
 and recall~\cite{Manning2008}. Examples of this method of evaluation are
-abundant, including many of the cited works from Section~\ref{subsec:clustering}
+abundant, including many of the cited works from Section~\ref{sec:clustering}
 such as~\cite{Agrawal1998,Aljarah2019,Bakr2015,Cao2009,Huang1998}.
 
 Information retrieval metrics can be considered \emph{external criteria} in that
@@ -955,7 +942,7 @@ of the dataset~\cite{Mitchell1997}. The quality of any
 clustering is predicated on the data generation process, and if a clustering
 algorithm cannot replicate the external labelling, it will not be deemed fit
 using external, label-dependent criteria. When discussing the demonstrative
-figures in Section~\ref{subsec:clustering}, an informal form of this evaluation
+figures in Section~\ref{sec:clustering}, an informal form of this evaluation
 was made when referring to a `mislabelling' of points. In reality, the data
 synthesis produced a structure within the data that is not necessarily congruent
 with the generative process. Therefore, the clustering algorithms (which
@@ -1054,7 +1041,7 @@ following `axiomatic' properties:
 
 However, small changes to these properties accommodate various well-known
 clustering algorithms, including single-linkage and \(k\)-means clustering
-(discussed in Section~\ref{subsec:clustering}). The authors
+(discussed in Section~\ref{sec:clustering}). The authors
 of~\cite{BenDavid2008} expand on these axioms to derive necessary and desirable
 properties of cluster-quality measures that are entirely agnostic to the
 clustering function at hand. The closing sections of that work offer a number of
@@ -1064,9 +1051,9 @@ error, and a within-versus-between variability measure. The latter can be
 considered as a generalisation of the silhouette coefficient with respect to its
 loss function or distance measure.
 
-\subsubsection{Healthcare settings}
+\subsection{Healthcare settings}
 
-As discussed in Section~\ref{subsec:healthcare}, data-driven methodologies have
+As discussed in Section~\ref{sec:healthcare}, data-driven methodologies have
 become prevalent in healthcare modelling. Incorporating computer-based modelling
 into decision-making processes allows healthcare practitioners and researchers
 to make full use of the sheer volume of information available in increasingly
@@ -1180,3 +1167,5 @@ of real data available is small. This scarcity is a common issue in modern
 operational research, where data-hungry methods (i.e. those from machine
 learning) are becoming increasingly mainstream, with healthcare research
 included~\cite{Panch2019}.
+
+\section{Chapter summary}
