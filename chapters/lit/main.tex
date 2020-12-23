@@ -241,16 +241,17 @@ more robust to these limitations. For continuous (or at least ordered) data,
 attribute in a cluster to form the centre~\cite{Arya2001,Bradley1997},
 mitigating the effect of outliers.
 
-In \(k\)-medoids, the centre of a cluster is taken to be the data point
-which is closest to all other points in the cluster~\cite{Kaufman1987}.
-Typically, \(k\)-medoids makes use of the Manhattan distance, but is generic in
-its schema. If Euclidean distance is used, then \(k\)-medoids is identical to
-\(k\)-means, with the restriction that the centre of the cluster is an actual
-point in that cluster. Specifying that the centre be a real point is seen as the
-primary benefit of \(k\)-medoids, and continues to be actively
+In \(k\)-medoids, the centre of a cluster is taken to be the data point which is
+closest to all other points in the cluster~\cite{Kaufman1987}.  Typically,
+\(k\)-medoids makes use of the Manhattan distance, but is generic in its schema.
+If Euclidean distance is used, then \(k\)-medoids is identical to \(k\)-means,
+with the restriction that the centre of the cluster is an actual point in that
+cluster. Specifying that the centre be a real point is seen as the primary
+benefit of \(k\)-medoids, and continues to be actively
 studied~\cite{Schubert2019,Ushakov2021}. There are cases where a virtual cluster
-centre is not sufficient, such as facility allocation~\cite{Chen2016,Wang2020}
-and the clustering of gene sequences~\cite{Johnson2018}.
+centre is not sufficient, such as facility
+allocation~\cite{Chen2016clustering,Wang2020} and the clustering of gene
+sequences~\cite{Johnson2018}.
 
 When considering a categorical or mixed-type dataset, none of the aforementioned
 clustering techniques will work as they were intended because the sense of order
@@ -579,8 +580,9 @@ CLIQUE~\cite{Agrawal1998} and OPTIGRID~\cite{Hinneburg1999} each provide
 density-based clustering algorithms that are designed to perform well in
 high-dimensional space. Each of these algorithms is grid-based (as opposed to
 point-based), so the attribute space is discretised into rectangles. These
-rectangles are then used to identify dense regions. DCore~\cite{Chen2018}
-provides powerful point-based clustering in arbitrarily high dimensions.
+rectangles are then used to identify dense regions.
+DCore~\cite{Chen2018clustering} provides powerful point-based clustering in
+arbitrarily high dimensions.
 
 To identify clusters of variable densities, DVBSCAN~\cite{Ram2010} and
 HDBSCAN~\cite{Campello2013} are available. The latter aggregates outputs from
