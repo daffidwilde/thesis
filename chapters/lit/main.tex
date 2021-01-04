@@ -1209,3 +1209,46 @@ learning) are becoming increasingly mainstream, with healthcare research
 included~\cite{Panch2019}.
 
 \section{Chapter summary}
+
+This chapter has consisted of a review of existing literature, covering three
+central components of modern operational research: clustering, healthcare
+modelling and the evaluation of models. As part of this survey, the
+intersections of these topics have been considered, but there appears to be a
+distinct lack of literature covering all three topics simultaneously.
+
+Of the clustering approaches available, this survey could confirm that
+centroid-based clustering (\(k\)-means, in particular) continues to be the most
+popular in healthcare applications. This popularity prevails in spite of its
+known limitations such as requiring spherical, evenly sized clusters. In part,
+this appears to be because of its straightforward, scalable and readily
+explained design, making it an appealing option when non-technical stakeholders
+are involved in a modelling process. Owing to this, centroid-based clustering
+algorithms are the focus of the clustering approaches used in
+Chapters~\ref{chp:kmodes}~and~\ref{chp:copd}.
+
+Despite the widespread use of clustering in healthcare, the survey for this
+review identified no existing works where clustering was used to inform a
+queuing model. Indeed, clustering has been used to understand and categorise the
+outputs of healthcare queuing models, but does not appear to have been applied
+at the front-end of a model. In Chapter~\ref{chp:copd}, administrative data is
+utilised to profile spells associated with a healthcare population via
+clustering. These profiles are then included as classes in a queue which models
+the population in a hypothetical hospital system.
+
+Beyond healthcare applications, this survey recognises the growing body of work
+into fair machine learning practices, including in clustering. These new
+approaches seek to reframe machine learning techniques to focus on some measure
+of fairness that is often derived from some game-theoretic notion. In
+Chapter~\ref{chp:kmodes}, a novel method is presented that would not necessarily
+be categorised as a fair machine learning algorithm, but rather adapts an
+existing algorithm to incorporate some concepts from game theory. The purpose of
+studying fair machine learning practices is to more roundly quantify their
+quality, often from an ethical standpoint where people (and their data) are the
+subject of the algorithms.
+
+Other than these practices, the evaluation of clustering (and other machine
+learning) algorithms appears to rely heavily on confirmation processes. A
+confirmation process applies a method on a specific example and quantifies its
+success using some metric. Chapter~\ref{chp:edo} introduces a novel approach to
+expand on this approach to understanding algorithm quality, and discusses the
+potential dangers of being too reliant on a small number of examples.
