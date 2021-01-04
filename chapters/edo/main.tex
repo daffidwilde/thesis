@@ -188,10 +188,10 @@ of the flipped paradigm set out above.
 The use of EAs to generate artificial data is not a new concept, however.
 Applications of EAs to data generation have included developing methods for the
 automated testing of software~\cite{Koleejan2015,Michael2001,Sharifipour2018}
-and the synthesis of existing or confidential data~\cite{Chen2016}. Such methods
-also have a long history in the parameter optimisation of algorithms, and
-recently in the automated design of convolutional neural network (CNN)
-architecture~\cite{Suganuma2017,Sun2018}.
+and the synthesis of existing or confidential data~\cite{Chen2016synthetic}.
+Such methods also have a long history in the parameter optimisation of
+algorithms, and recently in the automated design of convolutional neural network
+(CNN) architecture~\cite{Suganuma2017,Sun2018}.
 
 Other methods for the generation or synthesis of artificial data are numerous
 and range from simple concepts such as simulated annealing~\cite{Matejka2017} to
@@ -203,9 +203,9 @@ space in an organic way, less-prejudiced insight can be established that is not
 necessarily reliant on any particular framework or agenda.
 
 Note that there is no necessary restriction on the search space to be of a fixed
-dimension or data type such as the method described in~\cite{Chen2016}. The
-shape of a dataset is considered a part of the search space itself that can be
-traversed through the evolutionary algorithm.
+dimension or data type such as the method described in~\cite{Chen2016synthetic}.
+The shape of a dataset is considered a part of the search space itself that can
+be traversed through the evolutionary algorithm.
 
 The remainder of this chapter is structured as follows:
 \begin{itemize}
@@ -409,12 +409,12 @@ crossed at a point to create two new bit strings.
 Another popular method is uniform crossover, where the components of two parents
 are sampled uniformly to create a new individual. This method is efficient and
 is effectual in combining individuals to preserve homogeneity in both bit string
-and matrix representations~\cite{Chen2018,Semenkin2012}. EDO makes use of a form
-of uniform crossover that has been adapted to support the representation of
-individuals in the EA. Put simply: a new offspring is created by uniformly
-sampling each of its components (i.e.\ dimensions and columns) from a set of two
-parent individuals, as depicted in Figure~\ref{fig:crossover} and described in
-Algorithm~\ref{alg:crossover}.
+and matrix representations~\cite{Chen2018synthetic,Semenkin2012}. EDO makes use
+of a form of uniform crossover that has been adapted to support the
+representation of individuals in the EA. Put simply: a new offspring is created
+by uniformly sampling each of its components (i.e.\ dimensions and columns) from
+a set of two parent individuals, as depicted in Figure~\ref{fig:crossover} and
+described in Algorithm~\ref{alg:crossover}.
 
 \inputtikz{crossover}{%
     The crossover process between two individuals with different dimensions
@@ -692,7 +692,7 @@ random clouds with no distinct clusters. However, there are some patterns in the
 better-performing individuals. It is clear that there is a preference for tight
 clusters, but also it appears that well-performing datasets have columns with a
 strong positive correlation. Having such a relationship may seem irrelevant to
-the success of \(k\) means, but in doing so, the dataset becomes
+the success of \(k\)-means, but in doing so, the dataset becomes
 one-dimensional. Removing a dimension reduces the search space of the algorithm
 considerably, and makes it easier for the \(k\)-means algorithm to achieve its
 real goal of finding the centroidal Voronoi tessellation of a

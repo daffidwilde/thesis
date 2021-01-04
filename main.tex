@@ -3,7 +3,7 @@
 %%% Packages
 
 % Setting up page
-\usepackage[a4paper,top=25mm,right=25mm,bottom=30mm,left=40mm]{geometry}
+\usepackage[a4paper,top=1in,right=1in,bottom=1in,left=1.5in]{geometry}
 \usepackage{emptypage}
 
 % Mathematics
@@ -110,6 +110,8 @@
 \setlength{\imgwidth}{.95\textwidth}
 \newlength{\tabwidth}
 \setlength{\tabwidth}{.9\textwidth}
+\newlength{\hierheight}
+\setlength{\hierheight}{.2\paperheight}
 
 \makeatletter
 \renewcommand*\l@algocf{\l@figure}
@@ -158,10 +160,18 @@
     \href{https://doi.org/#1}{\nolinkurl{doi:#1}}%
 }
 
+\newcommand{\github}[1]{%
+    \href{https://github.com/#1}{\nolinkurl{github:#1}}
+}
+
 % Line rule
 \newcommand{\myrule}{%
     \begin{center}\noindent\rule[0.5ex]{.8\linewidth}{1pt}\end{center}
 }
+
+% Checkmarks
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
 
 % Code snippets
 \SetupFloatingEnvironment{listing}{%
