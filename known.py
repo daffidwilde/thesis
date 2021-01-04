@@ -140,7 +140,7 @@ words = {
     "radth",
     "rebranded",
     "rebranding",
-    "reframed",
+    "reframe(|d)",
     "reproducibility",
     "reusability",
     "rostering",
