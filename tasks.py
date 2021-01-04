@@ -26,28 +26,32 @@ def compile(c, engine="pdflatex"):
     c.run(f"latexmk -interaction=nonstopmode -shell-escape --{engine} main.tex")
 
 
+def _get_book():
+    """Get a glob containing all of the main files in the thesis."""
+
+    frontmatter = pathlib.Path("preamble/").glob("*.tex")
+    chapters = pathlib.Path("chapters/").glob("*/main.tex")
+    appendices = pathlib.Path("appendix/").glob("*/main.tex")
+
+    return [*frontmatter, *chapters, *appendices]
+
+
 @task
 def doctest(c):
     """ Doctest the source files for the document. """
 
-    book = pathlib.Path("./chapters/").glob("*/main.tex")
-    for path in book:
-        chapter = str(path).split("/main.tex")[-2]
-        print("Testing", chapter)
+    for path in _get_book():
+        filename = path.stem
+        print("Testing", filename)
         c.run(f"python -m doctest -v {path}")
 
 
 @task
 def spellcheck(c):
-    """ Check spelling. """
-
-    frontmatter = pathlib.Path("preamble/").glob("*.tex")
-    chapters = pathlib.Path("chapters/").glob("*/main.tex")
-    appendices = pathlib.Path("appendix").glob("*/main.tex")
-    book = [*frontmatter, *chapters, *appendices]
+    """ Check spelling, skipping over known words. """
 
     exit_codes = [0]
-    for path in book:
+    for path in _get_book():
 
         print(f"Checking {path} 📖")
         latex = path.read_text()
@@ -119,9 +123,8 @@ def get_citations_to_export(bibentries):
             )
 
         else:
-            for i, entry in enumerate(entries):
-                entry["ID"] = entry["ID"] + f"_{i}"
-                citations_to_export = citations_to_export.append(entry)
+            print(f"Must reconcile {len(entries)} keys for {key}.")
+            citations_to_export = citations_to_export.append(entries)
 
     return citations_to_export
 
@@ -153,9 +156,10 @@ def bibliography(c, path="bibliography.bib", backup=True):
     entries."""
 
     current = []
-    if backup and pathlib.Path(path).exists():
-        name = path.split(".")[-2]
-        backup = f"{name}.backup"
+    path = pathlib.Path(path)
+    if backup and path.exists():
+        name, ext = path.stem, path.suffix
+        backup = f".{name}{ext}"
         print("Backing up current bibliography.")
         c.run(f"mv {path} {backup}")
         current = [backup]
