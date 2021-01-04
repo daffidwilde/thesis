@@ -1,6 +1,44 @@
 \chapter{Literature review}
 \label{chp:lit}
 
+\begin{center}
+    The survey presented in this chapter is formed from a larger work
+    entitled:\\[1em]
+
+    {%
+        \bf\itshape{``A review of current literature covering the intersections
+        of clustering, algorithm evaluation and healthcare modelling''}
+    }
+
+    Available online at:~\github{daffidwilde/literature-review}\\
+    Associated data and source code:~\doi{10.5281/zenodo.4320050}\vfill
+
+    The abstract of the manuscript (at the time of writing) is as
+    follows:\\[1em]
+\end{center}
+
+This survey considers the literature surrounding three essential parts of modern
+operational research: clustering and segmentation, model evaluation, and
+operational healthcare modelling. In particular, this review focuses on their
+intersections, highlighting areas for which there exists a scarce amount of
+published work.
+
+Given the vast nature of this body of literature, two approaches are utilised to
+thoroughly investigate the corpus. First, a traditional literature review based
+on a selection of seminal, innovative and recent works from each topic are
+digested; therein, any overlapping literature is discussed. Second, a
+software-based study of the wider literature base from five publishers
+(including preprint servers), providing insight into the bibliometrics of the
+literature associated with the aforementioned topics.
+
+\myrule%
+
+The primary difference between the manuscript and this chapter is that the
+manuscript includes a bibliometric study of the wider literature corpus. This
+chapter also includes a more extensive review of clustering techniques, as this
+form of analysis proves instrumental in the research presented in
+Chapters~\ref{chp:kmodes}~and~\ref{chp:copd}.
+
 \section{Introduction}
 
 Modern research, in all respects, is highly dependent on the use of data. The
@@ -216,16 +254,17 @@ more robust to these limitations. For continuous (or at least ordered) data,
 attribute in a cluster to form the centre~\cite{Arya2001,Bradley1997},
 mitigating the effect of outliers.
 
-In \(k\)-medoids, the centre of a cluster is taken to be the data point
-which is closest to all other points in the cluster~\cite{Kaufman1987}.
-Typically, \(k\)-medoids makes use of the Manhattan distance, but is generic in
-its schema. If Euclidean distance is used, then \(k\)-medoids is identical to
-\(k\)-means, with the restriction that the centre of the cluster is an actual
-point in that cluster. Specifying that the centre be a real point is seen as the
-primary benefit of \(k\)-medoids, and continues to be actively
+In \(k\)-medoids, the centre of a cluster is taken to be the data point which is
+closest to all other points in the cluster~\cite{Kaufman1987}.  Typically,
+\(k\)-medoids makes use of the Manhattan distance, but is generic in its schema.
+If Euclidean distance is used, then \(k\)-medoids is identical to \(k\)-means,
+with the restriction that the centre of the cluster is an actual point in that
+cluster. Specifying that the centre be a real point is seen as the primary
+benefit of \(k\)-medoids, and continues to be actively
 studied~\cite{Schubert2019,Ushakov2021}. There are cases where a virtual cluster
-centre is not sufficient, such as facility allocation~\cite{Chen2016,Wang2020}
-and the clustering of gene sequences~\cite{Johnson2018}.
+centre is not sufficient, such as facility
+allocation~\cite{Chen2016clustering,Wang2020} and the clustering of gene
+sequences~\cite{Johnson2018}.
 
 When considering a categorical or mixed-type dataset, none of the aforementioned
 clustering techniques will work as they were intended because the sense of order
@@ -554,8 +593,9 @@ CLIQUE~\cite{Agrawal1998} and OPTIGRID~\cite{Hinneburg1999} each provide
 density-based clustering algorithms that are designed to perform well in
 high-dimensional space. Each of these algorithms is grid-based (as opposed to
 point-based), so the attribute space is discretised into rectangles. These
-rectangles are then used to identify dense regions. DCore~\cite{Chen2018}
-provides powerful point-based clustering in arbitrarily high dimensions.
+rectangles are then used to identify dense regions.
+DCore~\cite{Chen2018clustering} provides powerful point-based clustering in
+arbitrarily high dimensions.
 
 To identify clusters of variable densities, DVBSCAN~\cite{Ram2010} and
 HDBSCAN~\cite{Campello2013} are available. The latter aggregates outputs from
@@ -1157,15 +1197,58 @@ is achieved are various, but include bespoke, often statistical
 models~\cite{Dahmen2019,Dube2014,McLachlan2016,Tucker2020} and, recently,
 generative adversarial networks (GANs)~\cite{Avino2018,Torfi2020}. Using
 synthetic datasets provides another level of anonymity to the patients, but
-their efficacy against real data has been contested. In a recent
-paper~\cite{Rankin2020}, the authors report consistent, although marginal,
-losses in accuracy by various supervised learning methods on synthetic datasets
-when compared with their performance on the corresponding real datasets. The
-authors of~\cite{Dahmen2019} find similar results, but demonstrate how their
-method of data synthesis may improve certain objective metrics when the amount
-of real data available is small. This scarcity is a common issue in modern
-operational research, where data-hungry methods (i.e. those from machine
+their but their validity as representations of real data has been contested. In
+a recent paper~\cite{Rankin2020}, the authors report consistent, although
+marginal, losses in accuracy by various supervised learning methods on synthetic
+datasets when compared with their performance on the corresponding real
+datasets. The authors of~\cite{Dahmen2019} find similar results, but demonstrate
+how their method of data synthesis may improve certain objective metrics when
+the amount of real data available is small. This scarcity is a common issue in
+modern operational research, where data-hungry methods (i.e. those from machine
 learning) are becoming increasingly mainstream, with healthcare research
 included~\cite{Panch2019}.
 
 \section{Chapter summary}
+
+This chapter has consisted of a review of existing literature, covering three
+central components of modern operational research: clustering, healthcare
+modelling and the evaluation of models. As part of this survey, the
+intersections of these topics have been considered, but there appears to be a
+distinct lack of literature covering all three topics simultaneously.
+
+Of the clustering approaches available, this survey could confirm that
+centroid-based clustering (\(k\)-means, in particular) continues to be the most
+popular in healthcare applications. This popularity prevails in spite of its
+known limitations such as requiring spherical, evenly sized clusters. In part,
+this appears to be because of its straightforward, scalable and readily
+explained design, making it an appealing option when non-technical stakeholders
+are involved in a modelling process. Owing to this, centroid-based clustering
+algorithms are the focus of the clustering approaches used in
+Chapters~\ref{chp:kmodes}~and~\ref{chp:copd}.
+
+Despite the widespread use of clustering in healthcare, the survey for this
+review identified no existing works where clustering was used to inform a
+queuing model. Indeed, clustering has been used to understand and categorise the
+outputs of healthcare queuing models, but does not appear to have been applied
+at the front-end of a model. In Chapter~\ref{chp:copd}, administrative data is
+utilised to profile spells associated with a healthcare population via
+clustering. These profiles are then included as classes in a queue which models
+the population in a hypothetical hospital system.
+
+Beyond healthcare applications, this survey recognises the growing body of work
+into fair machine learning practices, including in clustering. These new
+approaches seek to reframe machine learning techniques to focus on some measure
+of fairness that is often derived from some game-theoretic notion. In
+Chapter~\ref{chp:kmodes}, a novel method is presented that would not necessarily
+be categorised as a fair machine learning algorithm, but rather adapts an
+existing algorithm to incorporate some concepts from game theory. The purpose of
+studying fair machine learning practices is to more roundly quantify their
+quality, often from an ethical standpoint where people (and their data) are the
+subject of the algorithms.
+
+Other than these practices, the evaluation of clustering (and other machine
+learning) algorithms appears to rely heavily on confirmation processes. A
+confirmation process applies a method on a specific example and quantifies its
+success using some metric. Chapter~\ref{chp:edo} introduces a novel approach to
+expand on this approach to understanding algorithm quality, and discusses the
+potential dangers of being too reliant on a small number of examples.

@@ -3,7 +3,7 @@
 %%% Packages
 
 % Setting up page
-\usepackage[a4paper,top=25mm,right=25mm,bottom=30mm,left=40mm]{geometry}
+\usepackage[a4paper,top=1in,right=1in,bottom=1in,left=1.5in]{geometry}
 \usepackage{emptypage}
 
 % Mathematics
@@ -158,6 +158,10 @@
 
 \newcommand{\doi}[1]{%
     \href{https://doi.org/#1}{\nolinkurl{doi:#1}}%
+}
+
+\newcommand{\github}[1]{%
+    \href{https://github.com/#1}{\nolinkurl{github:#1}}
 }
 
 % Line rule
