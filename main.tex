@@ -204,6 +204,21 @@
     ]{python}%
 }{\end{minted}\end{tcolorbox}}
 
+\newenvironment{sourceyml}{%
+    \VerbatimEnvironment%
+    \begin{tcolorbox}[%
+        colback=sourcebg,
+        colframe=sourcefr,
+        left=2em,
+        right=2em,
+    ]%
+    \begin{minted}[%
+        bgcolor=sourcebg,
+        linenos=true,
+        numbersep=0ex,
+    ]{yaml}%
+}{\end{minted}\end{tcolorbox}}
+
 \newenvironment{usagepy}{%
     \VerbatimEnvironment%
     \begin{tcolorbox}[%
@@ -340,6 +355,7 @@
 \newcommand{\matching}{\mintinline{console}{matching}}
 \newcommand{\matchingr}{\mintinline{console}{MatchingR}}
 \newcommand{\pip}{\mintinline{console}{pip}}
+\newcommand{\ctmuhb}{Cwm Taf Morgannwg UHB}
 
 
 %%% DOCUMENT %%%

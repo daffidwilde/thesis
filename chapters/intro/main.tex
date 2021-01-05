@@ -1,26 +1,98 @@
 \chapter{Introduction}
 \label{chp:intro}
 
-This will be the introduction.
+\section{Research questions and thesis structure}\label{sec:questions}
+
+This thesis contains seven chapters, which each aim to answer some part of the
+following questions:
+
+\begin{enumerate}
+    \item How can existing objective algorithm evaluation processes be improved
+        upon?
+    \item Can the principles of game theory improve existing machine learning
+        techniques?
+    \item How valuable can routinely collected, administrative datasets be in
+        pursuing operational healthcare research?
+\end{enumerate}
+
+The chapters in this thesis are presented in a logical manner, and their
+connections are shown in Figure~\ref{fig:chapters}. An arrow from one chapter to
+another indicates that some part of the research presented in that chapter
+contributes to the research in the other. How the chapters correspond to these
+research questions is as follows: Chapters~\ref{chp:lit}~and~\ref{chp:edo} focus
+on the first research question; Chapters~\ref{chp:lit}~and~\ref{chp:kmodes}
+consider the second; finally, Chapters~\ref{chp:data}~and~\ref{chp:copd} address
+the final question.
+
+A brief summary of each chapter is given below:
+
+\begin{itemize}
+    \item Chapter~\ref{chp:lit} comprises a literature review covering the
+        principle topics of this thesis: clustering, healthcare modelling, and
+        model evaluation. As well as surveying each topic individually, their
+        intersections are considered.
+    \item Chapter~\ref{chp:edo} presents a novel approach to understanding an
+        algorithm's quality according to some metric. The presented method
+        allows for an exploration of the space in which `good' datasets exist
+        by use of an evolutionary algorithm.
+    \item Chapter~\ref{chp:kmodes} describes a new initialisation method for an
+        existing clustering algorithm. This method models the initialisation as
+        a matching game, incorporating a mathematical notion of fairness. The
+        chapters concludes with a evaluation of the method against two
+        initialisations, making use of the approach set out in
+        Chapter~\ref{chp:edo}, and reveals the cases in which the new
+        initialisation improves upon the existing methods.
+    \item Chapter~\ref{chp:data} consists of an exploratory analysis of an
+        administrative dataset provided by \ctmuhb. The ensuing analysis
+        indicates that for any useful analysis to come to light, the population
+        should be partitioned into more homogeneous parts first.
+    \item Chapter~\ref{chp:copd} combines the initialisation from
+        Chapter~\ref{chp:kmodes} with the findings of Chapter~\ref{chp:data} to
+        produce a segmentation of a healthcare population, using another
+        administrative dataset from \ctmuhb. This segmentation is used to inform
+        a multi-class queuing model, and subsequent adjustments to that model
+        provide actionable insights into the needs of the population under
+        study.
+    \item Chapter~\ref{chp:conc} summarises the research presented in the
+        previous chapters and establishes avenues for further work.
+\end{itemize}
 
 \section{Software development and best practices}\label{sec:dev}
+
+Conducting research without software is seemingly becoming a thing of the past.
+In 2014, the Software Sustainability Institute surveyed researchers (from across
+the disciplinary spectrum) at 15 Russell Group universities. Their analysis
+revealed that 92\% of respondents use software to conduct their research, and
+69\% responded that `their research would not be practical without'
+software~\cite{Hettrick2014}. The research conducted in this thesis is no
+different, and relies on the use of software. As with all scientific pursuits,
+researchers who make use of software are obliged to ensure their work is correct
+and reproducible. This section provides a brief overview of the software
+developed for this thesis, and the methods of \emph{best practice} used to
+develop that software in a responsible manner.
+
+Best practices help ensure that research methods are reliable, reproducible, and
+transferable. In essence, the proper adoption of best practices sustains the
+lifespan of a piece of research. The same is true of research software. In
+Chapter~\ref{chp:lit}, the ethical implications of best practices are addressed,
+as well as briefly mentioning the analogous practices for research data.
+Examples of existing software best practices
+include~\cite{Aberdour2007,Benureau2018,Jimenez2017,Wilson2014}. Included in the
+subsequent subsections are overviews of four fundamental methods of best
+practice that are used throughout the software developed for this thesis:
+version control, virtual environments, automated testing and documentation.
 
 \subsection{Code snippets}
 
 Throughout this thesis, snippets of code are shown. These snippets are either of
 source code, as in Snippet~\ref{snp:source}, or uses of code. The first type of
 code snippet is presented on a darker background and is used to display some
-part of the source code of an existing piece of software. The second type of
-snippet can be distinguished by its lighter background and is used to display a
-series of commands to be executed; where this execution should be done is
-indicated by the preceding symbols.
-
-A snippet whose commands begin with \mintinline{python}{>>>}, as in
-Snippet~\ref{snp:usepy}, should be run in a Python interpreter while those with
-commands beginning with \mintinline{console}{>}, as in Snippet~\ref{snp:usesh},
-should be executed in a shell. In each of these cases, the output of a command
-(or series of commands) is displayed directly beneath it without any preceding
-symbols.
+part of the source code of an existing piece of software. In general, the source
+code in these snippets is written in the open-source language,
+Python~\cite{python}, as that is the default language for the software developed
+for this thesis. The second type of snippet can be distinguished by its lighter
+background and is used to display a series of commands to run; where these
+commands should be run is indicated by the preceding symbols.
 
 \begin{listing}[htbp]
 \begin{sourcepy}
@@ -32,8 +104,15 @@ def main():
 if __name__ == "__main__":
     main()
 \end{sourcepy}
-\caption{An example of some Python source code.}\label{snp:source}
+\caption{An example of some Python source code}\label{snp:source}
 \end{listing}
+
+A snippet whose commands begin with \mintinline{python}{>>>}, as in
+Snippet~\ref{snp:usepy}, should be run in a Python interpreter while those with
+commands beginning with \mintinline{console}{>}, as in Snippet~\ref{snp:usesh},
+should be run in a shell. In each of these cases, the output of a command (or
+series of commands) is displayed directly beneath it without any preceding
+symbols.
 
 \begin{listing}[htbp]
 \begin{usagepy}
@@ -41,7 +120,7 @@ if __name__ == "__main__":
 Hello world.
 
 \end{usagepy}
-\caption{An example of some code run in a Python interpreter.}\label{snp:usepy}
+\caption{An example of some code run in a Python interpreter}\label{snp:usepy}
 \end{listing}
 
 \begin{listing}[htbp]
@@ -49,5 +128,104 @@ Hello world.
 > echo "Hello world."
 Hello world.
 \end{usagesh}
-\caption{An example of some code executed in a shell.}\label{snp:usesh}
+\caption{An example of some code run in a shell}\label{snp:usesh}
 \end{listing}
+
+\subsection{Version control and virtual environments}
+
+This subsection briefly describes two tools used for developing software:
+\emph{version control} and \emph{virtual environments}. Each of these tools form
+part of the broader development framework, and are not necessarily part of the
+software source code.
+
+\subsubsection{Version control}
+
+A version control system records all files within a software project, typically
+on a line-by-line basis. As the name suggests, the system also keeps a record of
+all the versions of that project. This record of a project is called a
+\emph{repository} and offers up some transparency into how the software was
+developed. Full accounts of the history and benefits of version control
+systems and their features may be found in~\cite{Ruparelia2010,Zolkifli2018}.
+
+A number of version control systems exist, each with their own objectives and
+specialties, but all of the software for this thesis was developed using
+Git~\cite{git}. Created by Linus Torvalds in 2005, Git is a free, open-source
+version control system that has been widely adopted by large tech companies
+including Google, Facebook, and Microsoft. The primary objectives of Git are to
+be uncomplicated and to provide frictionless, low-latency versioning.
+
+Several services exist for hosting Git repositories online, the most popular of
+which is GitHub~\cite{github}. Each of the repositories used in this thesis is
+publicly hosted on GitHub, and links to them are listed in
+Table~\ref{tab:repos}. In addition to the benefits of the underlying version
+control system, hosting services afford software developers the ability to make
+their software accessible beyond their local machine. Furthermore, GitHub has
+features to encourage collaboration between developers, allowing users to
+interact with one another's repositories by reporting issues, commenting and
+liking, and (perhaps most importantly) requesting to make changes to a code
+base.
+
+\subsubsection{Virtual environments}
+
+When using or developing a piece of software, it almost a certainty that it will
+have \emph{dependencies}. A dependency is a version of some existing software
+required by the newly developed software to run. Occasionally, there will be
+clashes in the dependencies of two or more pieces of software, or another
+developer may wish to install that software exactly as it was created. These are
+two motivating examples for organising and separating project dependencies;
+virtual environments provide a means of achieving this. A virtual environment is
+a self-contained copy of some dependencies that can be activated and deactivated
+at will. By activating an environment, only the specific versions of the
+dependencies are available.
+
+\begin{listing}[htbp]
+\begin{sourceyml}
+name: thesis
+channels:
+- defaults
+- conda-forge
+dependencies:
+ - python>=3.6
+ - dask=2.30.0
+ - ipykernel=5.3.2
+ - matplotlib=3.2.2
+ - numpy=1.18.5
+ - pandas=1.0.5
+ - scikit-learn=0.23.1
+ - scipy=1.5.0
+ - statsmodels=0.11.1
+ - tqdm=4.48
+ - pip=20.1.1
+ - pip:
+   - alphashape==1.0.1
+   - bibtexparser==1.2.0
+   - descartes==1.1.0
+   - edo>=0.3
+   - git+https://github.com/daffidwilde/kmodes@v0.9.1
+   - graphviz==0.14.1
+   - invoke==1.4.1
+   - matching==1.3.2
+   - pygments>=2.5.2
+   - shapely==1.6.4.post2
+   - yellowbrick==1.1
+\end{sourceyml}
+\caption{The Anaconda environment file for this thesis}\label{snp:environment}
+\end{listing}
+
+Each of the repositories in this thesis includes an Anaconda virtual environment
+configuration file named \mintinline{console}{environment.yml}.
+Anaconda~\cite{anaconda} is a free and open-source distribution of the Python
+and R programming languages, specialising in scientific computing. Included with
+Anaconda are tools to simplify package management such as the virtual
+environments created using these configuration files.
+Snippet~\ref{snp:environment} shows the contents of an overarching environment
+file for this thesis. The environment file lists the name of the environment
+(\mintinline{console}{thesis}), its dependencies, and from where those
+dependencies should be installed (under \mintinline{console}{channels} and
+\mintinline{console}{pip}). Beside each dependency is the specific version (or
+bounds on the version) required to recreate the environment.
+
+\subsection{Automated testing and documentation}
+
+\subsection{Summary of software}
+
