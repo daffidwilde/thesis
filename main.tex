@@ -139,7 +139,7 @@
 % Code snippet stuff
 \usemintedstyle{friendly}
 \setminted{fontsize=\scriptsize, breaklines=true, framerule=\linewidth}
-\setmintedinline{fontsize=\normalsize}
+\setmintedinline{fontsize=\small}
 
 
 %%% Commands and environments
@@ -151,6 +151,8 @@
     linkcolor=deepred,
     urlcolor=myurl,
 }
+
+\renewcommand*{\UrlFont}{\ttfamily\smaller\relax}
 
 \newcommand{\arxiv}[1]{%
     \href{https://arxiv.org/abs/#1}{\nolinkurl{arXiv:#1}}%
@@ -351,11 +353,13 @@
 
 %% Shortcuts
 
+\newcommand{\ctmuhb}{Cwm Taf Morgannwg UHB}
 \newcommand{\edo}{\mintinline{console}{edo}}
 \newcommand{\matching}{\mintinline{console}{matching}}
 \newcommand{\matchingr}{\mintinline{console}{MatchingR}}
 \newcommand{\pip}{\mintinline{console}{pip}}
-\newcommand{\ctmuhb}{Cwm Taf Morgannwg UHB}
+\newcommand{\pytest}{\mintinline{console}{pytest}}
+\newcommand{\pytestcov}{\mintinline{console}{pytest-cov}}
 
 
 %%% DOCUMENT %%%
@@ -396,7 +400,8 @@
 \input{chapters/conclusion}
 
 % Post-text
-\bibliography{bibliography.bib}
+{\singlespacing%
+\bibliography{bibliography.bib}}
 \input{appendix/main}
 
 \end{document}
