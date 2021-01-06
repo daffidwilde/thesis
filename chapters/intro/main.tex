@@ -24,6 +24,14 @@ on the first research question; Chapters~\ref{chp:lit}~and~\ref{chp:kmodes}
 consider the second; finally, Chapters~\ref{chp:data}~and~\ref{chp:copd} address
 the final question.
 
+\begin{figure}
+    \centering%
+    \resizebox{\imgwidth}{!}{%
+        \input{chapters/intro/tex/chapters.tex}
+    }
+    \caption{A graph of the chapters and their connections}\label{fig:chapters}
+\end{figure}
+
 A brief summary of each chapter is given below:
 
 \begin{itemize}
@@ -295,8 +303,18 @@ Each archive is assigned a digital object identifier (DOI) name, further
 reinforcing the longevity of the software. Table~\ref{tab:repos} details the
 repositories and archives associated with each chapter, where appropriate.
 
+\begin{table}[tbhp]
+    \centering%
+    \resizebox{\textwidth}{!}{%
+        \input{chapters/intro/tex/repos/main.tex}%
+    }\caption{%
+        A summary of the repositories and archives associated with the chapters
+        of this thesis%
+    }\label{tab:repos}
+\end{table}
+
 This thesis and its supporting files are also hosted online at
-\github{daffidwilde/thesis}. It has been prepared using \LaTeX and it is
+\github{daffidwilde/thesis}. It has been prepared using \LaTeX\ and it is
 regularly tested using the GitHub Actions CI. The tests include checking that
 the document can be compiled, is without spelling errors, and that the Python
 usage code snippets are correct.
