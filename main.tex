@@ -141,7 +141,6 @@
 \setminted{fontsize=\scriptsize, breaklines=true, framerule=\linewidth}
 \setmintedinline{fontsize=\small}
 
-
 %%% Commands and environments
 
 % URLs
@@ -152,18 +151,18 @@
     urlcolor=myurl,
 }
 
-\renewcommand*{\UrlFont}{\ttfamily\smaller\relax}
+\renewcommand*{\UrlFont}{\ttfamily\small\relax}
 
 \newcommand{\arxiv}[1]{%
-    \href{https://arxiv.org/abs/#1}{\nolinkurl{arXiv:#1}}%
+    \href{https://arxiv.org/abs/#1}{\small\nolinkurl{arXiv:#1}}%
 }
 
 \newcommand{\doi}[1]{%
-    \href{https://doi.org/#1}{\nolinkurl{doi:#1}}%
+    \href{https://doi.org/#1}{\small\nolinkurl{doi:#1}}%
 }
 
 \newcommand{\github}[1]{%
-    \href{https://github.com/#1}{\nolinkurl{github:#1}}
+    \href{https://github.com/#1}{\small\nolinkurl{github:#1}}%
 }
 
 % Line rule
@@ -400,8 +399,7 @@
 \input{chapters/conclusion}
 
 % Post-text
-{\singlespacing%
-\bibliography{bibliography.bib}}
+\bibliography{bibliography.bib}
 \input{appendix/main}
 
 \end{document}

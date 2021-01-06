@@ -71,17 +71,6 @@ and reproducible. This section provides a brief overview of the software
 developed for this thesis, and the methods of \emph{best practice} used to
 develop that software in a responsible manner.
 
-Best practices help ensure that research methods are reliable, reproducible, and
-transferable. In essence, the proper adoption of best practices sustains the
-lifespan of a piece of research. The same is true of research software. In
-Chapter~\ref{chp:lit}, the ethical implications of best practices are addressed,
-as well as briefly mentioning the analogous practices for research data.
-Examples of existing software best practices
-include~\cite{Aberdour2007,Benureau2018,Jimenez2017,Wilson2014}. Included in the
-subsequent subsections are overviews of four fundamental methods of best
-practice that are used throughout the software developed for this thesis:
-version control, virtual environments, automated testing and documentation.
-
 \subsection{Code snippets}
 
 Throughout this thesis, snippets of code are shown. These snippets are either of
@@ -131,21 +120,27 @@ Hello world.
 \caption{An example of some code run in a shell}\label{snp:usesh}
 \end{listing}
 
-\subsection{Version control and virtual environments}
+\subsection{Methods of best practice}
 
-This subsection briefly describes two tools used for developing software:
-\emph{version control} and \emph{virtual environments}. Each of these tools form
-part of the broader development framework, and are not necessarily part of the
-software source code.
+Best practices are guidelines to ensure that research methods are reliable,
+reproducible, and transferable. In essence, the proper adoption of best
+practices sustains the lifespan of a piece of research. The same is true of
+research software. In Chapter~\ref{chp:lit}, the ethical implications of best
+practices are addressed, as well as briefly mentioning the analogous practices
+for research data. Examples of existing software best practices
+include~\cite{Aberdour2007,Benureau2018,Jimenez2017,Wilson2014}. Included in the
+subsequent subsections are overviews of four fundamental methods of best
+practice that are used throughout the software developed for this thesis:
+version control, virtual environments, automated testing and documentation.
 
 \subsubsection{Version control}
 
-A version control system records all files within a software project, typically
-on a line-by-line basis. As the name suggests, the system also keeps a record of
-all the versions of that project. This record of a project is called a
-\emph{repository} and offers up some transparency into how the software was
-developed. Full accounts of the history and benefits of version control
-systems and their features may be found in~\cite{Ruparelia2010,Zolkifli2018}.
+A \emph{version control system} records all files within a software project,
+typically on a line-by-line basis. As the name suggests, the system also keeps a
+record of all the versions of that project. This record of a project is called a
+\emph{repository} and offers some transparency into how the software was
+developed. Full accounts of the history and benefits of version control systems
+and their features may be found in~\cite{Ruparelia2010,Zolkifli2018}.
 
 A number of version control systems exist, each with their own objectives and
 specialities, but all of the software for this thesis was developed using
@@ -172,10 +167,10 @@ required by the newly developed software to run. Occasionally, there will be
 clashes in the dependencies of two or more pieces of software, or another
 developer may wish to install that software exactly as it was created. These are
 two motivating examples for organising and separating project dependencies;
-virtual environments provide a means of achieving this. A virtual environment is
-a self-contained copy of some dependencies that can be activated and deactivated
-at will. By activating an environment, only the specific versions of the
-dependencies are available.
+\emph{virtual environments} provide a means of achieving this. A virtual
+environment is a self-contained, independent copy of some dependencies that can
+be activated and deactivated at will. By activating an environment, only the
+specific versions of the dependencies are available.
 
 \begin{listing}[htbp]
 \begin{sourceyml}
@@ -224,7 +219,84 @@ dependencies should be installed (under \mintinline{console}{channels} and
 \mintinline{console}{pip}). Beside each dependency is the specific version (or
 bounds on the version) required to recreate the environment.
 
-\subsection{Automated testing and documentation}
+\subsubsection{Automated testing}
+
+Testing code is essential to ensuring that a piece of software works as
+intended, and that it is robust and sustainable. \emph{Automated testing} is the
+de facto tool used by software developers to test their code, consisting of
+\emph{test suites} that run parts of the code base to ensure they behave as
+expected. The importance of testing cannot be understated in producing good
+software, and is the basis of the software development practice known as
+test-driven development (TDD). A thorough tutorial on how to adopt TDD may be
+found in~\cite{Percival2017}. This book informed much of the process by which
+the software was developed for this thesis. 
+
+Included in each repository are test suites composed of two types of test:
+\emph{functional} and \emph{unit} tests. A functional test asserts that the
+software (or a part thereof) behaves as expected from the perspective of a user,
+while a unit test checks the behaviour of a small (potentially isolated) part of
+the code base from an internal viewpoint. Unit tests allow a developer to ensure
+that their software is free from any bugs, and streamline the process of finding
+the source of any bugs.
+
+All of the test suites associated with this thesis were written using the Python
+library, \href{https://docs.pytest.org/en/stable/}{\pytest}. The \pytest\
+framework is designed to write scalable test suites, and comes with a number of
+plugins, including one to automatically test for \emph{coverage},
+\href{https://pytest-cov.readthedocs.io/en/latest/}{\pytestcov}.
+Coverage is a measure of what proportion of the code base for a project is `hit'
+(executed) when running the test suite, indicating the robustness of the suite.
+All of the test suites associated with this thesis achieve 100\% coverage.
+
+% TODO Should I mention property-based hypothesis testing?
+
+To regularly test code that is going to be merged into the main code base
+(through version control), continuous integration (CI) systems exist. CI systems
+run the test suite and coverage checks at regular prompts (e.g. when a new
+version is pushed to the online repository, prior to new releases of the
+software, according to a schedule, etc.), minimising any potential issues during
+development and collaboration as well as providing another layer of
+transparency. Given that the code for this thesis is hosted on GitHub, the CI
+used is GitHub Actions~\cite{github-actions}.
+
+\subsubsection{Documentation}
+
+In addition to testing, another crucial appendix to a software code base is its
+\emph{documentation}. Software documentation can take many forms --- text,
+websites, illustrations, demonstrations --- but regardless of how it is
+presented, the purpose is to explain to a user how to use a piece of software.
+
+All of the repositories associated with this thesis include (at a minimum) a
+\mintinline{console}{README} file, detailing what the repository is for, and (if
+appropriate) instructions on how to reproduce the results with the code therein.
+Each Python function, method and class defined in the source code includes its
+own inline documentation in the form of a \emph{docstring}. Furthermore, the
+variables and defined objects have been assigned informative, sensible names,
+making the software self-documenting.
+
+For the larger, free-standing software packages developed during this thesis,
+fully fledged documentation websites have been written. Each of these is hosted
+on \href{https://readthedocs.org/}{Read the Docs} and adheres to the so-called
+`Grand Unified Theory of Documentation'~\cite{documentation}, which separates
+documentation into four categories: tutorials, how-to guides, explanation and
+reference.
 
 \subsection{Summary of software}
 
+As stated throughout this section, the software to accompany this thesis has
+been written according to best practices, and their associated repositories are
+available online. These practices have been adopted to ensure the reliability,
+reproducibility and sustainability of the software described throughout this
+thesis.
+
+In addition to these GitHub repositories, the specific versions of the source
+code used in each chapter have been archived online via Zenodo~\cite{zenodo}.
+Each archive is assigned a digital object identifier (DOI) name, further
+reinforcing the longevity of the software. Table~\ref{tab:repos} details the
+repositories and archives associated with each chapter, where appropriate.
+
+This thesis and its supporting files are also hosted online at
+\github{daffidwilde/thesis}. It has been prepared using \LaTeX and it is
+regularly tested using the GitHub Actions CI. The tests include checking that
+the document can be compiled, is without spelling errors, and that the Python
+usage code snippets are correct.
