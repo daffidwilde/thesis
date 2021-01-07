@@ -34,6 +34,7 @@ words = {
     "crit",
     "cwm",
     "daffidwilde",
+    "dask",
     "dataframe",
     "dataoptimiser",
     "dataset(|s)",
