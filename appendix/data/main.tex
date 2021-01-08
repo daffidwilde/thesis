@@ -1,9 +1,9 @@
 \chapter{An exploratory analysis of administrative data}
 \label{chp:data}
 
-\renewcommand{\texpath}{chapters/data/paper/tex}
+\renewcommand{\texpath}{appendix/data/paper/tex}
 
-This chapter provides an exploratory analysis of a patient-episode dataset
+This appendix provides an exploratory analysis of a patient-episode dataset
 provided by the Cwm Taf Morgannwg University Health Board (UHB). This dataset
 details, among other administrative quantities, the costs associated with
 treating patients during their time in hospital.
@@ -26,17 +26,17 @@ provides another dimension to the overall analysis through the use of comparison
 and contrast, but the intended impact is ultimately lost due, again, to high
 levels of variation.
 
-The chapter is structured as follows:
+The remainder of this appendix is structured as follows:
 \begin{itemize}
     \item Section~\ref{sec:overview} provides an overview of the dataset and
         its key attributes
     \item Section~\ref{sec:diabetes} explores the subset of the data
         corresponding to diabetic patients
-    \item Section~\ref{sec:summary} summarises the findings of this analysis
+    \item Section~\ref{sec:conclusion} summarises the findings of this analysis
 \end{itemize}
 
 \section{An overview of the data}\label{sec:overview}
-\graphicspath{{chapters/data/paper/img/external/}}
+\graphicspath{{appendix/data/paper/img/external/}}
 
 \subsection{Data structure}\label{subsec:structure}
 
@@ -47,15 +47,6 @@ Wales that were treated in the Prince Charles and Royal Glamorgan hospitals
 (South Wales) from April 2012 through April 2017. This dataset contains some
 personal information, and given that sensitivity, it has not been made
 available.
-
-\begin{figure}
-    \centering
-    \includegraphics[width=\imgwidth]{proportion_wales.pdf}
-    \caption{%
-        The proportion of patients observed in the dataset by postcode district
-        (e.g.\ CF24)%
-    }\label{fig:proportion_wales}
-\end{figure}
 
 An episode is defined to be any continuous period of care provided by the same
 consultant in the same place~\cite{NHS:episode}. For instance, if a patient is
@@ -73,6 +64,15 @@ statistics. The reason for this level of aggregation is that it has been seen
 that episode-level statistics can lead to an overestimation of the resource or
 `activity' consumed by a hospital to treat a patient during that
 time~\cite{Aylin2004}.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\imgwidth]{proportion_wales.pdf}
+    \caption{%
+        The proportion of patients observed in the dataset by postcode district
+        (e.g.\ CF24)%
+    }\label{fig:proportion_wales}
+\end{figure}
 
 Furthermore, the processes of paying for treatments and reimbursing other
 organisations in NHS Wales is much simpler than in England. Within NHS England,
@@ -93,13 +93,13 @@ episodes into spells may smooth out any unpredictability in the episode costs.
 Each episode is recorded as a row of roughly 260 attributes or columns,
 including:
 \begin{itemize}
-    \item Personal information such as identification numbers, age, registered
+    \item Personal information such as unique identifiers, age, and registered
         GP practice;
     \item Clinical quantities such as the number of diagnoses made and
         procedures conducted in that episode, admission and discharge dates and
         methods, and length of stay;
-    \item A number of cost components which include the costs coming from
-        various departments within the hospital, overall medical and ward costs,
+    \item A number of cost components, including the costs associated with the
+        hospital departments, overall medical and ward costs,
         and overhead costs;
     \item Diagnosis (HRG, ICD-10) and procedure (OPCS-4) codes, as well as
         Charlson Comorbidity Index (CCI) scores for the appropriate chronic
@@ -146,7 +146,7 @@ of a patient's spell in hospital.
 
 \subsection{Distributions and summary statistics}%
 \label{subsec:distributions_statistics}
-\graphicspath{{chapters/data/paper/img/overview/}}
+\graphicspath{{appendix/data/paper/img/overview/}}
 
 When looking at the distributions of the key attributes on the whole dataset, as
 displayed in Figures~\ref{fig:no_spells}~---~\ref{fig:netcost}, it is clear that
@@ -323,7 +323,7 @@ components make up a substantially smaller part of the net cost.
 
 \subsection{Variation and relative importance}
 
-The broader purpose of this chapter is to better understand the factors leading
+The broader purpose of this appendix is to better understand the factors leading
 to variation in the cost of treating patients. Therefore, it would be fitting to
 investigate how this variation can be attributed to each of the cost components.
 By doing so, a high-level indication of which departments and procedures that
@@ -450,7 +450,7 @@ patient.
 
 
 \section{Diabetic patient analysis}\label{sec:diabetes}
-\graphicspath{{chapters/data/paper/img/diabetes/}}
+\graphicspath{{appendix/data/paper/img/diabetes/}}
 
 The main conclusion to be taken away from the previous analysis was that the
 dataset contains a significant amount of variation. Therefore, in order to
@@ -564,7 +564,7 @@ populations being considered in this section.
 \begin{sidewaystable}
     \centering
     \resizebox{.8\paperheight}{!}{%
-        \input{chapters/data/paper/tex/diab_summary.tex}
+        \input{appendix/data/paper/tex/diab_summary.tex}
     }
     \caption{%
         Spell-level statistics for each of the key attributes in the diabetic
@@ -842,9 +842,9 @@ to accurately predict the quantities being plotted, rather than only seeing the
 general trend, then a more elaborate model should have been fitted.
 
 
-\section{Chapter summary}\label{sec:summary}
+\section{Conclusion}\label{sec:conclusion}
 
-This chapter provided a descriptive analysis of an administrative dataset
+This appendix presented a descriptive analysis of an administrative dataset
 provided by the Cwm Taf Morgannwg UHB. This dataset describes the episodes of
 all patients being treated at two of their hospitals over a five-year period.
 The scope of this exploration of the dataset was thwarted by the span and
@@ -868,12 +868,12 @@ way, there was little to gain. However, as has been noted throughout this
 chapter, taking a subset of the population allows for some comparison with its
 complement, as well as the general population.
 
-The next chapter considers another administrative dataset comprised of patients
-presenting another chronic condition. The work in that chapter relies on the
-clustering algorithm presented in Chapter~\ref{chp:kmodes}, and builds on the
-surface-level analyses employed here. The most important of these analyses is
-the slicing of a dataset to identify more homogeneous parts, and then comparing
-those. The process by which this is done incorporates more attributes of the
-data than the condition alone, or age, as is commonly done. Ultimately, the
-following chapter provides genuine, actionable insights into the healthcare
+Chapter~\ref{chp:copd} considers another administrative dataset comprised of
+patients presenting another chronic condition. The work in that chapter relies
+on the clustering algorithm presented in Chapter~\ref{chp:kmodes}, and builds on
+the surface-level analyses employed here. The most important of these analyses
+is the slicing of a dataset to identify more homogeneous parts, and then
+comparing those. The process by which this is done incorporates more attributes
+of the data than the condition alone, or age, as is commonly done. Ultimately,
+the following chapter provides genuine, actionable insights into the healthcare
 population under study.
