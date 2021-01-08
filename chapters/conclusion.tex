@@ -67,7 +67,7 @@ length of stay. With an aim to extract as much as possible from the available
 data, and to provide further practical insights, these distributions were
 utilised to construct a multi-class queuing model.
 
-The queue, although minimal in structure, provided a well-fitting replica of the
+The queue, although minimal in structure, produced a well-fitting replica of the
 true lengths of stay observed in the data. The quality of this model was
 dependent on a novel parameterisation, which derived the unknown service time
 distributions for each cluster from the data according to the Wasserstein
@@ -81,6 +81,42 @@ improving patient well-being.
 
 \section{Contributions}
 
+This thesis has made novel contributions across each of its three principal
+themes: algorithm evaluation, clustering, and healthcare modelling. This section
+summarises these contributions with reference to their respective chapters.
 
+The EDO method introduced in Chapter~\ref{chp:edo} provided an example approach
+from a novel paradigm in which the objective performance of algorithms can be
+assessed by exploring the space in which `good' or `bad' datasets exist. The
+proposed paradigm expands the commonly used approach for evaluation where a
+method's quality is `confirmed' by taking a small number of benchmark datasets
+and comparing them with its contemporaries. By exploring the space of datasets,
+it was demonstrated that a more robust assessment can be made about a method or
+set thereof.
+
+Chapter~\ref{chp:kmodes} added to the growing body of literature where
+game-theoretic concepts are combined with machine learning techniques, of which
+clustering is included. In general, pursuits of this kind reformulate existing
+techniques to be mathematically fair. The initialisation presented in
+Chapter~\ref{chp:kmodes}, instead, incorporated game theory directly into an
+existing algorithm. In doing so, an improvement over the existing method was
+shown, using both traditional confirmation processes and the EDO method.
+
+The framework used in Chapter~\ref{chp:copd} contributed to healthcare modelling
+literature in three ways. First, the estimation of queuing parameters via the
+Wasserstein distance has expanded a relatively scarce aspect of queuing
+research. Second, by making COPD the subject of the methodology, the framework
+has added to a body of literature surrounding a condition that is vital to
+understand given its prevalence, as well as its links to deprivation and
+comorbidity. Lastly, the framework provided a solution to the common issue of
+data availability in modern operational research. By combining the various
+individual methods, valuable insights were extracted from a relatively
+unsophisticated data source.
+
+In addition to the work directly included in the chapters of this thesis, the
+research associated with this thesis has resulted in the production of numerous
+auxiliary research items. These include several well-developed pieces of
+research software, and a number of useful, publicly available datasets for
+clustering and healthcare modelling.
 
 \section{Further work}
