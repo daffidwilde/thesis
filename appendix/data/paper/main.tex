@@ -1,0 +1,61 @@
+\documentclass[12pt]{article}
+
+% Page setup
+\usepackage{setspace}
+    \doublespacing%
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in, includefoot, footskip=30pt]{geometry}
+
+% Bibliography and links
+\usepackage{hyperref}
+\usepackage[numbers]{natbib}
+    \bibliographystyle{abbrvnat}
+
+% Packages
+\usepackage{caption}
+\usepackage{color}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage{floatpag}
+    \floatpagestyle{plain}
+    \renewcommand{\arraystretch}{.6}
+\usepackage{amsthm}
+    \newtheorem{definition}{Definition}
+
+\newlength{\imgwidth}
+\newlength{\logoheight}
+\setlength{\imgwidth}{.725\paperwidth}
+\setlength{\logoheight}{.175\paperheight}
+
+\title{An exploratory analysis of NHS patient-episode data}
+\author{Henry Wilde, Jonathan Gillard, Vincent Knight}
+\date{}
+
+
+\begin{document}
+\titlepage{%
+    \maketitle
+    \vfill%
+    \centering%
+    \includegraphics[height=\logoheight]{img/logo.eps}\\[2em]
+        
+    \includegraphics[height=\logoheight]{img/cthb.png}
+    \thispagestyle{empty}
+}
+
+\input{./sections/intro.tex}
+\graphicspath{{./img/overview/}}
+\input{./sections/overview.tex}
+\graphicspath{{./img/diabetes/}}
+\input{./sections/diabetes.tex}
+\graphicspath{{./img/clustering/}, {./img/external/}}
+%\input{./sections/further.tex}
+
+\bibliography{bibliography.bib}
+
+\end{document}
