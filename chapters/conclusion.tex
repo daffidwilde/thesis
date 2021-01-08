@@ -28,10 +28,11 @@ evolutionary dataset optimisation (EDO), explores the space in which `good'
 datasets exist for an algorithm according to some metric. This exploration is
 achieved via a bespoke evolutionary algorithm which acts on datasets of unfixed
 shapes, sizes and data types. The chapter presented descriptions and
-illustrations of the internal mechanisms of EDO, as well as briefly describing a
-Python implementation. Finally, the chapter concluded with an extensive case
-study, demonstrating the capabilities and nuances of EDO in gaining a richer
-picture of an algorithm's abilities independently, and against a competitor.
+illustrations of the internal mechanisms of the EDO method, as well as briefly
+describing a Python implementation. Finally, the chapter concluded with an
+extensive case study, demonstrating the capabilities and nuances of EDO in
+gaining a richer picture of an algorithm's abilities independently, and against
+a competitor.
 
 Following the discussion of `fair' machine learning practices in the literature
 review, Chapter~\ref{chp:kmodes} offered a novel initialisation to the
@@ -48,38 +49,35 @@ Chapter~\ref{chp:edo} was used. This analysis revealed that there were distinct
 sets of properties for which one method was more likely to succeed than the
 other according to the metric under study.
 
-Chapter~\ref{chp:data} began the case study for \ctmuhb, and provided an
-exploratory analysis of an administrative dataset of patient-episode records.
-This dataset consisted of several attributes associated with clinical complexity
-and resource requirements, as well as a breakdown of the costs associated with
-that episode. However, the instances in the dataset were recorded as a flat
-version of the events during that episode, and thus lacked detail on the
-processes undergone by the patients.
+Chapter~\ref{chp:copd} presented a novel framework with which to model the
+resource needs of a condition-specific healthcare population --- despite a lack
+of fine-grained data. In this case, that population were those suffering from
+COPD. The corresponding dataset, provided by \ctmuhb, consisted of high-level,
+administrative details about the spells associated with the patients, and lacked
+the depth that many contemporary operational models require.
 
-Hence, the analysis focused on extracting information that was visible on the
-surface of this dataset, with a particular interest in resource requirements.
-The analysis confirmed that the population presented high levels of
-heterogeneity, although some insights were revealed. Of those, it was made clear
-that more useful information could be extracted when considering a slice of the
-dataset (and population).
-
-Continuing this sentiment of focusing on slices of a dataset,
-Chapter~\ref{chp:copd} introduced a novel framework for studying a
-condition-specific subset of the population. The methodology made use of the
-clustering algorithm described in Chapter~\ref{chp:kmodes} to segment and
-characterise another administrative dataset provided by \ctmuhb. Following a
-similarly resource-focused analysis, this segmentation directly informed a
-multi-class queuing model.
+The presented framework utilised the clustering algorithm described in
+Chapter~\ref{chp:kmodes} to segment a subset of existing and engineered
+attributes in the dataset. These attributes included hospital utilisation
+metrics, and proxy measures of clinical complexity and resource needs. The
+segmentation successfully characterised the instances of the dataset, and the
+ensuing analysis of the identified segments revealed clear profiles for each
+segment. Included in these profiles were distinctly shaped distributions for
+length of stay. With an aim to extract as much as possible from the available
+data, and to provide further practical insights, these distributions were
+utilised to construct a multi-class queuing model.
 
 The queue, although minimal in structure, provided a well-fitting replica of the
-true system from which the data was generated. The quality of this model was
-dependent on a novel parameterisation which derived the unknown service time
+true lengths of stay observed in the data. The quality of this model was
+dependent on a novel parameterisation, which derived the unknown service time
 distributions for each cluster from the data according to the Wasserstein
 distance. In turn, this model was adjusted to answer several `what-if' scenarios
 associated with changes in resource capacity and requirements for the population
 under study. These adjustments revealed actionable insights into the
-most-impactful segments of the population, and demonstrated the futility of
-attempting to implement blanket solutions for that population.
+most-impactful segments of the population. The most important of these results
+was demonstrating the futility of attempting to implement quick, blanket
+solutions for that population, such as only increasing resource capacity without
+improving patient well-being.
 
 \section{Contributions}
 
