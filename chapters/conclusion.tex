@@ -81,7 +81,7 @@ solutions for that population, such as only increasing resource capacity without
 improving patient well-being.
 
 
-\section{Contributions}
+\section{Contributions}\label{sec:contributions}
 
 This thesis has made novel contributions across each of its three principal
 themes: algorithm evaluation, clustering, and healthcare modelling. This section
@@ -159,14 +159,37 @@ Likewise, the crossover and mutation processes would require some changes to
 account for the lack of distinct distribution families.
 
 A Python implementation of copulas for data synthesis exists~\cite{copulas}, and
-incorporating this as a dependency of the \edo\ library would significantly
-reduce the work required to implement this feature. Studying the impact of
-copulas in EDO would provide a valuable opportunity to demonstrate the
-capabilities of EDO as a fully fledged data synthesis method.
+incorporating this as a dependency of the \edo\ library would reduce the work
+required to implement this feature. Studying the impact of copulas in EDO would
+provide a valuable opportunity to demonstrate the capabilities of EDO as a fully
+fledged data synthesis method.
 
-\subsection*{Structural additions to the COPD framework}
+\subsection*{Expanding the COPD queuing framework}
 
+As discussed at various points in this thesis, the framework presented in
+Chapter~\ref{chp:copd} is novel in its ability to circumvent the need for
+fine-grained data. However, as discussed in Section~\ref{sec:contributions},
+there are other aspects to its novelty. In particular, the use of clustering to
+inform a queuing model, and the estimation of unknown queuing parameters.
+Extending the reach of this work into the COPD population would be possible with
+even slightly more detailed data. For instance, episode-level data (such as the
+dataset analysed in Appendix~\ref{app:data}) could allow for a queuing network
+with multiple nodes to be developed, separating the various departments in the
+hospital. However, that data would need to be well-ordered to understand the
+actual pathway of patients at the spell level, which routinely gather
+administrative datasets are not.
 
+\ctmuhb, in partnership with Swansea University, have been developing a new
+system for recording the clinical activity and vital information of their
+patients in real time~\cite{whiteboards}. This system replaces the physical
+whiteboards in hospital wards with an electronic equivalent. The `e-whiteboard'
+and its drag-and-drop software overcome some of the issues associated with
+traditional whiteboards such as the accurate recording of data to the existing
+electronic system. In addition, the internal software records the exact time
+that information is recorded, allowing for an extremely high level of detail in
+terms of the processes undergone by patients. Access to such a data source would
+certainly open up more sophisticated models, including both the clustering and
+queuing aspects of the framework used in Chapter~\ref{chp:copd}.
 
 \subsection*{Weighted student-project allocation}
 
@@ -174,22 +197,21 @@ In tandem with the work presented in Appendix~\ref{app:biosci}, another School
 expressed an interest in implementing a matching-based allocation for their
 final year student projects. The attraction of using matching games was the
 mathematical fairness of its solution when compared with their current
-allocation process, which is based on maximising coverage through linear
-programming. However, their final year students are of two classes: those on a
-three-year course and those on a four-year course. Projects for shorter courses
-are worth fewer credits and require less commitment from supervisors than those
-for longer courses.
+allocation process. However, their final year students are of two classes: those
+on a three-year course and those on a four-year course. Projects for shorter
+courses are worth fewer credits and require less commitment from supervisors
+than those for longer courses.
 
 Effectively, this variety equates to the students having different weights. A
 potential line of research then would be to formulate the weighted
 student-project allocation problem (WSA). WSA would be a generalisation of the
 student-project allocation problem (SA) --- described in
 Appendix~\ref{app:matching} --- where each student, \(s\), would have a weight
-associated with them, \(w_s\). Then, the size of a project or supervisor
+associated with them, \(w_s > 0\). Then, the size of a project or supervisor
 matching would be the sum of their students' weights, as opposed to the
 cardinality of their matching. Under this formulation, an instance of SA could
 be restated as an instance of WSA where \(w_s = 1\) for every student, \(s\).
 
 In addition to the formulation, further work would include adapting the existing
 Gale-Shapley algorithms for SA to accommodate for student weights, and proving
-the guaranteed existence of a stable matching by those algorithms.
+whether those algorithms guarantee a unique, stable matching.
