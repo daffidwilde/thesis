@@ -125,7 +125,7 @@ clustering and healthcare modelling.
 
 \section{Further work}
 
-\subsection*{Developing the EDO method}
+\subsection*{EDO as a data synthesiser}
 
 As demonstrated in the case study in Chapter~\ref{chp:edo} and the closing
 section of Chapter~\ref{chp:kmodes}, the EDO method is capable of facilitating
@@ -159,7 +159,7 @@ Likewise, the crossover and mutation processes would require some changes to
 account for the lack of distinct distribution families.
 
 A Python implementation of copulas for data synthesis exists~\cite{copulas}, and
-incorporating this as a dependency of the \edo library would significantly
+incorporating this as a dependency of the \edo\ library would significantly
 reduce the work required to implement this feature. Studying the impact of
 copulas in EDO would provide a valuable opportunity to demonstrate the
 capabilities of EDO as a fully fledged data synthesis method.
@@ -170,3 +170,26 @@ capabilities of EDO as a fully fledged data synthesis method.
 
 \subsection*{Weighted student-project allocation}
 
+In tandem with the work presented in Appendix~\ref{app:biosci}, another School
+expressed an interest in implementing a matching-based allocation for their
+final year student projects. The attraction of using matching games was the
+mathematical fairness of its solution when compared with their current
+allocation process, which is based on maximising coverage through linear
+programming. However, their final year students are of two classes: those on a
+three-year course and those on a four-year course. Projects for shorter courses
+are worth fewer credits and require less commitment from supervisors than those
+for longer courses.
+
+Effectively, this variety equates to the students having different weights. A
+potential line of research then would be to formulate the weighted
+student-project allocation problem (WSA). WSA would be a generalisation of the
+student-project allocation problem (SA) --- described in
+Appendix~\ref{app:matching} --- where each student, \(s\), would have a weight
+associated with them, \(w_s\). Then, the size of a project or supervisor
+matching would be the sum of their students' weights, as opposed to the
+cardinality of their matching. Under this formulation, an instance of SA could
+be restated as an instance of WSA where \(w_s = 1\) for every student, \(s\).
+
+In addition to the formulation, further work would include adapting the existing
+Gale-Shapley algorithms for SA to accommodate for student weights, and proving
+the guaranteed existence of a stable matching by those algorithms.
