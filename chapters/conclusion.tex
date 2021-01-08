@@ -5,6 +5,7 @@ contributions to literature, and potential avenues for further work. Each
 chapter in this thesis concluded with a detailed summary, and so the summaries
 here are brief.
 
+
 \section{Research summary}
 
 Chapter~\ref{chp:intro} described the research questions associated with this
@@ -79,6 +80,7 @@ was demonstrating the futility of attempting to implement quick, blanket
 solutions for that population, such as only increasing resource capacity without
 improving patient well-being.
 
+
 \section{Contributions}
 
 This thesis has made novel contributions across each of its three principal
@@ -111,7 +113,8 @@ understand given its prevalence, as well as its links to deprivation and
 comorbidity. Lastly, the framework provided a solution to the common issue of
 data availability in modern operational research. By combining the various
 individual methods, valuable insights were extracted from a relatively
-unsophisticated data source.
+unsophisticated data source, which is a result seldom seen in operational
+research.
 
 In addition to the work directly included in the chapters of this thesis, the
 research associated with this thesis has resulted in the production of numerous
@@ -119,4 +122,51 @@ auxiliary research items. These include several well-developed pieces of
 research software, and a number of useful, publicly available datasets for
 clustering and healthcare modelling.
 
+
 \section{Further work}
+
+\subsection*{Developing the EDO method}
+
+As demonstrated in the case study in Chapter~\ref{chp:edo} and the closing
+section of Chapter~\ref{chp:kmodes}, the EDO method is capable of facilitating
+richer insights into an algorithm's performance. Having said that, a limitation
+of the method is that there is no standardised way to guarantee relationships
+between different columns in a dataset, or the families passed to EDO.
+Currently, the only way to do this is to include measures of the desired
+relationships in the fitness function. Given the success in the chapters of this
+thesis, this level of control is not necessary when looking at an algorithm (or
+algorithms) in a general sense, and so is considered beyond the scope of this
+thesis.
+
+However, there are cases where automatically ensuring the relationship between
+the elements of \(\mathcal P\) could be beneficial to a user of EDO. For
+instance, if the algorithm of interest is bespoke to a particular task or
+dataset. Using EDO in this way would be analogous to synthesising an existing
+dataset, which is another example of when this would be useful. In such a
+scenario, it may be beneficial to capture the essence of a dataset by loosely
+fitting the elements of \(\mathcal P\) to the existing dataset. Fitting the
+parameters of the distribution families would be relatively straightforward, but
+incorporating the relationships between them is less so.
+
+This capability has been one of the major attractions of using GANs for data
+synthesis, but their black-box nature defeats the object of EDO. Another option
+is to use copulas. Copulas are functions that join multivariate distribution
+functions to their one-dimensional margins~\cite{Nelsen1999}. For EDO, this
+would mean \(\mathcal P\) would contain a single element: a copula function
+fitted to the existing dataset. In this case, the technical aspects of an
+individual's representation would need adjusting to accommodate this change.
+Likewise, the crossover and mutation processes would require some changes to
+account for the lack of distinct distribution families.
+
+A Python implementation of copulas for data synthesis exists~\cite{copulas}, and
+incorporating this as a dependency of the \edo library would significantly
+reduce the work required to implement this feature. Studying the impact of
+copulas in EDO would provide a valuable opportunity to demonstrate the
+capabilities of EDO as a fully fledged data synthesis method.
+
+\subsection*{Structural additions to the COPD framework}
+
+
+
+\subsection*{Weighted student-project allocation}
+
