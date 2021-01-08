@@ -1,1 +1,83 @@
-\chapter{Conclusion}
+\chapter{Conclusions}\label{chp:conc}
+
+This chapter serves to summarise the work reported in this thesis, its
+contributions to literature, and potential avenues for further work. Each
+chapter in this thesis concluded with a detailed summary, and so the summaries
+here are brief.
+
+\section{Research summary}
+
+Chapter~\ref{chp:intro} described the research questions associated with this
+thesis, laying out its principle subjects of algorithm evaluation, clustering,
+and operational healthcare modelling. With this last subject, there was a
+particular interest in overcoming a common issue with machine learning
+applications in healthcare: not necessarily having sufficiently detailed and
+voluminous data with which to create meaningful, actionable models.
+
+Chapter~\ref{chp:lit} presented a survey of the literature spanning these
+principle topics and their intersections. Motivated by the apparent gaps in the
+collated literature, the subsequent chapters of the thesis presented novel
+methods for assessing the quality of an algorithm (or algorithms), and for
+incorporating mathematical fairness into an existing clustering algorithm. These
+methods later fed into the case study for \ctmuhb\ which characterised, analysed
+and modelled a subsection of their patient population.
+
+In Chapter~\ref{chp:edo}, a new paradigm by which algorithms may be assessed was
+described, and a method from that paradigm presented. This method, known as
+evolutionary dataset optimisation (EDO), explores the space in which `good'
+datasets exist for an algorithm according to some metric. This exploration is
+achieved via a bespoke evolutionary algorithm which acts on datasets of unfixed
+shapes, sizes and data types. The chapter presented descriptions and
+illustrations of the internal mechanisms of EDO, as well as briefly describing a
+Python implementation. Finally, the chapter concluded with an extensive case
+study, demonstrating the capabilities and nuances of EDO in gaining a richer
+picture of an algorithm's abilities independently, and against a competitor.
+
+Following the discussion of `fair' machine learning practices in the literature
+review, Chapter~\ref{chp:kmodes} offered a novel initialisation to the
+\(k\)-modes algorithm which made use of game theory. The new initialisation
+extended a commonly used method, but replaced its greedy component with a
+solvable matching game. In the evaluative section of this chapter, traditional
+assessment techniques suggested that the new method improved upon the original,
+and so the original was discarded. However, the new method did not consistently
+outperform another well-known initialisation. To better understand the
+conditions under which either of the remaining initialisations would succeed, a
+similar competitive setting to Chapter~\ref{chp:edo} was used. This analysis
+revealed that there were distinct sets of properties for which one method was
+more likely to succeed than the other according to the metric under study.
+
+Chapter~\ref{chp:data} began the case study for \ctmuhb, and provided an
+exploratory analysis of an administrative dataset of patient-episode records.
+This dataset consisted of several attributes associated with clinical complexity
+and resource requirements, as well as a breakdown of the costs associated with
+that episode. However, the instances in the dataset were recorded as a flat
+version of the events during that episode, and thus lacked detail on the
+processes undergone by the patients. As such, the analysis focused on extracting
+information that was visible on the surface of this dataset, with a particular
+interest in resource requirements. The analysis confirmed that the population
+presented high levels of heterogeneity, although some insights were revealed. Of
+those, it was made clear that more useful information could be extracted when
+considering a slice of the dataset (and population).
+
+Continuing this sentiment of focusing on slices of a dataset,
+Chapter~\ref{chp:copd} introduced a novel framework for studying a
+condition-specific subset of the population. The methodology made use of the
+clustering algorithm described in Chapter~\ref{chp:kmodes} to segment and
+characterise another administrative dataset provided by \ctmuhb. Following a
+similarly resource-focused analysis, this segmentation directly informed a
+multi-class queuing model. The queue, although minimal in structure, provided a
+well-fitting replica of the true system from which the data was generated. The
+quality of this model was dependent on a novel parameterisation which derived
+the unknown service time distributions for each cluster from the data according
+to the Wasserstein distance. In turn, this model was adjusted to answer several
+`what-if' scenarios associated with changes in resource capacity and
+requirements for the population under study. These adjustments revealed
+actionable insights into the most-impactful segments of the population, and
+demonstrated the futility of attempting to implement blanket solutions for that
+population.
+
+\section{Contributions}
+
+
+
+\section{Further work}
