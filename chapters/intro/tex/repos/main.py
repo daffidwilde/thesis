@@ -8,7 +8,7 @@ def main():
 
     chapters = [
         r"Chapter~\ref{chp:" + chapter + "}"
-        for chapter in ("lit", "edo", "kmodes", "data", "copd")
+        for chapter in ("lit", "edo", "kmodes", "copd")
     ]
 
     githubs = [
@@ -17,7 +17,6 @@ def main():
             "literature-review",
             "edo-paper",
             "kmodes-paper",
-            "cwmtaf-analysis",
             "copd-paper",
         )
     ]
@@ -28,7 +27,6 @@ def main():
             "10.5281/zenodo.4320050",
             "10.5281/zenodo.4000316",
             "10.5281/zenodo.3639282",
-            None,
             "10.5281/zenodo.3936479",
         )
     ]
@@ -39,7 +37,6 @@ def main():
             "10.5281/zenodo.4320050",
             "10.5281/zenodo.4000327",
             "10.5281/zenodo.3638035",
-            None,
         )
     ] + [
         r"\begin{tabular}{l}"
