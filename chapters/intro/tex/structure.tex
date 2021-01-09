@@ -9,13 +9,13 @@
     \usetikzlibrary{arrows,shapes,positioning}
 
 \definecolor{blue}{HTML}{0072B2}
+\definecolor{pink}{HTML}{CC79A7}
 
 \begin{document}
 
 \begin{tikzpicture}
 
     %% Style settings
-
     \usefont{T1}{phv}{b}{n}\color{black!85}\selectfont
     \tikzstyle{chapter} = [%
         inner sep=1em,
@@ -25,6 +25,7 @@
         fill=blue!15,
         minimum height=3em,
     ]
+    \tikzstyle{appendix} = [chapter, fill=pink!15]
     \tikzstyle{connection} = [%
         -stealth,
         ultra thick,
@@ -34,7 +35,6 @@
     ]
 
     %% Nodes
-
     \node[chapter] (lit) {%
         \textbf{%
             \begin{tabular}{ll}
@@ -43,7 +43,7 @@
         }
     };
 
-    \node[below=9em of lit, xshift=6em, chapter] (kmodes)
+    \node[below=9em of lit, chapter] (kmodes)
         {%
             \textbf{%
                 \begin{tabular}{ll}
@@ -53,7 +53,7 @@
                 \end{tabular}
             }
         };
-    
+
     \node[left=3em of kmodes, chapter] (edo)
         {%
             \textbf{%
@@ -75,32 +75,44 @@
             }
         };
 
-    \node[above=4em of copd, chapter] (data)
+    \node[below=6em of kmodes, appendix] (matching)
         {%
             \textbf{%
                 \begin{tabular}{ll}
-                    5. & An exploratory analysis\\
-                       & of administrative data
+                    A. & An introduction\\
+                       & to matching games
+                \end{tabular}
+            }
+        };
+
+    \node[below=5em of copd, appendix] (data)
+        {%
+            \textbf{%
+                \begin{tabular}{ll}
+                    B. & An exploratory\\
+                       & analysis of\\
+                       & administrative data
                 \end{tabular}
             }
         };
 
 
     %% Arrows
-
     \draw[connection, shorten <=-2pt]
         (lit.south west) to[out=225,in=90] (edo.north);
     
     \draw[connection] (lit.south) to[out=270,in=90] (kmodes.north);
     
-    \draw[connection, shorten <=-2pt, shorten >=-2pt]
-        (lit.south east) to[out=315, in=135] (copd.north west);
+    \draw[connection, shorten <=-2pt]
+        (lit.south east) to[out=315, in=90] (copd.north);
 
     \draw[connection] (edo.east) to (kmodes.west);
     
     \draw[connection] (kmodes.east) to (copd.west);
 
-    \draw[connection] (data.south) to (copd.north);
+    \draw[connection] (matching.north) to (kmodes.south);
+
+    \draw[connection] (data.north) to (copd.south);
 
 \end{tikzpicture}
 
