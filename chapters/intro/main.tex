@@ -65,44 +65,18 @@ questions raised in this introduction. In turn, these methods contribute to
 novel operational solutions which cater to the needs of \ctmuhb, despite a lack
 of highly detailed data.
 
-The remainder of this section is as follows: Section~\ref{sec:questions} states
+The remainder of this section is as follows: Section~\ref{sec:thesis} states
 the primary research questions approached by this thesis and sets out the
 structure of its chapters; Section~\ref{sec:dev} provides an overview of the
 best practices used in developing software for the research presented in this
 thesis as well as signposting the software projects themselves.
 
-\section{Research questions and thesis structure}\label{sec:questions}
 
-This thesis contains seven chapters, which each aim to answer some part of the
-following questions:
+\section{Thesis structure}\label{sec:thesis}
 
-\begin{enumerate}
-    \item How can existing objective algorithm evaluation processes be improved
-        upon?
-    \item Can the principles of game theory improve existing machine learning
-        techniques?
-    \item How valuable can routinely collected, administrative datasets be in
-        pursuing operational healthcare research?
-\end{enumerate}
-
-The chapters in this thesis are presented in a logical manner, and their
-connections are shown in Figure~\ref{fig:structure}. An arrow from one chapter
-to another indicates that some part of the research presented in that chapter
-contributes to the research in the other. How the chapters correspond to these
-research questions is as follows: Chapters~\ref{chp:lit}~and~\ref{chp:edo} focus
-on the first research question; Chapters~\ref{chp:lit}~and~\ref{chp:kmodes}
-consider the second; finally, Chapters~\ref{chp:data}~and~\ref{chp:copd} address
-the final question.
-
-\begin{figure}
-    \centering%
-    \resizebox{\imgwidth}{!}{%
-    \input{chapters/intro/tex/structure.tex}
-    }
-    \caption{A graph of the chapters and their connections}\label{fig:structure}
-\end{figure}
-
-A brief summary of each chapter is given below:
+Including this introduction, this thesis contains six chapters, which together
+cover the research topics of this thesis. A brief summary of each chapter is
+given below:
 
 \begin{itemize}
     \item Chapter~\ref{chp:lit} comprises a literature review covering the
@@ -116,24 +90,63 @@ A brief summary of each chapter is given below:
     \item Chapter~\ref{chp:kmodes} describes a new initialisation method for an
         existing clustering algorithm. This method models the initialisation as
         a matching game, incorporating a mathematical notion of fairness. The
-        chapters concludes with a evaluation of the method against two
+        chapter concludes with a evaluation of the method against two
         initialisations, making use of the approach set out in
         Chapter~\ref{chp:edo}, and reveals the cases in which the new
-        initialisation improves upon the existing methods.
-    \item Chapter~\ref{chp:data} consists of an exploratory analysis of an
-        administrative dataset provided by \ctmuhb. The ensuing analysis
-        indicates that for any useful analysis to come to light, the population
-        should be partitioned into more homogeneous parts first.
+        initialisation improves upon two existing methods.
     \item Chapter~\ref{chp:copd} combines the initialisation from
-        Chapter~\ref{chp:kmodes} with the findings of Chapter~\ref{chp:data} to
-        produce a segmentation of a healthcare population, using another
-        administrative dataset from \ctmuhb. This segmentation is used to inform
-        a multi-class queuing model, and subsequent adjustments to that model
-        provide actionable insights into the needs of the population under
-        study.
+        Chapter~\ref{chp:kmodes} with the findings of the analysis in
+        Appendix~\ref{app:data} to produce a segmentation of a healthcare
+        population, using another administrative dataset from \ctmuhb. This
+        segmentation is used to inform a multi-class queuing model, and
+        subsequent adjustments to that model provide actionable insights into
+        the needs of the population under study.
     \item Chapter~\ref{chp:conc} summarises the research presented in the
         previous chapters and establishes avenues for further work.
 \end{itemize}
+
+In addition to these chapters, this thesis contains several appendices. Of
+these, two appendices (Appendix~\ref{app:matching} and Appendix~\ref{app:data})
+provide additional context to two of the later chapters ---
+Chapter~\ref{chp:kmodes} and Chapter~\ref{chp:copd}, respectively. These
+appendices are not presented as chapters because they do contain a significant
+amount of novel mathematics.
+
+The chapters in this thesis are presented in a logical manner, and their
+connections are shown in Figure~\ref{fig:structure}. An arrow from one chapter
+(or appendix) to another indicates that some part of the research presented in
+that chapter contributes to the research in the other. 
+
+\begin{figure}[htbp]
+    \centering%
+    \resizebox{\imgwidth}{!}{%
+    \input{chapters/intro/tex/structure.tex}
+    }
+    \caption{A graph of the chapters and their connections}\label{fig:structure}
+\end{figure}
+
+
+\section{Research questions and novel aspects}\label{sec:questions}
+
+This section details the research questions answered by the contents of this
+thesis. Among these details are concise summaries of the novel aspects of the
+work in this thesis. Together, the chapters in this thesis attempt to answer
+the following research questions:
+
+\begin{enumerate}
+    \item How can existing objective algorithm evaluation processes be improved
+        upon?
+    \item Can the principles of game theory improve existing machine learning
+        techniques?
+    \item How valuable can routinely collected, administrative datasets be in
+        pursuing operational healthcare research?
+\end{enumerate}
+
+How the chapters correspond to these research questions is as follows:
+Chapters~\ref{chp:lit}~and~\ref{chp:edo} focus on the first research question;
+Chapters~\ref{chp:lit}~and~\ref{chp:kmodes} consider the second; finally,
+Chapters~\ref{chp:copd} addresses the final question.
+
 
 \section{Software development and best practices}\label{sec:dev}
 
