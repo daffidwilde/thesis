@@ -1,75 +1,24 @@
 \chapter{Introduction}
 \label{chp:intro}
 
-The original objective of this thesis was to utilise machine learning to
-better understand variability in the National Health Service (NHS). Driven by
-the needs of the co-sponsors of this project, the Cwm Taf Morgannwg University
-Health Board (UHB), the hope was to apply some technique(s) from machine
-learning to reveal insights into their patient population within the hospital
-system. The journey to this point has not been without its deviations from this
-primary task, but that objective has been achieved.
+Operational research is the scientific process of deriving insights from data to
+better inform decision-making processes. 
 
-With an administrative dataset provided by \ctmuhb, exploratory analysis found
-that the population in question was deeply varied and heterogeneous --- as
-expected. However, the dataset was insufficiently detailed to construct
-meaningful models on the entire population or system, opening up an interest in
-population segmentation techniques. While data requests were made, the gathering
-of literature began. Even with the expansive nature of machine learning
-literature, two clear patterns emerged.
-
-First, the ethics of data and machine learning algorithms were being discussed,
-but the discourse appeared separately from the machine learning publications. In
-small amounts, the development of new, `fair' machine learning techniques
-appeared. These methods consider new formulations and objectives based on
-mathematical fairness, a concept either derived from or with common roots in
-game theory. Game theory is a branch of mathematics which applies rules and
-logic to resolve and analyse scenarios involving conflict, cooperation and
-competition. The reinventing of techniques and paradigms to be fair raised
-questions about how far an addition of some game theory could improve the
-performance of an existing algorithm, as opposed to creating an entirely new
-one.
-
-Second, the vast majority of publications that introduced a novel machine
-learning method would contain a boilerplate evaluation section. In each article,
-the proposed method would be pitted against a few of its contemporaries by
-comparing a handful of metrics on a handful of datasets. Typically, these
-metrics and datasets would be taken from a small pool which covered that
-technique; this makes sense. There are appropriate measures for various
-techniques, and it is important to make comparisons relative to a fixed point.
-However, this approach to algorithm evaluation exhibits two issues --- there is
-a lack of diversity in the resources used to assess algorithm performance, and
-there is some incongruence between the power of the evaluation process and the
-conclusions drawn from that process. Often, a method would be deemed
-`state-of-the-art' or `better' based on a process that offered little insight
-into the actual quality of that method. This reliance on a narrow assessment
-process prompted research into how else an algorithm could be evaluated
-objectively.
-
-Over the course of this project, it became clear that the requests for more
-detailed datasets would not pan out in time, and so the task became one of
-extracting as much actionable information from the data at hand. Simultaneously,
-\ctmuhb\ provided further administrative datasets which related to the members
-of their population who suffer from chronic obstructive pulmonary disorder
-(COPD). COPD is a respiratory condition with known links to socioeconomic
-deprivation and often presents with multiple comorbidities, making it difficult
-to treat and live with. An internal report by NHS Wales found that \ctmuhb\ had
-the highest prevalence of COPD out of all the Welsh health boards. Given the
-impact of the condition on the population and system, the original objective of
-this thesis focused on understanding the needs of that population.
-
-This thesis incorporates three seemingly disparate topics: the evaluation of
+This thesis incorporates three seemingly disparate themes: the evaluation of
 algorithms, clustering and segmentation, and operational healthcare modelling.
-Included herein are novel methods for evaluating an algorithm's performance and
-incorporating game theory into clustering, relating to those theoretical
-questions raised in this introduction. In turn, these methods contribute to
-novel operational solutions which cater to the needs of \ctmuhb, despite a lack
-of highly detailed data.
+The chapters of this thesis provide novel methods for evaluating an algorithm's
+performance and incorporating game theory into clustering. In turn, these
+methods contribute to a novel operational methodology, which addresses the
+concerns of \ctmuhb\ and their COPD population, despite a lack of highly
+detailed data.
 
-The remainder of this section is as follows: Section~\ref{sec:thesis} states
-the primary research questions approached by this thesis and sets out the
-structure of its chapters; Section~\ref{sec:dev} provides an overview of the
-best practices used in developing software for the research presented in this
-thesis as well as signposting the software projects themselves.
+The remainder of this chapter is structured as follows: Section~\ref{sec:thesis}
+sets out the structure of this thesis and its chapters;
+Section~\ref{sec:questions} states the primary research questions approached by
+this thesis as well as outlining its novel aspects; Section~\ref{sec:dev}
+provides an overview of the best practices used in developing software for the
+research presented in this thesis as well as signposting the software projects
+themselves.
 
 
 \section{Thesis structure}\label{sec:thesis}
