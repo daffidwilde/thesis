@@ -1,12 +1,12 @@
 \chapter{Conclusions}\label{chp:conc}
 
-This chapter serves to summarise the work reported in this thesis, its
-contributions to literature, and potential avenues for further work. Each
-chapter in this thesis concluded with a detailed summary, and so the summaries
-here are brief.
+This chapter serves to summarise and reflect on the work reported in this
+thesis. The summaries here are deliberately brief since each chapter concludes
+with a detailed summary. In addition to these summaries, this chapter outlines
+the contributions to literature made by this thesis, and describes some
+potential avenues for further work.
 
-
-\section{Research summary}
+\section{Research summary}\label{sec:research}
 
 Chapter~\ref{chp:intro} described the research questions associated with this
 thesis, laying out its principle subjects of algorithm evaluation, clustering,
@@ -119,11 +119,77 @@ research.
 In addition to the work directly included in the chapters of this thesis, the
 research associated with this thesis has resulted in the production of numerous
 auxiliary research items. These include several well-developed pieces of
-research software (summarised in~\nameref{dissemination}), and a number of
-useful, publicly available datasets (listed in Table~\ref{tab:repos}).
+research software (summarised at the end of~\nameref{dissemination}), and a
+number of useful, publicly available datasets (listed in Table~\ref{tab:repos}).
 
 
-\section{Further work}
+\section{Reflections on research direction}\label{sec:reflections}
+
+The original objective of this thesis was to utilise machine learning to
+better understand variability in the National Health Service (NHS). Driven by
+the needs of the co-sponsors of this project, the Cwm Taf Morgannwg UHB, the
+hope was to apply some technique(s) from machine learning to reveal insights
+into the patient population within their hospital system.
+
+With an administrative dataset provided by \ctmuhb, exploratory analysis
+(available in Appendix~\ref{app:data}) found that the population in question was
+deeply varied and heterogeneous --- as expected. However, the dataset was
+insufficiently detailed to construct meaningful models on the entire population
+or system. The variety in the data opened up an interest in population
+segmentation techniques, eventually feeding into
+Chapters~\ref{chp:kmodes}~and~\ref{chp:copd}. Meanwhile, requests were made for
+larger, more detailed datasets --- so that contemporary, machine learning
+techniques could be applied more readily --- and the gathering of literature
+began. Even with the expansive nature of machine learning literature, two clear
+patterns emerged.
+
+First, the vast majority of publications that introduced a novel machine
+learning method contained a boilerplate evaluation section. In each article, the
+proposed method would be pitted against a few of its contemporaries by comparing
+a handful of metrics on a handful of datasets. Typically, these metrics and
+datasets would be taken from a small pool which was relevant to that technique;
+this makes sense. There are appropriate measures for various techniques, and it
+is important to make comparisons relative to a fixed point.
+
+However, this approach to algorithm evaluation exhibited two issues: one, a lack
+of diversity in the resources used to assess algorithm performance; and, two, an
+incongruence between the power of the evaluation process and the conclusions
+drawn from that process. Often, a method would be deemed `state-of-the-art' or
+`better' based exclusively on a process that offered little insight into the
+actual quality of that method. This reliance on a narrow assessment process
+prompted research into how else an algorithm could be evaluated objectively,
+directly leading to the work in Chapter~\ref{chp:edo}.
+
+The second observation was that the ethics of data and machine learning
+algorithms were being discussed, but the discourse appeared separately from the
+machine learning publications. An exception to this was the development fair
+machine learning practices. These methods consider new formulations and
+objectives based on mathematical fairness, a concept either derived from or with
+common roots in game theory. The reinventing of techniques and paradigms to be
+fair raised questions about how far an addition of some game theory could
+improve the performance of an existing algorithm, as opposed to creating an
+entirely new one, leading to the work in Chapter~\ref{chp:kmodes}.
+
+Over the course of this project, it became clear that the requests for more
+detailed datasets would not complete in time. Hence, the research methodology
+would have to prioritise extracting as much useful information from the data at
+hand. Simultaneously, \ctmuhb\ provided further administrative datasets which
+related to the members of their population who suffer from the respiratory
+condition, COPD. An internal report by NHS Wales found that \ctmuhb\ had the
+highest prevalence of the condition out of all the Welsh health boards. Given
+the known links between COPD, socioeconomic deprivation and the coincidence of
+multiple comorbidities, the objective of this project was revised to focus on
+understanding the needs of that population.
+
+Each of these concerns culminated in the methodology presented in
+Chapter~\ref{chp:copd}. The high-level, administrative dataset was analysed and
+processed using machine learning to extract distinct profiles within the COPD
+population. These profiles fed into a classic operational research method ---
+queuing --- to provide a rich, insightful model of the population under study,
+and its needs.
+
+
+\section{Further work}\label{sec:further}
 
 \subsection*{EDO as a data synthesiser}
 
