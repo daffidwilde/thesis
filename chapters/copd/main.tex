@@ -96,6 +96,8 @@ The chapter is structured as follows:
 \begin{itemize}
     \item Section~\ref{sec:intro} provides an overview of the dataset and its
         clustering;
+    \item Section~\ref{sec:queuing} offers a concise introduction to queuing
+        theory;
     \item Section~\ref{sec:model} describes the queuing model used and the
         estimation of its parameters;
     \item Section~\ref{sec:scenarios} presents several what-if scenarios with
@@ -446,11 +448,43 @@ both interventions for their COPD (or either, in fact) have disproportionately
 fewer LTCs and concurrent ICDs when compared to the population. Aside from this,
 the profiles of each intervention are similar to one another.
 
-As discussed earlier, the purpose of this chapter is to construct a queuing model
-for the data described here. Insights have already been gained into the needs of
-the segments that have been identified in this section. However, to glean
-further insights, some parameters of the queuing model must be recovered from
-the data.
+As discussed earlier, the purpose of this chapter is to construct a queuing
+model for the data described here. Insights have already been gained into the
+needs of the segments that have been identified in this section. However, to
+glean further insights, some parameters of the queuing model must be recovered
+from the data. The following two sections briefly introduce queuing theory, and
+describe how these parameters are derived, respectively.
+
+
+\section{An introduction to queuing theory}\label{sec:queuing}
+
+Queues facilitate the orderly provision of services. Examples include lining up
+to board a bus, assembly lines in a factory, or patients arriving at a hospital.
+In all of these examples there are two types of agent: those providing the
+service (a bus driver), and those demanding it (the passengers). The generic
+terminology for these agents are \emph{servers} and \emph{customers},
+respectively. The characteristics of these queues may be varied, but they can be
+used to construct a mathematical model. Such a model would describe things like
+the process by which customers arrive to a queue, the rules that allow customers
+to be served, and the time taken to serve a customer. Queuing theory is the
+branch of mathematics concerned with the analysis of these models.
+
+The remainder of this section defines some of the fundamental elements used to
+discuss queues used in this chapter. This section does not cover many aspects of
+queuing theory that would typically be covered in an introductory course on the
+subject. Queuing theory is a mature discipline with many facets that extend
+beyond the needs of this chapter, and the scope of this thesis. Comprehensive
+and informative introductions to queuing models, queuing theory, and the
+simulating of queues can be found in~\cite{Bhat2015,Shortle2018,Stewart2009}.
+Furthermore, examples of queuing models being applied to healthcare systems are
+plentiful~\cite{}.
+% TODO add healthcare queuing citations
+
+% TODO subsections on the following:
+%    - basic elements (arrival process, service process, capacities, discipline)
+%      leading to Kendall's notation
+%    - the M/M/c and M/G/c queues (embedding Markov process?)
+
 
 \section{Constructing the queuing model}\label{sec:model}
 
@@ -458,6 +492,8 @@ The data available in this chapter is not as detailed as in comparative
 projects, limiting the options for how a queuing model may be constructed.
 Without access to such data --- but intending to gain insight from what is
 available --- it is imperative to bridge the gap left by the incomplete data.
+Figure~\ref{fig:process} provides a diagrammatic depiction of the process
+described in this section.
 
 It is often the case that in practical situations where suitable data is not
 (immediately) available, further inquiry in that line of research will stop.
@@ -503,9 +539,6 @@ in a critical care unit using administrative data.
         A diagrammatic depiction of the queuing parameter recovery process
     }\label{fig:process}
 \end{figure}
-
-Figure~\ref{fig:process} provides a diagrammatic depiction of the process
-described in this section.
 
 
 \subsection{Deriving the model parameters}\label{subsec:derive}
