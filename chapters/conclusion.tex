@@ -1,1 +1,283 @@
-\chapter{Conclusion}
+\chapter{Conclusions}\label{chp:conc}
+
+This chapter serves to summarise and reflect on the work reported in this
+thesis. The summaries here are deliberately brief since each chapter concludes
+with a detailed summary. In addition to these summaries, this chapter outlines
+the contributions to literature made by this thesis, and describes some
+potential avenues for further work.
+
+\section{Research summary}\label{sec:research}
+
+Chapter~\ref{chp:intro} described the research questions associated with this
+thesis, laying out its principle subjects of algorithm evaluation, clustering,
+and operational healthcare modelling. With this last subject, there was a
+particular interest in overcoming a common issue with machine learning
+applications in healthcare: not necessarily having sufficiently detailed and
+voluminous data with which to create meaningful, actionable models.
+
+Chapter~\ref{chp:lit} presented a survey of the literature spanning these
+principle topics and their intersections. Motivated by the apparent gaps in the
+collated literature, the subsequent chapters of the thesis presented novel
+methods for assessing the quality of an algorithm (or algorithms), and for
+incorporating mathematical fairness into an existing clustering algorithm. These
+methods later fed into the case study for \ctmuhb\ which characterised, analysed
+and modelled a subsection of their patient population.
+
+In Chapter~\ref{chp:edo}, a new paradigm by which algorithms may be assessed was
+described, and a method from that paradigm presented. This method, known as
+evolutionary dataset optimisation (EDO), explores the space in which `good'
+datasets exist for an algorithm according to some metric. This exploration is
+achieved via a bespoke evolutionary algorithm which acts on datasets of unfixed
+shapes, sizes and data types. The chapter presented descriptions and
+illustrations of the internal mechanisms of the EDO method, as well as briefly
+describing a Python implementation. Finally, the chapter concluded with an
+extensive case study, demonstrating the capabilities and nuances of EDO in
+gaining a richer picture of an algorithm's abilities independently, and against
+a competitor.
+
+Following the discussion of `fair' machine learning practices in the literature
+review, Chapter~\ref{chp:kmodes} offered a novel initialisation to the
+\(k\)-modes algorithm which made use of game theory. The new initialisation
+extended a commonly used method, but replaced its greedy component with a
+solvable matching game. In the evaluative section of this chapter, traditional
+assessment techniques suggested that the new method improved upon the original,
+and so the original was discarded.
+
+However, the new method did not consistently outperform another well-known
+initialisation. To better understand the conditions under which either of the
+remaining initialisations would succeed, a similar setting to
+Chapter~\ref{chp:edo} was used. This analysis revealed that there were distinct
+sets of properties for which one method was more likely to succeed than the
+other according to the metric under study.
+
+Chapter~\ref{chp:copd} presented a novel framework with which to model the
+resource needs of a condition-specific healthcare population --- despite a lack
+of fine-grained data. In this case, that population were those suffering from
+COPD. The corresponding dataset, provided by \ctmuhb, consisted of high-level,
+administrative details about the spells associated with the patients, and lacked
+the depth that many contemporary operational models require.
+
+The presented framework utilised the clustering algorithm described in
+Chapter~\ref{chp:kmodes} to segment a subset of existing and engineered
+attributes in the dataset. These attributes included hospital utilisation
+metrics, and proxy measures of clinical complexity and resource needs. The
+segmentation successfully characterised the instances of the dataset, and the
+ensuing analysis of the identified segments revealed clear profiles for each
+segment. Included in these profiles were distinctly shaped distributions for
+length of stay. With an aim to extract as much as possible from the available
+data, and to provide further practical insights, these distributions were
+utilised to construct a multi-class queuing model.
+
+The queue, although minimal in structure, produced a well-fitting replica of the
+true lengths of stay observed in the data. The quality of this model was
+dependent on a novel parameterisation, which derived the unknown service time
+distributions for each cluster from the data according to the Wasserstein
+distance. In turn, this model was adjusted to answer several `what-if' scenarios
+associated with changes in resource capacity and requirements for the population
+under study. These adjustments revealed actionable insights into the
+most-impactful segments of the population. The most important of these results
+was demonstrating the futility of attempting to implement quick, blanket
+solutions for that population, such as only increasing resource capacity without
+improving patient well-being.
+
+
+\section{Contributions}\label{sec:contributions}
+
+This thesis has made novel contributions across each of its three principal
+themes: algorithm evaluation, clustering, and healthcare modelling. This section
+summarises these contributions with reference to their respective chapters.
+
+The EDO method introduced in Chapter~\ref{chp:edo} provided an example approach
+from a novel paradigm in which the objective performance of algorithms can be
+assessed by exploring the space in which `good' or `bad' datasets exist. The
+proposed paradigm expands the commonly used approach for evaluation where a
+method's quality is `confirmed' by taking a small number of benchmark datasets
+and comparing them with its contemporaries. By exploring the space of datasets,
+it was demonstrated that a more robust assessment can be made about a method or
+set thereof.
+
+Chapter~\ref{chp:kmodes} added to the growing body of literature where
+game-theoretic concepts are combined with machine learning techniques, of which
+clustering is included. In general, pursuits of this kind reformulate existing
+techniques to be mathematically fair. The initialisation presented in
+Chapter~\ref{chp:kmodes}, instead, incorporated game theory directly into an
+existing algorithm. In doing so, an improvement over the existing method was
+shown, using both traditional confirmation processes and the EDO method.
+
+The framework used in Chapter~\ref{chp:copd} contributed to healthcare modelling
+literature in three ways. First, the estimation of queuing parameters via the
+Wasserstein distance has expanded a relatively scarce aspect of queuing
+research. Second, by making COPD the subject of the methodology, the framework
+has added to a body of literature surrounding a condition that is vital to
+understand given its prevalence, as well as its links to deprivation and
+comorbidity. Lastly, the framework provided a solution to the common issue of
+data availability in modern operational research. By combining the various
+individual methods, valuable insights were extracted from a relatively
+unsophisticated data source, which is a result seldom seen in operational
+research.
+
+In addition to the work directly included in the chapters of this thesis, the
+research associated with this thesis has resulted in the production of numerous
+auxiliary research items. These include several well-developed pieces of
+research software (summarised at the end of~\nameref{dissemination}), and a
+number of useful, publicly available datasets (listed in Table~\ref{tab:repos}).
+
+
+\section{Reflections on research direction}\label{sec:reflections}
+
+The original objective of this thesis was to utilise machine learning to
+better understand variability in the National Health Service (NHS). Driven by
+the needs of the co-sponsors of this project, the Cwm Taf Morgannwg UHB, the
+hope was to apply some technique(s) from machine learning to reveal insights
+into the patient population within their hospital system.
+
+With an administrative dataset provided by \ctmuhb, exploratory analysis
+(available in Appendix~\ref{app:data}) found that the population in question was
+deeply varied and heterogeneous --- as expected. However, the dataset was
+insufficiently detailed to construct meaningful models on the entire population
+or system. The variety in the data opened up an interest in population
+segmentation techniques, eventually feeding into
+Chapters~\ref{chp:kmodes}~and~\ref{chp:copd}. Meanwhile, requests were made for
+larger, more detailed datasets --- so that contemporary, machine learning
+techniques could be applied more readily --- and the gathering of literature
+began. Even with the expansive nature of machine learning literature, two clear
+patterns emerged.
+
+First, the vast majority of publications that introduced a novel machine
+learning method contained a boilerplate evaluation section. In each article, the
+proposed method would be pitted against a few of its contemporaries by comparing
+a handful of metrics on a handful of datasets. Typically, these metrics and
+datasets would be taken from a small pool which was relevant to that technique;
+this makes sense. There are appropriate measures for various techniques, and it
+is important to make comparisons relative to a fixed point.
+
+This approach to algorithm evaluation exhibited two issues: one, a lack
+of diversity in the resources used to assess algorithm performance; and, two, an
+incongruence between the power of the evaluation process and the conclusions
+drawn from that process. Often, a method would be deemed `state-of-the-art' or
+`better' based exclusively on a process that offered little insight into the
+actual quality of that method. This reliance on a narrow assessment process
+prompted research into how else an algorithm could be evaluated objectively,
+directly leading to the work in Chapter~\ref{chp:edo}.
+
+The second observation was that the ethics of data and machine learning
+algorithms were being discussed, but the discourse appeared separately from the
+machine learning publications. An exception to this was the development of fair
+machine learning practices. These methods consider new formulations and
+objectives based on mathematical fairness, a concept either derived from or with
+common roots in game theory. The reinventing of techniques and paradigms to be
+fair raised questions about how far an addition of some game theory could
+improve the performance of an existing algorithm, as opposed to creating an
+entirely new one, leading to the work in Chapter~\ref{chp:kmodes}.
+
+Over the course of this project, it became clear that the requests for more
+detailed datasets would not complete in time. Hence, the research methodology
+would have to prioritise extracting as much useful information from the data at
+hand. Simultaneously, \ctmuhb\ provided further administrative datasets which
+related to the members of their population who suffer from the respiratory
+condition, COPD. An internal report by NHS Wales found that \ctmuhb\ had the
+highest prevalence of the condition out of all the Welsh health boards. Given
+the known links between COPD, socioeconomic deprivation and the coincidence of
+multiple comorbidities, the objective of this project was revised to focus on
+understanding the needs of that population.
+
+Overcoming each of these challenges culminated in the methodology presented in
+Chapter~\ref{chp:copd}. The high-level, administrative dataset was analysed and
+processed using machine learning to extract distinct profiles within the COPD
+population. These profiles fed into a classic operational research method ---
+queuing --- to provide a rich, insightful model of the population under study,
+and its needs.
+
+
+\section{Further work}\label{sec:further}
+
+\subsection*{EDO as a data synthesiser}
+
+As demonstrated in the case study in Chapter~\ref{chp:edo} and the closing
+section of Chapter~\ref{chp:kmodes}, the EDO method is capable of facilitating
+richer insights into an algorithm's performance. Having said that, a limitation
+of the method is that there is no standardised way to guarantee relationships
+between different columns in a dataset, or the families passed to EDO,
+\(\mathcal P\). Currently, the only way to do this is to include measures of the
+desired relationships in the fitness function. Given the success in the chapters
+of this thesis, this level of control is not necessary when looking at an
+algorithm (or algorithms) in a general sense, and so is considered beyond the
+scope of this thesis.
+
+However, there are cases where automatically ensuring the relationship between
+the elements of \(\mathcal P\) could be beneficial to a user of EDO. For
+instance, if the algorithm of interest is bespoke to a particular task or
+dataset. Using EDO in this way would be analogous to synthesising an existing
+dataset, which is another example of when this would be useful. In such a
+scenario, it may be beneficial to capture the essence of a dataset by loosely
+fitting the elements of \(\mathcal P\) to the existing dataset. Fitting the
+parameters of the distribution families would be relatively straightforward, but
+incorporating the relationships between them is less so.
+
+This capability has been one of the major attractions of using GANs for data
+synthesis, but their black-box nature defeats the object of EDO. Another option
+is to use copulas. Copulas are functions that join multivariate distribution
+functions to their one-dimensional margins~\cite{Nelsen1999}. For EDO, this
+would mean \(\mathcal P\) would contain a single element: a copula function
+fitted to the existing dataset. In this case, the technical aspects of an
+individual's representation would need adjusting to accommodate this change.
+Likewise, the crossover and mutation processes would require some changes to
+account for the lack of distinct distribution families.
+
+A Python implementation of copulas for data synthesis exists~\cite{copulas}, and
+incorporating this as a dependency of the \edo\ library would reduce the work
+required to implement this feature. Studying the impact of copulas in EDO would
+provide a valuable opportunity to demonstrate the capabilities of EDO as a fully
+fledged data synthesis method.
+
+\subsection*{Expanding the COPD queuing framework}
+
+As discussed at various points in this thesis, the framework presented in
+Chapter~\ref{chp:copd} is novel in its ability to circumvent the need for
+fine-grained data. However, as discussed in Section~\ref{sec:contributions},
+there are other aspects to its novelty. In particular, the use of clustering to
+inform a queuing model, and the estimation of unknown queuing parameters.
+Extending the reach of this work into the COPD population would be possible with
+even slightly more detailed data. For instance, episode-level data (such as the
+dataset analysed in Appendix~\ref{app:data}) could allow for a queuing network
+with multiple nodes to be developed, separating the various departments in the
+hospital. However, that data would need to be well-ordered to understand the
+actual pathway of patients at the spell level, which routinely gather
+administrative datasets are not.
+
+\ctmuhb, in partnership with Swansea University, have been developing a new
+system for recording the clinical activity and vital information of their
+patients in real time~\cite{whiteboards}. This system replaces the physical
+whiteboards in hospital wards with an electronic equivalent. The `e-whiteboard'
+and its drag-and-drop software overcome some of the issues associated with
+traditional whiteboards such as the accurate recording of data to the existing
+electronic system. In addition, the internal software records the exact time
+that information is recorded, allowing for an extremely high level of detail in
+terms of the processes undergone by patients. Access to such a data source would
+certainly open up more sophisticated models, including both the clustering and
+queuing aspects of the framework used in Chapter~\ref{chp:copd}.
+
+\subsection*{Weighted student-project allocation}
+
+In tandem with the work presented in Appendix~\ref{app:biosci}, another School
+expressed an interest in implementing a matching-based allocation for their
+final year student projects. The attraction of using matching games was the
+mathematical fairness of its solution when compared with their current
+allocation process. However, their final year students are of two classes: those
+on a three-year course and those on a four-year course. Projects for shorter
+courses are worth fewer credits and require less commitment from supervisors
+than those for longer courses.
+
+Effectively, this variety equates to the students having different weights. A
+potential line of research then would be to formulate the weighted
+student-project allocation problem (WSA). WSA would be a generalisation of the
+student-project allocation problem (SA) --- described in
+Appendix~\ref{app:matching} --- where each student, \(s\), would have a weight
+associated with them, \(w_s > 0\). Then, the size of a project or supervisor
+matching would be the sum of their students' weights, as opposed to the
+cardinality of their matching. Under this formulation, an instance of SA could
+be restated as an instance of WSA where \(w_s = 1\) for every student, \(s\).
+
+In addition to the formulation, further work would include adapting the existing
+Gale-Shapley algorithms for SA to accommodate for student weights, and proving
+whether those algorithms guarantee a unique, stable matching.
