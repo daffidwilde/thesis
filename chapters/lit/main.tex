@@ -2,7 +2,7 @@
 \label{chp:lit}
 
 \begin{center}
-    The survey presented in this chapter is formed from a larger work
+    The survey reported in this chapter will form part of a future work
     entitled:\\[1em]
 
     {%
@@ -11,33 +11,18 @@
     }
 
     Available online at:~\github{daffidwilde/literature-review}\\
-    Associated data and source code:~\doi{10.5281/zenodo.4320050}\vfill
-
-    The abstract of the manuscript (at the time of writing) is as
-    follows:\\[1em]
+    Associated data and source code:~\doi{10.5281/zenodo.4320050}\\[1em]
 \end{center}
-
-This survey considers the literature surrounding three essential parts of modern
-operational research: clustering and segmentation, model evaluation, and
-operational healthcare modelling. In particular, this review focuses on their
-intersections, highlighting areas for which there exists a scarce amount of
-published work.
-
-Given the vast nature of this body of literature, two approaches are utilised to
-thoroughly investigate the corpus. First, a traditional literature review based
-on a selection of seminal, innovative and recent works from each topic are
-digested; therein, any overlapping literature is discussed. Second, a
-software-based study of the wider literature base from five publishers
-(including preprint servers), providing insight into the bibliometrics of the
-literature associated with the aforementioned topics.
 
 \myrule%
 
-The primary difference between the manuscript and this chapter is that the
-manuscript includes a bibliometric study of the wider literature corpus. This
-chapter also includes a more extensive review of clustering techniques, as this
-form of analysis proves instrumental in the research presented in
-Chapters~\ref{chp:kmodes}~and~\ref{chp:copd}.
+The research reported here will form the opening sections of the manuscript
+listed above. In addition to the classic literature review, the
+manuscript will include a software-driven, bibliometric study of the wider
+literature corpus. Due to the time constraints of this project, this part of the
+study is not included here. This chapter also includes a more extensive review
+of clustering techniques, as this form of analysis proves instrumental in the
+research presented in Chapters~\ref{chp:kmodes}~and~\ref{chp:copd}.
 
 \section{Introduction}
 
@@ -100,8 +85,6 @@ potentially vast nature of the literature under study, formulating a reasonable
 slice that encompasses the state of the research is difficult. As such, this
 survey utilises two approaches, setting the following structure:
 
-% TODO Reformulate structure of chapter
-
 % TODO Would a diagram of some sort be nice here?
 
 \section{Clustering}\label{sec:clustering}
@@ -112,8 +95,8 @@ number of techniques whose objective is to partition some dataset into parts
 (clusters) according to some distance (similarity) measure. The generated
 partition should be such that the members of one cluster are more similar to one
 another than the rest of the data~\cite{Everitt2011}. This form of analysis has
-found applications in an array of fields, including recently the optimisation
-of energy systems~\cite{Jing2019,Teichgraeber2019}, wireless sensor
+found applications in an array of fields, including recently the optimisation of
+energy systems~\cite{Jing2019,Teichgraeber2019}, wireless sensor
 networking~\cite{Goswami2019}, and the biological
 sciences~\cite{Bulut2020,Kiselev2019}.
 
@@ -437,27 +420,20 @@ divisive clustering algorithm that achieves logarithmic complexity.
 While heuristic methods exist for agglomerative
 clustering~\cite{Aljarah2019,Fan2015}, its methods do not bear the same burdens
 as divisive methods; the grouping together of parts can be achieved with more
-straightforward tools. Generally, the definition of an agglomerative
-algorithm is reliant on their linkage criterion. Meanwhile, the
-distance metric used is largely dependent on the type of data
-presented~\cite{Nielsen2016}. Two of the fundamental criteria for hierarchical
-clustering are complete linkage, which defines the CLINK
-algorithm~\cite{Defays1977}, and single linkage, providing the SLINK
-algorithm~\cite{Sibson1973}. For two clusters, \(X\) and \(Y\), and a point-wise
-distance metric, \(d\), each criterion, \(D\), is evaluated as follows:
+straightforward tools. Generally, the definition of an agglomerative algorithm
+is reliant on their linkage criterion. Meanwhile, the distance metric used is
+largely dependent on the type of data presented~\cite{Nielsen2016}. Two of the
+fundamental criteria for hierarchical clustering are complete linkage, which
+defines the CLINK algorithm~\cite{Defays1977}, and single linkage, providing the
+SLINK algorithm~\cite{Sibson1973}. These linkage criteria also have the
+colloquial names \emph{farthest neighbour} and \emph{nearest neighbour}
+clustering, respectively.
 
-\begin{itemize}
-    \item Complete linkage: \(D(X, Y) = \max_{x \in X, y \in Y} d(x, y)\)
-    \item Single linkage: \(D(X, Y) = \min_{x \in X, y \in Y} d(x, y)\)
-\end{itemize}
-
-These definitions give each approach the colloquial names \emph{farthest
-neighbour} and \emph{nearest neighbour} clustering, respectively. Another
-popular linkage criterion is average-linkage, which defines the distance between
-two clusters as the mean distance between any point in one cluster and any point
-in the other. Defining linkage criteria with point-wise distances allows a
-hierarchical (agglomerative or divisive) algorithm to be run using only a
-point-wise distance matrix, as opposed to a dataset directly, allowing for
+Another popular linkage criterion is average-linkage, which defines the distance
+between two clusters as the mean distance between any point in one cluster and
+any point in the other. Defining linkage criteria with point-wise distances
+allows a hierarchical (agglomerative or divisive) algorithm to be run using only
+a point-wise distance matrix, as opposed to a dataset directly, allowing for
 increases in computational efficiency by use of caching~\cite{Nielsen2016}.
 However, hierarchical methods continue to be prone to outliers and are biased
 towards globular clusters because of definitions such as these. Ongoing reviews
@@ -1129,9 +1105,9 @@ and nomenclature, and regularly reproducing existing model outputs on other data
 sources.
 
 These calls for unified best practices are matched in recent
-literature~\cite{Liu2019,Monks2018,Vollmer2020,WitjasPaalberends2017}. For
-instance, the authors of~\cite{Vollmer2020} present a list of questions to ask
-of an application regarding its ethical quality. They state that despite the
+literature~\cite{Liu2019,Monks2015,Monks2018,Vollmer2020,WitjasPaalberends2017}.
+For instance, the authors of~\cite{Vollmer2020} present a list of questions to
+ask of an application regarding its ethical quality. They state that despite the
 burgeoning promise of data-driven methods, there is a distinct lack of best
 practice guidance, stifling the calibre of the research topic more generally.
 Their questions address concerns for researchers and practitioners, as well as
