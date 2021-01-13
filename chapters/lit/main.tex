@@ -85,8 +85,6 @@ potentially vast nature of the literature under study, formulating a reasonable
 slice that encompasses the state of the research is difficult. As such, this
 survey utilises two approaches, setting the following structure:
 
-% TODO Reformulate structure of chapter
-
 % TODO Would a diagram of some sort be nice here?
 
 \section{Clustering}\label{sec:clustering}
@@ -422,27 +420,20 @@ divisive clustering algorithm that achieves logarithmic complexity.
 While heuristic methods exist for agglomerative
 clustering~\cite{Aljarah2019,Fan2015}, its methods do not bear the same burdens
 as divisive methods; the grouping together of parts can be achieved with more
-straightforward tools. Generally, the definition of an agglomerative
-algorithm is reliant on their linkage criterion. Meanwhile, the
-distance metric used is largely dependent on the type of data
-presented~\cite{Nielsen2016}. Two of the fundamental criteria for hierarchical
-clustering are complete linkage, which defines the CLINK
-algorithm~\cite{Defays1977}, and single linkage, providing the SLINK
-algorithm~\cite{Sibson1973}. For two clusters, \(X\) and \(Y\), and a point-wise
-distance metric, \(d\), each criterion, \(D\), is evaluated as follows:
+straightforward tools. Generally, the definition of an agglomerative algorithm
+is reliant on their linkage criterion. Meanwhile, the distance metric used is
+largely dependent on the type of data presented~\cite{Nielsen2016}. Two of the
+fundamental criteria for hierarchical clustering are complete linkage, which
+defines the CLINK algorithm~\cite{Defays1977}, and single linkage, providing the
+SLINK algorithm~\cite{Sibson1973}. These linkage criteria also have the
+colloquial names \emph{farthest neighbour} and \emph{nearest neighbour}
+clustering, respectively.
 
-\begin{itemize}
-    \item Complete linkage: \(D(X, Y) = \max_{x \in X, y \in Y} d(x, y)\)
-    \item Single linkage: \(D(X, Y) = \min_{x \in X, y \in Y} d(x, y)\)
-\end{itemize}
-
-These definitions give each approach the colloquial names \emph{farthest
-neighbour} and \emph{nearest neighbour} clustering, respectively. Another
-popular linkage criterion is average-linkage, which defines the distance between
-two clusters as the mean distance between any point in one cluster and any point
-in the other. Defining linkage criteria with point-wise distances allows a
-hierarchical (agglomerative or divisive) algorithm to be run using only a
-point-wise distance matrix, as opposed to a dataset directly, allowing for
+Another popular linkage criterion is average-linkage, which defines the distance
+between two clusters as the mean distance between any point in one cluster and
+any point in the other. Defining linkage criteria with point-wise distances
+allows a hierarchical (agglomerative or divisive) algorithm to be run using only
+a point-wise distance matrix, as opposed to a dataset directly, allowing for
 increases in computational efficiency by use of caching~\cite{Nielsen2016}.
 However, hierarchical methods continue to be prone to outliers and are biased
 towards globular clusters because of definitions such as these. Ongoing reviews
