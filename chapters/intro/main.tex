@@ -3,20 +3,19 @@
 
 Operational research (OR) is the scientific process of deriving insights from
 data to better inform decision-making processes. Since its origins during the
-Second World War, OR has been applied in all manner of organisations and
-industries, including those relating to logistics, engineering, and
-government~\cite{Hillier2005}. Techniques from OR are often designed to optimise
-an objective function, which may relate to quantities such as costs or
-efficiency, but the overarching purpose of OR is to make sense of a system that
-is too complex to understand without a thorough, scientific study of its inner
-workings.
+Second World War, OR has been applied in all manner of organisations, including
+those relating to logistics, engineering, and government~\cite{Hillier2005}.
+Techniques from OR are often designed to optimise an objective function, which
+may relate to quantities such as costs or efficiency, but the overarching
+purpose of OR is to make sense of a system that is too complex to understand
+without a thorough, scientific study of its inner workings.
 
 The technological expansion observed throughout the second half of the
 20\textsuperscript{th} century brought about an almost universal increase in
-industrial and organisational complexity. Among the affected industries is
-healthcare. With ever-growing issues like increased population size and
-densities, longer life expectancy, and broader access to its services,
-healthcare has become one of the most morally essential applications of OR.
+industrial and organisational complexity. Among the affected industries was
+healthcare. With ever-growing issues like increased population size and density,
+longer life expectancy, and growing socioeconomic disparity, healthcare has
+become one of the most morally essential applications of OR.
 
 Alongside this rise in complexity came the advent of accessible computational
 power, and with that, the field of machine learning. Machine learning can be
@@ -24,22 +23,35 @@ defined in broad terms as a machine (computer) learning patterns and
 characteristics from data (through the use of statistics) without explicit
 instructions. This definition aligns machine learning squarely with OR, in that
 they both take data and extract value from it. As such, methodologies employed
-in modern OR projects are increasingly making use of machine learning
+in contemporary OR projects are increasingly making use of machine learning
 techniques.
 
-% TODO paragraphs on:
-%   - machine learning as a part of OR
-%   - lack of data is a common issue
-%   - brief mention of ethics, fair ML and game theory
-%   - Cwm Taf and COPD
+The National Health Service (NHS) is one of the many organisations to adopt
+machine learning into its operational pursuits, with half of all NHS Trusts
+engaging in machine learning projects~\cite{Hughes2019}. Despite its promise,
+there are some commonly occurring problems with applying machine learning to
+healthcare. These issues include ensuring ethical integrity, appropriately
+modelling intricate systems, and having access to sufficient data sources. These
+challenges are addressed in this thesis, and the solutions depend on an
+intuitive use of machine learning.
+
+The co-sponsors of this project, the NHS Wales Cwm Taf Morgannwg University
+Health Board (UHB), are seeking to reveal new insights into their patient
+population through the use of machine learning. In particular, the \ctmuhb\ are
+concerned with understanding the operational characteristics of their patients
+presenting chronic obstructive pulmonary disease (COPD). COPD is a respiratory
+condition with known links to deprivation, and often presents as a comorbidity,
+i.e. in concurrence with at least one other condition. These affiliations make
+treating and living with COPD inherently difficult, emphasising the importance
+of studying it closely.
 
 This thesis incorporates three seemingly disparate themes related to modern OR:
 the evaluation of algorithms, clustering and segmentation, and operational
 healthcare modelling. The chapters of this thesis provide novel methods for
-evaluating an algorithm's performance and incorporating game theory into
-clustering. In turn, these methods contribute to a novel operational
-methodology, which addresses the concerns of \ctmuhb\ and their COPD population,
-despite a lack of highly detailed data.
+evaluating an algorithm's performance and incorporating game theory into an
+existing clustering algorithm. In turn, these methods contribute to a novel
+operational methodology, which addresses the concerns of \ctmuhb\ and their COPD
+population, despite a lack of highly detailed data.
 
 The remainder of this chapter is as follows: Section~\ref{sec:thesis} sets out
 the structure of this thesis and its chapters; Section~\ref{sec:questions}
