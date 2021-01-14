@@ -460,14 +460,22 @@ how these parameters are derived using the dataset at hand, respectively.
 
 Queues facilitate the orderly provision of services. Examples include lining up
 to board a bus, assembly lines in a factory, or patients arriving at a hospital.
-In all of these examples there are two types of agent: those providing the
+In all queues there are two types of agent: those providing the
 service (a bus driver), and those demanding it (the passengers). The generic
 terminology for these agents are \emph{servers} and \emph{customers},
-respectively. The characteristics of these queues may be varied, but they can be
-used to construct a mathematical model. Such a model would describe things like
-the process by which customers arrive to a queue, the rules that allow customers
-to be served, and the time taken to serve a customer. Queuing theory is the
-branch of mathematics concerned with the analysis of these models.
+respectively.
+
+As well as individual queues, networks of interconnecting queues can be
+described in a similar manner. In a \emph{queuing network}, each individual
+queue is called a \emph{node}. For instance, a hospital could be considered a
+network of queues, where patients arrive into triage, are processed, and are
+redirected throughout their spell.
+
+The observed characteristics of a queuing system can be used to construct a
+mathematical model. Such a model would describe things like the process by which
+customers arrive to a queue, the rules that allow customers to be served, and
+the time taken to serve a customer. Queuing theory is the branch of mathematics
+concerned with the analysis of these models.
 
 The remainder of this section defines some of the fundamental elements necessary
 to discuss the queues used in this chapter. This section omits many aspects of
@@ -477,12 +485,12 @@ beyond the needs of this chapter, and the scope of this thesis. Comprehensive
 and informative introductions to queuing models, queuing theory, and the
 simulating of queues can be found in~\cite{Bhat2015,Shortle2018,Stewart2009}.
 Further, applications of queuing models to healthcare systems are plentiful, but
-examples
-include~\cite{Bittencourt2018,Mohammadi2012,Steins2013,Williams2015,Yom2014}.
+examples include~\cite{%
+    Bittencourt2018,Cochran2009,Mohammadi2012,Steins2013,Williams2015,Yom2014%
+}.
 
 % TODO subsections on the following:
 %    - the M/M/c and M/G/c queues (embedding Markov process?)
-%    - tools used to simulate queues (ciw, simul8, omnet++, excel, simpy)
 
 \subsection{Elements of a queue}\label{subsec:elements}
 
@@ -496,7 +504,8 @@ but here it shall be denoted \(A/S/c/m/K/Q\). This notation also defines the
 some unknown parameters of a queue.
 
 \begin{figure}[htbp]
-    \resizebox{\textwidth}{!}{%
+    \centering%
+    \resizebox{\imgwidth}{!}{%
         \input{chapters/copd/tex/queue}
     }\caption{The anatomy of a queue}\label{fig:queue}
 \end{figure}
@@ -521,10 +530,10 @@ but some commonly studied examples are:
 \begin{itemize}
     \item Markovian (denoted \(M\)). Customers arrive according to a Poisson
         process. The inter-arrival or service times follow an exponential
-        distribution with rate \(\lambda > 0\), i.e. they have probability
+        distribution with rate \(\alpha > 0\), i.e. they have probability
         density function:
         \begin{equation}\label{eq:exponential}
-            f(t) = \lambda e^{-\lambda t}; \quad t \ge 0
+            f(t) = \alpha e^{-\alpha t}; \quad t \ge 0
         \end{equation}
     \item Deterministic (denoted \(D\)). Inter-arrival or service times are
         non-stochastic and are of fixed length.
@@ -532,7 +541,33 @@ but some commonly studied examples are:
         service times follow a general probability distribution.
 \end{itemize}
 
+\subsection{Some well-known queues}\label{subsec:known}
+
+
 \subsection{Simulation tools}\label{subsec:tools}
+
+As well as theoretical results, queues provide a valuable basis for computer
+simulation. Theoretical models are limited when studying complex queuing
+systems, where the parameterisation of a system requires complicated notation or
+derivations to produce useful results. When properly utilising computer
+simulation, the stochastic intricacies of a system may be more readily observed.
+Examples of such systems include the multi-class queuing networks studied
+in~\cite{Cochran2009}.
+
+There are numerous tools available for simulating queues, but many leave the
+associated research prone to issues like reproducibility --- as mentioned in
+Section~\ref{subsec:queuing}. A recent review on the subject and its tools
+is~\cite{Dagkakis2016}. One of the defining features of a simulation tool is
+whether it has a \emph{graphical user interface} (GUI) or not. GUIs provide
+accessibility to the non-technical members of a simulation project, but can also
+foster poor simulation practices~\cite{Bell1987}.
+
+The simulation framework of choice in this chapter is the discrete event
+simulation library, Ciw~\cite{Palmer2019}. Ciw is written in Python, and is a
+well-developed piece of open-source software, adhering to the same best
+practices as the other software packages developed during this project.
+In~\cite{Palmer2019}, the authors belabour how ensuring sustainable and
+reproducible simulation work are at the core of Ciw's development.
 
 
 \section{Constructing the queuing model}\label{sec:model}
