@@ -111,6 +111,7 @@ words = {
     "ltcs",
     "lvaro",
     "mahalanobis",
+    "markovian",
     "matchingr",
     "matchings",
     "medoids",

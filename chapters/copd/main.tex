@@ -456,7 +456,7 @@ from the data. The following two sections briefly introduce queuing theory, and
 describe how these parameters are derived, respectively.
 
 
-\section{An introduction to queuing theory}\label{sec:queuing}
+\section{An introduction to queues}\label{sec:queuing}
 
 Queues facilitate the orderly provision of services. Examples include lining up
 to board a bus, assembly lines in a factory, or patients arriving at a hospital.
@@ -469,22 +469,74 @@ the process by which customers arrive to a queue, the rules that allow customers
 to be served, and the time taken to serve a customer. Queuing theory is the
 branch of mathematics concerned with the analysis of these models.
 
-The remainder of this section defines some of the fundamental elements used to
-discuss queues used in this chapter. This section does not cover many aspects of
+The remainder of this section defines some of the fundamental elements necessary
+to discuss the queues used in this chapter. This section omits many aspects of
 queuing theory that would typically be covered in an introductory course on the
 subject. Queuing theory is a mature discipline with many facets that extend
 beyond the needs of this chapter, and the scope of this thesis. Comprehensive
 and informative introductions to queuing models, queuing theory, and the
 simulating of queues can be found in~\cite{Bhat2015,Shortle2018,Stewart2009}.
-Furthermore, examples of queuing models being applied to healthcare systems are
-plentiful~\cite{}.
-% TODO add healthcare queuing citations
+Further, applications of queuing models to healthcare systems are plentiful, but
+examples
+include~\cite{Bittencourt2018,Mohammadi2012,Steins2013,Williams2015,Yom2014}.
 
 % TODO subsections on the following:
 %    - basic elements (arrival process, service process, capacities, discipline)
 %      leading to Kendall's notation
 %    - the M/M/c and M/G/c queues (embedding Markov process?)
 %    - tools used to simulate queues (ciw, simul8, omnet++, excel, simpy)
+
+\subsection{Elements of a queue}\label{subsec:elements}
+
+A queue is made up several components: the service facility, a number of servers
+within that facility, a line in which customers wait to be served, and a stream
+of arriving customers. Figure~\ref{fig:queue} shows a diagram of a queue. The
+characteristics associated with the components of a queue are often summarised
+using Kendall's notation~\cite{Stewart2009}. The exact notation varies somewhat,
+but here it shall be denoted \(A/S/c/m/K/Q\). This notation acts as a shorthand
+to fully describe a queue, and is as follows.
+
+\begin{figure}
+    \resizebox{\textwidth}{!}{%
+        \input{chapters/copd/tex/queue}
+    }\caption{The anatomy of a queue}\label{fig:queue}
+\end{figure}
+
+Customers arrive to the queue according to an \emph{inter-arrival time
+distribution}, \(A\), and wait in line to be served according to a \emph{queuing
+discipline}, \(Q\). Typically, customers are served as they arrive. This
+discipline is denoted FIFO (first in first out). Other disciplines include LIFO
+(last in first out) and priority scheduling --- as used in emergency triage. At
+the service facility there are \(c\) parallel servers, who each serve customers
+according to the \emph{service time distribution}, \(S\). Sometimes it is
+beneficial to attach a capacity to the system, denoted by \(K \ge c\). If
+omitted, an unlimited system capacity is presumed. The \emph{system capacity}
+can also be distinguished from an optional \emph{queue capacity}, \(m < K\),
+which limits the number of customers allowed to wait in line. Again, this is
+assumed to be \(\infty\), unless specified.
+
+The distributions used to model inter-arrival and service times are numerous,
+but some commonly studied examples are:
+
+\begin{itemize}
+    \item Markovian (denoted \(M\)). Customers arrive according to a Poisson
+        process. The inter-arrival or service times follow an exponential
+        distribution with rate \(\lambda > 0\), i.e. they have probability
+        density function:
+        \begin{equation}\label{eq:exponential}
+            f(t) = \lambda e^{-\lambda t}; \quad t \ge 0
+        \end{equation}
+    \item Deterministic (denoted \(D\)). Inter-arrival or service times are
+        non-stochastic and are of fixed length.
+    \item General (denoted \(G\)). Arrivals are random, and inter-arrival or
+        service times follow a general probability distribution.
+\end{itemize}
+
+\subsection{Multi-server queues}\label{subsec:multiserver}
+
+
+
+\subsection{Simulation tools}\label{subsec:tools}
 
 
 \section{Constructing the queuing model}\label{sec:model}
