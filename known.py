@@ -71,6 +71,7 @@ words = {
     "glamorgan",
     "glynatsi",
     "gregynog",
+    "guis",
     "hdbscan",
     "hoc",
     "hotspots",
