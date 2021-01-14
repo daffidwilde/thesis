@@ -543,6 +543,7 @@ but some commonly studied examples are:
 
 \subsection{Some well-known queues}\label{subsec:known}
 
+One of the 
 
 \subsection{Simulation tools}\label{subsec:tools}
 
@@ -582,37 +583,37 @@ described in this section.
 It is often the case that in practical situations where suitable data is not
 (immediately) available, further inquiry in that line of research will stop.
 Queuing models in healthcare settings appear to be such a case; the line ends at
-incomplete queue data.~\cite{Asanjarani2017} is a bibliographic work that
-collates articles on the estimation of queuing system characteristics ---
-including their parameters. Despite its breadth of almost 300 publications from
-1955, only two articles have been identified as being applied to
+incomplete queue data. The bibliographic work~\cite{Asanjarani2017} collates
+articles on the estimation of queuing system characteristics --- including their
+parameters. Despite its breadth of almost 300 publications from 1955, only two
+articles have been identified as being applied to
 healthcare:~\cite{Mohammadi2012,Yom2014}. Both works are concerned with
 customers who can re-enter services during their time in the queuing system,
 which is mainly of value when considering the effect of unpredictable behaviour
-in intensive care units, for instance.~\cite{Mohammadi2012} seeks to approximate
-service and re-service densities through a Bayesian approach and by filtering
-out those customers seeking to be serviced again. Meanwhile,~\cite{Yom2014}
-considers an extension to the \(M/M/c\) queue with direct re-entries. The
-devised model is then used to determine resource requirements in two healthcare
-settings.
+in intensive care units, for instance. In~\cite{Mohammadi2012}, the authors seek
+to approximate service and re-service densities through a Bayesian approach and
+by filtering out those customers seeking to be serviced again. Meanwhile, the
+approach in~\cite{Yom2014} considers an extension to the \(M/M/c\) queue with
+direct re-entries. The devised model is then used to determine resource
+requirements in two healthcare settings.
 
 Aside from healthcare-specific works, the approximation of queue parameters has
 formed a part of relevant modern queuing research. However, the scope is
-primarily focused on theoretic approximations rather than by
-simulation.~\cite{Djabali2018,Goldenshluger2016} are two such recent works that
-consider an underlying process to estimate a general service time distribution
-in single server and infinite server queues respectively.
+primarily focused on theoretic approximations rather than by simulation. For
+instance, two recent works~\cite{Djabali2018,Goldenshluger2016} consider an
+underlying process to estimate a general service time distribution in single
+server and infinite server queues respectively.
 
 While these solutions are interesting, they do not necessarily tackle the issue
 in this scenario where information about the system is also missing. With that,
 there is a precedent for simplifying healthcare systems to a single node with
-parallel servers that emulate overall resource
-availability.~\cite{Steins2013}~and~\cite{Williams2015} provide examples of how
-this approach, when paired with discrete event simulation, can expose the
-resource needs of a system beyond deterministic queuing theory models. In
-particular,~\cite{Williams2015} shows how a single node, multiple server queue
-can be used to accurately predict bed capacity and length of stay distributions
-in a critical care unit using administrative data.
+parallel servers that emulate overall resource availability. Two
+studies~\cite{Steins2013,Williams2015} provide examples of how this approach,
+when paired with discrete event simulation, can expose the resource needs of a
+system beyond deterministic queuing theory models. In particular, the authors
+of~\cite{Williams2015} show how a single node, multiple server queue can be used
+to accurately predict bed capacity and length of stay distributions in a
+critical care unit using administrative data.
 
 \begin{figure}
     \centering%
@@ -849,7 +850,7 @@ value in the base case, meaning that a metric having a value of 1 is `normal'.
 As mentioned in Section~\ref{sec:intro}, the source code used throughout this
 work is available has been archived online under~\doi{10.5281/zenodo.3936479}.
 Also, the datasets generated from the simulations in this section, and the
-parameter sweep, have been archived online~\doi{doi:10.5281/zenodo.3924715}.
+parameter sweep, have been archived online~\doi{10.5281/zenodo.3924715}.
 % TODO Archive new data and update these DOIs.
 
 
