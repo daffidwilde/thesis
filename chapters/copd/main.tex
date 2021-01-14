@@ -489,9 +489,6 @@ examples include~\cite{%
     Bittencourt2018,Cochran2009,Mohammadi2012,Steins2013,Williams2015,Yom2014%
 }.
 
-% TODO subsections on the following:
-%    - the M/M/c and M/G/c queues (embedding Markov process?)
-
 \subsection{Elements of a queue}\label{subsec:elements}
 
 A queue is made up several components: the service facility, a number of servers
@@ -543,7 +540,84 @@ but some commonly studied examples are:
 
 \subsection{Some well-known queues}\label{subsec:known}
 
-One of the 
+\subsubsection{The \(M/M/1\) queue}
+
+One of the best-known queues is the \(M/M/1\) queue. In this queue, customers
+arrive according to a Poisson process at a rate, \(\lambda\). The customers are
+served by a single server exponentially, at a rate of \(\mu\). Owing to the
+memoryless property of the exponential distribution, this queue can be
+represented as a continuous-time Markov chain with state space \(\left\{0, 1, 2,
+\ldots\right\}\). This Markov chain is a birth-death process, as displayed in
+Figure~\ref{fig:birth_death_mm1}.
+
+\begin{figure}[htbp]
+    \centering
+    \resizebox{\imgwidth}{!}{%
+        \input{chapters/copd/tex/birth_death_mm1}
+    }\caption{
+        A state space diagram for an \(M/M/1\) queue%
+    }\label{fig:birth_death_mm1}
+\end{figure}
+
+An important property of the \(M/M/1\) queue is its \emph{traffic intensity},
+which is defined as \(\rho = \frac{\lambda}{\mu}\). This quantity also
+represents the proportion of time that the server spends serving customers, and
+so measures their \emph{utilisation}. The \(M/M/1\) queue is considered
+\emph{stable} (i.e. the underlying process will become stationary eventually) if
+\(\rho < 1\). In an unstable queue, customers arrive at a faster rate than they
+are served, and so the line grows indefinitely.
+
+Many other properties of the \(M/M/1\) queue can be explicitly derived from this
+representation, including steady-state solutions, the expected size of the
+system, and average response times. The calculation of these quantities also
+makes use of Little's Law~\cite{Little1961}, which relates average system size,
+\(L\), with average waiting time, \(W\), in stationary processes such that:
+\begin{equation}
+    L = \lambda W
+\end{equation}
+
+\subsubsection{The \(M/M/c\) queue}
+
+The \(M/M/c\) queue is an extension of the \(M/M/1\) queue where there are \(c
+\in \mathbb N\) independent servers working in parallel. Customers still arrive
+according to a Poisson process with rate, \(\lambda\), and customer service
+times follow an exponential distribution with a mean of \(\frac{1}{\mu}\). The
+traffic intensity of the \(M/M/c\) queue is also \(\rho = \frac{\lambda}{\mu}\),
+but server utilisation is measured as the mean traffic intensity across the
+servers, i.e.  \(\frac{\rho}{c}\). The stability condition for the \(M/M/c\)
+queue is \(\rho < c\). 
+
+As with the \(M/M/1\) queue, the \(M/M/c\) can be represented as a birth-death
+process on the state space \(\left\{0, 1, 2, \ldots\right\}\), as shown in
+Figure~\ref{fig:birth_death_mmc}. Since there are multiple servers, some servers
+may be idle when there are customers in the system. Once all servers are active,
+arriving customers join the line and wait for service. 
+
+\begin{figure}[htbp]
+    \centering
+    \resizebox{\imgwidth}{!}{%
+        \input{chapters/copd/tex/birth_death_mmc}
+    }\caption{
+        A state space diagram for an \(M/M/c\) queue%
+    }\label{fig:birth_death_mmc}
+\end{figure}
+
+\subsubsection{The \(M/G/c\) queue}
+
+As useful as memoryless service times are in deriving properties of queues, they
+are not always accurate to real systems. The \(M/G/c\) queue extends the
+\(M/M/c\) queue to allow for a general service time distribution. Again, there
+are \(c\) parallel servers and customers arrive randomly at a rate of
+\(\lambda\).
+
+The \(M/G/c\) queue cannot be represented as a Markov chain, but it is a
+stochastic process on the same state space as the other queues in this section.
+Given the generic nature of customer departure times, a lot of the structure of
+the underlying process is lost. As such, deriving exact values for many
+properties of the \(M/G/c\) queue continues to be an open
+problem~\cite{Kingman2009}. Despite the theoretical challenges posed by the
+\(M/G/c\), simulating these generic queues can still be of great benefit --- as
+is done in Section~\ref{sec:model}. 
 
 \subsection{Simulation tools}\label{subsec:tools}
 
