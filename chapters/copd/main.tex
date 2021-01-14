@@ -546,9 +546,23 @@ One of the best-known queues is the \(M/M/1\) queue. In this queue, customers
 arrive according to a Poisson process at a rate, \(\lambda\). The customers are
 served by a single server exponentially, at a rate of \(\mu\). Owing to the
 memoryless property of the exponential distribution, this queue can be
-represented as a continuous-time Markov chain with state space \(\left\{0, 1, 2,
-\ldots\right\}\). This Markov chain is a birth-death process, as displayed in
-Figure~\ref{fig:birth_death_mm1}.
+represented as a continuous-time Markov chain over the state space
+\(\mathbb{N}_0 = \left\{0, 1, 2, \ldots\right\}\).
+
+A stochastic process, \(\left(X_t\right)\), which is defined over a countable
+state space, \(\mathcal S\), is considered a \emph{Markov chain} if and only if
+for all \(n \in \mathbb N\) and for any \((n+1)\)-tuple of states, \(s_0,
+\ldots, s_n \in \mathcal S^n\), the process satisfies:
+
+\begin{equation}
+    \mathbb P \left(X_n = s_n \ | \ X_{n-1} = s_{n-1}, \ldots, X_0 = s_0\right)
+    = \mathbb P \left(X_n = s_n \ | \ X_{n-1} = s_{n-1}\right)
+\end{equation}
+
+That is, the probability of being in state \(s_n\) is dependent only on the
+previous state, \(s_{n-1}\). The Markov chain underlying the \(M/M/1\) is also
+known as a \emph{birth-death process}. Figure~\ref{fig:birth_death_mm1} shows a
+diagram of the birth-death process of an \(M/M/1\) queue.
 
 \begin{figure}[htbp]
     \centering
@@ -588,7 +602,7 @@ servers, i.e.  \(\frac{\rho}{c}\). The stability condition for the \(M/M/c\)
 queue is \(\rho < c\). 
 
 As with the \(M/M/1\) queue, the \(M/M/c\) can be represented as a birth-death
-process on the state space \(\left\{0, 1, 2, \ldots\right\}\), as shown in
+process on the state space \(\mathbb N_0\), as shown in
 Figure~\ref{fig:birth_death_mmc}. Since there are multiple servers, some servers
 may be idle when there are customers in the system. Once all servers are active,
 arriving customers join the line and wait for service. 
