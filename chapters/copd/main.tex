@@ -452,8 +452,8 @@ As discussed earlier, the purpose of this chapter is to construct a queuing
 model for the data described here. Insights have already been gained into the
 needs of the segments that have been identified in this section. However, to
 glean further insights, some parameters of the queuing model must be recovered
-from the data. The following two sections briefly introduce queuing theory, and
-describe how these parameters are derived, respectively.
+from the data. The following two sections briefly introduce queues, and describe
+how these parameters are derived using the dataset at hand, respectively.
 
 
 \section{An introduction to queues}\label{sec:queuing}
@@ -481,8 +481,6 @@ examples
 include~\cite{Bittencourt2018,Mohammadi2012,Steins2013,Williams2015,Yom2014}.
 
 % TODO subsections on the following:
-%    - basic elements (arrival process, service process, capacities, discipline)
-%      leading to Kendall's notation
 %    - the M/M/c and M/G/c queues (embedding Markov process?)
 %    - tools used to simulate queues (ciw, simul8, omnet++, excel, simpy)
 
@@ -493,19 +491,21 @@ within that facility, a line in which customers wait to be served, and a stream
 of arriving customers. Figure~\ref{fig:queue} shows a diagram of a queue. The
 characteristics associated with the components of a queue are often summarised
 using Kendall's notation~\cite{Stewart2009}. The exact notation varies somewhat,
-but here it shall be denoted \(A/S/c/m/K/Q\). This notation acts as a shorthand
-to fully describe a queue, and is as follows.
+but here it shall be denoted \(A/S/c/m/K/Q\). This notation also defines the
+\emph{parameters} of the queue. The process in Section~\ref{sec:model} estimates
+some unknown parameters of a queue.
 
-\begin{figure}
+\begin{figure}[htbp]
     \resizebox{\textwidth}{!}{%
         \input{chapters/copd/tex/queue}
     }\caption{The anatomy of a queue}\label{fig:queue}
 \end{figure}
 
-Customers arrive to the queue according to an \emph{inter-arrival time
+Kendall's notation acts as a shorthand to fully describe a queue, and is as
+follows. Customers arrive to the queue according to an \emph{inter-arrival time
 distribution}, \(A\), and wait in line to be served according to a \emph{queuing
 discipline}, \(Q\). Typically, customers are served as they arrive. This
-discipline is denoted FIFO (first in first out). Other disciplines include LIFO
+discipline is called FIFO (first in first out). Other disciplines include LIFO
 (last in first out) and priority scheduling --- as used in emergency triage. At
 the service facility there are \(c\) parallel servers, who each serve customers
 according to the \emph{service time distribution}, \(S\). Sometimes it is
@@ -531,10 +531,6 @@ but some commonly studied examples are:
     \item General (denoted \(G\)). Arrivals are random, and inter-arrival or
         service times follow a general probability distribution.
 \end{itemize}
-
-\subsection{Multi-server queues}\label{subsec:multiserver}
-
-
 
 \subsection{Simulation tools}\label{subsec:tools}
 
