@@ -478,9 +478,8 @@ the time taken to serve a customer. Queuing theory is the branch of mathematics
 concerned with the analysis of these models.
 
 The remainder of this section defines some of the fundamental elements necessary
-to discuss the queues used in this chapter. This section omits many aspects of
-queuing theory that would typically be covered in an introductory course on the
-subject. Queuing theory is a mature discipline with many facets that extend
+to discuss the queues used in this chapter. 
+Queuing theory is a mature discipline with many facets that extend
 beyond the needs of this chapter, and the scope of this thesis. Comprehensive
 and informative introductions to queuing models, queuing theory, and the
 simulating of queues can be found in~\cite{Bhat2015,Shortle2018,Stewart2009}.
@@ -500,12 +499,6 @@ but here it shall be denoted \(A/S/c/m/K/Q\). This notation also defines the
 \emph{parameters} of the queue. The process in Section~\ref{sec:model} estimates
 some unknown parameters of a queue.
 
-\begin{figure}[htbp]
-    \centering%
-    \resizebox{\imgwidth}{!}{%
-        \input{chapters/copd/tex/queue}
-    }\caption{The anatomy of a queue}\label{fig:queue}
-\end{figure}
 
 Kendall's notation acts as a shorthand to fully describe a queue, and is as
 follows. Customers arrive to the queue according to an \emph{inter-arrival time
@@ -520,6 +513,13 @@ omitted, an unlimited system capacity is presumed. The \emph{system capacity}
 can also be distinguished from an optional \emph{queue capacity}, \(m < K\),
 which limits the number of customers allowed to wait in line. Again, this is
 assumed to be \(\infty\), unless specified.
+
+\begin{figure}[htbp]
+    \centering%
+    \resizebox{\imgwidth}{!}{%
+        \input{chapters/copd/tex/queue}
+    }\caption{The anatomy of a queue}\label{fig:queue}
+\end{figure}
 
 The distributions used to model inter-arrival and service times are numerous,
 but some commonly studied examples are:
@@ -560,7 +560,7 @@ for all \(n \in \mathbb N\) and for any \((n+1)\)-tuple of states, \(s_0,
 \end{equation}
 
 That is, the probability of being in state \(s_n\) is dependent only on the
-previous state, \(s_{n-1}\). The Markov chain underlying the \(M/M/1\) is also
+previous state, \(s_{n-1}\). The Markov chain underlying an \(M/M/1\) queue is also
 known as a \emph{birth-death process}. Figure~\ref{fig:birth_death_mm1} shows a
 diagram of the birth-death process of an \(M/M/1\) queue.
 
