@@ -2,6 +2,7 @@
 
 import glob
 import pathlib
+import re
 import subprocess
 import sys
 from collections import Counter
@@ -25,36 +26,56 @@ def compile(c, engine="pdflatex"):
     c.run(f"latexmk -interaction=nonstopmode -shell-escape --{engine} main.tex")
 
 
+def _get_book():
+    """Get a glob containing all of the main files in the thesis."""
+
+    frontmatter = pathlib.Path("preamble/").glob("*.tex")
+    chapters = pathlib.Path("chapters/").glob("*/main.tex")
+    appendices = pathlib.Path("appendix/").glob("*/main.tex")
+
+    return [*frontmatter, *chapters, *appendices]
+
+
 @task
 def doctest(c):
     """ Doctest the source files for the document. """
 
-    book = pathlib.Path("./chapters/").glob("*/main.tex")
-    for path in book:
-        chapter = str(path).split("/main.tex")[-2]
-        print("Testing", chapter)
+    for path in _get_book():
+        filename = path.stem
+        print("Testing", filename)
         c.run(f"python -m doctest -v {path}")
 
 
 @task
 def spellcheck(c):
-    """ Check spelling. """
+    """ Check spelling, skipping over known words. """
 
-    book = pathlib.Path("./chapters/").glob("*/main.tex")
     exit_codes = [0]
-    for path in book:
+    for path in _get_book():
 
+        print(f"Checking {path} 📖")
         latex = path.read_text()
         aspell_output = subprocess.check_output(
             ["aspell", "-t", "--list", "--lang=en_GB"], input=latex, text=True
         )
 
-        errors = set(aspell_output.split("\n")) - {""} - known.words
-        if len(errors):
-            print(f"In {path} the following words are not known: ")
-            for string in sorted(errors):
-                print(string)
+        errors = set(aspell_output.split("\n")) - {""}
+        unknowns = set()
+        for error in errors:
+            if not any(
+                re.fullmatch(word.lower(), error.lower())
+                for word in known.words
+            ):
+                unknowns.add(error)
+
+        if unknowns:
+            print(f"⚠️   In {path} the following words are not known:")
+            for string in sorted(unknowns):
+                print("     -", string)
+
             exit_codes.append(1)
+        else:
+            exit_codes.append(0)
 
     sys.exit(max(exit_codes))
 
@@ -102,9 +123,8 @@ def get_citations_to_export(bibentries):
             )
 
         else:
-            for i, entry in enumerate(entries):
-                entry["ID"] = entry["ID"] + f"_{i}"
-                citations_to_export = citations_to_export.append(entry)
+            print(f"Must reconcile {len(entries)} keys for {key}.")
+            citations_to_export = citations_to_export.append(entries)
 
     return citations_to_export
 
@@ -132,18 +152,19 @@ def export_citations(citations, destination):
 
 @task
 def bibliography(c, path="bibliography.bib", backup=True):
-    """ Merges the bibliography files for each chapter into one and cleans the
-    entries. """
+    """Merges the bibliography files for each chapter into one and cleans the
+    entries."""
 
     current = []
-    if backup and pathlib.Path(path).exists():
-        name = path.split(".")[-2]
-        backup = f"{name}.backup"
+    path = pathlib.Path(path)
+    if backup and path.exists():
+        name, ext = path.stem, path.suffix
+        backup = f".{name}{ext}"
         print("Backing up current bibliography.")
         c.run(f"mv {path} {backup}")
         current = [backup]
 
-    filenames = glob.glob("chapters/*/paper/*.bib") + current
+    filenames = glob.glob("./*/*/paper/*.bib") + current
     collate_bibfiles(filenames, "bibliography.bib")
     bibentries = get_bibentries("bibliography.bib")
     citations_to_export = get_citations_to_export(bibentries)

@@ -1,3 +1,7 @@
+[submodule "chapters/lit/paper"]
+    path = chapters/lit/paper
+    url = https://github.com/daffidwilde/literature-review
+    branch = main
 [submodule "chapters/edo/paper"]
 	path = chapters/edo/paper
 	url = https://github.com/daffidwilde/edo-paper
@@ -6,15 +10,15 @@
 	path = chapters/kmodes/paper
     url = https://github.com/daffidwilde/kmodes-init-paper
     branch = main
-[submodule "chapters/data/paper"]
-	path = chapters/data/paper
-    url = https://github.com/daffidwilde/cwmtaf-analysis
+[submodule "chapters/copd/paper"]
+    path = chapters/copd/paper
+    url = https://github.com/daffidwilde/copd-paper
     branch = main
-[submodule "chapters/matching/paper"]
-	path = chapters/matching/paper
+[submodule "appendix/matching/paper"]
+    path = appendix/matching/paper
     url = https://github.com/daffidwilde/matching
     branch = main
-[submodule "chapters/copd/paper"]
-	path = chapters/copd/paper
-	url = git@github.com:daffidwilde/copd-paper.git
+[submodule "appendix/data/paper"]
+	path = appendix/data/paper
+    url = https://github.com/daffidwilde/cwmtaf-analysis
     branch = main

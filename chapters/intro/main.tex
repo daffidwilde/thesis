@@ -1,25 +1,193 @@
 \chapter{Introduction}
+\label{chp:intro}
 
-This will be the introduction.
+Operational research (OR) is the scientific process of deriving insights from
+data to better inform decision-making processes. Since its origins during the
+Second World War, OR has been applied in all manner of organisations, including
+those relating to logistics, engineering, and government~\cite{Hillier2005}.
+Techniques from OR are often designed to optimise an objective function, which
+may relate to quantities such as costs or efficiency, but the overarching
+purpose of OR is to make sense of a system that is too complex to understand
+without a thorough, scientific study of its inner workings.
+
+The technological expansion observed throughout the second half of the
+20\textsuperscript{th} century brought about an almost universal increase in
+industrial and organisational complexity. Among the affected industries was
+healthcare. With ever-growing issues like increased population size and density,
+longer life expectancy, and growing socioeconomic disparity, healthcare has
+become one of the most morally essential applications of OR.
+
+Alongside this rise in complexity came the advent of accessible computational
+power, and with that, the field of machine learning. Machine learning can be
+defined in broad terms as a machine (computer) learning patterns and
+characteristics from data (through the use of statistics) without explicit
+instructions. This definition aligns machine learning squarely with OR, in that
+they both take data and extract value from it. As such, methodologies employed
+in contemporary OR projects are increasingly making use of machine learning
+techniques.
+
+The National Health Service (NHS) is one of the many organisations to adopt
+machine learning into its operational pursuits, with half of all NHS Trusts
+engaging in machine learning projects~\cite{Hughes2019}. Despite its promise,
+there are some commonly occurring problems with applying machine learning to
+healthcare. These issues include ensuring ethical integrity, appropriately
+modelling intricate systems, and having access to sufficient data sources. These
+challenges are addressed in this thesis, and the solutions depend on an
+intuitive use of machine learning.
+
+The co-sponsors of this project, the NHS Wales Cwm Taf Morgannwg University
+Health Board (UHB), are seeking to reveal new insights into their patient
+population through the use of machine learning. In particular, the \ctmuhb\ are
+concerned with understanding the operational characteristics of their patients
+presenting chronic obstructive pulmonary disease (COPD). COPD is a respiratory
+condition with known links to deprivation, and often presents as a comorbidity,
+i.e. in concurrence with at least one other condition. These affiliations make
+treating and living with COPD inherently difficult, emphasising the importance
+of studying it closely.
+
+This thesis incorporates three seemingly disparate themes related to modern OR:
+the evaluation of algorithms, clustering and segmentation, and operational
+healthcare modelling. The chapters of this thesis provide novel methods for
+evaluating an algorithm's performance and incorporating game theory into an
+existing clustering algorithm. In turn, these methods contribute to a novel
+operational methodology, which addresses the concerns of \ctmuhb\ and their COPD
+population, despite a lack of highly detailed data.
+
+The remainder of this chapter is as follows: Section~\ref{sec:thesis} sets out
+the structure of this thesis and its chapters; Section~\ref{sec:novel} outlines
+the novel contributions of the thesis; Section~\ref{sec:dev} provides an
+overview of the best practices used in developing software for the research
+presented in this thesis as well as signposting the software projects
+themselves.
+
+
+\section{Thesis structure}\label{sec:thesis}
+
+Including this introduction, this thesis contains six chapters, which together
+cover the research topics of this thesis. A brief summary of each chapter is
+given below:
+
+\begin{itemize}
+    \item Chapter~\ref{chp:lit} comprises a literature review covering the
+        principal topics of this thesis: clustering, healthcare modelling, and
+        model evaluation. As well as surveying each topic individually, their
+        intersections are considered.
+    \item Chapter~\ref{chp:edo} presents a novel approach to understanding an
+        algorithm's quality according to some metric. The presented method
+        allows for an exploration of the space in which `good' datasets exist
+        by use of an evolutionary algorithm.
+    \item Chapter~\ref{chp:kmodes} describes a new initialisation method for an
+        existing clustering algorithm. This method models the initialisation as
+        a matching game, incorporating a mathematical notion of fairness. The
+        chapter concludes with a evaluation of the method against two
+        initialisations, making use of the approach set out in
+        Chapter~\ref{chp:edo}, and reveals the cases in which the new
+        initialisation improves upon two existing methods.
+    \item Chapter~\ref{chp:copd} combines the initialisation from
+        Chapter~\ref{chp:kmodes} with the findings of the analysis in
+        Appendix~\ref{app:data} to produce a segmentation of a healthcare
+        population, using another administrative dataset from \ctmuhb. This
+        segmentation is used to inform a multi-class queuing model, and
+        subsequent adjustments to that model provide actionable insights into
+        the needs of the population under study.
+    \item Chapter~\ref{chp:conc} summarises the research presented in the
+        previous chapters and establishes avenues for further work.
+\end{itemize}
+
+In addition to these chapters, this thesis contains several appendices. Of
+these, two appendices (Appendix~\ref{app:matching} and Appendix~\ref{app:data})
+provide additional context to two of the later chapters ---
+Chapter~\ref{chp:kmodes} and Chapter~\ref{chp:copd}, respectively. These
+appendices are not presented as chapters because they do contain a significant
+amount of novel mathematics.
+
+\begin{figure}[htbp]
+    \centering%
+    \resizebox{\imgwidth}{!}{%
+    \input{chapters/intro/tex/structure.tex}
+    }
+    \caption{A graph of the chapters and their connections}\label{fig:structure}
+\end{figure}
+
+The chapters in this thesis are presented in a logical manner, and their
+connections are shown in Figure~\ref{fig:structure}. An arrow from one chapter
+(or appendix) to another indicates that some part of the research presented in
+that chapter contributes to the research in the other. 
+
+
+\section{Novel contributions of the thesis}\label{sec:novel}
+
+This section lists the novel aspects of this thesis to its principal themes of
+algorithm evaluation, clustering, and operational healthcare modelling. The
+contributions of each chapter are presented separately with a concise
+description of the problem, existing literature surrounding that problem, and
+how that problem is addressed through this thesis.
+
+Chapter~\ref{chp:edo} addresses the issue of how algorithms are evaluated. The
+standard procedure for algorithm evaluation consists of measuring the
+performance of an algorithm on a small number of examples and metrics. This
+procedure is referred to as a \emph{confirmation process}, and offers no
+substantial evidence to draw conclusions on the quality of an
+algorithm~\cite{Parker2020}. The methodology presented in Chapter~\ref{chp:edo},
+called evolutionary dataset optimisation (EDO), expands on the familiar concept
+of a confirmation process. The EDO method generates and optimises datasets for
+which an algorithm performs well, according to some fitness function. While some
+recent works into synthetic data generation champion the promise deep
+learning~\cite{Avino2018,Park2018,Torfi2020}, the EDO method is a bespoke
+evolutionary algorithm to promote transparency in the data generation process.
+Two case studies that apply this methodology are given in this thesis: one in
+Chapter~\ref{chp:edo} and the other in Chapter~\ref{chp:kmodes}.
+
+The \(k\)-modes initialisation presented in Chapter~\ref{chp:kmodes} extends an
+existing method from the seminal work on the \(k\)-modes
+algorithm~\cite{Huang1998}. While this initialisation is novel itself, the
+chapter contributes to the growing body of research around fair machine learning
+practices~\cite{Barocas2019,CorbettDavies2018}, and particularly those relating
+to clustering such as~\cite{Ahmadian2020,Chen2019}. These practices aim to
+reframe machine learning to focus on collective benefit, and are often based in
+(or share some common root with) game theory. Game theory is a branch of
+mathematics which applies rules and logic to resolve and analyse scenarios
+involving conflict, cooperation and competition among rational agents. The novel
+method in Chapter~\ref{chp:kmodes} incorporates objects from game theory
+directly, offering another approach to `fair' machine learning.
+
+The research reported in Chapter~\ref{chp:copd} makes two major contributions to
+OR literature. First, the methodology comprises a novel combination of machine
+learning and classical OR techniques to provide insight into a healthcare
+population. The use of clustering to inform a healthcare queuing model does not
+appear in literature, despite its use to study the results of queuing models ---
+as in~\cite{Prokofyeva2020,Rebuge2012}. Second, the methodology circumvents the
+common issue of applying OR to healthcare where sufficiently detailed data is
+not available. The dataset used in the chapter is a routinely gathered,
+administrative dataset, from which a well-fitting replica is derived via the
+Wasserstein distance.
+
 
 \section{Software development and best practices}\label{sec:dev}
+
+Conducting research without software is seemingly becoming a thing of the past.
+In 2014, the Software Sustainability Institute surveyed researchers (from across
+the disciplinary spectrum) at 15 Russell Group universities. Their analysis
+revealed that 92\% of respondents use software to conduct their research, and
+69\% responded that `their research would not be practical without'
+software~\cite{Hettrick2014}. The research conducted in this thesis is no
+different, and relies on the use of software. As with all scientific pursuits,
+researchers who make use of software are obliged to ensure their work is correct
+and reproducible. This section provides a brief overview of the software
+developed for this thesis, and the methods of \emph{best practice} used to
+develop that software in a responsible manner.
 
 \subsection{Code snippets}
 
 Throughout this thesis, snippets of code are shown. These snippets are either of
 source code, as in Snippet~\ref{snp:source}, or uses of code. The first type of
 code snippet is presented on a darker background and is used to display some
-part of the source code of an existing piece of software. The second type of
-snippet can be distinguished by its lighter background and is used to display a
-series of commands to be executed; where this execution should be done is
-indicated by the preceding symbols.
-
-A snippet whose commands begin with \mintinline{python}{>>>}, as in
-Snippet~\ref{snp:usepy}, should be run in a Python interpreter while those with
-commands beginning with \mintinline{console}{>}, as in Snippet~\ref{snp:usesh},
-should be executed in a shell. In each of these cases, the output of a command
-(or series of commands) is displayed directly beneath it without any preceding
-symbols.
+part of the source code of an existing piece of software. In general, the source
+code in these snippets is written in the open-source language,
+Python~\cite{python}, as that is the default language for the software developed
+for this thesis. The second type of snippet can be distinguished by its lighter
+background and is used to display a series of commands to run; where these
+commands should be run is indicated by the preceding symbols.
 
 \begin{listing}[htbp]
 \begin{sourcepy}
@@ -31,8 +199,15 @@ def main():
 if __name__ == "__main__":
     main()
 \end{sourcepy}
-\caption{An example of some Python source code.}\label{snp:source}
+\caption{An example of some Python source code}\label{snp:source}
 \end{listing}
+
+A snippet whose commands begin with \mintinline{python}{>>>}, as in
+Snippet~\ref{snp:usepy}, should be run in a Python interpreter while those with
+commands beginning with \mintinline{console}{>}, as in Snippet~\ref{snp:usesh},
+should be run in a shell. In each of these cases, the output of a command (or
+series of commands) is displayed directly beneath it without any preceding
+symbols.
 
 \begin{listing}[htbp]
 \begin{usagepy}
@@ -40,7 +215,7 @@ if __name__ == "__main__":
 Hello world.
 
 \end{usagepy}
-\caption{An example of some code run in a Python interpreter.}\label{snp:usepy}
+\caption{An example of some code run in a Python interpreter}\label{snp:usepy}
 \end{listing}
 
 \begin{listing}[htbp]
@@ -48,5 +223,196 @@ Hello world.
 > echo "Hello world."
 Hello world.
 \end{usagesh}
-\caption{An example of some code executed in a shell.}\label{snp:usesh}
+\caption{An example of some code run in a shell}\label{snp:usesh}
 \end{listing}
+
+\subsection{Methods of best practice}
+
+Best practices are guidelines to ensure that research methods are reliable,
+reproducible, and transferable. In essence, the proper adoption of best
+practices sustains the lifespan of a piece of research. The same is true of
+research software. In Chapter~\ref{chp:lit}, the ethical implications of best
+practices are addressed, as well as briefly mentioning the analogous practices
+for research data. Examples of existing software best practices
+include~\cite{Aberdour2007,Benureau2018,Jimenez2017,Wilson2014}. Included in the
+subsequent subsections are overviews of four fundamental methods of best
+practice that are used throughout the software developed for this thesis:
+version control, virtual environments, automated testing and documentation.
+
+\subsubsection{Version control}
+
+A \emph{version control system} records all files within a software project,
+typically on a line-by-line basis. As the name suggests, the system also keeps a
+record of all the versions of that project. This record of a project is called a
+\emph{repository} and offers some transparency into how the software was
+developed. Full accounts of the history and benefits of version control systems
+and their features may be found in~\cite{Ruparelia2010,Zolkifli2018}.
+
+A number of version control systems exist, each with their own objectives and
+specialities, but all of the software for this thesis was developed using
+Git~\cite{git}. Created by Linus Torvalds in 2005, Git is a free, open-source
+version control system that has been widely adopted by large tech companies
+including Google, Facebook, and Microsoft. The primary objectives of Git are to
+be uncomplicated and to provide frictionless, low-latency versioning.
+
+Several services exist for hosting Git repositories online, the most popular of
+which is GitHub~\cite{github}. Each of the repositories used in this thesis is
+publicly hosted on GitHub, and links to them are listed in
+Table~\ref{tab:repos}. In addition to the benefits of the underlying version
+control system, hosting services afford software developers the ability to make
+their software accessible beyond their local machine. Furthermore, GitHub has
+features to encourage collaboration between developers, allowing users to
+interact through their repositories by reporting issues, commenting and
+liking, and (perhaps most importantly) requesting to make changes.
+
+\subsubsection{Virtual environments}
+
+When using or developing a piece of software, it almost a certainty that it will
+have \emph{dependencies}. A dependency is a version of some existing software
+required by the newly developed software to run. Occasionally, there will be
+clashes in the dependencies of two or more pieces of software, or another
+developer may wish to install that software exactly as it was created. These are
+two motivating examples for organising and separating project dependencies;
+\emph{virtual environments} provide a means of achieving this. A virtual
+environment is a self-contained, independent copy of some dependencies that can
+be activated and deactivated at will. By activating an environment, only the
+specific versions of the dependencies are available.
+
+\begin{listing}[htbp]
+\begin{sourceyml}
+name: thesis
+channels:
+- defaults
+- conda-forge
+dependencies:
+ - python>=3.6
+ - dask=2.30.0
+ - ipykernel=5.3.2
+ - matplotlib=3.2.2
+ - numpy=1.18.5
+ - pandas=1.0.5
+ - scikit-learn=0.23.1
+ - scipy=1.5.0
+ - statsmodels=0.11.1
+ - tqdm=4.48
+ - pip=20.1.1
+ - pip:
+   - alphashape==1.0.1
+   - bibtexparser==1.2.0
+   - descartes==1.1.0
+   - edo>=0.3
+   - git+https://github.com/daffidwilde/kmodes@v0.9.1
+   - graphviz==0.14.1
+   - invoke==1.4.1
+   - matching==1.3.2
+   - pygments>=2.5.2
+   - shapely==1.6.4.post2
+   - yellowbrick==1.1
+\end{sourceyml}
+\caption{The Anaconda environment file for this thesis}\label{snp:environment}
+\end{listing}
+
+Each of the repositories in this thesis includes an Anaconda virtual environment
+configuration file named \mintinline{console}{environment.yml}.
+Anaconda~\cite{anaconda} is a free and open-source distribution of the Python
+and R programming languages, specialising in scientific computing. Included with
+Anaconda are tools to simplify package management such as the virtual
+environments created using these configuration files.
+Snippet~\ref{snp:environment} shows the contents of an overarching environment
+file for this thesis. The environment file lists the name of the environment
+(\mintinline{console}{thesis}), its dependencies, and from where those
+dependencies should be installed (under \mintinline{console}{channels} and
+\mintinline{console}{pip}). Beside each dependency is the specific version (or
+bounds on the version) required to recreate the environment.
+
+\subsubsection{Automated testing}
+
+Testing code is essential to ensuring that a piece of software works as
+intended, and that it is robust and sustainable. \emph{Automated testing} is the
+de facto tool used by software developers to test their code, consisting of
+\emph{test suites} that run parts of the code base to ensure they behave as
+expected. The importance of testing cannot be understated in producing good
+software, and is the basis of the software development practice known as
+test-driven development (TDD). A thorough tutorial on how to adopt TDD may be
+found in~\cite{Percival2017}. This book informed much of the process by which
+the software was developed for this thesis. 
+
+Included in each of the software package repositories are test suites composed
+of two types of test: \emph{functional} and \emph{unit} tests. A functional test
+asserts that the software (or a part thereof) behaves as expected from the
+perspective of a user, while a unit test checks the behaviour of a small
+(potentially isolated) part of the code base from an internal viewpoint. Unit
+tests allow a developer to ensure that their software is free from any bugs, and
+streamline the process of finding the source of any bugs.
+
+All of the test suites associated with this thesis were written using the Python
+library, \href{https://docs.pytest.org/en/stable/}{\pytest}. The \pytest\
+framework is designed to write scalable test suites, and comes with a number of
+plugins, including one to automatically test for \emph{coverage},
+\href{https://pytest-cov.readthedocs.io/en/latest/}{\pytestcov}.
+Coverage is a measure of what proportion of the code base for a project is `hit'
+(executed) when running the test suite, indicating the robustness of the suite.
+All of the test suites associated with this thesis achieve 100\% coverage.
+
+% TODO Should I mention property-based hypothesis testing?
+
+To regularly test code that is going to be merged into the main code base
+(through version control), continuous integration (CI) systems exist. CI systems
+run the test suite and coverage checks at regular prompts (e.g. when a new
+version is pushed to the online repository, prior to new releases of the
+software, according to a schedule, etc.), minimising any potential issues during
+development and collaboration as well as providing another layer of
+transparency. Given that the code for this thesis is hosted on GitHub, the CI
+used is GitHub Actions~\cite{github-actions}.
+
+\subsubsection{Documentation}
+
+In addition to testing, another crucial appendix to a software code base is its
+\emph{documentation}. Software documentation can take many forms --- text,
+websites, illustrations, demonstrations --- but regardless of how it is
+presented, the purpose is to explain to a user how to use a piece of software.
+
+All of the repositories associated with this thesis include (at a minimum) a
+\mintinline{console}{README} file, detailing what the repository is for, and (if
+appropriate) instructions on how to reproduce the results with the code therein.
+Each Python function, method and class defined in the source code includes its
+own inline documentation in the form of a \emph{docstring}. Furthermore, the
+variables and defined objects have been assigned informative, sensible names,
+making the software self-documenting.
+
+For the larger, free-standing software packages developed during this thesis,
+fully fledged documentation websites have been written. Each of these is hosted
+on \href{https://readthedocs.org/}{Read the Docs} and adheres to the so-called
+`Grand Unified Theory of Documentation'~\cite{documentation}, which separates
+documentation into four categories: tutorials, how-to guides, explanation and
+reference.
+
+\subsection{Summary of software}
+
+As stated throughout this section, the software to accompany this thesis has
+been written according to best practices, and their associated repositories are
+available online. These practices have been adopted to ensure the reliability,
+reproducibility and sustainability of the software described throughout this
+thesis.
+
+In addition to these GitHub repositories, the specific versions of the source
+code used in each chapter have been archived online via Zenodo~\cite{zenodo}.
+Each archive is assigned a digital object identifier (DOI) name, further
+reinforcing the longevity of the software. Table~\ref{tab:repos} details the
+repositories and archives associated with each chapter.
+
+\begin{table}[tbhp]
+    \centering%
+    \resizebox{\textwidth}{!}{%
+        \input{chapters/intro/tex/repos/main.tex}%
+    }\caption{%
+        A summary of the repositories and archives associated with the chapters
+        of this thesis%
+    }\label{tab:repos}
+\end{table}
+
+This thesis and its supporting files are also hosted online at
+\github{daffidwilde/thesis}. It has been prepared using \LaTeX\ and it is
+regularly tested using the GitHub Actions CI. The tests include checking that
+the document can be compiled, is without spelling errors, and that the Python
+usage code snippets are correct.

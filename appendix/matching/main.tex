@@ -1,0 +1,511 @@
+\chapter{An introduction to matching games}
+\label{app:matching}
+
+\graphicspath{{appendix/matching/paper/img/}}
+
+Matching games form a part of game theory that were formally introduced by Gale
+and Shapley in their seminal work~\cite{Gale1962}. These games allow for the
+allocation of resources and partnerships in a mathematically fair way.
+Typically, a matching game is defined by two sets of players (referred to as
+parties) that each have preferences over at least some of the elements of the
+other set.  The objective of the game is then to find a mapping between the sets
+of players in which everyone is \emph{happy enough} with their match(es).
+
+This appendix does not contain any novel mathematics, but it does offer an
+introduction to matching games and their variants. Studying this branch of
+mathematics has contributed to a significant amount of the research conducted
+for this thesis, hence its inclusion here. That research has culminated in the
+development of a Python library for solving various matching games, \matching.
+Among other uses, the \matching\ library proves instrumental in the practical
+implementation of the novel method described in Chapter~\ref{chp:kmodes}.
+
+The \matching\ library has been developed as a research tool and adheres to the
+best practices discussed in Chapter~\ref{chp:intro}. The current version of
+Matching has also been archived on Zenodo under~\doi{10.5281/zenodo.3931026}.
+Along with the source code being modularised and fully tested (using example,
+integration and property-based unit tests) with 100\% coverage, the library is
+documented extensively. Like the \edo\ library developed for the work in
+Chapter~\ref{chp:edo}, the \matching\ documentation is hosted online at
+\href{https://matching.readthedocs.io}{\nolinkurl{matching.readthedocs.io}}.
+The documentation has been written to maximise its effect as a resource for
+learning about matching games as well as for the software itself. Furthermore,
+the library is registered on the Python Package Index and is installable using
+standard python practices.
+
+\begin{listing}
+\begin{usagesh}
+> pip install matching
+\end{usagesh}
+\caption{Installing the \matching\ library via \pip}
+\end{listing}
+
+Matching games have applications in many fields where relationships between
+rational agents must be arranged. Some example applications include: being able
+to inform on healthcare finance policy~\cite{Agarwal2017}; helping to reduce the
+complexity of automated wireless communication networks~\cite{Bayat2016}; and
+education infrastructure~\cite{Chiarandini2019}. Thus, having access to software
+implementations of algorithms that are able to solve such games is essential.
+
+The only current software alternative to \matching\ is
+\matchingr~\cite{Tilly2018}.  \matchingr\ is a package written in C++ with an R
+interface and its content overlaps well with that of \matching. However, the
+lack of a Python interface makes it less relevant to researchers and other users
+as Python's popularity grows both in academia and industry.
+
+At the time of writing, the \matching\ library offers facilities to handle and
+solve four types of matching games:
+
+\begin{itemize}
+    \item The stable marriage problem (SM)~\cite{Gale1962};
+    \item the hospital-resident assignment problem
+        (HR)~\cite{Gale1962,Roth1984};
+    \item the student-project allocation problem (SA)~\cite{Abraham2007}; and
+    \item the stable roommates problem (SR)~\cite{Irving1985}.
+\end{itemize}
+
+This appendix goes through the details of the games for SM and HR, the latter
+of which is used in Chapter~\ref{chp:kmodes}. A further piece of work conducted
+during the production of this thesis that uses SA is provided in
+Appendix~\ref{app:biosci}.  % TODO Remember to add reference (if we publish it)
+
+\section{The stable marriage problem}
+
+One of the most ubiquitous matching games is the stable marriage problem (SM).
+SM describes the problem of finding a bijection between two distinct, equally
+sized sets of players that is stable according to the players' preferences. The
+notion of stability is broadly similar across all matching games, albeit up to
+the context of the game at hand.
+Definitions~\ref{def:sm_game}~through~\ref{def:sm_blocking} formally introduce
+the components of SM.
+
+\begin{definition}\label{def:sm_game}
+    Consider two distinct sets, \(S\) and \(R\), each of size \(N \in \mathbb
+    N\). These sets are the players of the game and are referred to as
+    \emph{suitors} and \emph{reviewers}, respectively. Each element of \(S\) and
+    \(R\) has a strict ranking of the other set's elements associated with it,
+    and this ranking is called their \emph{preference list}. The preference
+    lists for each player set can be considered as a function which takes an
+    element from the set and produces a permutation of the other set's elements:
+
+    \begin{equation}
+        f: S \to R^N; \quad g: R \to S^N
+    \end{equation}
+
+    This construction of suitors, reviewers and preference lists is called a
+    \emph{game} of size \(N\), denoted \((S, R)\), and is used to
+    model instances of SM.
+\end{definition}
+
+\begin{definition}\label{def:sm_matching}
+    Consider a game \((S, R)\). A \emph{matching} \(M\) is any
+    bijection between \(S\) and \(R\). If a pair \((s, r) \in S
+    \times R\) are matched in \(M\), then that relationship is denoted \(M(s) =
+    r\) and, equivalently, \(M^{-1}(r) = s\).
+
+    A matching is considered valid only if every player in \((S, R)\)
+    is matched to another player uniquely.
+\end{definition}
+
+\begin{definition}\label{def:sm_preference}
+    Let \((S, R)\) be an instance of SM, and consider \(s \in S\) and
+    \(r, r' \in R\). Then \(s\) \emph{prefers} \(r\) to \(r'\) if \(r\) appears
+    before \(r'\) in \(f(s)\). The definition of preference is equivalent for
+    reviewers.
+\end{definition}
+
+\begin{definition}\label{def:sm_blocking}
+    Let \((S, R)\) be an instance of SM and let \(M\) be a matching of \((S,
+    R)\). A pair \((s, r) \in S \times R\) is said to \emph{block} \(M\) if:
+
+    \begin{itemize}
+        \item \(s\) and \(r\) are not matched by \(M\), i.e. \(M(s) \neq r\);
+        \item \(s\) prefers \(r\) to \(M(s) = r'\); and
+        \item \(r\) prefers \(s\) to \(M^{-1}(r) = s'\).
+    \end{itemize}
+
+    A matching \(M\) is said to be \emph{stable} if it has no blocking pairs,
+    and \emph{unstable} otherwise.
+\end{definition}
+
+This final definition envelopes the critical differences between the various
+matching games in existence. Despite their differences, however, the spirit is
+the same: a pair of players blocks a matching if their envy is \emph{mutually
+rational}. Irrational envy would be where one player wishes to be matched to
+another over their current match but the other player does not (or cannot)
+reciprocate. The social outcome of acting irrationally in SM is that a player
+would be betraying their partner for another player, thus destabilising the
+group, without any reward of a `better' partner.
+
+Consider the game of size three shown in Figure~\ref{fig:sm_matching} as an
+edgeless graph with suitors on the left and reviewers on the right. This
+representation of a matching game finds its origin in the bipartite matching
+problems of graph theory. Beside each vertex is the name of the player and their
+associated ranking of the complementary set’s elements.
+
+\begin{figure}[htbp]
+    \centering
+    \input{appendix/matching/paper/docs/tex/sm_matching}
+    \caption{A game of size three}\label{fig:sm_matching}
+\end{figure}
+
+In this representation, a matching \(M\) creates a bipartite graph where an edge
+between two vertices (players) indicates that they are matched by \(M\).
+Figure~\ref{fig:sm_unstable} shows an example of a valid matching.
+
+\begin{figure}[htbp]
+    \centering
+    \input{appendix/matching/paper/docs/tex/sm_unstable}
+    \caption{An unstable matching to the game}\label{fig:sm_unstable}
+\end{figure}
+
+In this matching, players \(A\), \(C\) and \(F\) are all matched to their
+favourite player while \(B\), \(D\) and \(E\) are matched to their least
+favourite. In particular, \(B\) and \(D\) form a blocking pair since they would
+both rather be matched to one another than their current match. Hence, this
+matching is unstable. As an attempt to rectify this instability, swap the
+matches for the first two rows, as shown in Figure~\ref{fig:sm_stable}. This
+move does not form another blocking pair despite \(A\) having a worse match
+since \(D\) ranks \(A\) at the bottom of its preference list. Therefore, the
+envy exhibited by \(A\) is not reciprocated, and the matching is stable.
+
+\begin{figure}[htbp]
+    \centering
+    \input{appendix/matching/paper/docs/tex/sm_stable}
+    \caption{A stable, suitor-optimal solution to the game}\label{fig:sm_stable}
+\end{figure}
+
+Upon closer inspection of this matching, it appears that no suitor can improve
+on their current match without forming a blocking pair. In fact, the only suitor
+improvement would be for \(A\) and \(D\) to be matched again. This kind of
+stable matching is called \emph{suitor-optimal}. Similarly, no reviewer can
+improve their match without forming a blocking pair and so this matching is also
+\emph{reviewer-optimal}.
+
+Finding a party-optimal, stable matching to an instance of a matching game is
+referred to as \emph{solving} the game. When there are only a handful of players
+to deal with, solving a game (or even finding a party-suboptimal, stable
+matching) is relatively straightforward with pen, paper and some time. However,
+solving the example above in two steps was little more than a coincidence. 
+In the seminal paper on matching games~\cite{Gale1962}, Gale and Shapley
+presented an algorithm for finding a unique, stable and suitor-optimal matching
+to any instance of SM. This algorithm has since become known as the Gale-Shapley
+algorithm, and is given in Algorithm~\ref{alg:stable_marriage}. The matching
+this algorithm produces is shown in Figure~\ref{fig:sm_stable}.
+
+\balg%
+\caption{The suitor-optimal algorithm for SM}\label{alg:stable_marriage}
+
+\KwIn{%
+    a set of suitors \(S\), a set of reviewers \(R\), two preference list
+    functions \(f\) and \(g\)
+}
+\KwOut{%
+    a stable, suitor-optimal matching \(M\) between \(S\) and \(R\)
+}\vspace{1em}
+
+\For{\(p \in S \cup R\)}{%
+    Set player \(p\) to be unmatched
+}
+\While{there exists an unmatched suitor \(s \in S\)}{%
+    Take any such suitor \(s\) and their favourite reviewer \(r\)\;
+    \If{\(r\) is matched to some other suitor \(s'\)}{%
+        Set \(r\) and \(s'\) to be unmatched\;
+    }
+    Match \(s\) and \(r\), i.e. \(M(s) \gets r\)\;
+    \For{each successor, \(t \in g(r)\), to \(s\)}{%
+        \(\textsc{DeletePair}(r, t)\)\;
+    }
+}
+\ealg%
+
+\balg%
+\caption{\textsc{DeletePair}}\label{alg:delete}
+\KwIn{%
+    two players \(p, q\) and their respective party's preference list functions
+    \(f, g\)
+}
+\KwOut{updated preference lists}\vspace{1em}
+
+\(f(p) \gets f(p) \setminus \left\{q\right\}\)\;
+\(g(q) \gets g(q) \setminus \left\{p\right\}\)\;
+\ealg%
+
+As an instance of SM requires \(S\) and \(R\) to be of equal size, the
+reviewer-optimal algorithm is equivalent to Algorithm~\ref{alg:stable_marriage}
+with the roles of suitors and reviewers reversed.
+
+Even with the process described in the Gale-Shapley algorithm, solving an
+instance of SM soon becomes infeasible to do by hand in good time as the size of
+the game increases. Furthermore, instances of other matching games tend to have
+more players (and relationships between them) than SM and require the use of
+software to be solved in reasonable time. Hence, the development of the
+\matching\ library which computes the matching as shown in
+Snippet~\ref{snp:stable_marriage}.
+
+\begin{listing}[htbp]
+\begin{usagepy}
+>>> from matching.games import StableMarriage
+>>> suitor_preferences = {
+...     "A": ["D", "E", "F"], "B": ["D", "F", "E"], "C": ["F", "D", "E"]
+... }
+>>> reviewer_preferences = {
+...     "D": ["B", "C", "A"], "E": ["A", "C", "B"], "F": ["C", "B", "A"]
+... }
+>>> game = StableMarriage.create_from_dictionaries(
+...     suitor_preferences, reviewer_preferences
+... )
+>>> game.solve()
+{A: E, B: D, C: F}
+
+\end{usagepy}
+\caption{%
+    Solving the game from Figure~\ref{fig:sm_matching} in \matching
+}\label{snp:stable_marriage}
+\end{listing}
+
+Since the publication of~\cite{Gale1962}, several other matching games have come
+into vogue, as well as variants to the fundamental games like SM. However, the
+accompanying algorithms for solving these games are still often structured to be
+party-oriented and aim to maximise some form of social or party-based
+optimality~\cite{Fuku2006,Gale1962,Kwanashie2015}. In turn, these algorithms
+tend to follow a similar structure to Algorithm~\ref{alg:stable_marriage}, which
+has given the family of such matching game algorithms the name `Gale-Shapley'
+algorithms.
+
+A common and valuable extension to SM is the allowing of ties in a preference
+list; this is sometimes called indifference. Such an extension is
+straightforward enough to implement but the notion of stability becomes tiered;
+a matching is one of unstable, weakly stable, super-stable, or strongly
+stable~\cite{Irving1994,Iwama2016,Iwama1999}. In each case of stability, if such
+a matching exists, then a polynomial-time algorithm will find one that is
+optimal for one set of players. However, there is no guarantee that such a
+level-of-stable matching exists and, even in that case, the notion of
+party-optimality is lost~\cite{Erdil2017}.
+
+Further to allowing ties, how preference lists are constructed is a point of
+interest in many applications of matching games~\cite{Iwama2008,Manlove2002}.
+Often this is a contextual problem and may be addressed in a number of ways. As
+is briefly discussed in Chapter~\ref{chp:kmodes}, bespoke preference list
+functions may be derived from some expert knowledge a priori to discourage
+particular matchings. Meanwhile, if the game forms part of a larger,
+long-standing or otherwise complex model, introducing flexibility in
+preferences (as in~\cite{Agarwal2017,Menzel2015}) may be helpful where streaming
+information should inform the preference lists. Likewise,~\cite{Rastegari2016}
+shows that estimating preference lists on the fly in the absence of complete
+information aids obtaining meaningful matchings.
+
+
+\section{The hospital-resident assignment problem}
+
+In addition to SM,~\cite{Gale1962} presented a game that modelled the college
+admission process. Since then, this game has been widely rebranded as the
+hospital-resident assignment problem (HR). This rebranding comes from it
+providing a practical solution to the problem that gives it its namesake:
+assigning medical students to resident positions at hospitals in the United
+States. A variant of the algorithm given in this section is used to this day by
+the National Resident Matching Program (NRMP).
+
+HR is, in fact, a generalisation of SM. The game that models HR relaxes the
+conditions that the two player parties be the same size, and allows for multiple
+concurrent matches by the reviewing party (the hospitals in this case).
+Definitions~\ref{def:hr_game}~through~\ref{def:hr_blocking} describe the
+components that make up the HR game.
+
+\begin{definition}\label{def:hr_game}
+    Consider two distinct sets, \(R\) and \(H\), and refer to them as
+    \emph{residents} and \emph{hospitals}. Each hospital \(h \in H\) has a
+    capacity \(c_h \in \mathbb{N}\) associated with them that specifies their
+    maximum number of concurrent matches. Each player \(r \in R\) and \(h \in
+    H\) has associated with them a strict preference list of the other party's
+    elements such that:
+    
+    \begin{itemize}
+        \item Each resident \(r \in R\) ranks a non-empty subset of \(H\),
+            denoted by \(f(r)\); and
+        \item each \(h \in H\) ranks all and only those residents that have
+            ranked it, i.e.\ the preference list of \(h\), denoted \(g(h)\), is
+            a permutation of the set
+            \(\left\{r \in R \ | \ h \in f(r)\right\}\). If no such residents
+            exist, \(h\) is removed from \(H\).
+    \end{itemize}
+    
+    This construction of residents, hospitals, capacities and preference lists
+    is called a \emph{game} and is denoted by \((R, H)\). The notion of
+    preference here is the same as in SM.
+\end{definition}
+
+\begin{definition}\label{def:hr_matching}
+    Consider a game \((R, H)\). A \emph{matching} \(M\) is any mapping between
+    \(R\) and \(H\). If a pair \((r, h) \in R \times H\) are matched in \(M\)
+    then this relationship is denoted \(M(r) = h\) and \(r \in M^{-1}(h)\).
+
+    A matching is only considered \emph{valid} if for all \(r \in R, h \in H\):
+
+    \begin{itemize}
+        \item \(M(r) \in f(r)\) if \(r\) is matched;
+        \item \(M^{-1}(h) \subseteq g(h)\); and
+        \item \(h\) is not over-subscribed, i.e.\ \(\abs*{M^{-1}(h)} \leq c_h\).
+    \end{itemize}
+\end{definition}
+
+\begin{definition}\label{def:hr_blocking}
+    Consider a game \((R, H)\). Then a pair \((r, h) \in R \times H\) is said to
+    \emph{block} a matching \(M\) if:
+
+    \begin{itemize}
+        \item There is mutual preference, i.e.\ \(r \in g(h)\) and \(h \in
+            f(r)\);
+        \item either \(r\) is unmatched or they prefer \(h\) to \(M(r)\); and
+        \item either \(h\) is under-subscribed or \(h\) prefers \(r\) to at
+            least one resident in \(M^{-1}(h)\).
+    \end{itemize}
+
+    A valid matching \(M\) is considered \emph{stable} if it contains no
+    blocking pairs, and \emph{unstable} otherwise.
+\end{definition}
+
+Using games such as HR in practical settings has all the same social benefits as
+SM, and, in the case of assigning hospital residencies, HR allows for the fair
+distribution of talent. Attempting to assign medical students in a competitive
+market without such a system would encourage nepotism and backroom deals between
+hospitals and prospective applicants. Moreover, any social mobility afforded to
+students with fewer resources and opportunities is at risk without the
+protection of a stable matching. These concerns are particularly important given
+the scale of many assignment problems. However, for illustrative purposes,
+consider the game shown in Figure~\ref{fig:hr_matching}.
+
+\begin{figure}[htbp]
+    \centering
+    \input{appendix/matching/paper/docs/tex/hr_matching}
+    \caption{An instance of HR}\label{fig:hr_matching}
+\end{figure}
+
+A similar representation to SM is used for instances of HR. Here, there are five
+applicants (along the top) and three hospitals (along the bottom). Although not
+shown, this example allows each hospital to accept no more than two residents.
+The benefit of visualising the game in this way is that the status of the
+solution is readily seen. For instance, consider the matching shown in
+Figure~\ref{fig:hr_invalid}.
+
+\begin{figure}[htbp]
+    \centering
+    \input{appendix/matching/paper/docs/tex/hr_invalid}
+    \caption{An invalid matching for the instance}\label{fig:hr_invalid}
+\end{figure}
+
+This matching is a mapping between the residents and hospitals, but it is not
+valid. In fact, none of the conditions for validity have been met: resident
+\(A\) has been matched to a hospital outside of their preferences; likewise for
+hospital \(M\); and hospital \(C\) is over-subscribed with three residents.
+Correcting these issues could give something like the matching in
+Figure~\ref{fig:hr_unstable}.
+
+\begin{figure}[htbp]
+    \centering
+    \input{appendix/matching/paper/docs/tex/hr_unstable}
+    \caption{An unstable matching for the instance}\label{fig:hr_unstable}
+\end{figure}
+
+While this matching is valid, it is unstable since resident \(L\) and hospital
+\(M\) form a blocking pair: there is mutual preference, \(L\) prefers \(M\) to
+\(G\), and \(M\) has space available. Figure~\ref{fig:hr_stable} shows the
+now-stable matching following this move. Close inspection of this matching
+reveals that it is both resident- and hospital-optimal.
+
+\begin{figure}[htbp]
+    \centering
+    \input{appendix/matching/paper/docs/tex/hr_stable}
+    \caption{%
+        A resident-optimal, stable matching for the instance
+    }\label{fig:hr_stable}
+\end{figure}
+
+This particular example also demonstrates how robust Gale-Shapley algorithms are
+for solving real-world matching games. Suppose this was a real application pool,
+then resident \(A\) has decided that the only acceptable hospital placement is
+at hospital \(C\), perhaps falsely assuming that this will guarantee them a
+place at \(C\). On the contrary, the rules of the HR game do not stipulate that
+a stable matching must match all residents, and so a situation could arise where
+\(A\) will not be assigned to a hospital. For instance, if \(C\) swapped \(A\)
+and \(S\) in its preference list (because \(A\) did not meet certain academic
+requirements, say) then \((S, C)\) would form a blocking pair under this
+matching. The only resolution that gives a stable matching then is to leave
+\(A\) without a match, and for \(M(C) = \left\{S, D\right\}\).
+
+Like SM,~\cite{Gale1962} presented an algorithm that provides a unique,
+resident-optimal, stable matching to any instance of HR. However, further work
+(in~\cite{Dubins1981,Roth1984}) improved the Gale-Shapley algorithm for HR to
+take advantage of the structure of the game. This adapted algorithm is given in
+Algorithm~\ref{alg:hospital_resident}. An analogous hospital-optimal algorithm
+is omitted but follows a similar structure of considering available hospitals
+and removing successors from their favourite resident's preference list.
+
+\balg%
+\caption{The resident-optimal algorithm for HR}\label{alg:hospital_resident}
+
+\KwIn{an instance of HR \((R, H)\)}
+\KwOut{%
+    a stable, resident-optimal matching \(M\) between \(R\) and \(H\)
+}\vspace{1em}
+
+\For{each resident \(r \in R\)}{%
+    Set \(r\) to be unmatched
+}
+\For{each hospital \(h \in H\)}{%
+    Set \(h\) to be totally unsubscribed, i.e. \(M^{-1}(h) \gets \emptyset\)
+}
+
+\While{%
+    there exists any unmatched resident \(r \in R\) with a nonempty preference
+    list
+}{%
+    Take any such resident \(r\) and consider their favourite hospital \(h\)\;
+    Match the pair, i.e. \(M(r) \gets h\) and \(M^{-1}(h) \gets M^{-1}(h) \cup
+    \left\{r\right\}\)\;
+
+    \If{\(\abs*{M^{-1}(h)} > c_h\)}{%
+        Find their worst match \(r' \in M^{-1}(h)\)\;
+        Unmatch the pair, i.e. \(r'\) is unmatched and \(M^{-1}(h) \gets
+        M^{-1}(h) \setminus \left\{r'\right\}\)
+    }
+
+    \If{\(\abs*{M^{-1}(h)} = c_h\)}{%
+        Find their worst match \(r' \in M^{-1}(h)\)\;
+        \For{each successor, \(s \in g(h)\), to \(r'\)}{%
+            \(\textsc{DeletePair}(s, h)\)
+        }
+    }
+}
+\ealg%
+
+The same extensions to SM exist for HR where indifference and custom preference
+list constructors are included; the NRMP uses its own ranking system for the
+hospital agents, for instance. In a sense, the generalisation of SM to HR
+includes allowing for a form of indifference by allowing incomplete preference
+lists by residents. Not ranking any subset of the hospitals is equivalent to
+ranking them all the same: as unacceptable. The allowing of ties in a preference
+list would have its practical benefits, such as in the initialisation presented
+in Chapter~\ref{chp:kmodes}. In that setting, the categorical dissimilarity
+measure corresponds to the ranking between potential representative points in a
+cluster and real data points. A shortcoming of that measure is the potentially
+high incidence of \emph{ties} in the distances between a set of points. As such,
+allowing for ties to be reconciled in the matching game would be desirable.
+However, as no matching is guaranteed for any of the levels of stability in such
+a framework, it cannot be considered.
+
+Further to these extensions, HR has given rise to its own contextual problems.
+One of these is allowing for couples in the resident party.~\cite{Manlove2016}
+is one study showing that no stable matching is guaranteed to exist, and so a
+related, NP-hard problem is considered instead where the objective is to
+identify an almost-stable matching that minimises the number of blocking pairs.
+
+Another method used to construct preference lists is to discount the preference
+lists presented by players. For instance, where acceptability of another player
+is the only criterion, binary preferences (i.e.\ incomplete preference lists
+with ties) can create games that are invulnerable to manipulative players'
+strategies~\cite{Bogomolnaia2004}. This approach can be adapted to cater for
+larger games, such as student-school allocation (a special case of HR). In this
+scenario, each student submits a set of acceptable schools and the schools form
+strict rankings of the students. The result of this is a simpler game (in the
+practical sense) and a reduction in the set of possible stable
+matchings~\cite{Haeringer2014,Haeringer2019}.
