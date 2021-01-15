@@ -96,6 +96,8 @@ The chapter is structured as follows:
 \begin{itemize}
     \item Section~\ref{sec:intro} provides an overview of the dataset and its
         clustering;
+    \item Section~\ref{sec:queuing} offers a concise introduction to queuing
+        theory;
     \item Section~\ref{sec:model} describes the queuing model used and the
         estimation of its parameters;
     \item Section~\ref{sec:scenarios} presents several what-if scenarios with
@@ -446,11 +448,216 @@ both interventions for their COPD (or either, in fact) have disproportionately
 fewer LTCs and concurrent ICDs when compared to the population. Aside from this,
 the profiles of each intervention are similar to one another.
 
-As discussed earlier, the purpose of this chapter is to construct a queuing model
-for the data described here. Insights have already been gained into the needs of
-the segments that have been identified in this section. However, to glean
-further insights, some parameters of the queuing model must be recovered from
-the data.
+As discussed earlier, the purpose of this chapter is to construct a queuing
+model for the data described here. Insights have already been gained into the
+needs of the segments that have been identified in this section. However, to
+glean further insights, some parameters of the queuing model must be recovered
+from the data. The following two sections briefly introduce queues, and describe
+how these parameters are derived using the dataset at hand, respectively.
+
+
+\section{An introduction to queues}\label{sec:queuing}
+
+Queues facilitate the orderly provision of services. Examples include lining up
+to board a bus, assembly lines in a factory, or patients arriving at a hospital.
+In all queues there are two types of agent: those providing the
+service (a bus driver), and those demanding it (the passengers). The generic
+terminology for these agents are \emph{servers} and \emph{customers},
+respectively.
+
+As well as individual queues, networks of interconnecting queues can be
+described in a similar manner. In a \emph{queuing network}, each individual
+queue is called a \emph{node}. For instance, a hospital could be considered a
+network of queues, where patients arrive into triage, are processed, and are
+redirected throughout their spell.
+
+The observed characteristics of a queuing system can be used to construct a
+mathematical model. Such a model would describe things like the process by which
+customers arrive to a queue, the rules that allow customers to be served, and
+the time taken to serve a customer. Queuing theory is the branch of mathematics
+concerned with the analysis of these models.
+
+The remainder of this section defines some of the fundamental elements necessary
+to discuss the queues used in this chapter. 
+Queuing theory is a mature discipline with many facets that extend
+beyond the needs of this chapter, and the scope of this thesis. Comprehensive
+and informative introductions to queuing models, queuing theory, and the
+simulating of queues can be found in~\cite{Bhat2015,Shortle2018,Stewart2009}.
+Further, applications of queuing models to healthcare systems are plentiful, but
+examples include~\cite{%
+    Bittencourt2018,Cochran2009,Mohammadi2012,Steins2013,Williams2015,Yom2014%
+}.
+
+\subsection{Elements of a queue}\label{subsec:elements}
+
+A queue is made up several components: the service facility, a number of servers
+within that facility, a line in which customers wait to be served, and a stream
+of arriving customers. Figure~\ref{fig:queue} shows a diagram of a queue. The
+characteristics associated with the components of a queue are often summarised
+using Kendall's notation~\cite{Stewart2009}. The exact notation varies somewhat,
+but here it shall be denoted \(A/S/c/m/K/Q\). This notation also defines the
+\emph{parameters} of the queue. The process in Section~\ref{sec:model} estimates
+some unknown parameters of a queue.
+
+
+Kendall's notation acts as a shorthand to fully describe a queue, and is as
+follows. Customers arrive to the queue according to an \emph{inter-arrival time
+distribution}, \(A\), and wait in line to be served according to a \emph{queuing
+discipline}, \(Q\). Typically, customers are served as they arrive. This
+discipline is called FIFO (first in first out). Other disciplines include LIFO
+(last in first out) and priority scheduling --- as used in emergency triage. At
+the service facility there are \(c\) parallel servers, who each serve customers
+according to the \emph{service time distribution}, \(S\). Sometimes it is
+beneficial to attach a capacity to the system, denoted by \(K \ge c\). If
+omitted, an unlimited system capacity is presumed. The \emph{system capacity}
+can also be distinguished from an optional \emph{queue capacity}, \(m < K\),
+which limits the number of customers allowed to wait in line. Again, this is
+assumed to be \(\infty\), unless specified.
+
+\begin{figure}[htbp]
+    \centering%
+    \resizebox{\imgwidth}{!}{%
+        \input{chapters/copd/tex/queue}
+    }\caption{The anatomy of a queue}\label{fig:queue}
+\end{figure}
+
+The distributions used to model inter-arrival and service times are numerous,
+but some commonly studied examples are:
+
+\begin{itemize}
+    \item Markovian (denoted \(M\)). Customers arrive according to a Poisson
+        process. The inter-arrival or service times follow an exponential
+        distribution with rate \(\alpha > 0\), i.e. they have probability
+        density function:
+        \begin{equation}\label{eq:exponential}
+            f(t) = \alpha e^{-\alpha t}; \quad t \ge 0
+        \end{equation}
+    \item Deterministic (denoted \(D\)). Inter-arrival or service times are
+        non-stochastic and are of fixed length.
+    \item General (denoted \(G\)). Arrivals are random, and inter-arrival or
+        service times follow a general probability distribution.
+\end{itemize}
+
+\subsection{Some well-known queues}\label{subsec:known}
+
+\subsubsection{The \(M/M/1\) queue}
+
+One of the best-known queues is the \(M/M/1\) queue. In this queue, customers
+arrive according to a Poisson process at a rate, \(\lambda\). The customers are
+served by a single server exponentially, at a rate of \(\mu\). Owing to the
+memoryless property of the exponential distribution, this queue can be
+represented as a continuous-time Markov chain over the state space
+\(\mathbb{N}_0 = \left\{0, 1, 2, \ldots\right\}\).
+
+A stochastic process, \(\left(X_t\right)\), which is defined over a countable
+state space, \(\mathcal S\), is considered a \emph{Markov chain} if and only if
+for all \(n \in \mathbb N\) and for any \((n+1)\)-tuple of states, \(s_0,
+\ldots, s_n \in \mathcal S^n\), the process satisfies:
+
+\begin{equation}
+    \mathbb P \left(X_n = s_n \ | \ X_{n-1} = s_{n-1}, \ldots, X_0 = s_0\right)
+    = \mathbb P \left(X_n = s_n \ | \ X_{n-1} = s_{n-1}\right)
+\end{equation}
+
+That is, the probability of being in state \(s_n\) is dependent only on the
+previous state, \(s_{n-1}\). The Markov chain underlying an \(M/M/1\) queue is also
+known as a \emph{birth-death process}. Figure~\ref{fig:birth_death_mm1} shows a
+diagram of the birth-death process of an \(M/M/1\) queue.
+
+\begin{figure}[htbp]
+    \centering
+    \resizebox{\imgwidth}{!}{%
+        \input{chapters/copd/tex/birth_death_mm1}
+    }\caption{
+        A state space diagram for an \(M/M/1\) queue%
+    }\label{fig:birth_death_mm1}
+\end{figure}
+
+An important property of the \(M/M/1\) queue is its \emph{traffic intensity},
+which is defined as \(\rho = \frac{\lambda}{\mu}\). This quantity also
+represents the proportion of time that the server spends serving customers, and
+so measures their \emph{utilisation}. The \(M/M/1\) queue is considered
+\emph{stable} (i.e. the underlying process will become stationary eventually) if
+\(\rho < 1\). In an unstable queue, customers arrive at a faster rate than they
+are served, and so the line grows indefinitely.
+
+Many other properties of the \(M/M/1\) queue can be explicitly derived from this
+representation, including steady-state solutions, the expected size of the
+system, and average response times. The calculation of these quantities also
+makes use of Little's Law~\cite{Little1961}, which relates average system size,
+\(L\), with average waiting time, \(W\), in stationary processes such that:
+\begin{equation}
+    L = \lambda W
+\end{equation}
+
+\subsubsection{The \(M/M/c\) queue}
+
+The \(M/M/c\) queue is an extension of the \(M/M/1\) queue where there are \(c
+\in \mathbb N\) independent servers working in parallel. Customers still arrive
+according to a Poisson process with rate, \(\lambda\), and customer service
+times follow an exponential distribution with a mean of \(\frac{1}{\mu}\). The
+traffic intensity of the \(M/M/c\) queue is also \(\rho = \frac{\lambda}{\mu}\),
+but server utilisation is measured as the mean traffic intensity across the
+servers, i.e.  \(\frac{\rho}{c}\). The stability condition for the \(M/M/c\)
+queue is \(\rho < c\). 
+
+As with the \(M/M/1\) queue, the \(M/M/c\) can be represented as a birth-death
+process on the state space \(\mathbb N_0\), as shown in
+Figure~\ref{fig:birth_death_mmc}. Since there are multiple servers, some servers
+may be idle when there are customers in the system. Once all servers are active,
+arriving customers join the line and wait for service. 
+
+\begin{figure}[htbp]
+    \centering
+    \resizebox{\imgwidth}{!}{%
+        \input{chapters/copd/tex/birth_death_mmc}
+    }\caption{
+        A state space diagram for an \(M/M/c\) queue%
+    }\label{fig:birth_death_mmc}
+\end{figure}
+
+\subsubsection{The \(M/G/c\) queue}
+
+As useful as memoryless service times are in deriving properties of queues, they
+are not always accurate to real systems. The \(M/G/c\) queue extends the
+\(M/M/c\) queue to allow for a general service time distribution. Again, there
+are \(c\) parallel servers and customers arrive randomly at a rate of
+\(\lambda\).
+
+The \(M/G/c\) queue cannot be represented as a Markov chain, but it is a
+stochastic process on the same state space as the other queues in this section.
+Given the generic nature of customer departure times, a lot of the structure of
+the underlying process is lost. As such, deriving exact values for many
+properties of the \(M/G/c\) queue continues to be an open
+problem~\cite{Kingman2009}. Despite the theoretical challenges posed by the
+\(M/G/c\), simulating these generic queues can still be of great benefit --- as
+is done in Section~\ref{sec:model}. 
+
+\subsection{Simulation tools}\label{subsec:tools}
+
+As well as theoretical results, queues provide a valuable basis for computer
+simulation. Theoretical models are limited when studying complex queuing
+systems, where the parameterisation of a system requires complicated notation or
+derivations to produce useful results. When properly utilising computer
+simulation, the stochastic intricacies of a system may be more readily observed.
+Examples of such systems include the multi-class queuing networks studied
+in~\cite{Cochran2009}.
+
+There are numerous tools available for simulating queues, but many leave the
+associated research prone to issues like reproducibility --- as mentioned in
+Section~\ref{subsec:queuing}. A recent review on the subject and its tools
+is~\cite{Dagkakis2016}. One of the defining features of a simulation tool is
+whether it has a \emph{graphical user interface} (GUI) or not. GUIs provide
+accessibility to the non-technical members of a simulation project, but can also
+foster poor simulation practices~\cite{Bell1987}.
+
+The simulation framework of choice in this chapter is the discrete event
+simulation library, Ciw~\cite{Palmer2019}. Ciw is written in Python, and is a
+well-developed piece of open-source software, adhering to the same best
+practices as the other software packages developed during this project.
+In~\cite{Palmer2019}, the authors stress how ensuring sustainable and
+reproducible simulation work are at the core of their development process.
+
 
 \section{Constructing the queuing model}\label{sec:model}
 
@@ -458,41 +665,43 @@ The data available in this chapter is not as detailed as in comparative
 projects, limiting the options for how a queuing model may be constructed.
 Without access to such data --- but intending to gain insight from what is
 available --- it is imperative to bridge the gap left by the incomplete data.
+Figure~\ref{fig:process} provides a diagrammatic depiction of the process
+described in this section.
 
 It is often the case that in practical situations where suitable data is not
 (immediately) available, further inquiry in that line of research will stop.
 Queuing models in healthcare settings appear to be such a case; the line ends at
-incomplete queue data.~\cite{Asanjarani2017} is a bibliographic work that
-collates articles on the estimation of queuing system characteristics ---
-including their parameters. Despite its breadth of almost 300 publications from
-1955, only two articles have been identified as being applied to
+incomplete queue data. The bibliographic work~\cite{Asanjarani2017} collates
+articles on the estimation of queuing system characteristics --- including their
+parameters. Despite its breadth of almost 300 publications from 1955, only two
+articles have been identified as being applied to
 healthcare:~\cite{Mohammadi2012,Yom2014}. Both works are concerned with
 customers who can re-enter services during their time in the queuing system,
 which is mainly of value when considering the effect of unpredictable behaviour
-in intensive care units, for instance.~\cite{Mohammadi2012} seeks to approximate
-service and re-service densities through a Bayesian approach and by filtering
-out those customers seeking to be serviced again. Meanwhile,~\cite{Yom2014}
-considers an extension to the \(M/M/c\) queue with direct re-entries. The
-devised model is then used to determine resource requirements in two healthcare
-settings.
+in intensive care units, for instance. In~\cite{Mohammadi2012}, the authors seek
+to approximate service and re-service densities through a Bayesian approach and
+by filtering out those customers seeking to be serviced again. Meanwhile, the
+approach in~\cite{Yom2014} considers an extension to the \(M/M/c\) queue with
+direct re-entries. The devised model is then used to determine resource
+requirements in two healthcare settings.
 
 Aside from healthcare-specific works, the approximation of queue parameters has
 formed a part of relevant modern queuing research. However, the scope is
-primarily focused on theoretic approximations rather than by
-simulation.~\cite{Djabali2018,Goldenshluger2016} are two such recent works that
-consider an underlying process to estimate a general service time distribution
-in single server and infinite server queues respectively.
+primarily focused on theoretic approximations rather than by simulation. For
+instance, two recent works~\cite{Djabali2018,Goldenshluger2016} consider an
+underlying process to estimate a general service time distribution in single
+server and infinite server queues respectively.
 
 While these solutions are interesting, they do not necessarily tackle the issue
 in this scenario where information about the system is also missing. With that,
 there is a precedent for simplifying healthcare systems to a single node with
-parallel servers that emulate overall resource
-availability.~\cite{Steins2013}~and~\cite{Williams2015} provide examples of how
-this approach, when paired with discrete event simulation, can expose the
-resource needs of a system beyond deterministic queuing theory models. In
-particular,~\cite{Williams2015} shows how a single node, multiple server queue
-can be used to accurately predict bed capacity and length of stay distributions
-in a critical care unit using administrative data.
+parallel servers that emulate overall resource availability. Two
+studies~\cite{Steins2013,Williams2015} provide examples of how this approach,
+when paired with discrete event simulation, can expose the resource needs of a
+system beyond deterministic queuing theory models. In particular, the authors
+of~\cite{Williams2015} show how a single node, multiple server queue can be used
+to accurately predict bed capacity and length of stay distributions in a
+critical care unit using administrative data.
 
 \begin{figure}
     \centering%
@@ -503,9 +712,6 @@ in a critical care unit using administrative data.
         A diagrammatic depiction of the queuing parameter recovery process
     }\label{fig:process}
 \end{figure}
-
-Figure~\ref{fig:process} provides a diagrammatic depiction of the process
-described in this section.
 
 
 \subsection{Deriving the model parameters}\label{subsec:derive}
@@ -732,7 +938,7 @@ value in the base case, meaning that a metric having a value of 1 is `normal'.
 As mentioned in Section~\ref{sec:intro}, the source code used throughout this
 work is available has been archived online under~\doi{10.5281/zenodo.3936479}.
 Also, the datasets generated from the simulations in this section, and the
-parameter sweep, have been archived online~\doi{doi:10.5281/zenodo.3924715}.
+parameter sweep, have been archived online~\doi{10.5281/zenodo.3924715}.
 % TODO Archive new data and update these DOIs.
 
 
