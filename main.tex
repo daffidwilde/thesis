@@ -5,7 +5,6 @@
 % Setting up page
 \usepackage[a4paper,top=1in,right=1in,bottom=1in,left=40mm]{geometry}
 \usepackage{emptypage}
-%\linespread{1.5}
 
 % Mathematics
 \usepackage{amsmath}
@@ -141,8 +140,7 @@
 % Code snippet stuff
 \usemintedstyle{friendly}
 \setminted{fontsize=\scriptsize, breaklines=true, framerule=\linewidth}
-\setmintedinline{fontsize=\normalsize}
-
+\setmintedinline{fontsize=\small}
 
 %%% Commands and environments
 
@@ -154,16 +152,18 @@
     urlcolor=myurl,
 }
 
+\renewcommand*{\UrlFont}{\ttfamily\small\relax}
+
 \newcommand{\arxiv}[1]{%
-    \href{https://arxiv.org/abs/#1}{\nolinkurl{arXiv:#1}}%
+    \href{https://arxiv.org/abs/#1}{\small\nolinkurl{arXiv:#1}}%
 }
 
 \newcommand{\doi}[1]{%
-    \href{https://doi.org/#1}{\nolinkurl{doi:#1}}%
+    \href{https://doi.org/#1}{\small\nolinkurl{doi:#1}}%
 }
 
 \newcommand{\github}[1]{%
-    \href{https://github.com/#1}{\nolinkurl{github:#1}}%
+    \href{https://github.com/#1}{\small\nolinkurl{github:#1}}%
 }
 
 % Line rule
@@ -204,6 +204,21 @@
         linenos=true,
         numbersep=0ex,
     ]{python}%
+}{\end{minted}\end{tcolorbox}}
+
+\newenvironment{sourceyml}{%
+    \VerbatimEnvironment%
+    \begin{tcolorbox}[%
+        colback=sourcebg,
+        colframe=sourcefr,
+        left=2em,
+        right=2em,
+    ]%
+    \begin{minted}[%
+        bgcolor=sourcebg,
+        linenos=true,
+        numbersep=0ex,
+    ]{yaml}%
 }{\end{minted}\end{tcolorbox}}
 
 \newenvironment{usagepy}{%
@@ -346,6 +361,8 @@
 \newcommand{\matching}{\mintinline{console}{matching}}
 \newcommand{\matchingr}{\mintinline{console}{MatchingR}}
 \newcommand{\pip}{\mintinline{console}{pip}}
+\newcommand{\pytest}{\mintinline{console}{pytest}}
+\newcommand{\pytestcov}{\mintinline{console}{pytest-cov}}
 
 
 %%% DOCUMENT %%%
@@ -384,6 +401,8 @@
 \input{chapters/kmodes/main}
 \input{chapters/copd/main}
 \input{chapters/conclusion}
+
+\addtocontents{toc}{\vspace{1em}\par\noindent\protect\myrule\par}
 
 % Post-text
 \bibliography{bibliography.bib}

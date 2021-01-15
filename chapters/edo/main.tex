@@ -16,7 +16,7 @@
 
     Available online at:~\doi{10.1007/s10489-019-01592-4}\\
     Associated data:~\doi{10.5281/zenodo.3492228}\\
-    Source code:~\doi{10.5281/zenodo.3492236}\vfill
+    Source code:~\doi{10.5281/zenodo.3492236}\\[1em]
 
     The abstract of the publication is as follows:\\[1em]
 \end{center}
@@ -49,7 +49,7 @@ The source code used to generate the plots and datasets in this chapter have
 archived online under \doi{10.5281/zenodo.4000316}. The datasets themselves have
 been archived under \doi{10.5281/zenodo.4000327}.
 
-\section{Introduction}\label{sec:introduction}
+\section{Introduction}\label{sec:edo:intro}
 
 This chapter introduces a novel method called Evolutionary Dataset Optimisation
 (EDO). At its core, EDO is an evolutionary algorithm that acts on datasets to
@@ -208,13 +208,14 @@ The shape of a dataset is considered a part of the search space itself that can
 be traversed through the evolutionary algorithm.
 
 The remainder of this chapter is structured as follows:
+
 \begin{itemize}
-    \item Section 2 describes the parameterisation, structure and components of
-        the EDO method.
-    \item Section 3 contains a case study examining the success and failure of
-        \(k\)-means clustering using EDO. Included also is a comparison between
-        \(k\)-means and another clustering algorithm DBSCAN.\
-    \item Section 4 summarises the chapter.
+    \item Section~\ref{sec:algorithm} describes the parameterisation, structure
+        and components of the EDO method.
+    \item Section~\ref{sec:examples} contains a case study examining the success
+        and failure of \(k\)-means clustering using EDO. Included also is a
+        comparison between \(k\)-means and another clustering algorithm DBSCAN.\
+    \item Section~\ref{sec:edo:summary} summarises the chapter.
 \end{itemize}
 
 In addition to the case study at the end of this chapter, the EDO method is
@@ -1132,7 +1133,7 @@ perhaps with a penalty.
 
 % TODO The end of this section needs revising
 
-\section{Chapter summary}
+\section{Chapter summary}\label{sec:edo:summary}
 
 This chapter has introduced a novel approach to understanding the quality of an
 algorithm by exploring the space in which their well-performing datasets exist.

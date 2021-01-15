@@ -10,10 +10,6 @@
 	path = chapters/kmodes/paper
     url = https://github.com/daffidwilde/kmodes-init-paper
     branch = main
-[submodule "chapters/data/paper"]
-	path = appendix/data/paper
-    url = https://github.com/daffidwilde/cwmtaf-analysis
-    branch = main
 [submodule "chapters/copd/paper"]
     path = chapters/copd/paper
     url = https://github.com/daffidwilde/copd-paper
@@ -21,4 +17,8 @@
 [submodule "appendix/matching/paper"]
     path = appendix/matching/paper
     url = https://github.com/daffidwilde/matching
+    branch = main
+[submodule "appendix/data/paper"]
+	path = appendix/data/paper
+    url = https://github.com/daffidwilde/cwmtaf-analysis
     branch = main
