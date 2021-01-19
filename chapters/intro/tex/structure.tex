@@ -96,6 +96,16 @@
             }
         };
 
+    \node[right=3em of data, appendix] (biosi)
+        {%
+            \textbf{%
+                \begin{tabular}{ll}
+                    C. & Automatic final-year\\
+                       & project allocation in a\\
+                       & School of Biosciences
+                \end{tabular}
+            }
+        };
 
     %% Arrows
     \draw[connection, shorten <=-2pt]
@@ -113,6 +123,9 @@
     \draw[connection] (matching.north) to (kmodes.south);
 
     \draw[connection] (data.north) to (copd.south);
+
+    \draw[connection, shorten <=-2pt, shorten >=-2pt]
+        (matching.south east) to[out=315, in=215] (biosi.south west);
 
 \end{tikzpicture}
 
