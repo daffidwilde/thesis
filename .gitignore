@@ -6,6 +6,7 @@ rsc/*
 *.dmg
 
 # Cache files
+.bibliography.bib
 *.ipynb_checkpoints
 __pycache__
 *.pyc
