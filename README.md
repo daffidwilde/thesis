@@ -1,7 +1,7 @@
 # New methods for algorithm evaluation and cluster initialisation with applications to healthcare
 
 A repository for my PhD thesis at Cardiff University with the Cwm Taf Morgannwg
-University Health Board (UHB)
+University Health Board (UHB).
 
 ## Cloning the repo
 
