@@ -17,7 +17,9 @@ there are several submodules to this repository.
 ## Environment and requirements
 
 All the code for this thesis is written in Python, with all necessary versions
-specified in `environment.yml`. This file configures an [Anaconda virtual environment](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html).
+specified in `environment.yml`. This file configures an
+[Anaconda virtual environment][envs].
+
 
 With Anaconda installed, run the following commands to create and activate the
 environment:
@@ -82,8 +84,15 @@ reproducibility, and sustainability of the research in this thesis.
 Directions for the relevant software packages to accompany this thesis are
 listed in the table below.
 
-| Name       | Repository                        | Documentation             |
-|------------|-----------------------------------|---------------------------|
-| `edo`      | <github.com/daffidwilde/edo>      | <edo.readthedocs.io>      |
-| `matching` | <github.com/daffidwilde/matching> | <matching.readthedocs.io> |
-| `edolab`   | <github.com/daffidwilde/edolab>   | Repository `README`       |
+| Name       | Repository             | Documentation                     |
+|------------|------------------------|-----------------------------------|
+| `edo`      | [daffidwilde/edo]      | [edo.readthedocs.io][e-docs]      |
+| `matching` | [daffidwilde/matching] | [matching.readthedocs.io][m-docs] |
+| `edolab`   | [daffidwilde/edolab]   | Repository `README`               |
+
+[envs]: https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html
+[daffidwilde/edo]: https://github.com/daffidwilde/edo
+[e-docs]: https://edo.readthedocs.io
+[daffidwilde/matching]: https://github.com/daffidwilde/matching
+[m-docs]: https://matching.readthedocs.io
+[daffidwilde/edolab]: https://github.com/daffidwilde/edolab
