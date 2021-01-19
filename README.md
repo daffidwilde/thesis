@@ -40,3 +40,40 @@ document is to activate the `thesis` environment and run the following command:
 ```
 $ inv compile
 ```
+
+## Abstract
+
+This thesis explores three themes related to modern operational research:
+evaluating the objective performance of an algorithm, combining clustering with
+concepts of mathematical fairness, and developing insightful healthcare models
+despite a lack of fine-grained data.
+
+The established evaluation procedure for algorithms --- and particularly machine
+learning algorithms --- lacks robustness, potentially inflating the success of
+the methods being assessed. To tackle this, the evolutionary dataset
+optimisation method is introduced as a supplementary evaluation tool. By
+traversing the space in which datasets exist, this method provides the means of
+attaining a richer understanding of the algorithm under study.
+
+This method is used to investigate a novel initialisation method for a
+centroid-based clustering algorithm, \(k\)-modes. The initialisation makes use
+of a matching game to allocate the starting centroids in a mathematically fair
+way. The subsequent investigation reveals the conditions under which the new
+initialisation improves upon two other initialisation methods.
+
+An extension to the \(k\)-modes algorithm is utilised to segment an
+administrative dataset provided by the co-sponsors of this project, the Cwm Taf
+Morgannwg University Health Board. The dataset corresponds to the patient
+population presenting a specific chronic disease, and comprises a high-level
+summary of their stays in hospital over a number of years. Despite the relative
+coarseness of this dataset, the segmentation provides a useful profiling of its
+instances. These profiles are used to inform a multi-class queuing model
+representing a hypothetical ward for the affected patients. Following a novel
+validation process for the queuing model, actionable insights into the needs of
+the population are found.
+
+In addition to these research pursuits, several open-source software packages
+are developed to accompany this thesis. These pieces of software are developed
+using best practices to ensure the reliability, reproducibility, and
+sustainability of the research in this thesis.
+
