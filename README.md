@@ -71,8 +71,19 @@ used to inform a multi-class queuing model representing a hypothetical ward for
 the affected patients. Following a novel validation process for the queuing
 model, actionable insights into the needs of the population are found.
 
-In addition to these research pursuits, several open-source software packages
-are developed to accompany this thesis. These pieces of software are developed
-using best practices to ensure the reliability, reproducibility, and
-sustainability of the research in this thesis.
+In addition to the research reported in this thesis, several open-source
+software packages have been developed to accompany this thesis. These pieces of
+software were developed using best practices to ensure the reliability,
+reproducibility, and sustainability of the research in this thesis.
 
+
+## Additional software
+
+Directions for the relevant software packages to accompany this thesis are
+listed in the table below.
+
+| Name       | Repository                        | Documentation             |
+|------------|-----------------------------------|---------------------------|
+| `edo`      | <github.com/daffidwilde/edo>      | <edo.readthedocs.io>      |
+| `matching` | <github.com/daffidwilde/matching> | <matching.readthedocs.io> |
+| `edolab`   | <github.com/daffidwilde/edolab>   | Repository `README`       |
