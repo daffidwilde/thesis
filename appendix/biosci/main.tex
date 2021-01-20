@@ -12,36 +12,153 @@ and, eventually, satisfaction~\cite{Briffa2018,Kuh2009}.
 
 However, as the ratio between students and university staff
 increases~\cite{McDonald2013}, so does the need for fair and efficient FYP
-allocation systems. This need is both logistical and pedagogic. Logistical in
-that as cohort sizes increase, the demands on administrative staff grow, meaning
-manual systems eventually become infeasible. Pedagogical, given the impacts of
+allocation systems. This need is both practical and pedagogic. Practical in that
+as cohort sizes increase, the demands on administrative staff grow, meaning
+manual systems eventually become infeasible. Pedagogic, given the impacts of
 good project allocation on learning.
 
 FYP allocation is a resource allocation problem with a specific set of
 constraints. Typically, these correspond to student preferences, supervisor
 preferences, and workload capacities. This appendix uses the student-project
-allocation problem (SA) introduced in Appendix~\ref{app:matching} to model FYP
-allocation in the School of Biosciences at Cardiff University (BIOSI).
-Implementing the allocation as an instance of SA grants access to an algorithm
-which produces a unique, student-optimal, mathematically fair allocation. In
-doing so, the work hours required by the staff are reduced dramatically.
+allocation problem (SA) to model FYP allocation. Implementing FYP allocation as
+an instance of SA grants access to a Gale-Shapley algorithm, which produces a
+unique, student-optimal, mathematically fair allocation.
 
 The remainder of this appendix is set out as follows:
 
 \begin{itemize}
+    \item Section~\ref{sec:allocation} defines the components and algorithms for
+        facilitating and solving instances of SA.
     \item Section~\ref{sec:matching} presents a summary of the \matching\
-        library and its use
-    \item Section~\ref{sec:biosi} comprises a case study for BIOSI
+        library and its use.
+    \item Section~\ref{sec:biosi} comprises a case study for BIOSI.
     \item Section~\ref{sec:conclusion} summarises the manuscript and potential
-        further problems
+        further problems.
 \end{itemize}
 
-\section{The \matching\ library}\label{sec:matching}
+
+\section{The student-project allocation problem}\label{sec:allocation}
+
+Like the problems presented in Appendix~\ref{app:matching}, SA can be modelled
+as a matching game. The game for SA considers three sets of players ---
+students, projects and supervisors --- but technically projects and supervisors
+act as a single party. The applying party are students, and the reviewing party
+consists of supervisors with their projects. Any instance of HR can be stated as
+an instance of SA by replacing each hospital with a supervisor-project pair,
+making HR a special case of SA.
+
+Definitions~\ref{def:sa_game}~through~\ref{def:sa_blocking} describe the
+components that make up the SA game.
+
+\begin{definition}\label{def:sa_game}
+    Consider three distinct sets, \(S\), \(P\) and \(U\), and refer to them as
+    \emph{students}, \emph{projects}, and \emph{supervisors}, respectively. Each
+    project \(p \in P\) has a single supervisor \(u \in U\) associated with
+    them. This association is described as a surjective function \(L: P \to U\),
+    where the supervisor \(u \in U\) for a project \(p \in P\) can be written as
+    \(L(p) = u\). Note that as \(L\) is surjective, a supervisor may have
+    multiple projects associated with them. The set of projects belonging to a
+    supervisor, \(u\), is written as \(L^{-1}(u)\).
+
+    In addition to these supervisor-project associations, each project, \(p \in
+    P\), and supervisor, \(u \in U\), has a \emph{capacity}, denoted \(c_p, c_u
+    \in \mathbb N\), respectively. These capacities are such that:
+
+    \begin{equation}
+        \max \left\{c_p \ | \ p \in L^{-1}(u)\right\}
+        \le c_u
+        \le \sum_{p \in L^{-1}(u)} c_p
+    \end{equation}
+
+    That is, all supervisors must be to accommodate their largest project, but
+    may not offer more spaces than their projects sum to.
+
+    As with other matching games, each player has a \emph{preference list}
+    associated with them. In the case of SA, these preferences are strict and
+    satisfy the following conditions:
+
+    \begin{itemize}
+        \item Each student, \(s \in S\), ranks a non-empty subset of \(P\),
+            denoted by \(f(s)\).
+        \item Each supervisor, \(u \in U\), ranks all and only those students
+            that have ranked at least one of their projects, i.e.\ the
+            preference list of \(u\), denoted \(g(h)\), is a permutation of the
+            set
+            \(\left\{s \in S \ | \ L^{-1}(u) \cap f(s) \neq \emptyset\right\}\).
+            If no students have ranked any of a supervisor's projects then \(u\)
+            is removed from \(U\).
+        \item The preference list of each project, \(p \in P\), is governed by
+            its supervisor, \(u = L(p)\). This preference, denoted \(g_p (u)\),
+            is identical to \(g(u)\), but only includes those students who
+            ranked \(p\). If no students have ranked a project then that project
+            is removed from \(P\).
+    \end{itemize}
+
+    This construction of students, projects, supervisors, capacities and
+    preference lists is called a \emph{game} and is denoted by \((S, P, U)\).
+    The notion of preference here is the same as in SM and HR.
+\end{definition}
+
+\begin{definition}\label{def:sa_matching}
+    Consider a game \((S, P, U)\). A \emph{matching} \(M\) is any mapping
+    between \(S\) and \(P\). If a pair \((s, p) \in S \times P\) are matched in
+    \(M\), then this is denoted \(M(s) = p\) and \(s \in M^{-1}(p)\).
+
+    Since each supervisor, \(u \in U\), oversees their projects, their matching
+    is taken as the union of its projects' matchings, i.e.
+
+    \begin{equation}
+        M^{-1}(u) = \bigcup_{p \in L^{-1}(u)} M^{-1}(p) \subseteq S
+    \end{equation}
+
+    A matching is only considered \emph{valid} if for all \(s \in S, p \in P, u
+    \in U\):
+
+    \begin{itemize}
+        \item \(M(s) \in f(s)\) if \(s\) is matched;
+        \item \(M^{-1}(p) \subseteq g_p(L(p))\);
+        \item \(p\) is not over-subscribed, i.e. \(\abs*{M^{-1}(p)} \le c_p\);
+        \item \(M^{-1}(u) \subseteq g(u)\); and
+        \item \(u\) is not over-subscribed, i.e.\ \(\abs*{M^{-1}(u)} \leq c_u\).
+    \end{itemize}
+\end{definition}
+
+\begin{definition}\label{def:sa_blocking}
+    Consider a game \((S, P, U)\). Consider a pair \((s, p) \in S \times P\) and
+    let \(u = L(p)\). The pair is said to \emph{block} a matching \(M\) if:
+
+    \begin{itemize}
+        \item There is mutual preference, i.e. \(p \in f(s)\) and \(s \in
+            g_p(u)\);
+        \item either \(s\) is unmatched or they prefer \(p\) to \(M(s) = p'\);
+            and
+        \item at least one of the following is true:
+            \begin{itemize}
+                \item Both \(p\) and \(u\) are under-subscribed, i.e.
+                    \(\abs*{M^{-1}(p)} < c_p\) and \(\abs*{M^{-1}(u)} < c_u\);
+                \item \(p\) is under-subscribed and \(u\) is at capacity, and
+                    either \(M(s) = p' \in L^{-1}(u)\) or \(u\) prefers \(s\) to
+                    their worst current match \(s' \in M^{-1}(u)\); or
+                \item \(p\) is at capacity and \(u\) prefers \(s\) to the
+                    project's least favourite student in \(M^{-1}(p)\).
+            \end{itemize}
+    \end{itemize}
+
+    A valid matching \(M\) is considered \emph{stable} if it contains no
+    blocking pairs, and \emph{unstable} otherwise.
+\end{definition}
+
+
+\section{Using the \texttt{matching} library}\label{sec:matching}
 
 
 
 \section{The BIOSI case study}\label{sec:biosi}
 
+in the School of Biosciences at Cardiff University (BIOSI). In doing
+so, there are two benefits: first, the automatic allocation process reduces the
+work hours required by the staff dramatically; and, second, the allocation
+itself is guaranteed to be fair for students.
 
 
 \section{Conclusion}\label{sec:conclusion}
