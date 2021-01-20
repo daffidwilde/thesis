@@ -268,18 +268,6 @@ following parameters:
         component of the search space to be retained after adjustment.
 \end{itemize}
 
-This chapter discusses the components and mechanisms of the EDO method in a
-largely mathematical manner. However, a Python package,
-\href{https://github.com/daffidwilde/edo}{\mintinline{python}{edo}}, that
-implements the EDO algorithm is used to demonstrate its practical use and
-particular technical aspects of the method. This implementation is built on the
-scientific Python stack~\cite{pandas,numpy} and has been developed to be
-consistent with the current best practices of open source software
-development~\cite{Jimenez2017} so that it is modular, automatically tested and
-fully documented. The documentation is available at \url{edo.readthedocs.io},
-and the version of the library used in this chapter (v0.3.5) is freely available
-online under the MIT licence~\cite{edo-project}.
-
 Algorithm~\ref{alg:edo} provides a high-level description of the EDO algorithm
 that presents its general structure. More detailed discussion is provided in
 this section along with relevant examples, diagrams and algorithm statements for
@@ -301,6 +289,43 @@ examples include:
     \item Utilising global behaviours in fitness to indicate a stopping
         point~\cite{Marti2016}.
 \end{itemize}
+
+
+\subsection{The software implementation}
+
+The remainder of this section discusses the components and mechanisms of the EDO
+method in a largely mathematical manner. However, a Python implementation of EDO
+has been developed as part of this thesis, \edo. In Section~\ref{sec:examples},
+this implementation is used to carry out an investigation into \(k\)-means
+clustering. The software is freely available online under the MIT licence, and
+can be found hosted on GitHub (at~\github{daffidwilde/edo}) or archived on
+Zenodo (at~\doi{10.5281/zenodo.2552890}). Furthermore, \edo\ is registered on
+the Python Package Index and can be installed via \pip\ --- as in
+Snippet~\ref{snp:edo-pip}.
+
+\begin{listing}[htbp]
+\begin{usagesh}
+> pip install edo
+\end{usagesh}
+\caption{Installing the \edo\ library via \pip}\label{snp:edo-pip}
+\end{listing}
+
+The \edo\ library is built on the scientific Python stack~\cite{pandas,numpy}
+and has been developed to be consistent with the current best practices of
+open-source software development; these are discussed in
+Section~\ref{sec:dev}. As such, the software is modular, automatically tested
+and fully documented. The documentation for \edo\ is available at
+\url{edo.readthedocs.io}, and Figure~\ref{fig:docs} contains a screenshot of one
+of the tutorial pages.
+
+\graphicspath{{./}}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\imgwidth]{img/docs.png}
+    \caption{A screenshot of the \edo\ library documentation}
+    \label{fig:docs}
+\end{figure}
+\graphicspath{{chapters/edo/paper/img/}}
 
 
 \subsection{Individuals}
