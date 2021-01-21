@@ -70,7 +70,7 @@ conducted during the production of this thesis that uses SA is provided in
 Appendix~\ref{app:biosci}.
 
 
-\section{The stable marriage problem}
+\section{The stable marriage problem}\label{sec:stable_marriage}
 
 One of the most ubiquitous matching games is the stable marriage problem (SM).
 SM describes the problem of finding a bijection between two distinct, equally
@@ -490,6 +490,38 @@ and removing successors from their favourite resident's preference list.
 }
 \ealg%
 
+As in Section~\ref{sec:stable_marriage}, this algorithm produces the matching
+from the example in this section, i.e. that shown in Figure~\ref{fig:hr_stable}.
+The code for solving this problem instance in \matching\ is given in
+Snippet~\ref{snp:hospital_resident}.
+
+\begin{listing}[htbp]
+\begin{usagepy}
+>>> from matching.games import HospitalResident
+>>> resident_preferences = {
+...     "A": ["C"],
+...     "S": ["C", "M"],
+...     "D": ["C", "M", "G"],
+...     "L": ["M", "C", "G"],
+...     "J": ["C", "G", "M"],
+... }
+>>> hospital_preferences = {
+...     "M": ["D", "L", "S", "J"],
+...     "C": ["D", "A", "S", "L", "J"],
+...     "G": ["D", "J", "L"],
+... }
+>>> hospital_capacities = {hospital: 2 for hospital in hospital_preferences}
+>>> game = HospitalResident.create_from_dictionaries(
+...     resident_preferences, hospital_preferences, hospital_capacities
+... )
+>>> game.solve()
+{M: [L, S], C: [D, A], G: [J]}
+
+\end{usagepy}
+\caption{Solving the instance from Figure~\ref{fig:hr_matching} in \matching}
+\label{snp:hospital_resident}
+\end{listing}
+
 \subsection{Problem variants}
 
 The same extensions to SM exist for HR where indifference and custom preference
@@ -714,7 +746,7 @@ does not form a blocking pair as \(X1\) is at capacity and its supervisor,
 \(X\), prefers both of its matches, \(A\) and \(C\), to \(E\).
 
 So, to avoid these blocking pairs without creating more, students \(D\) and
-\(E\) must be swapped. Bearing fairness in mind, this is a sensible move given
+\(E\) must be swapped. Keeping fairness in mind, this is a sensible move given
 that \(E\) outranks \(D\). Figure~\ref{fig:sa_stable} shows the resultant
 matching. Inspecting the matching, it is clear that no student may improve their
 allocation without creating a blocking pair, and so the matching is
@@ -733,9 +765,9 @@ student-optimal.
 
 Game-theoretic work on the problem SA addresses has only come into interest
 relatively recently, beginning with the works~\cite{Abraham2003,Abraham2007}. In
-the latter work, the authors present two Gale-Shapley algorithms for SA. These
-algorithms are party-oriented such that they each produce a unique, stable
-matching for an instance of SA that is student- or supervisor-optimal,
+the latter of these works, the authors present two Gale-Shapley algorithms for
+SA. These algorithms are party-oriented such that they each produce a unique,
+stable matching for an instance of SA that is student- or supervisor-optimal,
 respectively.
 
 As with HR, the reviewing-party-optimal algorithm is omitted, but
