@@ -30,9 +30,9 @@ Chapter~\ref{chp:edo}, the \matching\ documentation is hosted online at
 The documentation has been written to maximise its effect as a resource for
 learning about matching games as well as for the software itself. Furthermore,
 the library is registered on the Python Package Index and is installable using
-standard python practices.
+standard Python practices.
 
-\begin{listing}
+\begin{listing}[htbp]
 \begin{usagesh}
 > pip install matching
 \end{usagesh}
@@ -43,8 +43,9 @@ Matching games have applications in many fields where relationships between
 rational agents must be arranged. Some example applications include: being able
 to inform on healthcare finance policy~\cite{Agarwal2017}; helping to reduce the
 complexity of automated wireless communication networks~\cite{Bayat2016}; and
-education infrastructure~\cite{Chiarandini2019}. Thus, having access to software
-implementations of algorithms that are able to solve such games is essential.
+education infrastructure~\cite{Chiarandini2017,Hussain2019}. Thus, having access
+to software implementations of algorithms that are able to solve such games is
+essential.
 
 The only current software alternative to \matching\ is
 \matchingr~\cite{Tilly2018}. \matchingr\ is a package written in C++ with an R
@@ -275,10 +276,9 @@ Since the publication of~\cite{Gale1962}, several other matching games have come
 into vogue, as well as variants to the fundamental games like SM. However, the
 accompanying algorithms for solving these games are still often structured to be
 party-oriented and aim to maximise some form of social or party-based
-optimality~\cite{Fuku2006,Gale1962,Kwanashie2015}. In turn, these algorithms
-tend to follow a similar structure to Algorithm~\ref{alg:stable_marriage}, which
-has given the family of such matching game algorithms the name `Gale-Shapley'
-algorithms.
+optimality~\cite{Fuku2006,Gale1962}. In turn, these algorithms tend to follow a
+similar structure to Algorithm~\ref{alg:stable_marriage}, which has given the
+family of such matching game algorithms the name `Gale-Shapley' algorithms.
 
 A common and valuable extension to SM is the allowing of ties in a preference
 list; this is sometimes called indifference. Such an extension is
@@ -565,7 +565,7 @@ preferences (from students and supervisors) and capacities (for supervisors and
 projects). Like HR, the practical importance of SA is to avoid unfair, ad hoc
 allocations in the eponymous problem of project allocation. There is substantial
 historical evidence and analysis indicating the dangers of allowing individual
-deal-making in matching scenarios~\cite{Gusfield1989,Roth1992}.
+deal-making in matching scenarios~\cite{Gusfield1989,Roth1984,Roth1992}.
 
 Despite having three sets of players, SA is a two-sided matching (like SM and
 HR) as the projects and supervisors act as a single party. The applying party
@@ -725,7 +725,7 @@ Correcting these issues requires several changes, and the following suggestions
 also try to maximise the quality of the matching. This manual approach is not
 uncommon in higher education institutions~\cite{Hussain2019}. First, moving
 \(A\) and \(C\) to \(X1\) addresses all three violations. Simultaneously, this
-move means both students will undertake their favourite project, and assignins
+move means both students will undertake their favourite project, and assigns
 favourable students to supervisor \(X\).
 
 However, this move introduces a new violation, where \(X1\) is assigned three
@@ -872,3 +872,27 @@ game.
 
 
 \subsection{Problem variants}
+
+In a similar fashion to SM and HR, generalising HR into SA admits many of the
+same extensions, including indifference~\cite{Olaosebikan2020}. Other variants
+of SA often arise from the constraints presented by the particular applications
+of project allocation. For instance, in~\cite{Abraham2007}, the authors leave
+open questions about solving instances of SA where each project has a minimum
+number of assignees. This extension would handle the common issue of projects
+with multiple independent parts, or those that require group
+efforts~\cite{Arulselvan2016}.
+
+A natural continuation of this is to allow students to apply to projects in
+groups. Allowing for student coalitions complicates the allocation process.
+The authors of~\cite{Chiarandini2017} study this variant through mathematical
+programming. This technique has also been applied to other intricate allocation
+variants, including the maximisation of other optimality
+measures~\cite{Kwanashie2015}.
+
+Another extension to SA is in how preferences are constructed. For instance,
+in~\cite{Manlove2008}, the authors present a variant of SA in which supervisors
+hold preferences over their projects --- as opposed to the students. This change
+in preferences allows supervisors to prioritise working on projects more closely
+related to their own research, and removes any practical challenges with ranking
+students. Another variant, which combines supervisor-project priority with their
+preferences over students, is presented in~\cite{ElAtta2009}.
