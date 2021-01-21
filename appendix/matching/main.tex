@@ -47,7 +47,7 @@ education infrastructure~\cite{Chiarandini2019}. Thus, having access to software
 implementations of algorithms that are able to solve such games is essential.
 
 The only current software alternative to \matching\ is
-\matchingr~\cite{Tilly2018}.  \matchingr\ is a package written in C++ with an R
+\matchingr~\cite{Tilly2018}. \matchingr\ is a package written in C++ with an R
 interface and its content overlaps well with that of \matching. However, the
 lack of a Python interface makes it less relevant to researchers and other users
 as Python's popularity grows both in academia and industry.
@@ -59,14 +59,16 @@ solve four types of matching games:
     \item The stable marriage problem (SM)~\cite{Gale1962};
     \item the hospital-resident assignment problem
         (HR)~\cite{Gale1962,Roth1984};
-    \item the student-project allocation problem (SA)~\cite{Abraham2007}; and
+    \item the student-project allocation problem
+        (SA)~\cite{Abraham2003,Abraham2007}; and
     \item the stable roommates problem (SR)~\cite{Irving1985}.
 \end{itemize}
 
-This appendix goes through the details of the games for SM and HR, the latter
-of which is used in Chapter~\ref{chp:kmodes}. A further piece of work conducted
-during the production of this thesis that uses SA is provided in
-Appendix~\ref{app:biosci}.  % TODO Remember to add reference (if we publish it)
+This appendix goes through the details of the games for SM, HR and SA, the
+second of which is used in Chapter~\ref{chp:kmodes}. A further piece of work
+conducted during the production of this thesis that uses SA is provided in
+Appendix~\ref{app:biosci}.
+
 
 \section{The stable marriage problem}
 
@@ -102,7 +104,7 @@ the components of SM.
     \times R\) are matched in \(M\), then that relationship is denoted \(M(s) =
     r\) and, equivalently, \(M^{-1}(r) = s\).
 
-    A matching is considered valid only if every player in \((S, R)\)
+    A matching is considered \emph{valid} only if every player in \((S, R)\)
     is matched to another player uniquely.
 \end{definition}
 
@@ -509,3 +511,121 @@ scenario, each student submits a set of acceptable schools and the schools form
 strict rankings of the students. The result of this is a simpler game (in the
 practical sense) and a reduction in the set of possible stable
 matchings~\cite{Haeringer2014,Haeringer2019}.
+
+
+\section{The student-project allocation problem}
+
+The game for SA considers three sets of players --- students, projects and
+supervisors --- and seeks to assign students to projects according to
+preferences (from students and supervisors) and capacities (for supervisors and
+projects). Like HR, the practical importance of SA is to avoid unfair, ad hoc
+allocations in the eponymous problem of project allocation. There is substantial
+historical evidence and analysis indicating the dangers of allowing individual
+deal-making in matching scenarios~\cite{Gusfield1989,Roth1992}.
+
+Despite having three sets of players, SA is a two-sided matching (like SM and
+HR) as the projects and supervisors act as a single party. The applying party
+are the students, while the reviewing party consists of the supervisors with
+their projects. Any instance of HR can be stated as an instance of SA by
+replacing each hospital with a supervisor-project pair, making SA a
+generalisation of HR~\cite{Abraham2003}.
+Definitions~\ref{def:sa_game}~through~\ref{def:sa_blocking} describe the
+components that make up the SA game.
+
+\begin{definition}\label{def:sa_game}
+    Consider three distinct sets, \(S\), \(P\) and \(U\), and refer to them as
+    \emph{students}, \emph{projects}, and \emph{supervisors}, respectively. Each
+    project \(p \in P\) has a single supervisor \(u \in U\) associated with
+    them. This association is described as a surjective function \(L: P \to U\),
+    where the supervisor \(u \in U\) for a project \(p \in P\) can be written as
+    \(L(p) = u\). Note that as \(L\) is surjective, a supervisor may have
+    multiple projects associated with them. The set of projects belonging to a
+    supervisor, \(u\), is written as \(L^{-1}(u)\).
+
+    In addition to these supervisor-project associations, each project, \(p \in
+    P\), and supervisor, \(u \in U\), has a \emph{capacity}, denoted \(c_p, c_u
+    \in \mathbb N\), respectively. These capacities are such that:
+
+    \begin{equation}
+        \max \left\{c_p \ | \ p \in L^{-1}(u)\right\}
+        \le c_u
+        \le \sum_{p \in L^{-1}(u)} c_p
+    \end{equation}
+
+    That is, all supervisors must be able to accommodate their largest project,
+    but may not offer more spaces than their projects sum to.
+
+    As with other matching games, each player has a \emph{preference list}
+    associated with them. In the case of SA, these preferences are strict and
+    satisfy the following conditions:
+
+    \begin{itemize}
+        \item Each student, \(s \in S\), ranks a non-empty subset of \(P\),
+            denoted by \(f(s)\).
+        \item Each supervisor, \(u \in U\), ranks all and only those students
+            that have ranked at least one of their projects, i.e.\ the
+            preference list of \(u\), denoted \(g(h)\), is a permutation of the
+            set
+            \(\left\{s \in S \ | \ L^{-1}(u) \cap f(s) \neq \emptyset\right\}\).
+            If no students have ranked any of a supervisor's projects then \(u\)
+            is removed from \(U\).
+        \item The preference list of each project, \(p \in P\), is governed by
+            its supervisor, \(u = L(p)\). This preference, denoted \(g_p (u)\),
+            is identical to \(g(u)\), but only includes those students who
+            ranked \(p\). If no students have ranked a project then that project
+            is removed from \(P\).
+    \end{itemize}
+
+    This construction of students, projects, supervisors, capacities and
+    preference lists is called a \emph{game} and is denoted by \((S, P, U)\).
+    The notion of preference here is the same as in SM and HR.
+\end{definition}
+
+\begin{definition}\label{def:sa_matching}
+    Consider a game \((S, P, U)\). A \emph{matching} \(M\) is any mapping
+    between \(S\) and \(P\). If a pair \((s, p) \in S \times P\) are matched in
+    \(M\), then this is denoted \(M(s) = p\) and \(s \in M^{-1}(p)\).
+
+    Since each supervisor, \(u \in U\), oversees their projects, their matching
+    is taken as the union of its projects' matchings, i.e.
+
+    \begin{equation}
+        M^{-1}(u) = \bigcup_{p \in L^{-1}(u)} M^{-1}(p) \subseteq S
+    \end{equation}
+
+    A matching is only considered \emph{valid} if for all \(s \in S, p \in P, u
+    \in U\):
+
+    \begin{itemize}
+        \item \(M(s) \in f(s)\) if \(s\) is matched;
+        \item \(M^{-1}(p) \subseteq g_p(L(p))\);
+        \item \(p\) is not over-subscribed, i.e. \(\abs*{M^{-1}(p)} \le c_p\);
+        \item \(M^{-1}(u) \subseteq g(u)\); and
+        \item \(u\) is not over-subscribed, i.e.\ \(\abs*{M^{-1}(u)} \leq c_u\).
+    \end{itemize}
+\end{definition}
+
+\begin{definition}\label{def:sa_blocking}
+    Consider a game \((S, P, U)\). Consider a pair \((s, p) \in S \times P\) and
+    let \(u = L(p)\). The pair is said to \emph{block} a matching \(M\) if:
+
+    \begin{itemize}
+        \item There is mutual preference, i.e. \(p \in f(s)\) and \(s \in
+            g_p(u)\);
+        \item either \(s\) is unmatched or they prefer \(p\) to \(M(s) = p'\);
+            and
+        \item at least one of the following is true:
+            \begin{itemize}
+                \item Both \(p\) and \(u\) are under-subscribed, i.e.
+                    \(\abs*{M^{-1}(p)} < c_p\) and \(\abs*{M^{-1}(u)} < c_u\);
+                \item \(p\) is under-subscribed and \(u\) is at capacity, and
+                    either \(M(s) = p' \in L^{-1}(u)\) or \(u\) prefers \(s\) to
+                    their worst current match \(s' \in M^{-1}(u)\); or
+                \item \(p\) is at capacity and \(u\) prefers \(s\) to the
+                    project's least favourite student in \(M^{-1}(p)\).
+            \end{itemize}
+    \end{itemize}
+
+    A valid matching \(M\) is considered \emph{stable} if it contains no
+    blocking pairs, and \emph{unstable} otherwise.
+\end{definition}
