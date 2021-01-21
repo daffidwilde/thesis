@@ -523,6 +523,8 @@ allocations in the eponymous problem of project allocation. There is substantial
 historical evidence and analysis indicating the dangers of allowing individual
 deal-making in matching scenarios~\cite{Gusfield1989,Roth1992}.
 
+\subsection{Definitions}
+
 Despite having three sets of players, SA is a two-sided matching (like SM and
 HR) as the projects and supervisors act as a single party. The applying party
 are the students, while the reviewing party consists of the supervisors with
@@ -629,3 +631,200 @@ components that make up the SA game.
     A valid matching \(M\) is considered \emph{stable} if it contains no
     blocking pairs, and \emph{unstable} otherwise.
 \end{definition}
+
+\subsection{An example}
+
+The definitions for this game are broadly similar to those for HR, with the
+exception of a blocking pair. Here, the definition of what may be considered
+\emph{rational} is more complicated given the relationships between projects and
+their supervisors. To demonstrate these relationships, consider the game shown
+in Figure~\ref{fig:sa_matching}.
+
+\begin{figure}[htbp]
+    \centering
+    \resizebox{\imgwidth}{!}{%
+        \input{appendix/matching/paper/docs/tex/sa_matching}
+    }\caption{An instance of SA}\label{fig:sa_matching}
+\end{figure}
+
+This game has five students (arranged along the top of
+Figure~\ref{fig:sa_matching}) and two supervisors with two projects each (shown
+at the bottom of the figure). Here, the links between a supervisor and their
+projects is indicated by a dashed line. Although not shown, each supervisor has
+a capacity of three, while each project has a capacity of two.
+
+Note also that the students are ranked in the same order by both supervisors.
+This practice is common in real-world applications of SA, including the case
+study in Appendix~\ref{app:biosci}. Drawing supervisor preferences from a
+complete ranking of the students strengthens the centralised decision-making of
+this approach.
+
+\begin{figure}[htbp]
+    \centering
+    \resizebox{\imgwidth}{!}{%
+        \input{appendix/matching/paper/docs/tex/sa_invalid}
+    }\caption{An invalid matching for the instance}\label{fig:sa_invalid}
+\end{figure}
+
+Suppose students were assigned to projects arbitrarily, ignoring preferences and
+capacities, like the allocation in Figure~\ref{fig:sa_invalid}. This matching
+meets none of the conditions for validity. Specifically:
+
+\begin{itemize}
+    \item \(A\) has been assigned \(Y1\) despite not ranking it. Likewise, the
+        supervisor \(Y\) has not ranked \(A\).
+    \item \(Y1\) has also been assigned three students, which exceeds its
+        capacity of two.
+    \item \(Y\) has been allocated a fourth student, violating their capacity
+        constraint.
+\end{itemize}
+
+Correcting these issues requires several changes, and the following suggestions
+also try to maximise the quality of the matching. This manual approach is not
+uncommon in higher education institutions~\cite{Hussain2019}. First, moving
+\(A\) and \(C\) to \(X1\) addresses all three violations. Simultaneously, this
+move means both students will undertake their favourite project, and assignins
+favourable students to supervisor \(X\).
+
+However, this move introduces a new violation, where \(X1\) is assigned three
+students. To rectify this, move \(D\) to their favourite project, \(Y2\). The
+matching produced by these changes is shown in Figure~\ref{fig:sa_unstable}.
+
+\begin{figure}[htbp]
+    \centering
+    \resizebox{\imgwidth}{!}{%
+        \input{appendix/matching/paper/docs/tex/sa_unstable}
+    }\caption{An unstable matching for the instance}\label{fig:sa_unstable}
+\end{figure}
+
+Despite the efforts to accommodate the preferences of the players, this matching
+is not stable. Here, there are two blocking pairs, \((E, X2)\) and \((E, Y2)\).
+Although student \(E\) prefers \(X1\) to either of these projects, \((E, X1)\)
+does not form a blocking pair as \(X1\) is at capacity and its supervisor,
+\(X\), prefers both of its matches, \(A\) and \(C\), to \(E\).
+
+So, to avoid these blocking pairs without creating more, students \(D\) and
+\(E\) must be swapped. Bearing fairness in mind, this is a sensible move given
+that \(E\) outranks \(D\). Figure~\ref{fig:sa_stable} shows the resultant
+matching. Inspecting the matching, it is clear that no student may improve their
+allocation without creating a blocking pair, and so the matching is
+student-optimal.
+
+\begin{figure}
+    \centering
+    \resizebox{\imgwidth}{!}{%
+        \input{appendix/matching/paper/docs/tex/sa_stable}
+    }\caption{%
+        A stable, student-optimal matching for the instance
+    }\label{fig:sa_stable}
+\end{figure}
+
+\subsection{Solving instances of SA}
+
+Game-theoretic work on the problem SA addresses has only come into interest
+relatively recently, beginning with the works~\cite{Abraham2003,Abraham2007}. In
+the latter work, the authors present two Gale-Shapley algorithms for SA. These
+algorithms are party-oriented such that they each produce a unique, stable
+matching for an instance of SA that is student- or supervisor-optimal,
+respectively.
+
+As with HR, the reviewing-party-optimal algorithm is omitted, but
+the student-optimal algorithm is given in Algorithm~\ref{alg:student_optimal}.
+This algorithm, and its supervisor-optimal counterpart follow a similar
+structure to the others presented in this appendix. Again, members of the
+applying party make temporary proposals, leading to the removal of infeasible
+pairs.
+
+\balg%
+\caption{The student-optimal algorithm for SA}\label{alg:student_optimal}
+
+\KwIn{an instance of SA \((S, P, U)\)}
+\KwOut{%
+    a stable, student-optimal matching \(M\) between \(S\) and \(P\)
+}\vspace{1em}
+
+\For{each student \(s \in S\)}{%
+    Set \(s\) to be unmatched
+}
+\For{each supervisor \(u \in U\)}{%
+    Set \(u\) (and their projects) to be totally unsubscribed, i.e. \(M^{-1}(u)
+    \gets \emptyset\)
+}
+
+\While{%
+    there exists any unmatched student \(s \in S\) with a nonempty preference
+    list
+}{%
+    Take any such student \(s\) and consider their favourite project \(p\). Let
+    \(u = L(p)\)\;
+    Match the pair, i.e. \(M(s) \gets p\) and \(M^{-1}(p) \gets M^{-1}(p) \cup
+    \left\{s\right\}\)\;
+
+    \If{\(\abs*{M^{-1}(p)} > c_p\)}{%
+        Find their worst match \(s' \in M^{-1}(p)\)\;
+        Unmatch the pair, i.e. \(s'\) is unmatched and \(M^{-1}(p) \gets
+        M^{-1}(p) \setminus \left\{s'\right\}\)
+    }
+    \ElseIf{\(\abs*{M^{-1}(u)} > c_u\)}{%
+        Find their worst match \(s' \in M^{-1}(u)\) and let \(p' = M(s')\)\;
+        Unmatch the pair, i.e. \(s'\) is unmatched and \(M^{-1}(p') \gets
+        M^{-1}(p') \setminus \left\{s'\right\}\)
+    }
+
+    \If{\(\abs*{M^{-1}(p)} = c_p\)}{%
+        Find their worst match \(s' \in M^{-1}(p)\)\;
+        \For{each successor, \(t \in g_p(u)\), to \(s'\)}{%
+            \(\textsc{DeletePair}(t, p)\)
+        }
+    }
+
+    \If{\(\abs*{M^{-1}(u)} = c_u\)}{%
+        Find their worst match \(s' \in M^{-1}(u)\)\;
+        \For{each successor, \(t \in g(u)\), to \(s'\)}{%
+            \For{each project, \(p' \in L(u) \cap f(t)\)}{%
+                \(\textsc{DeletePair}(t, p')\)
+            }
+        }
+    }
+}
+\ealg%
+
+This algorithm produces the matching shown in Figure~\ref{fig:sa_stable}, and
+can be solved in Python using the \matching\ library as shown in
+Snippet~\ref{snp:student_optimal}. Here, there are several dictionaries required
+to describe the preferences, affiliations and capacities of the players in the
+game.
+
+\begin{listing}[htbp]
+\begin{usagepy}
+>>> from matching.games import StudentAllocation
+>>> student_preferences = {
+...     "A": ["X1", "X2"],
+...     "B": ["Y2", "X2", "Y1"],
+...     "C": ["X1", "Y1", "X2"],
+...     "D": ["Y2", "X1", "Y1"],
+...     "E": ["X1", "Y2", "X2", "Y1"],
+... }
+>>> supervisor_preferences = {
+...     "X": ["B", "C", "A", "E", "D"], "Y": ["B", "C", "E", "D"]
+... }
+>>> project_supervisors = {"X1": "X", "X2": "X", "Y1": "Y", "Y2": "Y"}
+>>> supervisor_capacities = {sup: 3 for sup in supervisor_preferences}
+>>> project_capacities = {proj: 2 for proj in project_supervisors}
+>>> game = StudentAllocation.create_from_dictionaries(
+...     student_preferences,
+...     supervisor_preferences,
+...     project_supervisors,
+...     project_capacities,
+...     supervisor_capacities,
+... )
+>>> game.solve()
+{X1: [C, A], X2: [], Y1: [D], Y2: [B, E]}
+
+\end{usagepy}
+\caption{Solving the instance from Figure~\ref{fig:sa_matching} in \matching}
+\label{snp:student_optimal}
+\end{listing}
+
+
+\subsection{Problem variants}
