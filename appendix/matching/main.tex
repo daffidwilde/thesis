@@ -138,6 +138,8 @@ reciprocate. The social outcome of acting irrationally in SM is that a player
 would be betraying their partner for another player, thus destabilising the
 group, without any reward of a `better' partner.
 
+\subsection{Example instance}
+
 Consider the game of size three shown in Figure~\ref{fig:sm_matching} as an
 edgeless graph with suitors on the left and reviewers on the right. This
 representation of a matching game finds its origin in the bipartite matching
@@ -182,6 +184,8 @@ improvement would be for \(A\) and \(D\) to be matched again. This kind of
 stable matching is called \emph{suitor-optimal}. Similarly, no reviewer can
 improve their match without forming a blocking pair and so this matching is also
 \emph{reviewer-optimal}.
+
+\subsection{Solving instances of SM}
 
 Finding a party-optimal, stable matching to an instance of a matching game is
 referred to as \emph{solving} the game. When there are only a handful of players
@@ -264,6 +268,8 @@ Snippet~\ref{snp:stable_marriage}.
     Solving the game from Figure~\ref{fig:sm_matching} in \matching
 }\label{snp:stable_marriage}
 \end{listing}
+
+\subsection{Problem variants}
 
 Since the publication of~\cite{Gale1962}, several other matching games have come
 into vogue, as well as variants to the fundamental games like SM. However, the
@@ -366,6 +372,8 @@ components that make up the HR game.
     blocking pairs, and \emph{unstable} otherwise.
 \end{definition}
 
+\subsection{Example instance}
+
 Using games such as HR in practical settings has all the same social benefits as
 SM, and, in the case of assigning hospital residencies, HR allows for the fair
 distribution of talent. Attempting to assign medical students in a competitive
@@ -434,6 +442,8 @@ requirements, say) then \((S, C)\) would form a blocking pair under this
 matching. The only resolution that gives a stable matching then is to leave
 \(A\) without a match, and for \(M(C) = \left\{S, D\right\}\).
 
+\subsection{Solving instances of HR}
+
 Like SM,~\cite{Gale1962} presented an algorithm that provides a unique,
 resident-optimal, stable matching to any instance of HR. However, further work
 (in~\cite{Dubins1981,Roth1984}) improved the Gale-Shapley algorithm for HR to
@@ -480,6 +490,8 @@ and removing successors from their favourite resident's preference list.
 }
 \ealg%
 
+\subsection{Problem variants}
+
 The same extensions to SM exist for HR where indifference and custom preference
 list constructors are included; the NRMP uses its own ranking system for the
 hospital agents, for instance. In a sense, the generalisation of SM to HR
@@ -490,7 +502,7 @@ list would have its practical benefits, such as in the initialisation presented
 in Chapter~\ref{chp:kmodes}. In that setting, the categorical dissimilarity
 measure corresponds to the ranking between potential representative points in a
 cluster and real data points. A shortcoming of that measure is the potentially
-high incidence of \emph{ties} in the distances between a set of points. As such,
+high incidence of ties in the distances between a set of points. As such,
 allowing for ties to be reconciled in the matching game would be desirable.
 However, as no matching is guaranteed for any of the levels of stability in such
 a framework, it cannot be considered.
@@ -522,8 +534,6 @@ projects). Like HR, the practical importance of SA is to avoid unfair, ad hoc
 allocations in the eponymous problem of project allocation. There is substantial
 historical evidence and analysis indicating the dangers of allowing individual
 deal-making in matching scenarios~\cite{Gusfield1989,Roth1992}.
-
-\subsection{Definitions}
 
 Despite having three sets of players, SA is a two-sided matching (like SM and
 HR) as the projects and supervisors act as a single party. The applying party
@@ -632,7 +642,7 @@ components that make up the SA game.
     blocking pairs, and \emph{unstable} otherwise.
 \end{definition}
 
-\subsection{An example}
+\subsection{Example instance}
 
 The definitions for this game are broadly similar to those for HR, with the
 exception of a blocking pair. Here, the definition of what may be considered
@@ -809,8 +819,10 @@ game.
 ...     "X": ["B", "C", "A", "E", "D"], "Y": ["B", "C", "E", "D"]
 ... }
 >>> project_supervisors = {"X1": "X", "X2": "X", "Y1": "Y", "Y2": "Y"}
->>> supervisor_capacities = {sup: 3 for sup in supervisor_preferences}
->>> project_capacities = {proj: 2 for proj in project_supervisors}
+>>> supervisor_capacities = {
+...     supervisor: 3 for supervisor in supervisor_preferences
+... }
+>>> project_capacities = {project: 2 for project in project_supervisors}
 >>> game = StudentAllocation.create_from_dictionaries(
 ...     student_preferences,
 ...     supervisor_preferences,
