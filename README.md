@@ -92,8 +92,8 @@ listed in the table below.
 
 [envs]: https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html
 [daffidwilde/edo]: https://github.com/daffidwilde/edo
-[e-docs]: https://edo.readthedocs.io
+[edo-docs]: https://edo.readthedocs.io
 [daffidwilde/matching]: https://github.com/daffidwilde/matching
-[m-docs]: https://matching.readthedocs.io
+[match-docs]: https://matching.readthedocs.io
 [daffidwilde/edolab]: https://github.com/daffidwilde/edolab
 [edolab-readme]: https://github.com/daffidwilde/edolab/blob/main/README.md
