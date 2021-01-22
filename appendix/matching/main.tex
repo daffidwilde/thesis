@@ -30,9 +30,9 @@ Chapter~\ref{chp:edo}, the \matching\ documentation is hosted online at
 The documentation has been written to maximise its effect as a resource for
 learning about matching games as well as for the software itself. Furthermore,
 the library is registered on the Python Package Index and is installable using
-standard python practices.
+standard Python practices.
 
-\begin{listing}
+\begin{listing}[htbp]
 \begin{usagesh}
 > pip install matching
 \end{usagesh}
@@ -43,11 +43,12 @@ Matching games have applications in many fields where relationships between
 rational agents must be arranged. Some example applications include: being able
 to inform on healthcare finance policy~\cite{Agarwal2017}; helping to reduce the
 complexity of automated wireless communication networks~\cite{Bayat2016}; and
-education infrastructure~\cite{Chiarandini2019}. Thus, having access to software
-implementations of algorithms that are able to solve such games is essential.
+education infrastructure~\cite{Chiarandini2017,Hussain2019}. Thus, having access
+to software implementations of algorithms that are able to solve such games is
+essential.
 
 The only current software alternative to \matching\ is
-\matchingr~\cite{Tilly2018}.  \matchingr\ is a package written in C++ with an R
+\matchingr~\cite{Tilly2018}. \matchingr\ is a package written in C++ with an R
 interface and its content overlaps well with that of \matching. However, the
 lack of a Python interface makes it less relevant to researchers and other users
 as Python's popularity grows both in academia and industry.
@@ -59,16 +60,18 @@ solve four types of matching games:
     \item The stable marriage problem (SM)~\cite{Gale1962};
     \item the hospital-resident assignment problem
         (HR)~\cite{Gale1962,Roth1984};
-    \item the student-project allocation problem (SA)~\cite{Abraham2007}; and
+    \item the student-project allocation problem
+        (SA)~\cite{Abraham2003,Abraham2007}; and
     \item the stable roommates problem (SR)~\cite{Irving1985}.
 \end{itemize}
 
-This appendix goes through the details of the games for SM and HR, the latter
-of which is used in Chapter~\ref{chp:kmodes}. A further piece of work conducted
-during the production of this thesis that uses SA is provided in
-Appendix~\ref{app:biosci}.  % TODO Remember to add reference (if we publish it)
+This appendix goes through the details of the games for SM, HR and SA, the
+second of which is used in Chapter~\ref{chp:kmodes}. A further piece of work
+conducted during the production of this thesis that uses SA is provided in
+Appendix~\ref{app:biosci}.
 
-\section{The stable marriage problem}
+
+\section{The stable marriage problem}\label{sec:stable_marriage}
 
 One of the most ubiquitous matching games is the stable marriage problem (SM).
 SM describes the problem of finding a bijection between two distinct, equally
@@ -102,7 +105,7 @@ the components of SM.
     \times R\) are matched in \(M\), then that relationship is denoted \(M(s) =
     r\) and, equivalently, \(M^{-1}(r) = s\).
 
-    A matching is considered valid only if every player in \((S, R)\)
+    A matching is considered \emph{valid} only if every player in \((S, R)\)
     is matched to another player uniquely.
 \end{definition}
 
@@ -135,6 +138,8 @@ another over their current match but the other player does not (or cannot)
 reciprocate. The social outcome of acting irrationally in SM is that a player
 would be betraying their partner for another player, thus destabilising the
 group, without any reward of a `better' partner.
+
+\subsection{Example instance}
 
 Consider the game of size three shown in Figure~\ref{fig:sm_matching} as an
 edgeless graph with suitors on the left and reviewers on the right. This
@@ -180,6 +185,8 @@ improvement would be for \(A\) and \(D\) to be matched again. This kind of
 stable matching is called \emph{suitor-optimal}. Similarly, no reviewer can
 improve their match without forming a blocking pair and so this matching is also
 \emph{reviewer-optimal}.
+
+\subsection{Solving instances of SM}
 
 Finding a party-optimal, stable matching to an instance of a matching game is
 referred to as \emph{solving} the game. When there are only a handful of players
@@ -263,14 +270,15 @@ Snippet~\ref{snp:stable_marriage}.
 }\label{snp:stable_marriage}
 \end{listing}
 
+\subsection{Problem variants}
+
 Since the publication of~\cite{Gale1962}, several other matching games have come
 into vogue, as well as variants to the fundamental games like SM. However, the
 accompanying algorithms for solving these games are still often structured to be
 party-oriented and aim to maximise some form of social or party-based
-optimality~\cite{Fuku2006,Gale1962,Kwanashie2015}. In turn, these algorithms
-tend to follow a similar structure to Algorithm~\ref{alg:stable_marriage}, which
-has given the family of such matching game algorithms the name `Gale-Shapley'
-algorithms.
+optimality~\cite{Fuku2006,Gale1962}. In turn, these algorithms tend to follow a
+similar structure to Algorithm~\ref{alg:stable_marriage}, which has given the
+family of such matching game algorithms the name `Gale-Shapley' algorithms.
 
 A common and valuable extension to SM is the allowing of ties in a preference
 list; this is sometimes called indifference. Such an extension is
@@ -316,8 +324,8 @@ components that make up the HR game.
     \emph{residents} and \emph{hospitals}. Each hospital \(h \in H\) has a
     capacity \(c_h \in \mathbb{N}\) associated with them that specifies their
     maximum number of concurrent matches. Each player \(r \in R\) and \(h \in
-    H\) has associated with them a strict preference list of the other party's
-    elements such that:
+    H\) has associated with them a strict \emph{preference list} of the other
+    party's elements such that:
     
     \begin{itemize}
         \item Each resident \(r \in R\) ranks a non-empty subset of \(H\),
@@ -363,6 +371,8 @@ components that make up the HR game.
     A valid matching \(M\) is considered \emph{stable} if it contains no
     blocking pairs, and \emph{unstable} otherwise.
 \end{definition}
+
+\subsection{Example instance}
 
 Using games such as HR in practical settings has all the same social benefits as
 SM, and, in the case of assigning hospital residencies, HR allows for the fair
@@ -432,6 +442,8 @@ requirements, say) then \((S, C)\) would form a blocking pair under this
 matching. The only resolution that gives a stable matching then is to leave
 \(A\) without a match, and for \(M(C) = \left\{S, D\right\}\).
 
+\subsection{Solving instances of HR}
+
 Like SM,~\cite{Gale1962} presented an algorithm that provides a unique,
 resident-optimal, stable matching to any instance of HR. However, further work
 (in~\cite{Dubins1981,Roth1984}) improved the Gale-Shapley algorithm for HR to
@@ -478,6 +490,40 @@ and removing successors from their favourite resident's preference list.
 }
 \ealg%
 
+As in Section~\ref{sec:stable_marriage}, this algorithm produces the matching
+from the example in this section, i.e. that shown in Figure~\ref{fig:hr_stable}.
+The code for solving this problem instance in \matching\ is given in
+Snippet~\ref{snp:hospital_resident}.
+
+\begin{listing}[htbp]
+\begin{usagepy}
+>>> from matching.games import HospitalResident
+>>> resident_preferences = {
+...     "A": ["C"],
+...     "S": ["C", "M"],
+...     "D": ["C", "M", "G"],
+...     "L": ["M", "C", "G"],
+...     "J": ["C", "G", "M"],
+... }
+>>> hospital_preferences = {
+...     "M": ["D", "L", "S", "J"],
+...     "C": ["D", "A", "S", "L", "J"],
+...     "G": ["D", "J", "L"],
+... }
+>>> hospital_capacities = {hospital: 2 for hospital in hospital_preferences}
+>>> game = HospitalResident.create_from_dictionaries(
+...     resident_preferences, hospital_preferences, hospital_capacities
+... )
+>>> game.solve()
+{M: [L, S], C: [D, A], G: [J]}
+
+\end{usagepy}
+\caption{Solving the instance from Figure~\ref{fig:hr_matching} in \matching}
+\label{snp:hospital_resident}
+\end{listing}
+
+\subsection{Problem variants}
+
 The same extensions to SM exist for HR where indifference and custom preference
 list constructors are included; the NRMP uses its own ranking system for the
 hospital agents, for instance. In a sense, the generalisation of SM to HR
@@ -488,7 +534,7 @@ list would have its practical benefits, such as in the initialisation presented
 in Chapter~\ref{chp:kmodes}. In that setting, the categorical dissimilarity
 measure corresponds to the ranking between potential representative points in a
 cluster and real data points. A shortcoming of that measure is the potentially
-high incidence of \emph{ties} in the distances between a set of points. As such,
+high incidence of ties in the distances between a set of points. As such,
 allowing for ties to be reconciled in the matching game would be desirable.
 However, as no matching is guaranteed for any of the levels of stability in such
 a framework, it cannot be considered.
@@ -509,3 +555,344 @@ scenario, each student submits a set of acceptable schools and the schools form
 strict rankings of the students. The result of this is a simpler game (in the
 practical sense) and a reduction in the set of possible stable
 matchings~\cite{Haeringer2014,Haeringer2019}.
+
+
+\section{The student-project allocation problem}\label{sec:student_allocation}
+
+The game for SA considers three sets of players --- students, projects and
+supervisors --- and seeks to assign students to projects according to
+preferences (from students and supervisors) and capacities (for supervisors and
+projects). Like HR, the practical importance of SA is to avoid unfair, ad hoc
+allocations in the eponymous problem of project allocation. There is substantial
+historical evidence and analysis indicating the dangers of allowing individual
+deal-making in matching scenarios~\cite{Gusfield1989,Roth1984,Roth1992}.
+
+Despite having three sets of players, SA is a two-sided matching (like SM and
+HR) as the projects and supervisors act as a single party. The applying party
+are the students, while the reviewing party consists of the supervisors with
+their projects. Any instance of HR can be stated as an instance of SA by
+replacing each hospital with a supervisor-project pair, making SA a
+generalisation of HR~\cite{Abraham2003}.
+Definitions~\ref{def:sa_game}~through~\ref{def:sa_blocking} describe the
+components that make up the SA game.
+
+\begin{definition}\label{def:sa_game}
+    Consider three distinct sets, \(S\), \(P\) and \(U\), and refer to them as
+    \emph{students}, \emph{projects}, and \emph{supervisors}, respectively. Each
+    project \(p \in P\) has a single supervisor \(u \in U\) associated with
+    them. This association is described as a surjective function \(L: P \to U\),
+    where the supervisor \(u \in U\) for a project \(p \in P\) can be written as
+    \(L(p) = u\). Note that as \(L\) is surjective, a supervisor may have
+    multiple projects associated with them. The set of projects belonging to a
+    supervisor, \(u\), is written as \(L^{-1}(u)\).
+
+    In addition to these supervisor-project associations, each project, \(p \in
+    P\), and supervisor, \(u \in U\), has a \emph{capacity}, denoted \(c_p, c_u
+    \in \mathbb N\), respectively. These capacities are such that:
+
+    \begin{equation}
+        \max \left\{c_p \ | \ p \in L^{-1}(u)\right\}
+        \le c_u
+        \le \sum_{p \in L^{-1}(u)} c_p
+    \end{equation}
+
+    That is, all supervisors must be able to accommodate their largest project,
+    but may not offer more spaces than their projects sum to.
+
+    As with other matching games, each player has a \emph{preference list}
+    associated with them. In the case of SA, these preferences are strict and
+    satisfy the following conditions:
+
+    \begin{itemize}
+        \item Each student, \(s \in S\), ranks a non-empty subset of \(P\),
+            denoted by \(f(s)\).
+        \item Each supervisor, \(u \in U\), ranks all and only those students
+            that have ranked at least one of their projects, i.e.\ the
+            preference list of \(u\), denoted \(g(h)\), is a permutation of the
+            set
+            \(\left\{s \in S \ | \ L^{-1}(u) \cap f(s) \neq \emptyset\right\}\).
+            If no students have ranked any of a supervisor's projects then \(u\)
+            is removed from \(U\).
+        \item The preference list of each project, \(p \in P\), is governed by
+            its supervisor, \(u = L(p)\). This preference, denoted \(g_p (u)\),
+            is identical to \(g(u)\), but only includes those students who
+            ranked \(p\). If no students have ranked a project then that project
+            is removed from \(P\).
+    \end{itemize}
+
+    This construction of students, projects, supervisors, capacities and
+    preference lists is called a \emph{game} and is denoted by \((S, P, U)\).
+    The notion of preference here is the same as in SM and HR.
+\end{definition}
+
+\begin{definition}\label{def:sa_matching}
+    Consider a game \((S, P, U)\). A \emph{matching} \(M\) is any mapping
+    between \(S\) and \(P\). If a pair \((s, p) \in S \times P\) are matched in
+    \(M\), then this is denoted \(M(s) = p\) and \(s \in M^{-1}(p)\).
+
+    Since each supervisor, \(u \in U\), oversees their projects, their matching
+    is taken as the union of its projects' matchings, i.e.
+
+    \begin{equation}
+        M^{-1}(u) = \bigcup_{p \in L^{-1}(u)} M^{-1}(p) \subseteq S
+    \end{equation}
+
+    A matching is only considered \emph{valid} if for all \(s \in S, p \in P, u
+    \in U\):
+
+    \begin{itemize}
+        \item \(M(s) \in f(s)\) if \(s\) is matched;
+        \item \(M^{-1}(p) \subseteq g_p(L(p))\);
+        \item \(p\) is not over-subscribed, i.e. \(\abs*{M^{-1}(p)} \le c_p\);
+        \item \(M^{-1}(u) \subseteq g(u)\); and
+        \item \(u\) is not over-subscribed, i.e.\ \(\abs*{M^{-1}(u)} \leq c_u\).
+    \end{itemize}
+\end{definition}
+
+\begin{definition}\label{def:sa_blocking}
+    Consider a game \((S, P, U)\). Consider a pair \((s, p) \in S \times P\) and
+    let \(u = L(p)\). The pair is said to \emph{block} a matching \(M\) if:
+
+    \begin{itemize}
+        \item There is mutual preference, i.e. \(p \in f(s)\) and \(s \in
+            g_p(u)\);
+        \item either \(s\) is unmatched or they prefer \(p\) to \(M(s) = p'\);
+            and
+        \item at least one of the following is true:
+            \begin{itemize}
+                \item Both \(p\) and \(u\) are under-subscribed, i.e.
+                    \(\abs*{M^{-1}(p)} < c_p\) and \(\abs*{M^{-1}(u)} < c_u\);
+                \item \(p\) is under-subscribed and \(u\) is at capacity, and
+                    either \(M(s) = p' \in L^{-1}(u)\) or \(u\) prefers \(s\) to
+                    their worst current match \(s' \in M^{-1}(u)\); or
+                \item \(p\) is at capacity and \(u\) prefers \(s\) to the
+                    project's least favourite student in \(M^{-1}(p)\).
+            \end{itemize}
+    \end{itemize}
+
+    A valid matching \(M\) is considered \emph{stable} if it contains no
+    blocking pairs, and \emph{unstable} otherwise.
+\end{definition}
+
+\subsection{Example instance}
+
+The definitions for this game are broadly similar to those for HR, with the
+exception of a blocking pair. Here, the definition of what may be considered
+\emph{rational} is more complicated given the relationships between projects and
+their supervisors. To demonstrate these relationships, consider the game shown
+in Figure~\ref{fig:sa_matching}.
+
+\begin{figure}[htbp]
+    \centering
+    \resizebox{\imgwidth}{!}{%
+        \input{appendix/matching/paper/docs/tex/sa_matching}
+    }\caption{An instance of SA}\label{fig:sa_matching}
+\end{figure}
+
+This game has five students (arranged along the top of
+Figure~\ref{fig:sa_matching}) and two supervisors with two projects each (shown
+at the bottom of the figure). Here, the links between a supervisor and their
+projects is indicated by a dashed line. Although not shown, each supervisor has
+a capacity of three, while each project has a capacity of two.
+
+Note also that the students are ranked in the same order by both supervisors.
+This practice is common in real-world applications of SA, including the case
+study in Appendix~\ref{app:biosci}. Drawing supervisor preferences from a
+complete ranking of the students strengthens the centralised decision-making of
+this approach.
+
+\begin{figure}[htbp]
+    \centering
+    \resizebox{\imgwidth}{!}{%
+        \input{appendix/matching/paper/docs/tex/sa_invalid}
+    }\caption{An invalid matching for the instance}\label{fig:sa_invalid}
+\end{figure}
+
+Suppose students were assigned to projects arbitrarily, ignoring preferences and
+capacities, like the allocation in Figure~\ref{fig:sa_invalid}. This matching
+meets none of the conditions for validity. Specifically:
+
+\begin{itemize}
+    \item \(A\) has been assigned \(Y1\) despite not ranking it. Likewise, the
+        supervisor \(Y\) has not ranked \(A\).
+    \item \(Y1\) has also been assigned three students, which exceeds its
+        capacity of two.
+    \item \(Y\) has been allocated a fourth student, violating their capacity
+        constraint.
+\end{itemize}
+
+Correcting these issues requires several changes, and the following suggestions
+also try to maximise the quality of the matching. This manual approach is not
+uncommon in higher education institutions~\cite{Hussain2019}. First, moving
+\(A\) and \(C\) to \(X1\) addresses all three violations. Simultaneously, this
+move means both students will undertake their favourite project, and assigns
+favourable students to supervisor \(X\).
+
+However, this move introduces a new violation, where \(X1\) is assigned three
+students. To rectify this, move \(D\) to their favourite project, \(Y2\). The
+matching produced by these changes is shown in Figure~\ref{fig:sa_unstable}.
+
+\begin{figure}[htbp]
+    \centering
+    \resizebox{\imgwidth}{!}{%
+        \input{appendix/matching/paper/docs/tex/sa_unstable}
+    }\caption{An unstable matching for the instance}\label{fig:sa_unstable}
+\end{figure}
+
+Despite the efforts to accommodate the preferences of the players, this matching
+is not stable. Here, there are two blocking pairs, \((E, X2)\) and \((E, Y2)\).
+Although student \(E\) prefers \(X1\) to either of these projects, \((E, X1)\)
+does not form a blocking pair as \(X1\) is at capacity and its supervisor,
+\(X\), prefers both of its matches, \(A\) and \(C\), to \(E\).
+
+So, to avoid these blocking pairs without creating more, students \(D\) and
+\(E\) must be swapped. Keeping fairness in mind, this is a sensible move given
+that \(E\) outranks \(D\). Figure~\ref{fig:sa_stable} shows the resultant
+matching. Inspecting the matching, it is clear that no student may improve their
+allocation without creating a blocking pair, and so the matching is
+student-optimal.
+
+\begin{figure}
+    \centering
+    \resizebox{\imgwidth}{!}{%
+        \input{appendix/matching/paper/docs/tex/sa_stable}
+    }\caption{%
+        A stable, student-optimal matching for the instance
+    }\label{fig:sa_stable}
+\end{figure}
+
+\subsection{Solving instances of SA}
+
+Game-theoretic work on the problem SA addresses has only come into interest
+relatively recently, beginning with the works~\cite{Abraham2003,Abraham2007}. In
+the latter of these works, the authors present two Gale-Shapley algorithms for
+SA. These algorithms are party-oriented such that they each produce a unique,
+stable matching for an instance of SA that is student- or supervisor-optimal,
+respectively.
+
+As with HR, the reviewing-party-optimal algorithm is omitted, but
+the student-optimal algorithm is given in Algorithm~\ref{alg:student_optimal}.
+This algorithm, and its supervisor-optimal counterpart follow a similar
+structure to the others presented in this appendix. Again, members of the
+applying party make temporary proposals, leading to the removal of infeasible
+pairs.
+
+\balg%
+\caption{The student-optimal algorithm for SA}\label{alg:student_optimal}
+
+\KwIn{an instance of SA \((S, P, U)\)}
+\KwOut{%
+    a stable, student-optimal matching \(M\) between \(S\) and \(P\)
+}\vspace{1em}
+
+\For{each student \(s \in S\)}{%
+    Set \(s\) to be unmatched
+}
+\For{each supervisor \(u \in U\)}{%
+    Set \(u\) (and their projects) to be totally unsubscribed, i.e. \(M^{-1}(u)
+    \gets \emptyset\)
+}
+
+\While{%
+    there exists any unmatched student \(s \in S\) with a nonempty preference
+    list
+}{%
+    Take any such student \(s\) and consider their favourite project \(p\). Let
+    \(u = L(p)\)\;
+    Match the pair, i.e. \(M(s) \gets p\) and \(M^{-1}(p) \gets M^{-1}(p) \cup
+    \left\{s\right\}\)\;
+
+    \If{\(\abs*{M^{-1}(p)} > c_p\)}{%
+        Find their worst match \(s' \in M^{-1}(p)\)\;
+        Unmatch the pair, i.e. \(s'\) is unmatched and \(M^{-1}(p) \gets
+        M^{-1}(p) \setminus \left\{s'\right\}\)
+    }
+    \ElseIf{\(\abs*{M^{-1}(u)} > c_u\)}{%
+        Find their worst match \(s' \in M^{-1}(u)\) and let \(p' = M(s')\)\;
+        Unmatch the pair, i.e. \(s'\) is unmatched and \(M^{-1}(p') \gets
+        M^{-1}(p') \setminus \left\{s'\right\}\)
+    }
+
+    \If{\(\abs*{M^{-1}(p)} = c_p\)}{%
+        Find their worst match \(s' \in M^{-1}(p)\)\;
+        \For{each successor, \(t \in g_p(u)\), to \(s'\)}{%
+            \(\textsc{DeletePair}(t, p)\)
+        }
+    }
+
+    \If{\(\abs*{M^{-1}(u)} = c_u\)}{%
+        Find their worst match \(s' \in M^{-1}(u)\)\;
+        \For{each successor, \(t \in g(u)\), to \(s'\)}{%
+            \For{each project, \(p' \in L(u) \cap f(t)\)}{%
+                \(\textsc{DeletePair}(t, p')\)
+            }
+        }
+    }
+}
+\ealg%
+
+This algorithm produces the matching shown in Figure~\ref{fig:sa_stable}, and
+can be solved in Python using the \matching\ library as shown in
+Snippet~\ref{snp:student_optimal}. Here, there are several dictionaries required
+to describe the preferences, affiliations and capacities of the players in the
+game.
+
+\begin{listing}[htbp]
+\begin{usagepy}
+>>> from matching.games import StudentAllocation
+>>> student_preferences = {
+...     "A": ["X1", "X2"],
+...     "B": ["Y2", "X2", "Y1"],
+...     "C": ["X1", "Y1", "X2"],
+...     "D": ["Y2", "X1", "Y1"],
+...     "E": ["X1", "Y2", "X2", "Y1"],
+... }
+>>> supervisor_preferences = {
+...     "X": ["B", "C", "A", "E", "D"], "Y": ["B", "C", "E", "D"]
+... }
+>>> project_supervisors = {"X1": "X", "X2": "X", "Y1": "Y", "Y2": "Y"}
+>>> supervisor_capacities = {
+...     supervisor: 3 for supervisor in supervisor_preferences
+... }
+>>> project_capacities = {project: 2 for project in project_supervisors}
+>>> game = StudentAllocation.create_from_dictionaries(
+...     student_preferences,
+...     supervisor_preferences,
+...     project_supervisors,
+...     project_capacities,
+...     supervisor_capacities,
+... )
+>>> game.solve()
+{X1: [C, A], X2: [], Y1: [D], Y2: [B, E]}
+
+\end{usagepy}
+\caption{Solving the instance from Figure~\ref{fig:sa_matching} in \matching}
+\label{snp:student_optimal}
+\end{listing}
+
+
+\subsection{Problem variants}
+
+In a similar fashion to SM and HR, generalising HR into SA admits many of the
+same extensions, including indifference~\cite{Olaosebikan2020}. Other variants
+of SA often arise from the constraints presented by the particular applications
+of project allocation. For instance, in~\cite{Abraham2007}, the authors leave
+open questions about solving instances of SA where each project has a minimum
+number of assignees. This extension would handle the common issue of projects
+with multiple independent parts, or those that require group
+efforts~\cite{Arulselvan2016}.
+
+A natural continuation of this is to allow students to apply to projects in
+groups. Allowing for student coalitions complicates the allocation process.
+The authors of~\cite{Chiarandini2017} study this variant through mathematical
+programming. This technique has also been applied to other intricate allocation
+variants, including the maximisation of other optimality
+measures~\cite{Kwanashie2015}.
+
+Another extension to SA is in how preferences are constructed. For instance,
+in~\cite{Manlove2008}, the authors present a variant of SA in which supervisors
+hold preferences over their projects --- as opposed to the students. This change
+in preferences allows supervisors to prioritise working on projects more closely
+related to their own research, and removes any practical challenges with ranking
+students. Another variant, which combines supervisor-project priority with their
+preferences over students, is presented in~\cite{ElAtta2009}.

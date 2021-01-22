@@ -134,7 +134,7 @@ algorithm~\cite{Parker2020}. The methodology presented in Chapter~\ref{chp:edo},
 called evolutionary dataset optimisation (EDO), expands on the familiar concept
 of a confirmation process. The EDO method generates and optimises datasets for
 which an algorithm performs well, according to some fitness function. While some
-recent works into synthetic data generation champion the promise deep
+recent works into synthetic data generation champion the promise of deep
 learning~\cite{Avino2018,Park2018,Torfi2020}, the EDO method is a bespoke
 evolutionary algorithm to promote transparency in the data generation process.
 Two case studies that apply this methodology are given in this thesis: one in
@@ -234,7 +234,7 @@ Best practices are guidelines to ensure that research methods are reliable,
 reproducible, and transferable. In essence, the proper adoption of best
 practices sustains the lifespan of a piece of research. The same is true of
 research software. In Chapter~\ref{chp:lit}, the ethical implications of best
-practices are addressed, as well as briefly mentioning the analogous practices
+practices are discussed, as well as briefly mentioning the analogous practices
 for research data. Examples of existing software best practices
 include~\cite{Aberdour2007,Benureau2018,Jimenez2017,Wilson2014}. Included in the
 subsequent subsections are overviews of four fundamental methods of best
@@ -269,16 +269,16 @@ liking, and (perhaps most importantly) requesting to make changes.
 
 \subsubsection{Virtual environments}
 
-When using or developing a piece of software, it almost a certainty that it will
-have \emph{dependencies}. A dependency is a version of some existing software
-required by the newly developed software to run. Occasionally, there will be
-clashes in the dependencies of two or more pieces of software, or another
-developer may wish to install that software exactly as it was created. These are
-two motivating examples for organising and separating project dependencies;
-\emph{virtual environments} provide a means of achieving this. A virtual
-environment is a self-contained, independent copy of some dependencies that can
-be activated and deactivated at will. By activating an environment, only the
-specific versions of the dependencies are available.
+When using or developing a piece of software, it is almost a certainty that it
+will have \emph{dependencies}. A dependency is a version of some existing
+software required by the newly developed software to run. Occasionally, there
+will be clashes in the dependencies of two or more pieces of software, or
+another developer may wish to install that software exactly as it was created.
+These are two motivating examples for organising and separating project
+dependencies; \emph{virtual environments} provide a means of achieving this. A
+virtual environment is a self-contained, independent copy of some dependencies
+that can be activated and deactivated at will. By activating an environment,
+only the specific versions of the dependencies are available.
 
 \begin{listing}[htbp]
 \begin{sourceyml}
@@ -316,10 +316,12 @@ dependencies:
 
 Each of the repositories in this thesis includes an Anaconda virtual environment
 configuration file named \mintinline{console}{environment.yml}.
-Anaconda~\cite{anaconda} is a free and open-source distribution of the Python
-and R programming languages, specialising in scientific computing. Included with
-Anaconda are tools to simplify package management such as the virtual
-environments created using these configuration files.
+Anaconda~\cite{anaconda} is a free and open-source distribution of various
+pieces of software, including the Python, R and Julia programming languages.
+This distribution has been specialised for scientific computing, hence its use
+in this thesis. Included with Anaconda are tools to simplify package management
+such as the virtual environments created using environment configuration files.
+
 Snippet~\ref{snp:environment} shows the contents of an overarching environment
 file for this thesis. The environment file lists the name of the environment
 (\mintinline{console}{thesis}), its dependencies, and from where those
