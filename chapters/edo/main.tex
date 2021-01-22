@@ -627,9 +627,20 @@ distributions = [Uniform]
 
 Once the EDO algorithm has terminated, a body of datasets, and information about
 those datasets, is recorded. This output is referred to as a \emph{history}. A
-history created by EDO can be exceptionally large: some of the preliminary
-experiments conducted for this chapter produced hundreds of gigabytes of data;
-each experiment in Chapter~\ref{chp:kmodes} that uses EDO produced tens of
+history created by EDO can be exceptionally large; some of the preliminary
+experiments conducted for this chapter produced hundreds of gigabytes of data.
+
+The potentially storage-hungry nature of an EDO history can be seen as follows.
+Given a population of size 100 and a maximum number of iterations of 100, then
+\(100 \times 100 = 10,000\) datasets will be written to file. If each dataset
+takes up ~1kB of disc space, then the history will use at least 10MB to write
+the datasets themselves. In addition to these, EDO saves information about each
+individual's metadata as well as the distribution subtypes, families and the
+states of the pseudo-random number generators used by the method. All of this
+information is essential to thoroughly study the history and to recover its
+individuals, but it is plain to see how this all adds up.
+
+Each experiment in Chapter~\ref{chp:kmodes} that uses EDO produced tens of
 thousands of unique datasets. Having volumes of data of these sizes certainly
 provide a rich source for study, but they can be cumbersome to the point of
 being completely infeasible. As such, one should be mindful of the storage
