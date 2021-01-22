@@ -566,14 +566,15 @@ disproportionately compact. Following this scaling, the number of
 initialisations for the \(k\)-means algorithm has been increased from ten to 50
 so that there is greater confidence in any given fitness score.
 
-The examples in this study make use of a command-line tool,
-\href{https://github.com/daffidwilde/edolab}{\mintinline{python}{edolab}}, for
-running experiments with the library. This tool allows for a lot of otherwise
-repeated code to be replaced by a simple \emph{experiment} script, configuring
-the parameters of the experiment. Snippet~\ref{snp:inertia} shows the experiment
-script used for this example, and Snippet~\ref{snp:edolab} shows how to use that
-script with the command-line tool. Other than the fitness function definition,
-this script is identical to that of every example in this section.
+The examples in this study make use of a command-line tool, \edolab, for running
+experiments with the library. This tool allows for a lot of otherwise repeated
+code to be replaced by an \emph{experiment} script, configuring the parameters
+of the experiment. The source code for the \edolab\ package is hosted on GitHub
+(\github{daffidwilde/edolab}) and the tool itself is registered on the Python
+Package Index. Snippet~\ref{snp:script} shows the experiment script used for
+this example, and Snippet~\ref{snp:edolab} shows how to use that script with the
+command-line tool. Other than the fitness function definition, this script is
+identical to that of every example in this section.
 
 \begin{listing}
 \begin{sourcepy}
@@ -612,7 +613,7 @@ distributions = [Uniform]
 \caption{%
     An abridged version of the experiment configuration script used in the first
     example
-}\label{snp:inertia}
+}\label{snp:script}
 \end{listing}
 
 \begin{listing}
