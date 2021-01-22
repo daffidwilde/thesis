@@ -725,7 +725,7 @@ initialisations for the \(k\)-means algorithm has been increased from ten to 50
 so that there is greater confidence in any given fitness score.
 
 The examples in this study make use of a command-line tool,
-\href{https://github.com/daffidwilde/edolab}{\mintinline{python}{edolab}}, for
+\href{https://github.com/daffidwilde/edolab}{\mintinline{console}{edolab}}, for
 running experiments with the library. This tool allows for a lot of otherwise
 repeated code to be replaced by a simple \emph{experiment} script, configuring
 the parameters of the experiment. Snippet~\ref{snp:inertia} shows the experiment
@@ -779,7 +779,7 @@ distributions = [Uniform]
 > edolab run --seeds=10 --cores=4 kmeans_inertia.py
 > edolab summarise --tarball kmeans_inertia.py
 \end{usagesh}
-\caption{Example usage of the \mintinline{python}{edolab} command-line tool}
+\caption{Example usage of the \mintinline{console}{edolab} command-line tool}
 \label{snp:edolab}
 \end{listing}
 
