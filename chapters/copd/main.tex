@@ -53,10 +53,11 @@ COPD population before they arrive at the hospital.
 
 This chapter differs from the manuscript by expanding the literature review into
 Chapter~\ref{chp:lit}, providing a detailed discussion of the clustering
-algorithm in Section~\ref{sec:intro}, and using an improved parameterisation for
-the model in Sections~\ref{sec:model}~and~\ref{sec:scenarios}.
+algorithm in Section~\ref{sec:copd:intro}, and using an improved
+parameterisation for the model in
+Sections~\ref{sec:model}~and~\ref{sec:scenarios}.
 
-\section{Introduction}\label{sec:intro}
+\section{Introduction}\label{sec:copd:intro}
 
 Appendix~\ref{app:data} carries out an exploratory analysis of a large,
 administrative, healthcare dataset, revealing the presence of high variation in
@@ -96,15 +97,15 @@ understand operationally, socially and medically.
 The chapter is structured as follows:
 
 \begin{itemize}
-    \item Section~\ref{sec:intro} provides an overview of the dataset and its
-        clustering;
+    \item Section~\ref{sec:copd:intro} provides an overview of the dataset and
+        its clustering;
     \item Section~\ref{sec:queuing} offers a concise introduction to queuing
         theory;
     \item Section~\ref{sec:model} describes the queuing model used and the
         estimation of its parameters;
     \item Section~\ref{sec:scenarios} presents several what-if scenarios with
         insight provided by the model parameterisation and the clustering;
-    \item Section~\ref{sec:summary} summarises the chapter.
+    \item Section~\ref{sec:copd:summary} summarises the chapter.
 \end{itemize}
 
 
@@ -183,7 +184,7 @@ exceptions that:
     \item The \textsc{SelectClosest} function uses the dissimilarity measure
         given in~\eqref{eq:dissim};
     \item The \textsc{Update} function is as given in
-        Algorithm~\ref{alg:update}.
+        Algorithm~\ref{alg:kprototypes_update}.
 \end{itemize}
 
 These parts are combined using a modified dissimilarity function, defined
@@ -937,10 +938,11 @@ generated from the best parameter set recorded in Table~\ref{tab:comparison}. In
 particular, the data from each scenario is scaled by the corresponding median
 value in the base case, meaning that a metric having a value of 1 is `normal'.
 
-As mentioned in Section~\ref{sec:intro}, the source code used throughout this
-work is available has been archived online under~\doi{10.5281/zenodo.3936479}.
-Also, the datasets generated from the simulations in this section, and the
-parameter sweep, have been archived online~\doi{10.5281/zenodo.3924715}.
+As mentioned in Section~\ref{sec:copd:intro}, the source code used throughout
+this work is available has been archived online
+under~\doi{10.5281/zenodo.3936479}. Also, the datasets generated from the
+simulations in this section, and the parameter sweep, have been archived
+online~\doi{10.5281/zenodo.3924715}.
 % TODO Archive new data and update these DOIs.
 
 
@@ -1204,7 +1206,7 @@ effective intervention for improving the system on the whole is found through
 inter-cluster transfers.
 
 
-\section{Chapter summary}\label{sec:summary}
+\section{Chapter summary}\label{sec:copd:summary}
 
 This chapter presents a novel approach to investigating a healthcare population
 that encompasses the topics of segmentation analysis, queuing models, and the
