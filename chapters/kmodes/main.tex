@@ -28,7 +28,7 @@ This paper presents a new way of selecting an initial solution for the
 classic initialisations, namely those by Huang and Cao, do not. The method,
 which utilises the Hospital-Resident Assignment Problem to find the set of
 initial cluster centroids, is compared with two initialisation methods for
-\(k\)-modes: the original presented in \cite{Huang1998} and the next most
+\(k\)-modes: the original presented in~\cite{Huang1998} and the next most
 popular method present in the literature~\cite{Cao2009}. In order to highlight
 the merits of the proposed method two stages of analysis are presented. The
 paper concludes with an analysis of these methods against the proposed and it is
@@ -42,11 +42,11 @@ generating artificial datasets using the method set out in~\cite{Wilde2020:edo}.
 
 This chapter differs from the manuscript by including a more detailed
 description of the \(k\)-modes algorithm and its setting (in
-Section~\ref{sec:intro}) and omits much of the discussion around matching games
-(Section~\ref{sec:inits}) which has now been expanded to form parts of
+Section~\ref{sec:kmodes:intro}) and omits much of the discussion around matching
+games (Section~\ref{sec:inits}) which has now been expanded to form parts of
 Appendix~\ref{app:matching}.
 
-\section{Introduction}\label{sec:intro}
+\section{Introduction}\label{sec:kmodes:intro}
 
 The case study at the end of Chapter~\ref{chp:edo} examined the \(k\)-means
 algorithm --- a method for clustering a set of numeric data into \(k\) parts
@@ -101,14 +101,14 @@ the importance of the paradigm described in Chapter~\ref{chp:edo}.
 
 The chapter is structured as follows:
 \begin{itemize}
-    \item Section~\ref{sec:intro} introduces the \(k\)-modes algorithm and its
-        components.
+    \item Section~\ref{sec:kmodes:intro} introduces the \(k\)-modes algorithm
+        and its components.
     \item Section~\ref{sec:inits} provides an overview of the established
         initialisation methods before a statement of the proposed
         initialisation.
     \item Section~\ref{sec:results} presents analyses of the initialisations on
         benchmark and artificial datasets.
-    \item Section~\ref{sec:summary} concludes the chapter.
+    \item Section~\ref{sec:kmodes:summary} concludes the chapter.
 \end{itemize}
 
 
@@ -1073,7 +1073,7 @@ substantially better clustering than Cao's method.
 
 
 
-\section{Chapter summary}\label{sec:summary}
+\section{Chapter summary}\label{sec:kmodes:summary}
 
 This chapter has introduced a novel initialisation method for the \(k\)-modes
 algorithm that builds on the method set out in the seminal
