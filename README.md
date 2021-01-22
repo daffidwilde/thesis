@@ -84,11 +84,11 @@ reproducibility, and sustainability of the research in this thesis.
 Directions for the relevant software packages to accompany this thesis are
 listed in the table below.
 
-| Name       | Repository             | Documentation                     |
-|------------|------------------------|-----------------------------------|
-| `edo`      | [daffidwilde/edo]      | [edo.readthedocs.io][e-docs]      |
-| `matching` | [daffidwilde/matching] | [matching.readthedocs.io][m-docs] |
-| `edolab`   | [daffidwilde/edolab]   | Repository `README`               |
+| Name       | Repository             | Documentation                         |
+|------------|------------------------|---------------------------------------|
+| `edo`      | [daffidwilde/edo]      | [edo.readthedocs.io][edo-docs]        |
+| `matching` | [daffidwilde/matching] | [matching.readthedocs.io][match-docs] |
+| `edolab`   | [daffidwilde/edolab]   | [Repository `README`][edolab-readme]  |
 
 [envs]: https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html
 [daffidwilde/edo]: https://github.com/daffidwilde/edo
@@ -96,3 +96,4 @@ listed in the table below.
 [daffidwilde/matching]: https://github.com/daffidwilde/matching
 [m-docs]: https://matching.readthedocs.io
 [daffidwilde/edolab]: https://github.com/daffidwilde/edolab
+[edolab-readme]: https://github.com/daffidwilde/edolab/blob/main/README.md
