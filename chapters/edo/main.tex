@@ -268,18 +268,6 @@ following parameters:
         component of the search space to be retained after adjustment.
 \end{itemize}
 
-This chapter discusses the components and mechanisms of the EDO method in a
-largely mathematical manner. However, a Python package,
-\href{https://github.com/daffidwilde/edo}{\mintinline{python}{edo}}, that
-implements the EDO algorithm is used to demonstrate its practical use and
-particular technical aspects of the method. This implementation is built on the
-scientific Python stack~\cite{pandas,numpy} and has been developed to be
-consistent with the current best practices of open source software
-development~\cite{Jimenez2017} so that it is modular, automatically tested and
-fully documented. The documentation is available at \url{edo.readthedocs.io},
-and the version of the library used in this chapter (v0.3.5) is freely available
-online under the MIT licence~\cite{edo-project}.
-
 Algorithm~\ref{alg:edo} provides a high-level description of the EDO algorithm
 that presents its general structure. More detailed discussion is provided in
 this section along with relevant examples, diagrams and algorithm statements for
@@ -302,6 +290,176 @@ examples include:
         point~\cite{Marti2016}.
 \end{itemize}
 
+
+\subsection{The software implementation}
+
+The remainder of this section discusses the components and mechanisms of the EDO
+method in a largely mathematical manner. However, a Python implementation of EDO
+has been developed as part of this thesis, \edo. The software is freely
+available online under the MIT licence, and can be found hosted on GitHub
+(at~\github{daffidwilde/edo}) or archived on Zenodo
+(at~\doi{10.5281/zenodo.2552890}). Furthermore, \edo\ is registered on the
+Python Package Index and can be installed through standard Python practices,
+including via \pip\ --- as in Snippet~\ref{snp:edo-pip}.
+
+\begin{listing}[htbp]
+\begin{usagesh}
+> pip install edo
+\end{usagesh}
+\caption{Installing the \edo\ library via \pip}\label{snp:edo-pip}
+\end{listing}
+
+The \edo\ library is built on the scientific Python stack~\cite{pandas,numpy}
+and has been developed to be consistent with the current best practices of
+open-source software development; these are discussed in
+Section~\ref{sec:dev}. As such, the software is modular, automatically tested
+and fully documented. The documentation for \edo\ is available at
+\url{edo.readthedocs.io}, and Figure~\ref{fig:docs} contains a screenshot of one
+of the tutorial pages.
+
+\graphicspath{{./}}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\imgwidth]{img/docs.png}
+    \caption{A screenshot of one of the \edo\ library tutorials}
+    \label{fig:docs}
+\end{figure}
+
+In Section~\ref{sec:examples}, the \edo\ implementation is used to carry out an
+investigation into \(k\)-means clustering. The tutorial shown in
+Figure~\ref{fig:docs} is a simplified version of the example in
+Section~\ref{subsec:inertia}. Given the size and number of examples in the
+closing section of this chapter, a command-line tool, \edolab, is used to run
+the experiments. To demonstrate how \edo\ should be used directly, consider the
+following scenario.
+
+Let \(X\) be a dataset with two columns, \(X_r\) and \(X_a\), which each contain
+\(n \in [50, 100]\) real values. The values of \(X_a\) are drawn uniformly from
+the interval \([-2\pi, 2\pi]\), while those in \(X_r\) may take values from the
+interval \([0, 2]\). Again, these values are sampled uniformly.
+
+The objective is to find a dataset \(X\) which maximises the following function:
+
+\begin{equation}\label{eq:circle}
+    f(X) = \frac{\text{Var}\left(X_{a}\right)}{%
+        \max_{x \in X_r} \left|x - 1\right|%
+    }
+\end{equation}
+
+That is, to find a dataset with maximal variance in one column, and minimal
+maximum distance from one in the other. Such a dataset would describe the polar
+coordinates of some set of points along the unit circle. The points in
+\(X_r\) correspond to the radii, and those in \(X_a\) correspond to the angle
+from the origin in radians.
+
+The first step in implementing this scenario in \edo\ is to choose appropriate
+distribution classes. These classes go on to form the families in EDO,
+\(\mathcal P\). The \edo\ documentation includes detailed instructions on how to
+implement new distribution classes
+(\href{https://edo.readthedocs.io/en/latest/how-to/new_column.html}{%
+\nolinkurl{edo.readthedocs.io/.../how-to/new\_column.html}}), but several
+common distributions are already implemented; these include the uniform
+distribution. Since both \(X_r\) and \(X_a\) sample their values uniformly and
+from different bounds, separate subclasses of the
+\mintinline{console}{edo.distributions.Uniform} class must be created.
+Snippet~\ref{snp:uniforms} shows how this should be done.
+
+\begin{listing}[htbp]
+\begin{usagepy}
+>>> import numpy as np
+>>> from edo.distributions import Uniform
+>>> 
+>>> class RadiusUniform(Uniform):
+...     """A uniform distribution for radii"""
+...     name = "RadiusUniform"
+...     param_limits = {"bounds": [0, 2]}
+>>> 
+>>> class AngleUniform(Uniform):
+...     """A uniform distribution for angles"""
+...     name = "AngleUniform"
+...     param_limits = {"bounds": [-2 * np.pi, 2 * np.pi]}
+
+\end{usagepy}
+\caption{An \edo\ implementation for separate uniform distribution classes}
+\label{snp:uniforms}
+\end{listing}
+
+With the column distributions implemented, the fitness function needs defining.
+Snippet~\ref{snp:fitness} contains the code to implement the fitness function
+in~\eqref{eq:circle}. Since each column in a dataset, \(X\), is of a specific
+type, they must be recovered properly; this is done using the
+\mintinline{console}{split_individual} function.
+
+\begin{listing}[htbp]
+\begin{usagepy}
+>>> def split_individual(individual):
+...     """ Separate the columns of an individual's dataframe. """
+...     df, metadata = individual
+...     names = [m.name for m in metadata]
+...     radii = df[names.index("RadiusUniform")]
+...     angles = df[names.index("AngleUniform")]
+...     return radii, angles
+>>> 
+>>> def fitness(individual):
+...     """ Determine the similarity of the dataset to the unit circle. """
+...     radii, angles = split_individual(individual)
+...     return angles.var() / (radii - 1).abs().max()
+
+\end{usagepy}
+\caption{Implementing the circle fitness function in \edo}
+\label{snp:fitness}
+\end{listing}
+
+Now all the required components are ready, the EDO algorithm can be run
+using the \mintinline{console}{edo.DataOptimiser} class.
+Snippet~\ref{snp:circle} shows the code required to run the EDO algorithm on
+this scenario across several random seeds. These seeds make the runs repeatable,
+and their outputs reproducible.
+
+\begin{listing}[htbp]
+\begin{usagepy}
+>>> import edo
+>>> import pandas as pd
+>>> 
+>>> pop_histories, fit_histories = [], []
+>>> for seed in range(5):
+...     families = [edo.Family(RadiusUniform), edo.Family(AngleUniform)]
+...     opt = edo.DataOptimiser(
+...         fitness,
+...         size=100,
+...         row_limits=[50, 100],
+...         col_limits=[(1, 1), (1, 1)],
+...         families=families,
+...         max_iter=30,
+...         best_prop=0.1,
+...         maximise=True,
+...     )
+...     pops, fits = opt.run(random_state=seed)
+...     fits["seed"] = seed
+...     pop_histories.append(pops)
+...     fit_histories.append(fits)
+>>> 
+>>> fit_history = pd.concat(fit_histories)
+
+\end{usagepy}
+\caption{Running the circle scenario in \edo\ across five seeds}
+\label{snp:circle}
+\end{listing}
+
+Here, the remaining parameters --- population size, selection parameters, etc.
+--- are mainly illustrative and such that this example can run in good time.
+However, despite this potential roughness, the results are good.
+Figure~\ref{fig:circle} shows a contour of the top 50\% of individuals, which is
+well-distributed about the unit circle. In addition, the best-performing
+individual from across these runs is shown as a scatter.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\imgwidth]{img/circle/main}
+    \caption{A contour and scatter plot of the circle example results}
+    \label{fig:circle}
+\end{figure}
+\graphicspath{{chapters/edo/paper/img/}}
 
 \subsection{Individuals}
 
@@ -492,7 +650,7 @@ be on the well-known \(k\)-means (Lloyd's) algorithm. Clustering has been chosen
 as it is a well-understood problem that is easily accessible --- most notably
 when restricted to two dimensions.
 
-\subsection{Inertia and \(k\)-means clustering}
+\subsection{Inertia and \(k\)-means clustering}\label{subsec:inertia}
 
 The \(k\)-means algorithm is an iterative, centroid-based method that aims to
 minimise the \emph{inertia} of the current partition, \(Z = \left\{Z_1, \ldots,
@@ -622,7 +780,7 @@ distributions = [Uniform]
 > edolab run --seeds=10 --cores=4 kmeans_inertia.py
 > edolab summarise --tarball kmeans_inertia.py
 \end{usagesh}
-\caption{Example usage of the \mintinline{python}{edolab} command-line tool}
+\caption{Example usage of the \mintinline{console}{edolab} command-line tool}
 \label{snp:edolab}
 \end{listing}
 
