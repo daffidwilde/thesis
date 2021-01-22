@@ -19,33 +19,60 @@ good project allocation on learning.
 
 FYP allocation is a resource allocation problem with a specific set of
 constraints. Typically, these correspond to student preferences, supervisor
-preferences, and workload capacities. This appendix uses the student-project
-allocation problem (SA) to model FYP allocation. Implementing FYP allocation as
-an instance of SA grants access to a Gale-Shapley algorithm, which produces a
-unique, student-optimal, mathematically fair allocation.
-
-The remainder of this appendix is set out as follows:
-
-\begin{itemize}
-    \item Section~\ref{sec:matching} presents a summary of the \matching\
-        library and its use.
-    \item Section~\ref{sec:biosi} comprises a case study for BIOSI.
-    \item Section~\ref{sec:conclusion} summarises the manuscript and potential
-        further problems.
-\end{itemize}
+preferences, and workload capacities. There are many techniques available for
+finding solutions to this allocation problem, and~\cite{Hussain2019} provides a
+review of current FYP allocation methodologies. A common approach is linear
+programming~\cite{Chiarandini2017,Kwanashie2015}. This appendix uses the
+student-project allocation problem (SA) to model FYP allocation. Implementing
+FYP allocation as an instance of SA grants access to a Gale-Shapley algorithm,
+which produces a unique, student-optimal, mathematically fair allocation.
 
 
 \section{Using the {\color{grey}\texttt{matching}} library}
 \label{sec:matching}
 
+This section is in preparation, and some of the details are covered in
+Section~\ref{sec:student_allocation}, where SA is introduced. However, a full
+tutorial on how to implement this FYP allocation process is available in the
+\matching\ documentation:
 
+\begin{center}
+\href{https://matching.readthedocs.io/en/latest/tutorials/project_allocation/main.html}{%
+    \nolinkurl{%
+        matching.readthedocs.io/.../project_allocation/main.html
+    }
+}
+\end{center}
 
-\section{The BIOSI case study}\label{sec:biosi}
+\section{Case study}\label{sec:biosi}
 
-in the School of Biosciences at Cardiff University (BIOSI). In doing
-so, there are two benefits: first, the automatic allocation process reduces the
-work hours required by the staff dramatically; and, second, the allocation
-itself is guaranteed to be fair for students.
+This section is in preparation, but will include a case study of FYP allocation
+in the School of Biosciences at Cardiff University (BIOSI). The automatic,
+matching-based process has been used since the 2019/20 academic year to allocate
+projects to final-year students in BIOSI. The School accepts applications from
+all of their final-year students, of which there are approximately \(360\) in
+any given year.
 
 
 \section{Conclusion}\label{sec:conclusion}
+
+This section is in preparation. However, there are two major findings from
+implementing this FYP allocation.
+
+First, the automatic allocation process reduces the work hours required by the
+staff dramatically. There are half a dozen or so staff members within the FYP
+team, and their manual allocation process would typically take at least one week
+to create a draft allocation to be distributed to the supervisors. Following
+that, adjustments are made until the BIOSI staff are satisfied, after which the
+projects are released to the students. Even at this point, project allocations
+may change owing to students making individual requests.
+
+With the new implementation, the initial matching completes within a few
+seconds. Included in the process are several figures for analysing the
+allocation, including supervisor-project utilisation and allocation-rank
+quality.
+
+Second, the allocation itself is guaranteed to be fair and optimal for students.
+By using the Gale-Shapley algorithm, it becomes far easier to justify particular
+allocations to students and staff. This resolves many of the adjustment issues
+experienced by the School prior to implementing this allocation process.
