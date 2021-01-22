@@ -102,6 +102,7 @@ words = {
     "iqr",
     "iter",
     "iteratively",
+    "kb",
     "kendal",
     "kidbscan",
     "kmeans",
