@@ -529,21 +529,22 @@ list constructors are included; the NRMP uses its own ranking system for the
 hospital agents, for instance. In a sense, the generalisation of SM to HR
 includes allowing for a form of indifference by allowing incomplete preference
 lists by residents. Not ranking any subset of the hospitals is equivalent to
-ranking them all the same: as unacceptable. The allowing of ties in a preference
-list would have its practical benefits, such as in the initialisation presented
-in Chapter~\ref{chp:kmodes}. In that setting, the categorical dissimilarity
-measure corresponds to the ranking between potential representative points in a
-cluster and real data points. A shortcoming of that measure is the potentially
-high incidence of ties in the distances between a set of points. As such,
-allowing for ties to be reconciled in the matching game would be desirable.
-However, as no matching is guaranteed for any of the levels of stability in such
-a framework, it cannot be considered.
+ranking them all the same: as unacceptable. Allowing ties in a preference list
+would have its practical benefits, such as in the initialisation presented in
+Chapter~\ref{chp:kmodes}. In that setting, the categorical dissimilarity measure
+corresponds to the ranking between potential representative points in a cluster
+and real data points. A shortcoming of that measure is the potentially high
+incidence of ties in the distances between a set of points. As such, allowing
+for ties to be reconciled in the matching game would be desirable.  However, as
+no matching is guaranteed for any of the levels of stability in such a
+framework, it cannot be considered.
 
 Further to these extensions, HR has given rise to its own contextual problems.
-One of these is allowing for couples in the resident party.~\cite{Manlove2016}
-is one study showing that no stable matching is guaranteed to exist, and so a
-related, NP-hard problem is considered instead where the objective is to
-identify an almost-stable matching that minimises the number of blocking pairs.
+One of these is allowing for couples in the resident party.
+In~\cite{Manlove2016}, the authors show that no stable matching is guaranteed to
+exist when couples are permitted. In response, a related, NP-hard problem is
+considered, where the objective is to identify an almost-stable matching
+that minimises the number of blocking pairs.
 
 Another method used to construct preference lists is to discount the preference
 lists presented by players. For instance, where acceptability of another player
