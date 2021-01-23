@@ -22,8 +22,8 @@ power, and with that, the field of machine learning. Machine learning can be
 defined in broad terms as a machine (computer) learning patterns and
 characteristics from data (through the use of statistics) without explicit
 instructions. This definition aligns machine learning squarely with OR, in that
-they both take data and extract value from it. As such, methodologies employed
-in contemporary OR projects are increasingly making use of machine learning
+both take data and extract value from it. As such, methodologies employed in
+contemporary OR projects are increasingly making use of machine learning
 techniques.
 
 The National Health Service (NHS) is one of the many organisations to adopt
@@ -73,9 +73,9 @@ given below:
         model evaluation. As well as surveying each topic individually, their
         intersections are considered.
     \item Chapter~\ref{chp:edo} presents a novel approach to understanding an
-        algorithm's quality according to some metric. The presented method
-        allows for an exploration of the space in which `good' datasets exist
-        by use of an evolutionary algorithm.
+        algorithm's quality according to a particular metric. The presented
+        method allows for an exploration of the space in which `good' datasets
+        exist by use of an evolutionary algorithm.
     \item Chapter~\ref{chp:kmodes} describes a new initialisation method for an
         existing clustering algorithm. This method models the initialisation as
         a matching game, incorporating a mathematical notion of fairness. The
@@ -111,25 +111,25 @@ amount of novel mathematics.
     }\label{fig:structure}
 \end{figure}
 
-The chapters in this thesis are presented in a logical manner, and their
-connections are shown in Figure~\ref{fig:structure}. An arrow from one chapter
-(or appendix) to another indicates that some part of the research presented in
-that chapter contributes to the research in the other. 
+The logical connections between the chapters and appendices of this thesis are
+demonstrated in Figure~\ref{fig:structure}. An arrow from one chapter (or
+appendix) to another indicates that some part of the research presented in that
+chapter contributes to the research in the other. 
 
 
 \section{Novel contributions of the thesis}\label{sec:novel}
 
-This section lists the novel aspects of this thesis to its principal themes of
-algorithm evaluation, clustering, and operational healthcare modelling. The
-contributions of each chapter are presented separately with a concise
-description of the problem, existing literature surrounding that problem, and
-how that problem is addressed through this thesis.
+This section lists aspects of this thesis which are novel to its principal
+themes of algorithm evaluation, clustering, and operational healthcare
+modelling. The contributions of each chapter are presented separately with a
+concise description of the problem, existing literature surrounding that
+problem, and how that problem is addressed through this thesis.
 
 Chapter~\ref{chp:edo} addresses the issue of how algorithms are evaluated. The
 standard procedure for algorithm evaluation consists of measuring the
 performance of an algorithm on a small number of examples and metrics. This
-procedure is referred to as a \emph{confirmation process}, and offers no
-substantial evidence to draw conclusions on the quality of an
+procedure is referred to as a \emph{confirmation process}. Such processes offer
+little evidence upon which conclusions can be based about the quality of an
 algorithm~\cite{Parker2020}. The methodology presented in Chapter~\ref{chp:edo},
 called evolutionary dataset optimisation (EDO), expands on the familiar concept
 of a confirmation process. The EDO method generates and optimises datasets for
@@ -159,10 +159,10 @@ learning and classical OR techniques to provide insight into a healthcare
 population. The use of clustering to inform a healthcare queuing model does not
 appear in literature, despite its use to study the results of queuing models ---
 as in~\cite{Prokofyeva2020,Rebuge2012}. Second, the methodology circumvents the
-common issue of applying OR to healthcare where sufficiently detailed data is
-not available. The dataset used in the chapter is a routinely gathered,
-administrative dataset, from which a well-fitting replica is derived via the
-Wasserstein distance.
+common issue of applying OR to areas such as healthcare where sufficiently
+detailed data is not always available. The dataset used in the chapter is a
+routinely gathered, administrative dataset, from which a well-fitting replica is
+derived via the Wasserstein distance.
 
 
 \section{Software development and best practices}\label{sec:dev}
@@ -263,7 +263,7 @@ publicly hosted on GitHub, and links to them are listed in
 Table~\ref{tab:repos}. In addition to the benefits of the underlying version
 control system, hosting services afford software developers the ability to make
 their software accessible beyond their local machine. Furthermore, GitHub has
-features to encourage collaboration between developers, allowing users to
+features which encourage collaboration between developers, allowing users to
 interact through their repositories by reporting issues, commenting and
 liking, and (perhaps most importantly) requesting to make changes.
 
@@ -274,7 +274,7 @@ will have \emph{dependencies}. A dependency is a version of some existing
 software required by the newly developed software to run. Occasionally, there
 will be clashes in the dependencies of two or more pieces of software, or
 another developer may wish to install that software exactly as it was created.
-These are two motivating examples for organising and separating project
+These are two examples of motivations for organising and separating project
 dependencies; \emph{virtual environments} provide a means of achieving this. A
 virtual environment is a self-contained, independent copy of some dependencies
 that can be activated and deactivated at will. By activating an environment,
@@ -324,8 +324,8 @@ such as the virtual environments created using environment configuration files.
 
 Snippet~\ref{snp:environment} shows the contents of an overarching environment
 file for this thesis. The environment file lists the name of the environment
-(\mintinline{console}{thesis}), its dependencies, and from where those
-dependencies should be installed (under \mintinline{console}{channels} and
+(\mintinline{console}{thesis}), its dependencies, and the locations from which
+those dependencies should be installed (under \mintinline{console}{channels} and
 \mintinline{console}{pip}). Beside each dependency is the specific version (or
 bounds on the version) required to recreate the environment.
 
