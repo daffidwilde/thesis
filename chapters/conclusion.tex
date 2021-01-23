@@ -160,7 +160,7 @@ into the patient population within their hospital system.
 With an administrative dataset provided by \ctmuhb, exploratory analysis
 (available in Appendix~\ref{app:data}) found that the population in question was
 deeply varied and heterogeneous --- as expected. However, the dataset was
-insufficiently detailed to construct meaningful models on the entire population
+insufficiently detailed to construct meaningful models of the entire population
 or system. The variety in the data opened up an interest in population
 segmentation techniques, eventually feeding into
 Chapters~\ref{chp:kmodes}~and~\ref{chp:copd}. Meanwhile, requests were made for
@@ -197,15 +197,15 @@ improve the performance of an existing algorithm, as opposed to creating an
 entirely new one, leading to the work in Chapter~\ref{chp:kmodes}.
 
 Over the course of this project, it became clear that the requests for more
-detailed datasets would not complete in time. Hence, the research methodology
-would have to prioritise extracting as much useful information from the data at
-hand. Simultaneously, \ctmuhb\ provided further administrative datasets which
-related to the members of their population who suffer from the respiratory
-condition, COPD. An internal report by NHS Wales found that \ctmuhb\ had the
-highest prevalence of the condition out of all the Welsh health boards. Given
-the known links between COPD, socioeconomic deprivation and the coincidence of
-multiple comorbidities, the objective of this project was revised to focus on
-understanding the needs of that population.
+detailed datasets would not be completed in time. Hence, the research
+methodology would have to prioritise extracting as much useful information as
+possible from the data at hand. Simultaneously, \ctmuhb\ provided further
+administrative datasets which related to the members of their population who
+suffer from the respiratory condition, COPD. An internal report by NHS Wales
+found that \ctmuhb\ had the highest prevalence of the condition out of all the
+Welsh health boards. Given the known links between COPD, socioeconomic
+deprivation and the coincidence of multiple comorbidities, the objective of this
+project was revised to focus on understanding the needs of that population.
 
 Overcoming each of these challenges culminated in the methodology presented in
 Chapter~\ref{chp:copd}. The high-level, administrative dataset was analysed and
@@ -261,12 +261,12 @@ fledged data synthesis method.
 As discussed at various points in this thesis, the framework presented in
 Chapter~\ref{chp:copd} is novel in its ability to circumvent the need for
 fine-grained data. However, as discussed in Section~\ref{sec:contributions},
-there are other aspects to its novelty. In particular, the use of clustering to
-inform a queuing model, and the estimation of unknown queuing parameters.
-Extending the reach of this work into the COPD population would be possible with
-even slightly more detailed data. For instance, episode-level data (such as the
-dataset analysed in Appendix~\ref{app:data}) could allow for a queuing network
-with multiple nodes to be developed, separating the various departments in the
+there are other aspects to its novelty such as the use of clustering to inform a
+queuing model, and the estimation of unknown queuing parameters. Extending the
+reach of this work into the COPD population would be possible with even slightly
+more detailed data. For instance, episode-level data (such as the dataset
+analysed in Appendix~\ref{app:data}) could allow for a queuing network with
+multiple nodes to be developed, separating the various departments in the
 hospital. However, that data would need to be well-ordered to understand the
 actual pathway of patients at the spell level, which routinely gather
 administrative datasets are not.
@@ -275,7 +275,7 @@ administrative datasets are not.
 system for recording the clinical activity and vital information of their
 patients in real time~\cite{whiteboards}. This system replaces the physical
 whiteboards in hospital wards with an electronic equivalent. The `e-whiteboard'
-and its drag-and-drop software overcome some of the issues associated with
+and its drag-and-drop software overcomes some of the issues associated with
 traditional whiteboards such as the accurate recording of data to the existing
 electronic system. In addition, the internal software records the exact time
 that information is recorded, allowing for an extremely high level of detail in
