@@ -64,25 +64,25 @@ administrative, healthcare dataset, revealing the presence of high variation in
 the population. This variability stifles the possibility of uncovering valuable
 insights about the whole population. However, some benefits are made apparent by
 considering a condition-specific population. This chapter utilises another
-administrative dataset of patients presenting chronic obstructive pulmonary
-disease (COPD), and demonstrates how actionable insights can be identified by
-thoroughly extracting information from the dataset.
+administrative dataset of patients presenting COPD, and demonstrates how
+actionable insights can be identified by thoroughly extracting information from
+the dataset.
 
 Population health research is increasingly based on data-driven methods (as
 opposed to those designed solely by clinical experts) for patient-centred care
 through the advent of accessible software and a relative abundance of electronic
-data. However, many such methods rely heavily on detailed data — about both the
-healthcare system and its population — which may limit research where
+data. However, many such methods rely heavily on detailed data about both the
+healthcare system and its population, which may limit research where
 sophisticated data pipelines are not yet in place.
 
 This chapter demonstrates a method of overcoming this, using routinely gathered,
 administrative hospital data to build a clustering that feeds into a multi-class
 queuing model, allowing for better understanding of the healthcare population
 and the system with which they interact. COPD is a condition of particular
-interest to population health research, and to Cwm Taf Morgannwg UHB, as it is
+interest to population health research, and to \ctmuhb, as it is
 known to often present as a comorbidity in patients~\cite{Houben2019},
 increasing the complexity of treatments among those with the condition.
-Moreover, an internal report by NHS Wales found the Cwm Taf Morgannwg UHB had
+Moreover, an internal report by NHS Wales found \ctmuhb\ had
 the highest prevalence of the condition across all the Welsh health boards.
 
 The research in this chapter draws upon several overlapping sources within
@@ -111,9 +111,9 @@ The chapter is structured as follows:
 
 \subsection{Overview of the dataset and its clustering}\label{subsec:overview}
 
-The Cwm Taf Morgannwg UHB provided the dataset used in this chapter. The
-dataset contains an administrative summary of 5,231 patients presenting COPD
-from February 2011 through March 2019 totalling 10,861 spells. A patient
+Cwm Taf Morgannwg UHB provided the dataset used in this chapter. The dataset
+contains an administrative summary of 5,231 patients presenting COPD from
+February 2011 through to March 2019 totalling 10,861 spells. A patient
 (hospital) spell is defined as the continuous stay of a patient using a hospital
 bed on premises controlled by a healthcare provider and is made up of one or
 more patient episodes~\cite{NHS:spell}. The following attributes describe the
@@ -233,13 +233,13 @@ deviations for the numeric attributes. The analysis that informed the clustering
 in this chapter found that this value for \(\gamma\) provided a useful
 clustering; as such, no further modifications were made.
 
-To determine the optimal number of clusters, \(k\), the same knee point
-detection algorithm used at the end of Chapter~\ref{chp:kmodes} was used with a
-range of potential values for \(k\) from two to ten. This range was chosen based
-on what may be considered feasibly informative to stakeholders. Applying this
-algorithm revealed an optimal value for \(k\) of four, but both three and five
-clusters were considered. Both of these cases were eliminated due to a lack of
-clear separation in the characteristics of the clusters.
+To determine the optimal number of clusters, \(k\), the knee point detection
+algorithm used at the end of Chapter~\ref{chp:kmodes} was used with a range of
+potential values for \(k\) from two to ten. This range was chosen based on what
+may be considered feasibly informative to stakeholders. Applying this algorithm
+revealed an optimal value for \(k\) of four, but both three and five clusters
+were considered. Both of these cases were eliminated due to a lack of clear
+separation in the characteristics of the clusters.
 
 Additionally, the initialisation method used for \(k\)-prototypes was the
 matching initialisation presented in Chapter~\ref{chp:kmodes}. This
@@ -433,16 +433,16 @@ profiles among the clusters: Cluster 0 is typical of the population; Cluster 1
 shows that no patient presented COPD solely as an LTC in their spells, and more
 than half presented at least three; Cluster 2 is similar in form to the
 population but is strongly biased towards patients presenting COPD as the only
-LTC; Cluster 3 has the most uniform spread among the four bins despite the
+LTC; Cluster 3 has the closest-to-uniform spread among the four bins despite the
 increased length of stay and CCI, suggesting a diverse array of patients in
 terms of their long term medical needs.
 
 Figure~\ref{fig:cluster_icds} largely mirrors these cluster profiles with the
-number of concurrent ICDs. Some points of interest, however, are that Cluster 1
-has a relatively low-leaning distribution of ICDs that does not marry up with
-the high rates of LTCs, and that the vast majority of spells in Cluster 3
-present with at least nine ICDs suggesting a likely wide range of conditions and
-comorbidities beyond the LTCs used to calculate CCI.\
+number of concurrent ICDs. There are some points of interest, however. Firstly,
+Cluster 1 has a relatively low-leaning distribution of ICDs that does not marry
+up with the high rates of LTCs. Secondly, the vast majority of spells in Cluster
+3 present with at least nine ICDs suggesting a likely wide range of conditions
+and comorbidities beyond the LTCs used to calculate CCI.\
 
 However, little can be drawn from the intervention counterparts to these figures
 (i.e. Figures~\ref{fig:intervention_ltcs}~and~\ref{fig:intervention_icds}),
@@ -624,7 +624,7 @@ arriving customers join the line and wait for service.
 As useful as memoryless service times are in deriving properties of queues, they
 are not always representative of real systems. The \(M/G/c\) queue extends the
 \(M/M/c\) queue to allow for a general service time distribution. Again, there
-are \(c\) parallel servers and customers arrive randomly at a rate of
+are \(c\) parallel servers, and customers arrive randomly at a rate of
 \(\lambda\).
 
 The \(M/G/c\) queue cannot be represented as a Markov chain, but it is a
@@ -665,10 +665,9 @@ reproducible simulation work are at the core of their development process.
 \section{Constructing the queuing model}\label{sec:model}
 
 The data available in this chapter is not as detailed as in comparative
-projects, limiting the options for how a queuing model may be constructed.
-Without access to such data --- but intending to gain insight from what is
-available --- it is imperative to bridge the gap left by the incomplete data.
-Figure~\ref{fig:process} provides a diagrammatic depiction of the process
+projects. Without access to such data --- but intending to gain insight from
+what is available --- it is imperative to bridge the gap left by the incomplete
+data. Figure~\ref{fig:process} provides a diagrammatic depiction of the process
 described in this section.
 
 It is often the case that in practical situations where suitable data is not
@@ -690,7 +689,7 @@ requirements in two healthcare settings.
 
 Aside from healthcare-specific works, the approximation of queue parameters has
 formed a part of relevant modern queuing research. However, the scope is
-primarily focused on theoretic approximations rather than by simulation. For
+primarily focused on theoretic approximations rather than simulation. For
 instance, two recent works~\cite{Djabali2018,Goldenshluger2016} consider an
 underlying process to estimate a general service time distribution in single
 server and infinite server queues respectively.
@@ -817,7 +816,7 @@ Kullback-Leibler divergence which measures relative information entropy from one
 probability distribution to another~\cite{Kullback1951}. A key issue with many
 of these methods is that they lack interpretability, something which is
 paramount when conveying information to stakeholders, not only for explaining
-how something works but also how its results may be explained.
+how something works, but also how its results may be explained.
 
 As such, a reasonable candidate is the (first) Wasserstein metric, also known as
 the `earth mover' or `digger' distance~\cite{Vaserstein1969}. The Wasserstein
@@ -858,9 +857,9 @@ a granularity of \(5.0 \times 10^{-2}\) and values of \(c\) from \(30\) to
 \(50\) at steps of five. These choices were informed by the assumptions of the
 model and formative analysis to reduce the parameter space given the
 computational resources required to conduct the simulations. Each parameter set
-was repeated 50 times with each simulation running for four years of virtual
+was repeated 50 times, with each simulation running for four years of virtual
 time. The warm-up and cool-down periods were taken to be approximately one year
-each leaving two years of simulated data from each repetition.
+each, leaving two years of simulated data from each repetition.
 
 \begin{figure}
     \centering
@@ -952,8 +951,8 @@ independent life events that lead to a change in deprivation, such as an
 accident or job loss. Within this model, overall patient arrivals are altered
 using a scaling factor denoted by \(\sigma > 0\). This scaling factor is applied
 to the model by multiplying each cluster's arrival rate by \(\sigma\). That is,
-for cluster \(l\), its new arrival rate, \(\hat\lambda_l\),
-is given by:
+the new arrival rate for a cluster, \(l\), denoted \(\hat\lambda_l\), is given
+by:
 
 \begin{equation}\label{eq:lambda}
     \hat\lambda_{l} = \sigma\lambda_l
@@ -1040,7 +1039,7 @@ relative system times and server utilisation. In this scenario, the relative
 number of servers took values from 0.5 to 2.0 at an equivalent step size of one
 in the number of servers, i.e. \(c\) takes values from 17 to 70. Overall, these
 figures fortify the claim from the previous scenario that there is some room to
-manoeuvre so that the system runs `as normal' but pressing on those boundaries
+manoeuvre so that the system runs `as normal', but pressing on those boundaries
 results in massive changes to both resource requirements and system times.
 
 In Figure~\ref{fig:servers_time} this amounts to a maximum of 10\% slack in
@@ -1063,12 +1062,12 @@ system times.
 
 Again, Figure~\ref{fig:servers_util} shows that there is a substantial change in
 the variation in the relative utilisation of the servers. In this case, the
-variation dissipates as resource levels fall and increase as they increase.
-While the relationship between real hospital resources and the number of servers
-is not exact, having variation in server utilisation would suggest that small
-parts of an existing system may be configured or partitioned away in the case of
-some significant public health event (such as a global pandemic) without
-overloading the system.
+variation dissipates as resource levels fall, and increases as resources
+increase. While the relationship between real hospital resources and the number
+of servers is not exact, having variation in server utilisation would suggest
+that small parts of an existing system may be configured or partitioned away in
+the case of some significant public health event (such as a global pandemic)
+without overloading the system.
 
 
 \subsection{Moving arrivals between clusters}\label{subsec:moving}
@@ -1080,8 +1079,8 @@ in Section~\ref{subsec:overview}. Therefore, being able to model the movement of
 some proportion of patient spells from one cluster to another will reveal how
 those complexities and requirements affect the system itself. The reality is
 then that if some public health policy could be implemented to initiate that
-movement informed by a model such as this, then real change would be seen in the
-real system.
+movement informed by a model such as this, then change would be seen in the real
+system.
 
 In order to model the effects of spells moving between two clusters, the
 assumption is that each cluster's service time distribution stays the same (and
@@ -1170,7 +1169,7 @@ times in hospitals, the only solution is for the patients arriving at hospital
 to present with fewer resource requirements. Meanwhile, the complexity of their
 condition is less influential. Achieving such reductions in resource
 requirements is certainly no mean feat, but could be addressed by investing in
-more-advanced medical infrastructure in other parts of the healthcare system,
+more advanced medical infrastructure in other parts of the healthcare system,
 beyond hospitals. Furthermore, this could be achieved by implementing some
 preventive policy that would help improve the overall health of the COPD
 population, with particular targeting for those most-affected by the condition.
@@ -1192,11 +1191,11 @@ resources can be substantially reduced by moving arrivals from Cluster 0 to
 either Cluster 1 or Cluster 2, i.e. by reducing the overall resource
 requirements of such spells.
 
-In essence, this entire analysis offers two messages: that there are several
-ways in which the system can get worse and even overwhelmed but, more
-importantly, that any meaningful impact on the system must come from a stimulus
-outside of the system that results in a higher proportion of healthy patients
-arriving at the hospital. This conclusion is non-trivial; the first two
+In essence, this entire analysis offers two messages. Firstly, that there are
+several ways in which the system can get worse and even overwhelmed. Secondly,
+and more importantly, that any meaningful impact on the system must come from a
+stimulus outside of the system that results in a higher proportion of healthy
+patients arriving at the hospital. This conclusion is non-trivial; the first two
 scenarios in this analysis show that there are no quick solutions to reduce the
 effect of COPD patients on hospital capacity and length of stay. The only
 effective intervention for improving the system on the whole is found through
@@ -1210,12 +1209,11 @@ that encompasses the topics of segmentation analysis, queuing models, and the
 recovery of queuing parameters from incomplete data. This investigation is done
 despite characteristic limitations in operational research concerning the
 availability of fine-grained data, and this chapter only uses administrative
-hospital spell data from patients presenting COPD from the Cwm Taf Morgannwg
-UHB.\
+hospital spell data from patients presenting COPD from \ctmuhb.
 
 By considering a variety of attributes present in the data, and engineering
 some, a useful clustering of the spell population is identified that
-successfully feeds into a multi-class, \(M/M/c\) queue to model a hypothetical
+successfully feeds into a multi-class, \(M/G/c\) queue to model a hypothetical
 COPD ward. With this model, several insights are gained by investigating
 purposeful changes in the parameters of the model that have the potential to
 inform actual public health policy.

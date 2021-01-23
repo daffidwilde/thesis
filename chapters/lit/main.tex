@@ -49,11 +49,12 @@ compute algorithms, and so electronic data became essential. Similarly to the
 FAIR guidelines for research data, best practices for research software
 development have been adopted~\cite{Aberdour2007,Benureau2018,Jimenez2017}. As
 the size and complexity of research data increased, so did the span of the field
-\emph{machine learning}. Machine learning is a term to describe how a computer
-(machine) may learn (by use of statistics) from a potentially large source of
-data, without following explicit instructions. Owing in part to this broad
-definition, machine learning comprises a great many techniques that were borne
-out of statistics, including regression, classification and clustering.
+\emph{machine learning}. To reiterate the opening section of this thesis,
+machine learning is the process of applying statistics to glean insights from a
+potentially large source of data, without following explicit instructions. Owing
+in part to this broad definition, machine learning comprises a great many
+techniques that were borne out of statistics, including regression,
+classification and clustering.
 
 Healthcare modelling is one crucial (albeit broad) branch of research in which
 decisions are increasingly being informed by data-driven
@@ -104,8 +105,8 @@ number of techniques whose objective is to partition some dataset into parts
 (clusters) according to some distance (similarity) measure. The generated
 partition should be such that the members of one cluster are more similar to one
 another than the rest of the data~\cite{Everitt2011}. This form of analysis has
-found applications in an array of fields, including recently the optimisation of
-energy systems~\cite{Jing2019,Teichgraeber2019}, wireless sensor
+found applications in an array of fields, including the optimisation of energy
+systems~\cite{Jing2019,Teichgraeber2019}, wireless sensor
 networking~\cite{Goswami2019}, and the biological
 sciences~\cite{Bulut2020,Kiselev2019}.
 
@@ -166,7 +167,7 @@ uncomplicated in its statement, and has now become so synonymous with
 summarise it in a sentence, the algorithm iteratively partitions the numerical
 data into \(k\) parts, reassigning data points and adjusting cluster means until
 no point moves cluster on a full cycle of the dataset. The algorithm has proven
-popular owing to this simplicity. Furthermore, it is scalable and can be
+popular owing to this simplicity. Furthermore, it is scalable, can be
 parallelised~\cite{Bahmani2012}, and its implementations are
 concise~\cite{Olafsson2008,Wu2009}.
 
@@ -193,7 +194,7 @@ intra-cluster tightness and inter-cluster separation of a
 clustering~\cite{Rousseeuw1987}.
 
 Irrespective of the objective used, the definition of what constitutes an elbow
-is not necessarily well-defined. The works \cite{Sujatha2013,Syakur2018} each
+is not necessarily well-defined. The works \cite{Sujatha2013,Syakur2018} both
 employ the elbow method with final inertia as the objective. In each case, the
 authors offer little explanation of their methodologies other than choosing
 \(k\) where `drastic' changes occur in the objective. Attempts to formalise this
@@ -204,14 +205,14 @@ of that function (whether it is convex, monotonic, etc.). This algorithm has
 been adapted to cleanly carry out the elbow method in software packages, such as
 Yellowbrick~\cite{Bengfort2019}, by interpolating the objective values.
 
-Further to this formalisation of the elbow method, other extensions to
-\(k\)-means itself have been presented to alleviate all dependency on making a
-choice for \(k\). For example, in~\cite{Olukanmi2019}, the authors propose an
-automatic decision scheme for \(k\)-means based on a vector comprised of the
-values that constitute the inertia of a clustering. The process determines that
-if this vector meets some criterion attached to its standard deviation, then
-each cluster is sufficiently unimodal and Gaussian, fulfilling the condition
-that clusters be roughly spherical.
+In addition to the elbow method, extensions to \(k\)-means itself have also been
+presented to alleviate its dependency on a choice for \(k\). For example,
+in~\cite{Olukanmi2019}, the authors propose an automatic decision scheme for
+\(k\)-means based on a vector comprised of the values that constitute the
+inertia of a clustering. The process determines that if this vector meets some
+criterion attached to its standard deviation, then each cluster is sufficiently
+unimodal and Gaussian, fulfilling the condition that clusters be roughly
+spherical.
 
 Another limitation of \(k\)-means is that it is dependent on its initial
 solution. The standard initialisation process is to select \(k\) points in the
@@ -371,7 +372,7 @@ also been archived online under~\doi{10.5281/zenodo.4320050}.
     \caption{%
         Clusters identified by \(k\)-means on the (\subref{fig:kmeans_moons})
         moons, (\subref{fig:kmeans_ellipses}) ellipses, and
-        (\subref{fig:kmeans_spheres}) spheres datasets.%
+        (\subref{fig:kmeans_spheres}) spheres datasets%
     }\label{fig:kmeans_examples}
 \end{figure}
 
@@ -442,8 +443,8 @@ Another popular linkage criterion is average-linkage, which defines the distance
 between two clusters as the mean distance between any point in one cluster and
 any point in the other. Defining linkage criteria with point-wise distances
 allows a hierarchical (agglomerative or divisive) algorithm to be run using only
-a point-wise distance matrix, as opposed to a dataset directly, allowing for
-increases in computational efficiency by use of caching~\cite{Nielsen2016}.
+a point-wise distance matrix, as opposed to a dataset directly. Doing so allows
+for increases in computational efficiency by use of caching~\cite{Nielsen2016}.
 However, hierarchical methods continue to be prone to outliers and are biased
 towards globular clusters because of definitions such as these. Ongoing reviews
 on the subject of hierarchical (although predominantly agglomerative) clustering
@@ -505,7 +506,7 @@ values.
     \end{subfigure}
     \caption{%
         Clusters and dendograms identified by average-linkage clustering on the
-        synthetic datasets.%
+        synthetic datasets%
     }\label{fig:hierarchical_examples}
 \end{figure}
 
@@ -542,9 +543,10 @@ KIDBSCAN~\cite{Tsai2006} utilises \(k\)-means clustering to identify centres
 with a high density.
 
 Density-based clustering is relatively young when compared to other paradigms,
-only emerging at the end of the 20\textsuperscript{th} century with the DBSCAN
+only emerging at the end of the 20\textsuperscript{th} century with the
+Density-Based Spatial Clustering of Applications with Noise (DBSCAN)
 algorithm~\cite{Ester1996}. Given its youth, contemporary clustering literature
-surveys (such as~\cite{Jain1999,Xu2005}) lacked thorough study of density-based
+surveys (such as~\cite{Jain1999,Xu2005}) lack thorough study of density-based
 clustering methods. Over time, specific surveys have been published, culminating
 in a most recent survey~\cite{Bhattacharjee2020} which provides an exceptionally
 detailed review of density-based clustering algorithms. This survey includes a
@@ -615,7 +617,7 @@ of the parameters provided, but is exclusively for the clustering of images.
     \caption{%
         Clusters identified by DBSCAN on the (\subref{fig:dbscan_moons}) moons,
         (\subref{fig:dbscan_ellipses}) ellipses, and
-        (\subref{fig:dbscan_spheres}) spheres datasets.%
+        (\subref{fig:dbscan_spheres}) spheres datasets%
     }\label{fig:dbscan_examples}
 \end{figure}
 
@@ -638,12 +640,12 @@ from a number of disciplines such as financial modelling and forecasting, and
 operational problems like vehicle routing or staff rostering. This review
 focuses on these operational pursuits, and particularly those that are concerned
 with patients directly. The decision to narrow the literature in this way is
-both practical and conscientious, but an array of comprehensive reviews are
-available, including~\cite{Brailsford2016,Galetsi2020,Kunc2018,Palmer2018}.
-Practical by reducing the span of literature on `healthcare modelling' to
-something less cumbersome, and conscientious as it allows this review to make a
-small contribution to the research of the progressively more commonplace concept
-of patient-centred care.
+both practical and conscientious.  Practical by reducing the span of literature
+on `healthcare modelling' to something less cumbersome, and conscientious as it
+allows this review to make a small contribution to the research of the
+progressively more commonplace concept of patient-centred care. However, an
+array of comprehensive reviews are available,
+including~\cite{Brailsford2016,Galetsi2020,Kunc2018,Palmer2018}.
 
 This form of healthcare, formally defined in~\cite{Robinson2008}, demands that
 the perspective of a healthcare system should align itself with its patients'
@@ -659,7 +661,7 @@ broadly~\cite{IAPO2012,Richards2015,Santana2019}.
 
 Operational modelling and simulation form an integral part of advancing
 patient-centred care, and have been used to improve a great number of its
-facets, including improving patient safety~\cite{Jun2010}, identifying patients
+facets, including patient safety~\cite{Jun2010}, identifying patients
 in need of critical care~\cite{Adeyemi2013}, reducing length of
 stay~\cite{Gul2012}, and implementing personalised
 monitoring~\cite{Velikova2014}. The remainder of this section considers two
@@ -739,11 +741,11 @@ A queue models the arrival (and exit) of customers to (and from) a point of
 service. A queuing network describes how two or more queues may interact with
 each other. Since the seminal works by Erlang~\cite{Erlang1917,Erlang1920}
 established the core concepts of queuing theory, the application of queues and
-queuing networks to real services has become commonplace, including healthcare
-services. By applying these models to healthcare settings, many aspects of the
-underlying system can be studied. A common area of study in healthcare settings
-is of service capacity. The study~\cite{McClain1976} is an early example of such
-work where acute bed capacity was determined using hospital occupancy data.
+queuing networks to real services has become commonplace, including healthcare.
+By applying these models to healthcare settings, many aspects of the underlying
+system can be studied. A common area of study in healthcare settings is of
+service capacity. The study~\cite{McClain1976} is an early example of such work
+where acute bed capacity was determined using hospital occupancy data.
 Meanwhile, more modern works consider more extensive sources of data to build
 their queuing models~\cite{Palvannan2012,Pinto2014,Williams2015}. Moreover, the
 output of a model is catered more towards being actionable --- as is the
@@ -789,6 +791,7 @@ queue, each class of customer has its own set of attributes, which may include
 levels of priority for servicing, a specific arrival discipline or a particular
 service rate. Incorporating these characteristics allows for more realistic
 modelling and addresses the variety exhibited by agents in real-world queues.
+
 Defining attributes such as these is straightforward in a computer simulation,
 but this scenario is certainly not restricted to empirical studies. For
 instance, in~\cite{RomeroSilva2017}, the authors provide empirical,
@@ -873,10 +876,10 @@ simulation models, the importance of this question grows. The authors
 of~\cite{Oreskes1994} presented a landmark work that reiterates the concerns of
 earlier works, framing the question of model evaluation more squarely for
 computer simulation models. Again, one focus of~\cite{Oreskes1994} is on the use
-of particular language when discussing the quality of a model, i.e. no model can
-be validated, but rather a model can be confirmed when its output aligns with
-some observed data. The authors go a step further in stating that any
-corroborative support offered by model confirmation is `inherently partial'
+of particular language when discussing the quality of a model, i.e. that no
+model can be validated, but rather a model can be confirmed when its output
+aligns with some observed data. The authors go a step further in stating that
+any corroborative support offered by model confirmation is `inherently partial'
 given the assumptions made to construct a model. However, this confirmation
 process has become the standard response for evaluating computer simulation
 models, i.e. choose a metric and dataset (or sets thereof) and use these to
@@ -905,18 +908,18 @@ data for which the model would be applied. The authors argue the importance of
 not doing more than is necessary to achieve their objective, and opt for the
 simpler model.
 
-Later, in~\cite{Parker2020}, the same author elaborates on this
-adequacy-for-purpose view of model evaluation, highlighting the contrasts
-between determining adequacy of a model and measuring the accuracy of its
-representation against some target. In particular, the author emphasises the
-real-world dangers of overconfidence in a model's performance against any
-confirmation process. By defining models as tools constructed from parameters
-and simplifications, they are not generally boolean. Therefore, in general, they
-cannot be the subject of true confirmation. However, in practice, if a model is
-accredited through some confirmation process, the general merit and confidence
-in that model increases, potentially leading to the collective idea that the
-model has been `confirmed' and may be `better' than some other(s) without regard
-for its assumptions or limitations.
+In~\cite{Parker2020}, the same author elaborates on this adequacy-for-purpose
+view of model evaluation, highlighting the contrasts between determining
+adequacy of a model and measuring the accuracy of its representation against
+some target. In particular, the author emphasises the real-world dangers of
+overconfidence in a model's performance against any confirmation process. By
+defining models as tools constructed from parameters and simplifications, they
+are not generally boolean. Therefore, in general, they cannot be the subject of
+true confirmation. However, in practice, if a model is accredited through some
+confirmation process, the general merit and confidence in that model increases,
+potentially leading to the collective idea that the model has been `confirmed'
+and may be `better' than some other(s) without regard for its assumptions or
+limitations.
 
 The author offers four practical methods for assessing adequacy-for-purpose that
 address evaluation at the point of model construction, and as a part of post hoc
@@ -941,7 +944,7 @@ evaluation, without concrete and readily applied methods with which to quantify
 their approaches, they are unlikely to be adopted widely. This unlikelihood is
 not necessarily the fault of the methods, but rather that (in some respects)
 convenience and speed have been allowed to outweigh merit in the evaluation of
-models. In an increasingly competitive environment where becoming the new
+models. In an increasingly competitive environment where becoming the
 `state-of-the-art' has become the norm, regard for robust, thoroughly evaluated
 models has declined. The remainder of this section summarises the established
 evaluation processes for clustering algorithms and healthcare models,
@@ -1087,9 +1090,9 @@ to make better use of the volume of information available in increasingly
 complex healthcare
 settings~\cite{Alexander2018,Belle2015,Taranu2016,Tomar2013,Tsui2015}.
 
-However, since these methods directly impact the well-being of humans ---
-perhaps in an unaudited manner --- any data-driven model applied in healthcare
-requires a richer evaluation process to be deemed
+However, since these methods directly impact the wellbeing of humans --- perhaps
+in an unaudited manner --- any data-driven model applied in healthcare requires
+a richer evaluation process to be deemed
 fit-for-purpose~\cite{Boaz2003,Gerhards2020,Ho2020}. In healthcare settings, the
 entire application must be evaluated, not only the model itself. However,
 introducing machine learning techniques raises new questions (and reinforces
@@ -1102,18 +1105,17 @@ in recent years, and extensive reviews on the subject are available as part of
 works seeking to map out points of
 concern~\cite{Char2020,Grote2020,Obermeyer2016,Rajkomar2019}.
 
-Including ethical considerations is instrumental in developing trust in an
-application by stakeholders, which in turn marks its quality.
-In~\cite{Cutillo2020}, the authors describe the perspectives of researchers and
-care providers on the ethical application of `machine intelligence' in
-healthcare. They summarise that trust (for these stakeholders) requires
-confidence at all stages of an application: in the relevance of the data, the
-robustness and reproducibility of the system (i.e. the model itself), thorough
-auditing of the model output, and continual review of the entire workflow. They
-also make several calls for consistency across the application pipeline,
-including systematic review processes of existing methods, congruous terminology
-and nomenclature, and regularly reproducing existing model outputs on other data
-sources.
+Ethical considerations are instrumental in developing trust in an application by
+stakeholders, which in turn marks its quality. In~\cite{Cutillo2020}, the
+authors describe the perspectives of researchers and care providers on the
+ethical application of `machine intelligence' in healthcare. They summarise that
+trust (for these stakeholders) requires confidence at all stages of an
+application: in the relevance of the data, the robustness and reproducibility of
+the system (i.e. the model itself), thorough auditing of the model output, and
+continual review of the entire workflow. They also make several calls for
+consistency across the application pipeline, including systematic review
+processes of existing methods, congruous terminology and nomenclature, and
+regularly reproducing existing model outputs on other data sources.
 
 These calls for unified best practices are matched in recent
 literature~\cite{Liu2019,Monks2015,Monks2018,Vollmer2020,WitjasPaalberends2017}.
@@ -1184,8 +1186,8 @@ is achieved are various, but include bespoke, often statistical
 models~\cite{Dahmen2019,Dube2014,McLachlan2016,Tucker2020} and, recently,
 generative adversarial networks (GANs)~\cite{Avino2018,Park2018,Torfi2020}.
 Using synthetic datasets provides another level of anonymity to the patients,
-but their but their validity as representations of real data has been contested.
-In a recent paper~\cite{Rankin2020}, the authors report consistent, although
+but their validity as representations of real data has been contested.  In a
+recent paper~\cite{Rankin2020}, the authors report consistent, although
 marginal, losses in accuracy by various supervised learning methods on synthetic
 datasets when compared with their performance on the corresponding real
 datasets. The authors of~\cite{Dahmen2019} find similar results, but demonstrate
@@ -1203,7 +1205,7 @@ modelling and the evaluation of models. As part of this survey, the
 intersections of these topics have been considered, but there appears to be a
 distinct lack of literature covering all three topics simultaneously.
 
-Of the clustering approaches available, this survey could confirm that
+Of the clustering approaches available, this survey confirms that
 centroid-based clustering (\(k\)-means, in particular) continues to be the most
 popular in healthcare applications. This popularity prevails in spite of its
 known limitations such as requiring spherical, evenly sized clusters. In part,

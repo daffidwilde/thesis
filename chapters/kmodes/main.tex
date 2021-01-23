@@ -42,7 +42,7 @@ generating artificial datasets using the method set out in~\cite{Wilde2020:edo}.
 This chapter differs from the manuscript by including a more detailed
 description of the \(k\)-modes algorithm and its setting (in
 Section~\ref{sec:kmodes:intro}) and omits much of the discussion around matching
-games (Section~\ref{sec:inits}) which has now been expanded to form parts of
+games (Section~\ref{sec:inits}) which has been expanded to form parts of
 Appendix~\ref{app:matching}.
 
 \section{Introduction}\label{sec:kmodes:intro}
@@ -143,12 +143,12 @@ objects associated with clustering a categorical dataset:
         z^{(k)}\right\}\).
 \end{itemize}
 
-As has already been mentioned, the \(k\)-modes algorithm relies on a
+As discussed in Chapter~\ref{chp:lit}, the \(k\)-modes algorithm relies on a
 different metric to the traditional Euclidean distance since it breaks down in a
 categorical attribute space; if the space were ordinal, like the natural
 numbers, then some sense of Euclidean distance could be recovered. However, in
-the absence of direction or what comes between two points, this distance has no
-sensible meaning.
+the absence of direction or what comes between two points, this distance is not
+well-defined.
 
 There are numerous measures available for the handling of categorical data.
 Definition~\ref{def:dissim} describes what is perhaps the simplest of those
@@ -230,11 +230,11 @@ With the definition of a categorical distance metric, the notion of a
 representative point of a cluster can be addressed. When considering numeric
 data with \(k\)-means, a representative point is the mean of the points within
 the cluster. With categorical data, however, the mode is used as the measure for
-central tendency. This change follows from the concept of dissimilarity in that
-the point that best represents (i.e.\ is closest to) those in a cluster is one
-with the most frequent attribute values of the points in the cluster. The
-following definitions formalise this notion, and Theorem~\ref{thm:mode} provides
-a method to find such a point.
+central tendency. This change follows from the concept of dissimilarity defined
+in~\eqref{eq:dissim}. Here, the point that best represents (i.e.\ is closest to)
+those in a cluster is one with the most frequent attribute values of the points
+in the cluster. The following definitions formalise this notion, and
+Theorem~\ref{thm:mode} provides a method to find such a point.
 
 \begin{definition}\label{def:mode}
     Let \(\mathcal{X} \subset \mathcal{A}\) be a dataset and consider some point
@@ -426,10 +426,11 @@ which is the stable marriage problem (SM). SM, like many matching games,
 involves two distinct sets of players (parties), each of whom have a strict
 ranking of the players in the other set. Resolving these player preferences to
 find a matching in which no two players would rather be matched to one another
-than their current matches is called \emph{solving} the game.~\cite{Gale1962}
-formalised this problem and provided an algorithm that guarantees to find an
-stable, party-optimal matching to any instance of SM. This algorithm is given in
-Appendix~\ref{app:matching}.
+than their current matches is called \emph{solving} the game. The authors
+of~\cite{Gale1962} formalised this problem and provided an algorithm that
+guarantees to find an stable, party-optimal matching to any instance of SM. This
+algorithm is given in Appendix~\ref{app:matching}, and algorithms following a
+similar structure are commonly referred to as Gale-Shapley algorithms.
 
 Despite its simplicity, using SM in this scenario would reduce the proposed
 method to Huang's method. This can be seen as follows. Both parties in the game
@@ -454,25 +455,25 @@ provides a strict ranking of some nonempty subset of the hospitals, denoted
 strictly ranking all and only those residents that have ranked it, i.e. \(g(h)\)
 is some permutation of the set \(\left\{r \in R \ | \ h \in f(r)\right\}\). In
 addition to these preference lists, HR stipulates that every hospital \(h \in
-H\) has a strict upper limit on the number of residents they may be matched to
-at once, referred to as their capacity, and denoted \(c_h \in \mathbb N\). A
-general assumption, although not necessary, is that there is sufficient capacity
-across the hospitals for all of the residents to be assigned, i.e. that
-\(\sum_{h \in H} c_h \ge \lvert R \rvert\). This construction of residents,
-hospitals, preference lists and capacities form a \emph{game}, denoted by \((R,
-H)\).
+H\) has a capacity, \(c_h \in \mathbb N\), associated with them. This capacity
+is a strict upper limit on the number of residents that a hospital may be
+matched to at once. A general assumption, although not necessary, is that there
+is sufficient capacity across the hospitals for all of the residents to be
+assigned, i.e. that \(\sum_{h \in H} c_h \ge \lvert R \rvert\). This
+construction of residents, hospitals, preference lists and capacities form a
+\emph{game}, denoted by \((R, H)\).
 
 The objective of the game is to identify a many-to-one mapping (referred to as a
 \emph{matching}), \(M\), between the residents and the hospitals. In particular,
 the aim is to find a matching such that no resident-hospital pair could be, and
 would rather be, matched to one another than their current match(es). Such a
 matching is considered \emph{stable}. Finding a resident- or hospital-optimal,
-stable matching to an instance of HR is called \emph{solving} the
-game.~\cite{Gale1962} formalised this game and presented an algorithm that
-guaranteed such a solution to any instance of HR. Subsequent
-studies~\cite{Dubins1981,Roth1984} have improved on the original algorithm by
-leveraging structures within the game, such as the strict nature of the
-preference lists.
+stable matching to an instance of HR is called \emph{solving} the game. In
+addition to SM, the authors formalised HR in~\cite{Gale1962}, and presented a
+Gale-Shapley algorithm that guaranteed such a solution to any instance of the
+game. Subsequent studies~\cite{Dubins1981,Roth1984} have improved on the
+original algorithm by leveraging structures within the game, such as the strict
+nature of the preference lists.
 
 Returning to the problem at hand, where the \(k\) potential modes must
 be allocated to a nearby and unique data point, it can be seen that HR mirrors
@@ -497,9 +498,8 @@ given in Table~\ref{tab:components}.
         The data point to replace a potential mode & {} & A pair in a matching
         \\\bottomrule
     \end{tabular}}
-    \caption{A summary of the relationships between the components of the
-             initialisation for \(k\)-modes and those in a matching game
-             \((R, H)\)
+    \caption{%
+        Links between the initialisation and the components of a game
     }\label{tab:components}
 \end{table}
 
@@ -541,11 +541,11 @@ the \(k\)-modes algorithm with each of the initialisation processes. These
 datasets have been chosen to fall in line with the established literature, and
 particularly the works in which Huang's and Cao's methods were introduced.
 Further, the datasets exhibit a range of sizes, complexities and applications.
-Each dataset is openly available under the UCI Machine Learning
-Repository~\cite{Dua2019}, and their characteristics are summarised in
-Table~\ref{tab:dataset_summary}. This analysis excludes all incomplete instances
-(i.e.\ where data is missing), and the remaining dataset characteristics are
-reported as `adjusted'.
+Each dataset is openly available under the University of California Irvine (UCI)
+Machine Learning Repository~\cite{Dua2019}, and their characteristics are
+summarised in Table~\ref{tab:dataset_summary}. This analysis excludes all
+incomplete instances (i.e.\ where data is missing), and the remaining dataset
+characteristics are reported as `adjusted'.
 
 \begin{table}
     \resizebox{\textwidth}{!}{\input{\texpath/dataset_summary}}
@@ -569,11 +569,11 @@ An additional, and often useful, metric for clustering is the silhouette
 coefficient. In Chapter~\ref{chp:edo}, the silhouette served as an extension to
 the cost function to ensure intra-cluster cohesion and inter-cluster separation.
 Therefore, it would be sensible to believe that it could provide insight into
-the effect of each initialisation method to the \(k\)-modes algorithm. On the
-contrary, and unfortunately, this metric loses its intuition under the distance
-measure employed here. As such, it has been omitted. The remaining performance
-measures used are the number of iterations for the \(k\)-modes algorithm to
-terminate after the initialisation and the time to terminate in seconds.
+the effect of each initialisation method to the \(k\)-modes algorithm. However,
+this metric loses its intuition under the distance measure employed here. As
+such, it has been omitted. The remaining performance measures used are the
+number of iterations for the \(k\)-modes algorithm to terminate after the
+initialisation and the time to terminate in seconds.
 
 The final piece of information required in this analysis is a choice for \(k\)
 for each dataset. An immediate choice is the number of classes that are present
@@ -632,28 +632,27 @@ algorithm.
     \end{subtable}
 
     \caption{%
-        Metric results for the benchmark datasets using the knee point detection
-        algorithm
+        Metric results when using the knee point detection algorithm
     }\label{tab:metrics_knee}
 \end{table}
 
 By examining these tables, it would seem that the proposed method and Huang's
-method are fairly comparable across the board. Although, the proposed method is
-faster despite taking more iterations in general which suggests a more intuitive
-initialisation. More importantly, though, it appears that Cao's method performs
-the best out of the three initialisation methods: in terms of initial and final
-costs Cao's method improves, on average, by roughly 10\% against the next best
-method for the three datasets with which it succeeds; the number of iterations
-is comparable; the computation time is substantially less than the other two
-methods. This last observation is expected given it is a deterministic method
-and need only be run once to achieve this performance.
+method are fairly comparable across the board. On the contrary, the proposed
+method is faster despite taking more iterations in general which suggests a more
+intuitive initialisation. More importantly, though, it appears that Cao's method
+performs the best out of the three initialisation methods. In terms of initial
+and final costs Cao's method improves by roughly 10\% against the next best
+method for the three datasets with which it succeeds. Also, while the number of
+iterations is comparable, the computation time is substantially less than the
+other two methods. This last observation is expected given it is a deterministic
+method and need only be run once to achieve this performance.
 
-As useful as these metrics are, in the \(k\)-means paradigm, a particular
-clustering is selected based on it having the minimal final cost over several
-runs of the algorithm --- not the mean --- and while Cao's method is very
-reliable, in that there is no variation at all, it does not always produce the
-best clustering possible. There is a trade-off to be made between computational
-time and performance here.
+As useful as these metrics are, in the centroid-based clustering paradigm, a
+particular clustering is selected based on it having the minimal final cost over
+several runs of the algorithm --- not the mean. While Cao's method is reliable
+in this regard, in that there is no variation at all, it does not always produce
+the best clustering possible. There is a trade-off to be made between
+computational time and performance here.
 
 In order to gain more insight into the performance of each method, a less
 granular form of analysis is required.
@@ -665,8 +664,8 @@ depth of the behaviours exhibited by each initialisation method.
 Looking at Figure~\ref{fig:breast_cancer_knee}, it is clear that in terms of the
 final cost, Cao's method is middling when compared to the other methods. This
 so-so performance is apparent from Table~\ref{tab:breast_cancer_knee} and,
-indeed, Huang's and the proposed method appear indistinguishable when looking
-at the body of the results. However, since the criterion for the best clustering
+indeed, Huang's and the proposed method appear indistinguishable when looking at
+the body of the results. However, since the criterion for the best clustering
 (in practical terms) is having the minimal final cost, the proposed method is
 superior; that the method produces clusterings with a broader range of costs
 (indicated by the trailing right-hand side of each CDF plot) is irrelevant for
@@ -799,7 +798,7 @@ number of repetitions.
     \end{subtable}
 
     \caption{%
-        Metric results for the benchmark datasets using the number of classes
+        Metric results when using the number of classes
     }\label{tab:metrics_nclasses}
 \end{table}
 
@@ -934,6 +933,7 @@ proposed initialisation on a particular dataset, two cases are considered: where
 Cao's method outperforms that proposed, and vice versa. Both cases use the same
 fitness function, although the latter uses its negative. The function is defined
 as follows:
+
 \begin{equation}\label{eq:fitness}
     f\left(\mathcal X\right) = C_{\mathrm{cao}} - C_{\mathrm{match}}
 \end{equation}
@@ -951,14 +951,14 @@ population size of \(N = 500\); row and column limits of \(R = (50, 500)\) and
 \(C = (2, 50)\), respectively; selection parameters \(b = 0.2\) and \(l = 0\); a
 mutation probability of \(p_m = 0.01\); a maximum number of iterations of \(M =
 100\). In addition to these parameters, the only distribution family included is
-a discrete uniform family with up to 10 categories. This means that all columns
-in the generated datasets will have at least one category but no more than 10.
+a discrete uniform family with up to ten categories. This means that all columns
+in the generated datasets will have at least one category but no more than ten.
 
 \begin{figure}
     \centering
     \includegraphics[width=\imgwidth]{Fig9.pdf}
     \caption{%
-        Histograms of fitness for the top performing percentile in each case.
+        Histograms of fitness for the top performing percentile in each case
     }\label{fig:fitness}
 \end{figure}
 
@@ -981,7 +981,7 @@ an issue, but any comparison of statistics across datasets of different widths
 is difficult without prior knowledge of the datasets. Moreover, there is no
 guarantee of contingency amongst the attributes, and the comparison of more than
 a handful of variables becomes complicated even when the attributes are
-identifiable. To combat this and bring uniformity to the datasets each dataset
+identifiable. To combat this and bring uniformity to the datasets, each dataset
 is represented as their first principal component obtained via centred Principal
 Component Analysis (PCA)~\cite{Jolliffe1986}. While some subtleties may be lost,
 this representation captures the essential characteristics of each dataset in a
@@ -1070,14 +1070,15 @@ substantially better clustering than Cao's method.
 \end{figure}
 
 
-
 \section{Chapter summary}\label{sec:kmodes:summary}
 
 This chapter has introduced a novel initialisation method for the \(k\)-modes
 algorithm that builds on the method set out in the seminal
-paper~\cite{Huang1998}; the new method models the final replacement process in
+paper~\cite{Huang1998}. The new method models the final replacement process in
 the original as an instance of the hospital-resident assignment problem that may
-be solved to be mathematically fair and stable using a Gale-Shapley algorithm.
+be solved using a Gale-Shapley algorithm. The use of game theory here allows for
+a more mathematically fair initialisation to \(k\)-modes, adding to the
+literature around so-called `fair' machine learning.
 
 Following a thorough description of the \(k\)-modes algorithm and the
 established initialisation methods, a comparative analysis was conducted among

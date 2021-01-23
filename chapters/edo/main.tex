@@ -75,10 +75,10 @@ are concerns about this process that persist beyond linguistic hair-splitting.
 
 A significant concern presented by this process is in how benchmark examples are
 selected; there is no real measure of their reliability other than their
-frequent use. Although there do exist benchmark dataset suites that are curated
-to be relevant, diverse and comprehensive for some problem domains --- such as
-machine learning~\cite{Dua2019,Olson2017} and time series~\cite{UCRArchive2018}
---- it is often the case that a dataset becomes a benchmark for merely being
+frequent use. There do exist benchmark dataset suites that are curated to be
+relevant, diverse and comprehensive for some problem domains --- such as machine
+learning~\cite{Dua2019,Olson2017} and time series~\cite{UCRArchive2018} --- but
+it is often the case that a dataset becomes a benchmark for merely being
 long-standing and used many times. This title awards the dataset with the
 accolades of being reliable and trustworthy. However, this is not guaranteed.
 
@@ -199,7 +199,7 @@ swarm-based learning techniques~\cite{Abualigah2018b} or generative adversarial
 networks (GANs)~\cite{Goodfellow2014}. The unconstrained learning style of
 methods like CNNs and GANs aligns with those in the proposed paradigm, and with
 EDO in particular. By allowing the EA to explore and learn about the search
-space in an organic way, less-prejudiced insight can be established that is not
+space in an organic way, an unprejudiced insight can be established that is not
 necessarily reliant on any particular framework or agenda.
 
 Note that there is no necessary restriction on the search space to be of a fixed
@@ -226,12 +226,13 @@ instrumental in evaluating the algorithm presented in Chapter~\ref{chp:kmodes}.
 This section presents the details of the EDO algorithm. As stated previously,
 the EDO method is an EA. The EA follows a typical schema with the addition of
 some features that align with the overall objective of artificial data
-generation. With that, there are a number of parameters that are passed to EDO;\
-the typical parameters of an evolutionary algorithm are a fitness function,
-\(f\), which maps from an individual to a real number, as well as a population
+generation. With that, there are a number of parameters that are passed to EDO.
+These include the typical parameters of an evolutionary algorithm: a fitness
+function, \(f\), which maps from an individual to a real number, a population
 size, \(N\), a maximum number of iterations, \(M\), a selection parameter,
 \(b\), and a mutation probability, \(p_m\). In addition to these, EDO takes the
 following parameters:
+
 \begin{itemize}
     \item A set of probability distribution families, \(\mathcal{P}\). Each
         family in this set has some parameter limits which form a part of the
@@ -296,10 +297,10 @@ the particular use case. Some examples include:
 The remainder of this section discusses the components and mechanisms of the EDO
 method in a largely mathematical manner. However, a Python implementation of EDO
 has been developed as part of this thesis, \edo. The software is freely
-available online under the MIT licence, and can be found hosted on GitHub
-(at~\github{daffidwilde/edo}) or archived on Zenodo
-(at~\doi{10.5281/zenodo.2552890}). Furthermore, \edo\ is registered on the
-Python Package Index and can be installed through standard Python practices,
+available online under the Massachusetts Institute of Technology (MIT) licence,
+and can be found hosted on GitHub (at~\github{daffidwilde/edo}) or archived on
+Zenodo (at~\doi{10.5281/zenodo.2552890}). Furthermore, \edo\ is registered on
+the Python Package Index and can be installed through standard Python practices,
 including via \pip\ --- as in Snippet~\ref{snp:edo-pip}.
 
 \begin{listing}[htbp]
@@ -711,9 +712,8 @@ The remaining parameters are as follows: \(N=100\), \(R=(50,100)\), \(M=100\),
 \(b=0.1\), \(l=0\), \(p_m=0.01\), and shrinkage is excluded. This set of
 parameters has been adapted from that used in~\cite{Wilde2020:edo}. The changes
 are: omitting the trivial case where the number of rows equals \(k\); shortening
-the run time to reduce computational resources, and because the EA produces
-datasets of the same form in less time; and, finally, increasing the selective
-pressure (by reducing \(b\)) to mitigate the effect of noise in later
+the run time to reduce computational resources; and, finally, increasing the
+selective pressure (by reducing \(b\)) to mitigate the effect of noise in later
 generations.
 
 In addition to these parameter changes, the fitness function has been altered.
@@ -843,8 +843,8 @@ promptly getting stuck there.
 Aside from these progressions, a more focused look may be taken at the generated
 datasets. Figure~\ref{fig:kmeans_inertia_inds} shows the individuals with a
 fitness closest to the lowest, median and highest values across the entire
-history after min-max scaling. These individuals correspond to the best-,
-most-middling- and worst-performing individuals in said history. It should be
+history after min-max scaling. These individuals correspond to the best,
+most-middling and worst-performing individuals in said history. It should be
 noted that any individual from any generation may be retrieved and studied with
 this implementation. The summary provided here is one particular way of studying
 the body of datasets that have been generated. This transparency in the history
@@ -1079,8 +1079,8 @@ polygon.
 With this definition, it should be clear that a perfectly convex cluster, such
 as a single point, line or convex polygon, would have \(\mathcal{C} = 1\). Also,
 it appears that the mean convexity of the clustering increases as fitness
-increase --- save for the `invalid' individual --- and suggests that this
-condition for convex clusters is sought out during the optimisation process.
+increases (save for the `invalid' individual) and suggests that this condition
+for convex clusters is sought out during the optimisation process.
 
 % TODO Perhaps a scatter of fitness and convexity for the parents.
 % TODO A hypothesis test even? Depends on the scatter, I guess.
@@ -1143,15 +1143,16 @@ two parts by DBSCAN is penalised heavily under this fitness function when, in
 fact, that clustering may be of high quality. As such, this fitness function may
 require more nuanced adjustment.
 
-Acknowledge also that \(k\)-means and DBSCAN share no common parameters, and so
-direct comparison is difficult. This example only uses one set of parameters,
-but a more thorough investigation should include a parameter sweep. The
-parameters being used are \(k=3\) for \(k\)-means, and \(\epsilon=0.14\) and
-\(MinPoints=5\) for DBSCAN.\ Investigating the datasets from the other examples
-in this study informed this parameter set. In particular, a
-\(MinPoints\)-nearest-neighbour distance plot was constructed for each dataset
-(as is commonly done) using the Python library Scikit-learn~\cite{scikit}, which
-confirmed that an appropriate value for \(\epsilon\) was just less than 0.15.
+It should also be acknowledged that \(k\)-means and DBSCAN share no common
+parameters, and so direct comparison is difficult. This example only uses one
+set of parameters, but a more thorough investigation should include a parameter
+sweep. The parameters being used are \(k=3\) for \(k\)-means, and
+\(\epsilon=0.14\) and \(MinPoints=5\) for DBSCAN.\ Investigating the datasets
+from the other examples in this study informed this parameter set. In
+particular, a \(MinPoints\)-nearest-neighbour distance plot was constructed for
+each dataset (as is commonly done) using the Python library
+Scikit-learn~\cite{scikit}, which confirmed that an appropriate value for
+\(\epsilon\) was just less than 0.15.
 
 \begin{figure}
     \centering
@@ -1398,11 +1399,11 @@ automatically by a more sophisticated fitness function that retains some
 information about the datasets generated from previous runs of EDO on a
 particular (or at least similar) parameter set. In this way, the currently
 completely unsupervised learning conducted by the EA could be ushered away from
-less helpful solutions (via some penalty, say) and toward previously unexplored
+less helpful solutions (via some penalty, say) and towards previously unexplored
 behaviours. This automatic, iterative application of the proposed method would
 likely reveal more sophisticated insights into a particular algorithm.
 
 The EDO method is merely a tool that demonstrates the benefit of the flipped
 paradigm set out in this work. The concept of where `good' datasets exist is not
-well-documented in literature, and this thesis hopes that Evolutionary Dataset
-Optimisation acts as a starting point for further works to come.
+well-documented in literature, and this thesis established Evolutionary
+Dataset Optimisation as a starting point for further works to come.

@@ -37,12 +37,12 @@ intuitive use of machine learning.
 
 The co-sponsors of this project, the NHS Wales Cwm Taf Morgannwg University
 Health Board (UHB), are seeking to reveal new insights into their patient
-population through the use of machine learning. In particular, the \ctmuhb\ are
+population through the use of machine learning. In particular, \ctmuhb\ are
 concerned with understanding the operational characteristics of their patients
 presenting chronic obstructive pulmonary disease (COPD). COPD is a respiratory
 condition with known links to deprivation, and often presents as a comorbidity,
 i.e. in concurrence with at least one other condition. These affiliations make
-treating and living with COPD inherently difficult, emphasising the importance
+living with and treating COPD inherently difficult, emphasising the importance
 of studying it closely.
 
 This thesis incorporates three seemingly disparate themes related to modern OR:
@@ -57,7 +57,7 @@ The remainder of this chapter is as follows: Section~\ref{sec:thesis} sets out
 the structure of this thesis and its chapters; Section~\ref{sec:novel} outlines
 the novel contributions of the thesis; Section~\ref{sec:dev} provides an
 overview of the best practices used in developing software for the research
-presented in this thesis as well as signposting the software projects
+presented in this thesis, as well as signposting the software projects
 themselves.
 
 
@@ -70,8 +70,8 @@ given below:
 \begin{itemize}
     \item Chapter~\ref{chp:lit} comprises a literature review covering the
         principal topics of this thesis: clustering, healthcare modelling, and
-        model evaluation. As well as surveying each topic individually, their
-        intersections are considered.
+        model evaluation. In addition to surveying each topic individually,
+        their intersections are considered.
     \item Chapter~\ref{chp:edo} presents a novel approach to understanding an
         algorithm's quality according to a particular metric. The presented
         method allows for an exploration of the space in which `good' datasets
@@ -79,7 +79,7 @@ given below:
     \item Chapter~\ref{chp:kmodes} describes a new initialisation method for an
         existing clustering algorithm. This method models the initialisation as
         a matching game, incorporating a mathematical notion of fairness. The
-        chapter concludes with a evaluation of the method against two
+        chapter concludes with an evaluation of the method against two
         initialisations, making use of the approach set out in
         Chapter~\ref{chp:edo}, and reveals the cases in which the new
         initialisation improves upon two existing methods.
@@ -154,12 +154,12 @@ method in Chapter~\ref{chp:kmodes} incorporates objects from game theory
 directly, offering another approach to `fair' machine learning.
 
 The research reported in Chapter~\ref{chp:copd} makes two major contributions to
-OR literature. First, the methodology comprises a novel combination of machine
+OR literature. Firstly, the methodology comprises a novel combination of machine
 learning and classical OR techniques to provide insight into a healthcare
 population. The use of clustering to inform a healthcare queuing model does not
 appear in literature, despite its use to study the results of queuing models ---
-as in~\cite{Prokofyeva2020,Rebuge2012}. Second, the methodology circumvents the
-common issue of applying OR to areas such as healthcare where sufficiently
+as in~\cite{Prokofyeva2020,Rebuge2012}. Secondly, the methodology circumvents
+the common issue of applying OR to areas such as healthcare where sufficiently
 detailed data is not always available. The dataset used in the chapter is a
 routinely gathered, administrative dataset, from which a well-fitting replica is
 derived via the Wasserstein distance.
@@ -176,8 +176,8 @@ software~\cite{Hettrick2014}. The research conducted in this thesis is no
 different, and relies on the use of software. As with all scientific pursuits,
 researchers who make use of software are obliged to ensure their work is correct
 and reproducible. This section provides a brief overview of the software
-developed for this thesis, and the methods of \emph{best practice} used to
-develop that software in a responsible manner.
+developed for this thesis, and the methods of best practice used to develop that
+software in a responsible manner.
 
 \subsection{Code snippets}
 
@@ -230,16 +230,16 @@ Hello world.
 
 \subsection{Methods of best practice}
 
-Best practices are guidelines to ensure that research methods are reliable,
-reproducible, and transferable. In essence, the proper adoption of best
-practices sustains the lifespan of a piece of research. The same is true of
+\emph{Best practices} are guidelines to ensure that research methods are
+reliable, reproducible, and transferable. In essence, the proper adoption of
+best practices sustains the lifespan of a piece of research. The same is true of
 research software. In Chapter~\ref{chp:lit}, the ethical implications of best
 practices are discussed, as well as briefly mentioning the analogous practices
 for research data. Examples of existing software best practices
-include~\cite{Aberdour2007,Benureau2018,Jimenez2017,Wilson2014}. Included in the
-subsequent subsections are overviews of four fundamental methods of best
-practice that are used throughout the software developed for this thesis:
-version control, virtual environments, automated testing and documentation.
+include~\cite{Aberdour2007,Benureau2018,Jimenez2017,Wilson2014}. The following
+subsections provide overviews of four fundamental methods of best practice that
+are used throughout the software developed for this thesis: version control,
+virtual environments, automated testing and documentation.
 
 \subsubsection{Version control}
 
@@ -410,13 +410,12 @@ repositories and archives associated with each chapter.
     \resizebox{\textwidth}{!}{%
         \input{chapters/intro/tex/repos/main.tex}%
     }\caption{%
-        A summary of the repositories and archives associated with the chapters
-        of this thesis%
+        The repositories and archives associated with each chapter
     }\label{tab:repos}
 \end{table}
 
 This thesis and its supporting files are also hosted online at
 \github{daffidwilde/thesis}. It has been prepared using \LaTeX\ and it is
 regularly tested using the GitHub Actions CI. The tests include checking that
-the document can be compiled, is without spelling errors, and that the Python
-usage code snippets are correct.
+the document can be compiled, that it is without spelling errors, and that the
+Python usage code snippets are correct.
