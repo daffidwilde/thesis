@@ -66,8 +66,8 @@ benchmark datasets and a common metric (or set thereof) amongst the proposed
 method, and its competitors, then assess the methods based on this metric and
 deem those with the smallest value to be `best'.
 
-Objectively, there is nothing illicit about comparing methods in this way except
-for the semantics of the outcome,~i.e.\ outperforming a method on a dataset with
+Objectively, there is nothing wrong about comparing methods in this way except
+for the semantics of the outcome, i.e. outperforming a method on a dataset with
 a metric is insufficient evidence to categorise one method as `better' than
 another. Each case can be qualified with something along the lines of ``Method
 \(A\) performs better than Method \(B\) under the given conditions'', but there
@@ -83,9 +83,9 @@ long-standing and used many times. This title awards the dataset with the
 accolades of being reliable and trustworthy. However, this is not guaranteed.
 
 Computer vision is one such domain where these questionable de facto benchmarks
-have come to exist out of provenance.~\cite{Prabhu2020} dissects the unethical
-and problematic practices used in the creation and aggregation of several
-benchmark datasets from computer vision including the renowned \emph{ImageNet}
+have come to exist. In~\cite{Prabhu2020}, the authors dissect the unethical and
+problematic practices used in the creation and aggregation of several benchmark
+datasets from computer vision, including the renowned \emph{ImageNet}
 datasets~\cite{Deng2009}. These practices pose serious questions about the
 credibility of the models trained using these benchmarks, both morally and as a
 matter of their performance. The exposition highlights questions of consent and
@@ -101,12 +101,12 @@ publicly apologised and vowed to fix the problem, but since then the only action
 taken to mitigate this has been to remove several primates from the set of
 labels available to their model~\cite{Simonite2018}.
 
-Leaving computer vision aside,~\cite{Campos2016} raises questions about the
-availability and suitability of benchmark datasets in the field of unsupervised
-outlier detection. The authors point out that even though systematic approaches
-exist for the generation of benchmark datasets, the approaches are not
-sufficiently documented to be reproducible, thus rendering them scientifically
-moot.
+Leaving computer vision aside, the authors of \cite{Campos2016} raise questions
+about the availability and suitability of benchmark datasets in the field of
+unsupervised outlier detection. The authors point out that even though
+systematic approaches exist for the generation of benchmark datasets, the
+approaches are not sufficiently documented to be reproducible, thus rendering
+them scientifically moot.
 
 In addition to this, the authors discuss the troubles that come with co-opting
 datasets designed for another task (classification in their case) in the absence
@@ -125,15 +125,15 @@ process: the methods themselves.
 
 Holding a method to account on a finite number of example datasets ---
 regardless of their reliability or diversity --- limits the amount of learning
-one can gain about that method. In particular, it limits the learning of the
-characteristics which lead to good or bad performance to those attributes
+one can gain about that method. In particular, it limits the understanding of
+the characteristics which lead to good or bad performance to those attributes
 present in the set of example datasets. Another example from computer
-vision,~\cite{Torralba2011}, shows that Support Vector Machines (SVMs) --- a
-method that is ubiquitous in classification --- fail to perform well when tested
-on a dataset containing comparable and broadly equivalent items to the one on
-which they have been trained. So, despite the abundant use of SVMs, even in the
-then-`best' image classifier, there should be concerns about the robustness of
-the model.
+vision,~\cite{Torralba2011}, shows that Support Vector Machines (SVMs) --- the
+use of which is ubiquitous in classification --- fail to perform well when
+tested on a dataset containing comparable and broadly equivalent items to the
+one on which they have been trained. So, despite the abundant use of SVMs, even
+in the then-`best' image classifier, there should be concerns about the
+robustness of the model.
 
 Taking a step back from examples of empirical algorithm evaluation, consider the
 space between algorithms and data more generally. To evaluate an
@@ -159,10 +159,10 @@ here by allowing the data itself to be unfixed. EDO achieves this fluidity by
 generating data for which the algorithm of interest performs well (or better
 than some other) through the use of an evolutionary algorithm. The purpose of
 doing so is not only to create a bank of useful datasets, but rather to allow
-for the subsequent studying of those datasets. Undergoing this study describes
+for the subsequent studying of those datasets. Undergoing this study reveals
 the attributes and characteristics which lead to the success (or failure) of the
 algorithm, giving a broader understanding of the algorithm on the whole.
-Figure~\ref{fig:paradigm} provides a diagram of this framework; on the right:
+Figure~\ref{fig:paradigm} provides a diagram of this framework. On the right:
 the current path for selecting some algorithm(s) based on their validity and
 performance for a given dataset; on the left: the proposed flip to better
 understand the space in which `good' datasets exist for an algorithm.
@@ -277,10 +277,10 @@ evolutionary operators and the `shrinkage' process.
 \inputalg{edo}
 \inputalg{new_population}
 
-Note that there are no defined processes for how to stop the
-algorithm or adjust the mutation probability, \(p_m\). This generality is
-deliberate and is down to their relevance in a particular use case. Some
-examples include:
+Note that there are no defined processes for how to stop the algorithm or adjust
+the mutation probability, \(p_m\). This generality is deliberate and is down to
+the particular use case. Some examples include:
+
 \begin{itemize}
     \item Regular decreasing in mutation probability across the available
         attributes~\cite{Kuehn2013}.
@@ -505,8 +505,8 @@ The \emph{selection} operator describes the process by which individuals are
 chosen from the current population to generate the next. Almost always, the
 fitness of an individual determines the likelihood of their selection to be a
 parent. By selecting individuals in this way, the hope is for the preservation
-of some favourable qualities (thus improving the population). Also, to encourage
-some homogeneity within future generations~\cite{Back1994}.
+of some favourable qualities --- thus improving the population --- and to
+encourage some homogeneity within future generations~\cite{Back1994}.
 
 \inputtikz{selection}{%
     The selection process with the inclusion of some lucky individuals
@@ -548,10 +548,10 @@ centred about the mean observed value, \(\mu\), for that parameter:
     u_{t+1}&= \min \left\{u_t, \ \mu + \frac{1}{2} (u_t - l_t) s^t\right\}
 \end{align}
 
-The shrinking process is given explicitly in
-Algorithm~\ref{alg:shrinking}. Note that the behaviour of this process can
-produce reductive results where very early convergence is achieved at the cost
-of extensive exploration and is considered to be decidedly optional.
+The shrinking process is given explicitly in Algorithm~\ref{alg:shrinking}. Note
+that the behaviour of this process can produce reductive results where early
+convergence is achieved at the cost of extensive exploration. For these reasons,
+shrinking is an optional component of EDO.
 
 \inputalg{shrinking}
 
@@ -596,25 +596,24 @@ Conversely, surplus values are trimmed from the bottom of all longer columns.
 The \emph{mutation} operator is used in EAs to maintain a level of variety in a
 population. This operator effectively forces the algorithm to explore more of
 the search space at each generation. It is typical of mutation operators to
-affect all aspects of an individual. In genetic algorithms, this is as simple as
-running along a bit string and swapping a zero to a one (or one to zero). Under
-the EDO framework, the mutation process manipulates the phenotype of an
-individual by potentially modifying its dimensions and the entries of its
-dataset. Figure~\ref{fig:mutation} gives a diagrammatic description of this
-process, and a formal statement of the algorithm is described in
-Algorithm~\ref{alg:mutation}.
+affect all aspects of an individual. In genetic algorithms, this is as
+straightforward as running along a bit string and swapping a zero to a one (or
+one to zero). Under the EDO framework, the mutation process manipulates the
+phenotype of an individual by potentially modifying its dimensions and the
+entries of its dataset. Figure~\ref{fig:mutation} gives a diagrammatic
+description of this process, and a formal statement of the algorithm is
+described in Algorithm~\ref{alg:mutation}.
 
 In the publication that initially presented EDO, this process included a
 penultimate stage where the metadata of an individual could be mutated. This
 manipulation sampled new parameter values for each distribution in the metadata
-with the mutation probability, \(p_m\). Following subsequent testing, and in the
-process of documenting the Python library, it was decided that allowing for this
-kind of mutation made for confusing results. In particular, studying the
-resultant individuals became more complicated when individuals retained values
-in their columns that were now beyond any reasonable bounds of the associated
-distribution, for instance. Since removing this stage of the process, no
-noticeable impact has been identified on the ability of the EA to traverse the
-search space compared with its inclusion.
+with the mutation probability, \(p_m\). Following subsequent testing, it became
+apparent that this kind of mutation led to confusing results. In particular,
+studying the resultant individuals became more complicated when individuals
+retained values in their columns that were now beyond any reasonable bounds of
+the associated distribution, for instance. Since removing this stage of the
+process, no noticeable impact has been identified on the ability of the EA to
+traverse the search space compared with its inclusion.
 
 \inputtikz{mutation}{The mutation process}
 
@@ -627,14 +626,15 @@ completely new individual. This assertion relies on appropriate choices for
 
 The following section addresses how over-sensitivity and observable weak points
 in a fitness function impact the performance of the method. Addressing how to
-make a good choice families is not as clear-cut a process, but all use cases of
-this method have indicated that even a basic choice of distribution is
-sufficient. The following case study requires a continuous variable so the
-uniform distribution is used. Despite its simplicity, the EDO method is able to
-generate datasets with interesting structural properties. The analysis in
-Chapter~\ref{chp:kmodes} makes use of a discrete uniform distribution and,
-likewise, the EDO method is able to offer up datasets with more interest than a
-random cloud, as could be expected with a uniform distribution.
+make a good choice for distribution families, \(\mathcal P\), is not as
+clear-cut a process, but all use cases of this method have indicated that even a
+basic choice of distribution is sufficient. The following case study requires a
+continuous variable so the uniform distribution is used. Despite its simplicity,
+the EDO method is able to generate datasets with interesting structural
+properties. The analysis in Chapter~\ref{chp:kmodes} makes use of a discrete
+uniform distribution and, likewise, the EDO method is able to offer up datasets
+with more interest than a random cloud, as could be expected with a uniform
+distribution.
 
 \inputalg{mutation}
 
@@ -690,9 +690,10 @@ often used for evaluating the quality of the final clustering it produces.
 However, since it is not a normalised measure, other metrics are often used.
 Many of these metrics --- such as accuracy, recall and precision --- are used
 under the assumption that clustering is some sort of unsupervised classification
-task which is fundamentally wrong. Therefore, as a starting point, the first
-example uses inertia as the fitness function in EDO.\ That is, EDO is used to
-find datasets that minimise the final inertia found by \(k\)-means clustering.
+task. This assumption is fundamentally wrong. Therefore, as a starting point,
+the first example uses inertia as the fitness function in EDO. That is, EDO is
+used to find datasets that minimise the final inertia found by \(k\)-means
+clustering.
 
 % TODO include a list of known results dressed as `hypotheses'?
 
@@ -801,7 +802,7 @@ individuals, but it is plain to see how this all adds up.
 
 Each experiment in Chapter~\ref{chp:kmodes} that uses EDO produced tens of
 thousands of unique datasets. Having volumes of data of these sizes certainly
-provide a rich source for study, but they can be cumbersome to the point of
+provides a rich source for study, but they can be cumbersome to the point of
 being completely infeasible. As such, one should be mindful of the storage
 capacity of the computer being used. Further to that, if fitting the data
 comfortably into memory is a concern then not all of the data must be studied;
@@ -941,7 +942,7 @@ should be maximised.
 
 As was the case in the previous example, there is a steep learning curve
 followed by steady, incremental improvements to the population fitness.
-Moreover, the produced datasets are exceptionally similar to those created using
+Moreover, the produced datasets are markedly similar to those created using
 inertia. The clusters identified in \cite{Wilde2020:edo} showed an ``increased
 separation from one another whilst maintaining low values in the final inertia''
 when using this fitness function. In this case, the produced datasets appear to
@@ -990,6 +991,7 @@ term would be lost when inertia is high --- as is common in the early stages of
 the EA (see the top plot of Figure~\ref{fig:inertia_progression}) --- rendering
 the exercise pointless. However, its effect integrates well with the silhouette
 coefficient:
+
 \begin{itemize}
     \item The optimal score is the same (\(1 - 0 = 1\)) as the silhouette
         fitness function while the worst score is similar (\(0-1=-1\)).
@@ -1059,14 +1061,20 @@ condition for the success of \(k\)-means is that the presented clusters are of
 roughly equal size and are convex. Without this condition, up to the correct
 choice of \(k\), the algorithm will fail to produce satisfactory results for
 either inertia or silhouette. This condition is derived from the link between
-\(k\)-means and Voronoi tessellation.~\cite{Sonka1993} defines one measure of
-the convexity of a set of points (such as a cluster), denoted \(\mathcal C\), is
+\(k\)-means and Voronoi tessellation. In~\cite{Sonka1993}, the authors define
+the convexity of a set of points (such as a cluster), denoted \(\mathcal C\), as
 the ratio of the areas of its concave and convex hulls, denoted \(H_c\) and
 \(H_v\), respectively:
+
 \begin{equation}
     \mathcal C :=
     \frac{\text{area}\left(H_c\right)}{\text{area}\left(H_v\right)}
 \end{equation}
+
+Here, a cluster's \emph{concave hull} is taken to be the \(\alpha\)-shape of the
+cluster's data points~\cite{Edelsbrunner1983}, where \(\alpha \in \mathbb R\) is
+the smallest value such that all points in the cluster are contained in a single
+polygon.
 
 With this definition, it should be clear that a perfectly convex cluster, such
 as a single point, line or convex polygon, would have \(\mathcal{C} = 1\). Also,
@@ -1083,7 +1091,7 @@ condition for convex clusters is sought out during the optimisation process.
 
 The extent of the capabilities EDO holds as a tool to better understand an
 algorithm are especially apparent when comparing an algorithm against another
-(or set of others) simultaneously. To compare a set of algorithms, one must
+(or a set of others) simultaneously. To compare a set of algorithms, one must
 utilise the freedom of choice in a fitness function for EDO.\ Consider two
 algorithms, \(A\) and \(B\), and some common metric between them, \(g\). Then
 their similarities and contrasts can be explored by considering the differences
@@ -1196,10 +1204,7 @@ dataset is shown with its clustering (and associated silhouette) by
 (\subref{fig:kmeans_preferable_kmeans_inds})~\(k\)-means and
 (\subref{fig:kmeans_preferable_dbscan_inds})~DBSCAN. In addition to a scattering
 of the cluster's data points, the latter figure displays the concave and convex
-hulls of each cluster using shading and outline, respectively. A cluster's
-\emph{concave hull} is taken to be the \(\alpha\)-shape of the cluster's data
-points~\cite{Edelsbrunner1983} where \(\alpha \in \mathbb R\) is the smallest
-value such that all points in the cluster are contained in a single polygon.
+hulls of each cluster using shading and outline, respectively. 
 
 The best-performing individual, when clustered by \(k\)-means, shows three
 distinct clusters, one of which is nicely separated from the others. The
@@ -1285,7 +1290,7 @@ data points. Therefore, a realistic best fitness score is \(1\) (when \(S_D(X) =
 \(S_k(X) = 1\)).
 
 Upon inspection of the latter figure, it is apparent that there is a move toward
-less densely packed datasets --- something that may be inferred by the reduced
+less densely packed datasets --- something that may be inferred from the reduced
 number of rows exhibited in the lower plot of
 Figure~\ref{fig:dbscan_preferable_progression}. Here, EDO has recognised that
 DBSCAN identifies and clusters only the core points of a dataset, whereas
@@ -1296,10 +1301,10 @@ hotspots with impunity. Then, as fitness improves, the clusters become smaller,
 contain fewer points and are further apart. All of these factors serve to
 maximise the silhouette of the DBSCAN clustering while leaving that of
 \(k\)-means mostly unchanged. In general, being able to identify outliers is one
-of DBSCAN's core strengths. However, this success is so reliant on being able to
-ignore the majority of the data points and finding more delicate cases for the
-success of DBSCAN should adapt the fitness function to mitigate this behaviour,
-perhaps with a penalty.  
+of DBSCAN's core strengths. However, its success here relies on being able to
+ignore the majority of the data points. Hence, approaches for identifying other
+conditions for the success of DBSCAN should adapt the fitness function to
+mitigate this behaviour, perhaps with a penalty.  
 
 % TODO The end of this section needs revising
 
@@ -1334,11 +1339,12 @@ as occurred in the early examples of the case study in this chapter --- and, as
 such, an EA may not be able to traverse the entire sample
 space~\cite{Vikhar2016} or even a sufficient part of it. This limited
 exploration would be even more problematic under the framework of EDO, given
-that the sample space is not of a fixed size or data type. Fortunately, this
-limitation did not occur in most of the examples considered in this chapter. As
-an example, Figure~\ref{fig:coverage} shows how the distribution of the parents
-from the examples in Section~\ref{subsec:silhouette}. In particular, each part
-of the figure shows density and scatter plots of all of the parent datasets. The
+that the sample space is not of a fixed size or data type. By thoroughly
+studying the methods and results at hand, this limitation did not occur in
+most of the examples considered in this chapter. As an example,
+Figure~\ref{fig:coverage} shows how the distribution of the parents from the
+examples in Section~\ref{subsec:silhouette}. In particular, each part of the
+figure shows density and scatter plots of all of the parent datasets. The
 datasets are presented without scaling to demonstrate how the EA explored the
 sample space. Consider the first plot (corresponding to the raw silhouette
 coefficient example). Here, the EDO method got stuck and failed to adequately
@@ -1377,7 +1383,7 @@ reducing down to the most straightforward solution which solves the given
 problem. In most cases, that is not a problem and is often, in fact, favourable.
 The concentrated diagonal in Figure~\ref{fig:silhouette_coverage} shows this
 sort of reductive behaviour. In that particular example, the most natural
-solution for the EA (i.e.\ to maximise the silhouette coefficient with
+solution for the EA (i.e. to maximise the silhouette coefficient with
 \(k\)-means) was to attempt to collapse one dimension of the search space to
 make the problem one-dimensional. This kind of behaviour is not necessarily a
 bad thing as trivial, basic and straightforward cases are of great importance
