@@ -43,7 +43,7 @@ The remainder of this appendix is structured as follows:
 Before any analysis can be conducted, the structure of the data must be
 understood, as well as how it has been prepared. This dataset comprises
 approximately two and a half million episode records for patients from across
-Wales that were treated in the Prince Charles and Royal Glamorgan hospitals
+Wales who were treated in the Prince Charles and Royal Glamorgan hospitals
 (South Wales) from April 2012 through April 2017. This dataset contains some
 personal information, and given that sensitivity, it has not been made
 available.
@@ -136,7 +136,7 @@ However, this name does not imply that the remaining attributes are not of
 interest nor that they are in any way unimportant.
 
 The key attributes provide a base for understanding how the costs and resources
-consumed by a patient in a spell originate: cost components give direct
+consumed by a patient in a spell originate. Cost components give direct
 information on which departments are being utilised, and by how much; the length
 of stay can offer an indication of the nature of the spell and any costs that
 may be incurred automatically by merely spending more time in hospital; and
@@ -149,8 +149,8 @@ of a patient's spell in hospital.
 \graphicspath{{appendix/data/paper/img/overview/}}
 
 When looking at the distributions of the key attributes on the whole dataset, as
-displayed in Figures~\ref{fig:no_spells}~---~\ref{fig:netcost}, it is clear that
-the data is weighted towards low-cost, short-stay, and otherwise low-impact
+displayed in Figures~\ref{fig:no_spells}~through~\ref{fig:netcost}, it is clear
+that the data is weighted towards low-cost, short-stay, and otherwise low-impact
 patients. This is especially clear in
 Figures~\ref{fig:no_spells}~and~\ref{fig:los_bar}. Here, it is clear that, of
 all the spells provided under the care of the health board, the majority are
@@ -193,8 +193,8 @@ system.
 \end{figure}
 
 In general, the distributions themselves have long tails, suggesting an adverse
-effect of severe cases, despite being a rarity. Moreover, although the length
-and returning frequency of the spells are minimal and tightly packed, their
+effect from cases that are severe but rare. Moreover, although the length and
+returning frequency of the spells are minimal and tightly packed, their
 associated net costs are wildly variant. This variation is shown in
 Figure~\ref{fig:netcost}. It appears that there is a distinct peak in the
 distribution, but closer inspection of the scale indicates that this peak is
@@ -217,7 +217,7 @@ Analyses of healthcare populations will canonically categorise patients by
 grouping ages together to aid the calculation of risk factors and projected
 costs. This approach has proven to be particularly helpful when looking at older
 patients~\cite{Billings327}, but is limited in scope as will be discussed in
-Section~\ref{sec:diabetes}. Baring this in mind, however, studying the
+Section~\ref{sec:diabetes}. Bearing this in mind, however, studying the
 distribution of age among the patients can provide another valuable insight into
 how costs may appear.
 
@@ -236,7 +236,7 @@ graph from left to right, the UK estimate is roughly uniform from birth up until
 the late fifties where a decline appears as older people become less prevalent.
 Looking instead at the distribution belonging to the patients, it is clear that
 there are several peaks and troughs. The largest trough corresponds to
-adolescents which makes sense anecdotally since some of the least likely people
+adolescents, which makes sense anecdotally since some of the least likely people
 to visit a hospital would be reaching their peak healthiness. Similarly, the
 distinct peaks around infancy and in the older age range often correspond to
 those people who are most vulnerable in terms of their health. Thus, a hospital
@@ -296,7 +296,7 @@ substantial linear correlation with any of the other attributes. The absence of
 correlation here only adds to the evidence that the patients in the data present
 themselves to hospital with a wide array of needs. Having said that, there are
 clear correlations between several of the attributes; some of these are easier
-to realise than others.
+to discern than others.
 
 For instance, ignoring the main diagonal, the largest value is that between
 total costs ({\tt COST}) and net costs ({\tt NetCost}) with a value of 0.94.
@@ -311,14 +311,14 @@ net costs is to be expected.
 
 Other examples of strong correlation are those between length of stay ({\tt
 TRUE\_LOS}) and ward and overhead costs ({\tt WARD} and {\tt OVH} respectively).
-These are well-known relationships that can be justified succinctly: the longer
-a patient spends in hospital, the more time they are likely to spend on a ward.
-Thus, incurring associated overheads like administrative work, cleaning costs
-and a larger proportion of rental costs. It should also be clear that these
-three attributes all share a strong linear correlation with the net cost of a
-spell, suggesting that these costs and the length of stay are strong indicators
-of the net cost of treating someone, and may suggest that the remaining cost
-components make up a substantially smaller part of the net cost.
+These are well-known relationships that can be justified succinctly. The longer
+a patient spends in hospital, the more time they are likely to spend on a ward,
+incurring overheads like administrative work, cleaning costs and a larger
+proportion of rental costs. It should also be clear that these three attributes
+all share a strong linear correlation with the net cost of a spell, suggesting
+that these costs and the length of stay are strong indicators of the net cost of
+treating someone, and may suggest that the remaining cost components make up a
+substantially smaller part of the net cost.
 
 
 \subsection{Variation and relative importance}
@@ -485,7 +485,7 @@ to the analysis.
 In much the same way as in Section~\ref{subsec:distributions_statistics}, taking
 an overview of the key attributes provides some idea about how costs are
 represented in the data.
-Figures~\ref{fig:diab_no_spells}~---~\ref{fig:diab_netcost} show the same
+Figures~\ref{fig:diab_no_spells}~through~\ref{fig:diab_netcost} show the same
 statistics as in the summary analysis, although these figures have two
 additional components: (a) in the case of bar charts, separate plots for overall
 frequency and frequency density, and (b) a comparison with the non-diabetic
@@ -636,7 +636,7 @@ population.
     }\label{fig:diab_corr_difference}
 \end{figure}
 
-To more directly see the subtleties between these correlation coefficients and
+To more directly see the distinctions between these correlation coefficients and
 those of the general population (shown in Figure~\ref{fig:corr_heatmap}),
 another heat map has been included to show their differences in
 Figure~\ref{fig:diab_corr_difference}. This heat map utilises a different colour
@@ -703,11 +703,11 @@ Aside from the change in the order of the attributes compared with
 Figure~\ref{fig:cost_variation}, this plot is largely similar: more weakly
 correlated attributes tend to be more highly varied and the overall level of
 relative variation is high. Having said that, the diabetic population is
-consistently less than, or similarly, varied than the non-diabetic population in
-each instance; this is true for except operating theatre ({\tt OPTH}),
-radiotherapy ({\tt RADTH}) and endoscopy ({\tt ENDO}) costs. Regardless, the
-decrease in overall cost variation indicates that this subset of the dataset is
-in fact somewhat more homogeneous, as has been noted, and as is desired.
+consistently less, or similarly, varied than the non-diabetic population in each
+instance; this is true except for operating theatre ({\tt OPTH}), radiotherapy
+({\tt RADTH}) and endoscopy ({\tt ENDO}) costs. Regardless, the decrease in
+overall cost variation indicates that this subset of the dataset is in fact
+somewhat more homogeneous, as has been noted, and as is desired.
 
 Inspecting Figure~\ref{fig:diab_contribution} tells a similar story to that of
 the general population: the dominant cost components are still overheads,
@@ -773,15 +773,15 @@ the length of a spell has no definitive connection to the admission date of that
 spell; by grouping all the spells starting on that day together and taking their
 mean, any adversely long spells will push the mean upwards. Also, there is a
 time-related error when taking the net cost of a spell on any one day in that
-spell since that cost was not truly spent or incurred on that day necessarily.
+spell since that cost was not necessarily spent or incurred on that day.
 
 Irrespective of these misrepresentations,
-Figures~\ref{fig:admissions}~---~\ref{fig:los_time} show how these quantities
-evolve over the entire data period. In each case, the weekly, monthly and yearly
-means are shown. The data has been aggregated in this way, rather than using the
-daily data, in an attempt to smooth out the misrepresentation that is described
-above. In addition to these plotted points, the data has been fitted with a
-standard least-squares linear regression model.
+Figures~\ref{fig:admissions}~through~\ref{fig:los_time} show how these
+quantities evolve over the entire data period. In each case, the weekly, monthly
+and yearly means are shown. The data has been aggregated in this way, rather
+than using the daily data, in an attempt to smooth out the misrepresentation
+that is described above. In addition to these plotted points, the data has been
+fitted with a standard least-squares linear regression model.
 
 Figures~\ref{fig:admissions}~and~\ref{fig:netcost_proportions} suggest that the
 amount of resources consumed by the diabetic population is increasing slowly.
