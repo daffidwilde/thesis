@@ -62,11 +62,11 @@ Sections~\ref{sec:model}~and~\ref{sec:scenarios}.
 Appendix~\ref{app:data} carries out an exploratory analysis of a large,
 administrative, healthcare dataset, revealing the presence of high variation in
 the population. This variability stifles the possibility of uncovering valuable
-insights about the whole population. However, there are some benefits are made
-apparent by considering a condition-specific population. This chapter utilises
-another administrative dataset of patients presenting chronic obstructive
-pulmonary disease (COPD), and demonstrates how actionable insights can be
-identified by thoroughly extracting information from the dataset.
+insights about the whole population. However, some benefits are made apparent by
+considering a condition-specific population. This chapter utilises another
+administrative dataset of patients presenting chronic obstructive pulmonary
+disease (COPD), and demonstrates how actionable insights can be identified by
+thoroughly extracting information from the dataset.
 
 Population health research is increasingly based on data-driven methods (as
 opposed to those designed solely by clinical experts) for patient-centred care
@@ -160,7 +160,7 @@ spell:
 
 Although there is a fair amount of information here, it is limited to
 COPD-related admissions. Therefore, rather than segmenting the patients
-themselves, the spells will be. 
+themselves, the spells will be segmented. 
 
 The attributes included in the clustering encompass both utilisation metrics and
 clinical attributes relating to the spell. They comprise the summary clinical
@@ -352,7 +352,7 @@ distributions. Indeed, they are all positively skewed, but there is no real
 consistency beyond that. When comparing this to
 Figure~\ref{fig:intervention_los}, there is undoubtedly some variety, but the
 overall shapes of the distributions are generally similar. The exception is the
-spells with no COPD intervention where binning could not improve the
+spells with no COPD intervention, where binning could not improve the
 visualisation due to the widespread distribution of their lengths of stay.
 
 The same conclusions can be drawn about spell costs from Figure~\ref{fig:cost};
@@ -432,9 +432,9 @@ Figure~\ref{fig:cluster_ltcs}, for instance, there are distinct LTC count
 profiles among the clusters: Cluster 0 is typical of the population; Cluster 1
 shows that no patient presented COPD solely as an LTC in their spells, and more
 than half presented at least three; Cluster 2 is similar in form to the
-population but is severely biased towards patients presenting COPD as the only
-LTC; Cluster 3 is the most uniformly spread among the four bins despite the
-increased length of stay and CCI suggesting a diverse array of patients in
+population but is strongly biased towards patients presenting COPD as the only
+LTC; Cluster 3 has the most uniform spread among the four bins despite the
+increased length of stay and CCI, suggesting a diverse array of patients in
 terms of their long term medical needs.
 
 Figure~\ref{fig:cluster_icds} largely mirrors these cluster profiles with the
@@ -622,7 +622,7 @@ arriving customers join the line and wait for service.
 \subsubsection{The \(M/G/c\) queue}
 
 As useful as memoryless service times are in deriving properties of queues, they
-are not always accurate to real systems. The \(M/G/c\) queue extends the
+are not always representative of real systems. The \(M/G/c\) queue extends the
 \(M/M/c\) queue to allow for a general service time distribution. Again, there
 are \(c\) parallel servers and customers arrive randomly at a rate of
 \(\lambda\).
@@ -884,7 +884,7 @@ each leaving two years of simulated data from each repetition.
     }\label{fig:worst_params}
 \end{figure}
 
-The results of this parameter sweep can be summarised in
+The results of this parameter sweep are summarised in
 Figures~\ref{fig:best_params}~through~\ref{fig:worst_params}. Each plot shows a
 comparison of the observed lengths of stay across all groups and the newly
 simulated data with the best, median and worst parameter sets, respectively.
@@ -925,8 +925,7 @@ work are server (resource) utilisation and system times. These metrics capture
 the driving forces of cost and the state of the system. Specifically, the
 objective of these experiments is to address the following questions:
 \begin{itemize}
-    \item How would the system be affected by a change in overall patient
-        arrivals?
+    \item How is the system affected by a change in overall patient arrivals?
     \item How is the system affected by a change in resource availability?
     \item How is the system affected by patients moving between clusters?
 \end{itemize}
@@ -1080,7 +1079,7 @@ characterised by their clinical complexities and resource requirements, as done
 in Section~\ref{subsec:overview}. Therefore, being able to model the movement of
 some proportion of patient spells from one cluster to another will reveal how
 those complexities and requirements affect the system itself. The reality is
-then that if some public health policy could be implemented to enact that
+then that if some public health policy could be implemented to initiate that
 movement informed by a model such as this, then real change would be seen in the
 real system.
 
@@ -1104,9 +1103,9 @@ are left the same since the sum of the arrival rates is the same. Hence, the
 (relative) effect on server utilisation and system time can be measured
 independently.
 
-Figures~\ref{fig:moving_time}~and~\ref{fig:moving_util} show the effect of
-moving patient arrivals between clusters on relative system time and relative
-server utilisation, respectively. In each figure, the median and IQR for the
+Figures~\ref{fig:moving_time}~and~\ref{fig:moving_util} show the effect on
+relative system time and relative server utilisation, respectively, of moving
+patient arrivals between clusters. In each figure, the median and IQR for the
 corresponding attribute is shown, as in the previous scenarios. Each scenario
 was simulated using values of \(\delta\) from 0.0 to 0.98 at steps of \(2.0
 \times 10^{-2}\).
@@ -1169,12 +1168,12 @@ utilisation is given in Table~\ref{tab:moving_util}.
 The message delivered by these transfers is that in order to improve system
 times in hospitals, the only solution is for the patients arriving at hospital
 to present with fewer resource requirements. Meanwhile, the complexity of their
-condition is less influential. Achieving such reductions is certainly no mean
-feat, but could be addressed by investing in more-advanced medical
-infrastructure in other parts of the healthcare system, beyond hospitals.
-Furthermore, this could be achieved by implementing some preventive policy that
-would help improve the overall health of the COPD population, with particular
-targeting for those most-affected by the condition.
+condition is less influential. Achieving such reductions in resource
+requirements is certainly no mean feat, but could be addressed by investing in
+more-advanced medical infrastructure in other parts of the healthcare system,
+beyond hospitals. Furthermore, this could be achieved by implementing some
+preventive policy that would help improve the overall health of the COPD
+population, with particular targeting for those most-affected by the condition.
 
 Conversely, the concern arises when either of the low resource requirement
 clusters moves to Cluster 0 or Cluster 3. Even as few as one in ten of the
@@ -1238,10 +1237,10 @@ and useful insights can be gained into the needs of the population under study.
 
 This mode of analysis, in effect, considers all types of patient arrivals and
 how they each impact the system in terms of resource capacity and length of
-stay. By investigating scenarios into changes in both overall patient arrivals
-and resource capacity, it is clear that there is no quick solution to be
-employed from within the hospital to improve COPD patient spells. The only
-effective, non-trivial intervention is to improve the overall health of the
-patients arriving at the hospital, as is shown by moving patient arrivals
-between clusters. In reality, this would correspond to an external, preventive
-policy that improves the overall health of COPD patients.
+stay. By investigating changes in both overall patient arrivals and resource
+capacity, it is clear that there is no quick solution to be employed from within
+the hospital to improve COPD patient spells. The only effective, non-trivial
+intervention is to improve the overall health of the patients arriving at the
+hospital, as is shown by moving patient arrivals between clusters. In reality,
+this would correspond to an external, preventive policy that improves the
+overall health of COPD patients.
