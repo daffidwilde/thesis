@@ -440,13 +440,12 @@ selected. Then, upon solving the game, and up to an arbitrary breaking of any
 ties in the preference lists, each potential mode is assigned to its chosen data
 point.
 
-A popular generalisation of SM is the hospital-resident assignment problem (HR),
-a matching game that addresses the practical problem from which it gets its
-name: assigning medical students to hospital placements. A variant of this game
-is still used by the National Resident Matching Program (NRMP) in the United
-States. A thorough description of HR, and the algorithms to solve instances of
-it, is provided in Appendix~\ref{app:matching}. However, a brief overview is
-provided here.
+A popular generalisation of SM is HR, a matching game that addresses the
+practical problem from which it gets its name: assigning medical students to
+hospital placements. A variant of this game is still used by the National
+Resident Matching Program (NRMP) in the United States. A thorough description of
+HR, and the algorithms to solve instances of it, is provided in
+Appendix~\ref{app:matching}. However, a brief overview is provided here.
 
 Consider two distinct sets of players, \(R\) and \(H\), and call them the
 residents and hospitals, respectively. In HR, every resident \(r \in R\)
@@ -644,8 +643,8 @@ faster despite taking more iterations in general which suggests a more intuitive
 initialisation. More importantly, though, it appears that Cao's method performs
 the best out of the three initialisation methods: in terms of initial and final
 costs Cao's method improves, on average, by roughly 10\% against the next best
-method for the three datasets that it succeeds with; the number of iterations is
-comparable; the computation time is substantially less than the other two
+method for the three datasets with which it succeeds; the number of iterations
+is comparable; the computation time is substantially less than the other two
 methods. This last observation is expected given it is a deterministic method
 and need only be run once to achieve this performance.
 
@@ -923,8 +922,8 @@ mechanism.
 All of the results leading up to this point were created using benchmark
 datasets. The discussion at the start of Chapter~\ref{chp:edo} does not condemn
 this entirely as there are certainly benefits to comparing methods in this way
-such as familiarity and direct comparison. However, as that discussion
-elaborates on, it does not afford a rich understanding of how any of the methods
+such as familiarity and direct comparison. However, as elaborated on in that
+discussion, it does not afford a rich understanding of how any of the methods
 perform more generally. This stage of the analysis relies on the method for
 generating artificial datasets introduced in Chapter~\ref{chp:edo}, and, as was
 made clear in that chapter's case study, the critical component of this method
@@ -932,7 +931,7 @@ is a well-defined fitness function.
 
 In order to expose the nuances in the performance of Cao's method and the
 proposed initialisation on a particular dataset, two cases are considered: where
-Cao's method outperforms the proposed, and vice versa. Both cases use the same
+Cao's method outperforms that proposed, and vice versa. Both cases use the same
 fitness function, although the latter uses its negative. The function is defined
 as follows:
 \begin{equation}\label{eq:fitness}
@@ -986,7 +985,7 @@ identifiable. To combat this and bring uniformity to the datasets each dataset
 is represented as their first principal component obtained via centred Principal
 Component Analysis (PCA)~\cite{Jolliffe1986}. While some subtleties may be lost,
 this representation captures the essential characteristics of each dataset in a
-single variable meaning they can be compared directly.
+single variable, meaning they can be compared directly.
 
 Since the transformation by PCA is centred, all measures for central tendency
 are moot. The mean and median are not interpretable here anyway, given that the
