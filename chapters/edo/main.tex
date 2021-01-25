@@ -229,9 +229,10 @@ some features that align with the overall objective of artificial data
 generation. With that, there are a number of parameters that are passed to EDO.
 These include the typical parameters of an evolutionary algorithm: a fitness
 function, \(f\), which maps from an individual to a real number, a population
-size, \(N\), a maximum number of iterations, \(M\), a selection parameter,
-\(b\), and a mutation probability, \(p_m\). In addition to these, EDO takes the
-following parameters:
+size, \(N \in \mathbb N\), a maximum number of iterations, \(M \in \mathbb N\),
+a selection parameter, \(b \in [0, 1]\), and a mutation probability, \(p_m\).
+
+In addition to these, EDO takes the following parameters:
 
 \begin{itemize}
     \item A set of probability distribution families, \(\mathcal{P}\). Each
@@ -247,13 +248,13 @@ following parameters:
     \item A probability vector to sample distributions from \(\mathcal{P}\),
         \(w = \left(w_1, \ldots, w_{|\mathcal{P}|}\right)\).
     \item Limits on the number of rows an individual dataset can have,
-        \[
+        \vspace{-1ex}\[
             R \in \left\{%
                 (r_{\min}, r_{\max}) \in \mathbb{N}^2~|~r_{\min} \leq r_{\max}
             \right\}
-        \]
+        \]\vspace{-2em}
     \item Limits on the number of columns a dataset can have,
-        \[
+        \vspace{-1ex}\[
             C := \left(C_1, \ldots, C_{|\mathcal{P}|}\right)
             \text{ where }
             C_j \in \left\{ (c_{\min}, c_{\max}) \in {%
@@ -269,11 +270,12 @@ following parameters:
         component of the search space to be retained after adjustment.
 \end{itemize}
 
-Algorithm~\ref{alg:edo} provides a high-level description of the EDO algorithm
-that presents its general structure. More detailed discussion is provided in
-this section along with relevant examples, diagrams and algorithm statements for
-the abstract processes mentioned there: the creation of individuals, the
-evolutionary operators and the `shrinkage' process.
+Algorithm~\ref{alg:edo} provides a high-level description of the EDO algorithm,
+presenting its general structure. This section comprises more detailed
+discussion --- along with relevant examples, diagrams and algorithm statements
+--- for the processes mentioned there: the creation of individuals, the
+evolutionary operators and the `shrinkage' process. In addition, an overview of
+a software implementation is provided.
 
 \inputalg{edo}
 \inputalg{new_population}
@@ -542,6 +544,7 @@ each iteration, \(t\), every distribution subtype which is present in the
 parents has its parameter's limits, \(\left(l_t, u_t\right)\), adjusted. This
 adjustment is such that the new limits, \(\left(l_{t+1}, u_{t+1}\right)\) are
 centred about the mean observed value, \(\mu\), for that parameter:
+
 \begin{align}
     \label{eq:shrinking_lower}
     l_{t+1}&= \max \left\{l_t, \ \mu - \frac{1}{2} (u_t - l_t) s^t\right\}\\
@@ -589,7 +592,6 @@ shorter column that has been sampled. New values are sampled from the
 probability distribution associated with that column to fill in these gaps.
 Conversely, surplus values are trimmed from the bottom of all longer columns.
 
-
 \inputalg{crossover}
 
 \subsection{Mutation}\label{subsection:mutation}
@@ -617,6 +619,7 @@ process, no noticeable impact has been identified on the ability of the EA to
 traverse the search space compared with its inclusion.
 
 \inputtikz{mutation}{The mutation process}
+\inputalg{mutation}
 
 Each of the potential mutations occurs with the same probability \(p_m\).
 However, the way in which columns are formed and stored (with their associated
@@ -636,8 +639,6 @@ properties. The analysis in Chapter~\ref{chp:kmodes} makes use of a discrete
 uniform distribution and, likewise, the EDO method is able to offer up datasets
 with more interest than a random cloud, as could be expected with a uniform
 distribution.
-
-\inputalg{mutation}
 
 
 \section{A case study in clustering}\label{sec:examples}

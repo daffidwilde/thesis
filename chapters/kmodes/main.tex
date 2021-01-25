@@ -137,7 +137,7 @@ objects associated with clustering a categorical dataset:
     \item Each cluster \(Z_l\) has associated with it a
         \emph{mode} (see Definition~\ref{def:mode}) which is
         denoted by \(z^{(l)} = \left(z_1^{(l)},~\ldots,~z_m^{(l)}\right) \in
-        \mathcal{A}\).  These points are also referred to as
+        \mathcal{A}\). These points are also referred to as
         \emph{representative~points} or \emph{centroids}. The set of all current
         cluster modes is denoted as \(\overline Z = \left\{z^{(1)}, \ldots,
         z^{(k)}\right\}\).
@@ -577,13 +577,13 @@ initialisation and the time to terminate in seconds.
 
 The final piece of information required in this analysis is a choice for \(k\)
 for each dataset. An immediate choice is the number of classes that are present
-in a dataset but this is not necessarily an appropriate choice since the classes
-may not be representative of true clusters~\cite{Memoli2011}. However, this
-analysis will consider this case as there may be practical reasons to limit the
-value of \(k\). The other strategy for choosing \(k\) considered in this chapter
-uses the knee point detection algorithm introduced in~\cite{Satopaa2011}. This
-strategy was chosen over other popular methods such as the `elbow' method as its
-results are definitive.
+in a dataset, but this is not necessarily an appropriate choice since the
+classes may not be representative of true clusters~\cite{Memoli2011}. However,
+this analysis will consider this case as there may be practical reasons to limit
+the value of \(k\). The other strategy for choosing \(k\) considered in this
+chapter uses the knee point detection algorithm introduced
+in~\cite{Satopaa2011}. This strategy was chosen over other popular methods such
+as the `elbow' method as its results are definitive.
 
 The knee point detection algorithm was employed using values of \(k\) from 2 up
 to \(\lfloor\sqrt N\rfloor\) for each dataset. The number of clusters determined
@@ -591,7 +591,8 @@ by this strategy is reported in the final column of
 Table~\ref{tab:dataset_summary}.
 
 
-\subsection{Using knee point detection algorithm for \(k\)}\label{subsec:knee}
+\subsection{Using the knee point detection algorithm for \(k\)}
+\label{subsec:knee}
 
 Table~\ref{tab:metrics_knee} summarises the results of each initialisation
 method on the benchmark datasets. In each case, the number of clusters was
@@ -755,7 +756,8 @@ these repetitions is locally optimal remains a mystery.
 \end{figure}
 
 
-\subsection{Using number of classes for \(k\)}\label{subsec:nclasses}
+\subsection{Using the number of classes for \(k\)}
+\label{subsec:nclasses}
 
 As is discussed above, the often automatic choice for \(k\) is the number of
 classes present in the data. This subsection repeats the analysis from the
