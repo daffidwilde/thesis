@@ -214,6 +214,7 @@ words = {
     "util",
     "voronoi",
     "wasserstein",
+    "wellbeing",
     "wimd",
     "yellowbrick",
     "yml",

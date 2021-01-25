@@ -529,21 +529,22 @@ list constructors are included; the NRMP uses its own ranking system for the
 hospital agents, for instance. In a sense, the generalisation of SM to HR
 includes allowing for a form of indifference by allowing incomplete preference
 lists by residents. Not ranking any subset of the hospitals is equivalent to
-ranking them all the same: as unacceptable. The allowing of ties in a preference
-list would have its practical benefits, such as in the initialisation presented
-in Chapter~\ref{chp:kmodes}. In that setting, the categorical dissimilarity
-measure corresponds to the ranking between potential representative points in a
-cluster and real data points. A shortcoming of that measure is the potentially
-high incidence of ties in the distances between a set of points. As such,
-allowing for ties to be reconciled in the matching game would be desirable.
-However, as no matching is guaranteed for any of the levels of stability in such
-a framework, it cannot be considered.
+ranking them all the same: as unacceptable. Allowing ties in a preference list
+would have its practical benefits, such as in the initialisation presented in
+Chapter~\ref{chp:kmodes}. In that setting, the categorical dissimilarity measure
+corresponds to the ranking between potential representative points in a cluster
+and real data points. A shortcoming of that measure is the potentially high
+incidence of ties in the distances between a set of points. As such, allowing
+for ties to be reconciled in the matching game would be desirable.  However, as
+no matching is guaranteed for any of the levels of stability in such a
+framework, it cannot be considered.
 
 Further to these extensions, HR has given rise to its own contextual problems.
-One of these is allowing for couples in the resident party.~\cite{Manlove2016}
-is one study showing that no stable matching is guaranteed to exist, and so a
-related, NP-hard problem is considered instead where the objective is to
-identify an almost-stable matching that minimises the number of blocking pairs.
+One of these is allowing for couples in the resident party.
+In~\cite{Manlove2016}, the authors show that no stable matching is guaranteed to
+exist when couples are permitted. In response, a related, NP-hard problem is
+considered, where the objective is to identify an almost-stable matching
+that minimises the number of blocking pairs.
 
 Another method used to construct preference lists is to discount the preference
 lists presented by players. For instance, where acceptability of another player
@@ -578,17 +579,18 @@ components that make up the SA game.
 
 \begin{definition}\label{def:sa_game}
     Consider three distinct sets, \(S\), \(P\) and \(U\), and refer to them as
-    \emph{students}, \emph{projects}, and \emph{supervisors}, respectively. Each
-    project \(p \in P\) has a single supervisor \(u \in U\) associated with
-    them. This association is described as a surjective function \(L: P \to U\),
-    where the supervisor \(u \in U\) for a project \(p \in P\) can be written as
-    \(L(p) = u\). Note that as \(L\) is surjective, a supervisor may have
-    multiple projects associated with them. The set of projects belonging to a
-    supervisor, \(u\), is written as \(L^{-1}(u)\).
+    \emph{students}, \emph{projects} and \emph{supervisors}, respectively. Each
+    project, \(p \in P\), has a single supervisor, \(u \in U\), associated with
+    them. This association is described as a surjective function, \(L: P \to
+    U\), where the supervisor, \(u \in U\), for a project, \(p \in P\), can be
+    written as \(L(p) = u\). Note that since \(L\) is surjective, a supervisor
+    may have multiple projects associated with them. The set of projects
+    belonging to a supervisor, \(u\), is written as \(L^{-1}(u)\).
 
     In addition to these supervisor-project associations, each project, \(p \in
     P\), and supervisor, \(u \in U\), has a \emph{capacity}, denoted \(c_p, c_u
-    \in \mathbb N\), respectively. These capacities are such that:
+    \in \mathbb N\), respectively. These capacities are such that for all \(u
+    \in U\):
 
     \begin{equation}
         \max \left\{c_p \ | \ p \in L^{-1}(u)\right\}
@@ -596,7 +598,7 @@ components that make up the SA game.
         \le \sum_{p \in L^{-1}(u)} c_p
     \end{equation}
 
-    That is, all supervisors must be able to accommodate their largest project,
+    That is, every supervisor must be able to accommodate their largest project,
     but may not offer more spaces than their projects sum to.
 
     As with other matching games, each player has a \emph{preference list}
@@ -607,9 +609,8 @@ components that make up the SA game.
         \item Each student, \(s \in S\), ranks a non-empty subset of \(P\),
             denoted by \(f(s)\).
         \item Each supervisor, \(u \in U\), ranks all and only those students
-            that have ranked at least one of their projects, i.e.\ the
-            preference list of \(u\), denoted \(g(h)\), is a permutation of the
-            set
+            who have ranked at least one of their projects, i.e. the preference
+            list of \(u\), denoted \(g(h)\), is a permutation of the set
             \(\left\{s \in S \ | \ L^{-1}(u) \cap f(s) \neq \emptyset\right\}\).
             If no students have ranked any of a supervisor's projects then \(u\)
             is removed from \(U\).
@@ -747,8 +748,9 @@ does not form a blocking pair as \(X1\) is at capacity and its supervisor,
 
 So, to avoid these blocking pairs without creating more, students \(D\) and
 \(E\) must be swapped. Keeping fairness in mind, this is a sensible move given
-that \(E\) outranks \(D\). Figure~\ref{fig:sa_stable} shows the resultant
-matching. Inspecting the matching, it is clear that no student may improve their
+that \(E\) outranks \(D\) in the supervisors' preferences.
+Figure~\ref{fig:sa_stable} shows the resultant matching from this swap.
+Inspecting the matching, it is clear that no student may improve their
 allocation without creating a blocking pair, and so the matching is
 student-optimal.
 
@@ -757,7 +759,7 @@ student-optimal.
     \resizebox{\imgwidth}{!}{%
         \input{appendix/matching/paper/docs/tex/sa_stable}
     }\caption{%
-        A stable, student-optimal matching for the instance
+        A student-optimal, stable matching for the instance
     }\label{fig:sa_stable}
 \end{figure}
 
@@ -773,9 +775,9 @@ respectively.
 As with HR, the reviewing-party-optimal algorithm is omitted, but
 the student-optimal algorithm is given in Algorithm~\ref{alg:student_optimal}.
 This algorithm, and its supervisor-optimal counterpart follow a similar
-structure to the others presented in this appendix. Again, members of the
+structure to the others presented in this appendix: members of the
 applying party make temporary proposals, leading to the removal of infeasible
-pairs.
+pairs, until no acceptable applicants are left.
 
 \balg%
 \caption{The student-optimal algorithm for SA}\label{alg:student_optimal}
@@ -832,7 +834,7 @@ pairs.
 \ealg%
 
 This algorithm produces the matching shown in Figure~\ref{fig:sa_stable}, and
-can be solved in Python using the \matching\ library as shown in
+can be solved in Python using the \matching\ library, as shown in
 Snippet~\ref{snp:student_optimal}. Here, there are several dictionaries required
 to describe the preferences, affiliations and capacities of the players in the
 game.

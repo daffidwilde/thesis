@@ -7,7 +7,7 @@ def main():
     """Zip together chapter references, GitHub links and DOI names."""
 
     chapters = [
-        r"Chapter~\ref{chp:" + chapter + "}"
+        r"\ref{chp:" + chapter + "}"
         for chapter in ("lit", "edo", "kmodes", "copd")
     ]
 
@@ -27,7 +27,7 @@ def main():
             "10.5281/zenodo.4320050",
             "10.5281/zenodo.4000316",
             "10.5281/zenodo.3639282",
-            "10.5281/zenodo.3936479",
+            "10.5281/zenodo.4457902",
         )
     ]
 
@@ -36,12 +36,12 @@ def main():
         for doi in (
             "10.5281/zenodo.4320050",
             "10.5281/zenodo.4000327",
-            "10.5281/zenodo.3638035",
+            "10.5281/zenodo.3639282",
         )
     ] + [
         r"\begin{tabular}{l}"
         r"\doi{10.5281/zenodo.3908167}\\"
-        r"\doi{10.5281/zenodo.3924715}"
+        r"\doi{10.5281/zenodo.4457808}"
         r"\end{tabular}"
     ]
 
