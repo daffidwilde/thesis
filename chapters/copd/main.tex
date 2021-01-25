@@ -533,13 +533,13 @@ but some commonly studied examples are:
         service times follow a general probability distribution.
 \end{itemize}
 
-\subsection{Some well-known queues}\label{subsec:known}
+\subsection{Some classical queues}\label{subsec:known}
 
 \subsubsection{The \(M/M/1\) queue}
 
 One of the best-known queues is the \(M/M/1\) queue. In this queue, customers
-arrive according to a Poisson process at a rate, \(\lambda\). The customers are
-served by a single server exponentially, at a rate of \(\mu\). Owing to the
+arrive according to a Poisson process at a rate of \(\lambda\). The customers
+are served by a single server exponentially, at a rate of \(\mu\). Owing to the
 memoryless property of the exponential distribution, this queue can be
 represented as a continuous-time Markov chain over the state space
 \(\mathbb{N}_0 = \left\{0, 1, 2, \ldots\right\}\).
@@ -555,9 +555,9 @@ for all \(n \in \mathbb N\) and for any \((n+1)\)-tuple of states, \(s_0,
 \end{equation}
 
 That is, the probability of being in state \(s_n\) is dependent only on the
-previous state, \(s_{n-1}\). The Markov chain underlying an \(M/M/1\) queue is also
-known as a \emph{birth-death process}. Figure~\ref{fig:birth_death_mm1} shows a
-diagram of the birth-death process of an \(M/M/1\) queue.
+previous state, \(s_{n-1}\). The Markov chain underlying an \(M/M/1\) queue is
+also known as a \emph{birth-death process}. Figure~\ref{fig:birth_death_mm1}
+shows a diagram of the birth-death process of an \(M/M/1\) queue.
 
 \begin{figure}[htbp]
     \centering
@@ -589,15 +589,15 @@ makes use of Little's Law~\cite{Little1961}, which relates average system size,
 
 The \(M/M/c\) queue is an extension of the \(M/M/1\) queue where there are \(c
 \in \mathbb N\) independent servers working in parallel. Customers still arrive
-according to a Poisson process with rate, \(\lambda\), and customer service
-times follow an exponential distribution with a mean of \(\frac{1}{\mu}\). The
-traffic intensity of the \(M/M/c\) queue is also \(\rho = \frac{\lambda}{\mu}\),
-but server utilisation is measured as the mean traffic intensity across the
-servers, i.e.  \(\frac{\rho}{c}\). The stability condition for the \(M/M/c\)
-queue is \(\rho < c\). 
+according to a Poisson process with rate \(\lambda\), and customer service times
+follow an exponential distribution with a mean of \(\frac{1}{\mu}\). The traffic
+intensity of the \(M/M/c\) queue is also \(\rho = \frac{\lambda}{\mu}\), but
+server utilisation is measured as the mean traffic intensity across the servers,
+i.e.  \(\frac{\rho}{c}\). The stability condition for the \(M/M/c\) queue is
+\(\rho < c\). 
 
-As with the \(M/M/1\) queue, the \(M/M/c\) can be represented as a birth-death
-process on the state space \(\mathbb N_0\), as shown in
+As with the \(M/M/1\) queue, the \(M/M/c\) queue can be represented as a
+birth-death process on the state space \(\mathbb N_0\), as shown in
 Figure~\ref{fig:birth_death_mmc}. Since there are multiple servers, some servers
 may be idle when there are customers in the system. Once all servers are active,
 arriving customers join the line and wait for service. 
@@ -625,8 +625,8 @@ Given the generic nature of customer departure times, a lot of the structure of
 the underlying process is lost. As such, deriving exact values for many
 properties of the \(M/G/c\) queue continues to be an open
 problem~\cite{Kingman2009}. Despite the theoretical challenges posed by the
-\(M/G/c\), simulating these generic queues can still be of great benefit --- as
-is done in Section~\ref{sec:model}. 
+\(M/G/c\) queue, simulating these generic queues can still be of great benefit
+--- as is done in Section~\ref{sec:model}. 
 
 \subsection{Simulation tools}\label{subsec:tools}
 
@@ -812,14 +812,16 @@ how something works, but also how its results may be explained.
 
 As such, a reasonable candidate is the (first) Wasserstein metric, also known as
 the `earth mover' or `digger' distance~\cite{Vaserstein1969}. The Wasserstein
-metric satisfies the conditions of a formal mathematical metric (like the
-typical Euclidean distance), and its values take the units of the distributions
-under comparison (in this case: days). These characteristics can aid
-understanding and explanation. The distance measures the approximate `minimal
-work' required to move between two probability distributions where `work' can be
-loosely defined as the product of how much of the distribution's mass moves and
-the distance by which it must be moved. More formally, the Wasserstein distance
-between two probability distributions \(U\) and \(V\) is defined as:
+metric satisfies the conditions of a formal mathematical metric --- like
+Euclidean distance or the dissimilarity measure given in
+Definition~\ref{def:dissim}. Also, the values of the Wasserstein metric take the
+units of the distributions under comparison (in this case: days). These
+characteristics can aid understanding and explanation. The distance measures the
+approximate `minimal work' required to move between two probability
+distributions where `work' can be loosely defined as the product of how much of
+the distribution's mass moves and the distance by which it must be moved. More
+formally, the Wasserstein distance between two probability distributions \(U\)
+and \(V\) is defined as:
 
 \begin{equation}\label{eq:wasserstein}
     W(U, V) = \int_{0}^{1} \left\vert F^{-1}(t) - G^{-1}(t) \right\vert dt
@@ -982,13 +984,13 @@ expect: as arrivals increase, the strain on the system increases. However, it
 should be noted that it also appears that the model has some amount of slack
 relative to the base case. Looking at Figure~\ref{fig:lambda_time}, for
 instance, the relative system time distribution stays unchanged up to \(\sigma
-\approx 1.3\), or an approximate 30\% increase in arrivals of COPD patients.
+\approx 1.2\), or an approximate 20\% increase in arrivals of COPD patients.
 Beyond that, relative system times quickly rise to an untenable point where the
 median time becomes orders of magnitude above the norm.
 
 However, Figure~\ref{fig:lambda_util} shows that the situation for the system's
 resources reaches its worst-case near to the start of that spike in relative
-system times (at \(\sigma \approx 1.4\)). That is, the median server utilisation
+system times (at \(\sigma \approx 1.3\)). That is, the median server utilisation
 reaches a maximum (this corresponds to constant utilisation) at this point, and
 the variation in server utilisation disappears entirely.
 
@@ -1205,7 +1207,7 @@ hospital spell data from patients presenting COPD from \ctmuhb.
 
 By considering a variety of attributes present in the data, and engineering
 some, a useful clustering of the spell population is identified that
-successfully feeds into a multi-class, \(M/G/c\) queue to model a hypothetical
+successfully feeds into a multi-class \(M/G/c\) queue to model a hypothetical
 COPD ward. With this model, several insights are gained by investigating
 purposeful changes in the parameters of the model that have the potential to
 inform actual public health policy.
