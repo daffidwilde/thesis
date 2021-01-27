@@ -370,9 +370,8 @@
 
 \begin{document}
 
-\newgeometry{margin=25mm}
+%TC:ignore
 \input{title.tex}
-\restoregeometry%
 \pagestyle{chapterstyle}
 
 % Preamble
@@ -392,6 +391,7 @@
     \listofalgorithms%
     \listoflisting%
 }
+%TC:endignore
 
 % Main text
 \mainmatter%
@@ -406,7 +406,9 @@
 \addtocontents{toc}{\vspace{1em}\par\noindent\protect\myrule\par}
 
 % Post-text
+%TC:ignore
 \bibliography{bibliography.bib}
 \input{appendix/main}
+%TC:endignore
 
 \end{document}

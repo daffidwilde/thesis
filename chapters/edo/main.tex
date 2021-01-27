@@ -341,7 +341,8 @@ Let \(X\) be a dataset with two columns, \(X_r\) and \(X_a\), which each contain
 the interval \([-2\pi, 2\pi]\), while those in \(X_r\) may take values from the
 interval \([0, 2]\). Again, these values are sampled uniformly.
 
-The objective is to find a dataset \(X\) which maximises the following function:
+The objective is to find a dataset, \(X\), which maximises the following
+function:
 
 \begin{equation}\label{eq:circle}
     f(X) = \frac{\text{Var}\left(X_{a}\right)}{%
@@ -389,7 +390,7 @@ Snippet~\ref{snp:uniforms} shows how this should be done.
 
 With the column distributions implemented, the fitness function needs defining.
 Snippet~\ref{snp:fitness} contains the code to implement the fitness function
-in~\eqref{eq:circle}. Since each column in a dataset, \(X\), is of a specific
+given in~\eqref{eq:circle}. Since each column of the dataset is of a specific
 type, they must be recovered properly; this is done using the
 \mintinline{console}{split_individual} function.
 

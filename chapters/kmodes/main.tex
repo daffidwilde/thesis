@@ -37,7 +37,7 @@ familiar setting by clustering well-known benchmark datasets; and second, to
 provide a deeper insight into how the methods perform against one another by
 generating artificial datasets using the method set out in~\cite{Wilde2020:edo}.
 
-\myrule%
+\myrule\
 
 This chapter differs from the manuscript by including a more detailed
 description of the \(k\)-modes algorithm and its setting (in
@@ -303,23 +303,24 @@ Algorithm~\ref{alg:kmodes} as set out in~\cite{Huang1998}.
 \section{Initialisation processes}\label{sec:inits}
 
 The \(k\)-modes algorithm is stochastic, in that it is dependent on a stochastic
-choice of starting point. The process of finding an initial solution for the
-algorithm is called the initialisation. As with many algorithms in the paradigm,
-the standard initialisation for \(k\)-modes is to randomly sample \(k\) distinct
-points in the dataset, call them the initial modes and assign each data point to
-its closest mode.
+choice of starting point. The process of finding an initial solution or set of
+modes for the algorithm is called the initialisation. As with many algorithms in
+the centroid-based paradigm, the standard initialisation for \(k\)-modes is to
+randomly sample \(k\) distinct points in the dataset, call them the initial
+modes and assign each data point to its closest mode.
 
 The initial set of modes must be instances in the dataset to ensure that there
 are no empty clusters in the first iteration of the algorithm. However, this set
 of points need not be determined entirely at random. The remainder of this
 section describes two well-established initialisations for \(k\)-modes that aim
 to lever the structure of the data at hand preemptively to select these initial
-modes.
+modes. The section then closes with the motivation and definition of the
+proposed initialisation method.
 
 \subsection{Huang's method}\label{subsec:huang}
 
 Among the original works by Huang, an alternative initialisation method was
-presented that selects modes by distributing frequently-occurring values from
+presented that selects modes by distributing frequently occurring values from
 the attribute space among \(k\) potential modes~\cite{Huang1998}. The process
 (referred to as Huang's method) is described in full in
 Algorithm~\ref{alg:huang}. Huang's method considers a set of potential modes,
@@ -327,13 +328,13 @@ Algorithm~\ref{alg:huang}. Huang's method considers a set of potential modes,
 initial modes, \(\overline Z \subset \mathcal X\).
 
 The process of selecting this set of potential modes is ambiguous in the
-original paper --- as is alluded to in~\cite{Jiang2016}.~\cite{Huang1998} states
-that the potential modes should be created by assigning to them the ``most
-frequent categories equally''. Here, as is done in practical implementations of
-\(k\)-modes, this assignment is interpreted as a weighted random sample.
-Algorithm~\ref{alg:potential_modes} contains a description of the sampling
-process using the relative frequencies of the values (categories) in the
-attribute space.
+original paper --- as is alluded to in~\cite{Jiang2016}. In~\cite{Huang1998},
+the author states that the potential modes should be created by assigning to
+them the ``most frequent categories equally''. Here, as is done in practical
+implementations of \(k\)-modes, this assignment is interpreted as a weighted
+random sample. Algorithm~\ref{alg:potential_modes} contains a description of the
+sampling process using the relative frequencies of the values (categories) in
+the attribute space.
 
 \inputalg{huang}
 
