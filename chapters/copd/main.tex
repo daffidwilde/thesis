@@ -101,7 +101,7 @@ The chapter is structured as follows:
         its clustering;
     \item Section~\ref{sec:queuing} offers a concise introduction to queuing
         theory;
-    \item Section~\ref{sec:model} describes the queuing model used and the
+    \item Section~\ref{sec:model} describes the queuing model and the
         estimation of its parameters;
     \item Section~\ref{sec:scenarios} presents several what-if scenarios with
         insight provided by the model parameterisation and the clustering;
@@ -113,11 +113,35 @@ The chapter is structured as follows:
 
 Cwm Taf Morgannwg UHB provided the dataset used in this chapter. The dataset
 contains an administrative summary of 5,231 patients presenting COPD from
-February 2011 through to March 2019 totalling 10,861 spells. A patient
+February 2011 through to March 2019, covering 10,861 hospital spells. A patient
 (hospital) spell is defined as the continuous stay of a patient using a hospital
-bed on premises controlled by a healthcare provider and is made up of one or
-more patient episodes~\cite{NHS:spell}. The following attributes describe the
-spells included in the dataset:
+bed on premises controlled by a healthcare provider, and is made up of one or
+more patient episodes~\cite{NHS:spell}. A patient episode is defined to be any
+continuous period of care provided by the same consultant~\cite{NHS:episode}.
+Figure~\ref{fig:spell} contains an illustrative example of the relationship
+between patient episodes and patient spells.
+
+\begin{figure}[htbp]
+    \centering
+    \resizebox{\imgwidth}{!}{%
+        \input{chapters/copd/tex/spell}
+    }
+    \caption{A Gantt chart of two patient spells across three episodes}
+    \label{fig:spell}
+\end{figure}
+
+In the example, the first patient begins their first episode with a consultation
+and an X-ray. Following this, they are referred to a physiotherapist for
+specialist treatment; this is their second episode, and concludes their spell.
+The second patient spell consists of consultation, an MRI, and monitoring on a
+ward. These are all overseen by the same consultant, and so they form one
+episode. The analysis in Appendix~\ref{app:data} considers another dataset
+consisting of patient episodes. However, as is often the case with
+administrative datasets, the order of procedures within the same episode is not
+recorded.
+
+The following attributes describe the spells included in the dataset studied in
+this chapter:
 
 \begin{itemize}
     \item Personal identifiers and information, i.e. patient and spell ID
@@ -182,7 +206,7 @@ exceptions that:
 
 \begin{itemize}
     \item The \textsc{SelectClosest} function uses the dissimilarity measure
-        given in~\eqref{eq:dissim};
+        given in~\eqref{eq:kprototypes};
     \item The \textsc{Update} function is as given in
         Algorithm~\ref{alg:kprototypes_update}.
 \end{itemize}
@@ -190,12 +214,12 @@ exceptions that:
 These parts are combined using a modified dissimilarity function, defined
 in~\eqref{eq:kprototypes}. This function is a linear combination of the squared
 Euclidean distance and the dissimilarity function defined in~\eqref{eq:dissim}
-according to a single weight, \(\gamma \in \mathbb R\). The notation and
-terminology for clustering mixed-type data is much the same as in
-Chapter~\ref{chp:kmodes}. However, there are substantial differences: first,
-representative points are referred to as \emph{prototypes}; and, second, an
-attribute space \(\mathcal A\) of \(m\) mixed-type attributes can be written as
-the product of its numeric and categorical components:
+according to a weight, \(\gamma \in \mathbb R\). The notation and terminology
+for clustering mixed-type data is much the same as in Chapter~\ref{chp:kmodes}.
+However, there are substantial differences: first, representative points are
+referred to as \emph{prototypes}; and, second, an attribute space \(\mathcal A\)
+of \(m\) mixed-type attributes can be written as the product of its numeric and
+categorical components:
 
 \begin{equation}
     \mathcal A
