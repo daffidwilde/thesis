@@ -16,7 +16,7 @@
 % Fonts and typesetting
 \usepackage{./fonts}
 \usepackage{datetime}
-    \newdateformat{monthyeardate}{\monthname[\THEMONTH] \THEYEAR}
+    \newdateformat{monthyeardate}{\THEYEAR}
 \usepackage{setspace}
     \onehalfspacing%
 \usepackage{enumerate}  % Roman numerals in lists
@@ -126,6 +126,7 @@
 \definecolor{usagefr}{HTML}{eee8d5}
 \definecolor{myurl}{HTML}{5e81ac}
 
+\definecolor{grey}{RGB}{134, 134, 134}
 \definecolor{cyan}{RGB}{0, 164, 216}
 \definecolor{magenta}{RGB}{226, 62, 138}
 \definecolor{deepblue}{RGB}{0,0,150}
@@ -369,9 +370,8 @@
 
 \begin{document}
 
-\newgeometry{margin=25mm}
+%TC:ignore
 \input{title.tex}
-\restoregeometry%
 \pagestyle{chapterstyle}
 
 % Preamble
@@ -391,6 +391,7 @@
     \listofalgorithms%
     \listoflisting%
 }
+%TC:endignore
 
 % Main text
 \mainmatter%
@@ -405,7 +406,9 @@
 \addtocontents{toc}{\vspace{1em}\par\noindent\protect\myrule\par}
 
 % Post-text
+%TC:ignore
 \bibliography{bibliography.bib}
 \input{appendix/main}
+%TC:endignore
 
 \end{document}

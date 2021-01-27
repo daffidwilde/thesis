@@ -6,6 +6,8 @@ rsc/*
 *.dmg
 
 # Cache files
+.DS_Store
+.bibliography.bib
 *.ipynb_checkpoints
 __pycache__
 *.pyc
@@ -14,7 +16,7 @@ __pycache__
 # Images
 *.gif
 *.pdf
-*.png
+!img/**/*.pdf
 
 # LaTeX stuff
 *.aux
