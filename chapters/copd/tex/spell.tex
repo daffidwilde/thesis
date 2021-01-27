@@ -4,11 +4,15 @@
 \usepackage[garamondx,cmbraces]{newtxmath}
 
 \usepackage{tikz}
-\usetikzlibrary{positioning}
+\usetikzlibrary{arrows, positioning}
 
 \begin{document}
 
 \begin{tikzpicture}
+
+    \tikzstyle{gantt-arrow} = [%
+        |-latex, ultra thick, shorten >=-5pt
+    ]
 
     \Large
     \node (p1) {1};
@@ -36,25 +40,23 @@
 
     \normalsize
     \color{blue}
-    \draw[|-latex, ultra thick]
-        ([xshift=1em, yshift=-0.5em]p1.east) -- ++(3.5, 0)
+    \draw[gantt-arrow] ([xshift=1em, yshift=-0.5em]p1.east) -- ++(3.5, 0)
         node[midway, above] {Consultation}
         node[pos=1] (p1-consult) {};
-    \draw[|-latex, ultra thick] (p1-consult.east) -- ++(2.5, 0)
+    \draw[gantt-arrow] (p1-consult.east) -- ++(2.5, 0)
         node[midway, above] {X-ray}
         node[pos=1] (xray) {};
 
-    \draw[|-latex, ultra thick] ([yshift=-5em]xray.east) -- ++(3, 0)
+    \draw[gantt-arrow] ([yshift=-5em]xray.east) -- ++(3, 0)
         node[midway, above] {Physiotherapy};
 
     \color{orange}
-    \draw[|-latex, ultra thick]
-        ([xshift=3em, yshift=-0.5em]p3.east) -- ++(3, 0)
+    \draw[gantt-arrow] ([xshift=3em, yshift=-0.5em]p3.east) -- ++(3.5, 0)
         node[midway, above] {Consultation}
         node[pos=1] (p3-consult) {};
-    \draw[|-latex, ultra thick] (p3-consult.east) -- ++(2, 0)
+    \draw[gantt-arrow] (p3-consult.east) -- ++(1.5, 0)
         node[midway, above] {MRI} node[pos=1] (mri) {};
-    \draw[|-latex, ultra thick] (mri.east) -- ++(3, 0)
+    \draw[gantt-arrow] (mri.east) -- ++(2.5, 0)
         node[midway, above] {Ward};
 \end{tikzpicture}
 
