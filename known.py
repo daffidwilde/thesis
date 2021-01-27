@@ -73,6 +73,7 @@ words = {
     "findable",
     "frictionless",
     "fyp",
+    "gantt",
     "gans",
     "geosciences",
     "geraint",
