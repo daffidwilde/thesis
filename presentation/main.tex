@@ -1,0 +1,179 @@
+\documentclass[final]{beamer}
+
+\usetheme{default}
+\usecolortheme[accent=orange]{solarized}
+\beamertemplatenavigationsymbolsempty
+
+\usepackage[numbers]{natbib}
+    \bibliographystyle{../abbrvurl}
+
+\usepackage{listings}
+\definecolor{keywords}{RGB}{255,0,90}
+\definecolor{comments}{RGB}{60,179,113}
+\lstset{
+    language=Python,
+    keywordstyle=color{keywords},
+    commentstyle=color{comments}emph
+}
+
+\usefonttheme{professionalfonts}
+\usefonttheme{serif}
+\usepackage{fontspec}
+\setmainfont{Helvetica Neue}
+\setbeamerfont{frametitle}{size=\LARGE,series=\bfseries}
+\setbeamerfont{title}{size=\LARGE}
+\setmonofont{Menlo}
+\usepackage[garamondx]{newtxmath}
+
+\usepackage{amssymb}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+\usepackage{graphicx}
+\usepackage{standalone}
+\usepackage{tcolorbox}
+\usepackage{my-tikz}
+
+
+\definecolor{myurl}{HTML}{5e81ac}
+\definecolor{deepred}{RGB}{200,0,0}
+\definecolor{deepgreen}{RGB}{0,150,0}
+
+\definecolor{blue}{HTML}{0072B2}
+\definecolor{green}{HTML}{009E73}
+\definecolor{orange}{HTML}{D55E00}
+\definecolor{pink}{HTML}{CC79A7}
+
+\hypersetup{
+    colorlinks=true,
+    citecolor=deepgreen,
+    linkcolor=deepred,
+    urlcolor=myurl,
+}
+
+\renewcommand*{\UrlFont}{\ttfamily\small\relax}
+
+\newcommand{\arxiv}[1]{%
+    \href{https://arxiv.org/abs/#1}{\small\nolinkurl{arXiv:#1}}%
+}
+
+\newcommand{\doi}[1]{%
+    \href{https://doi.org/#1}{\small\nolinkurl{doi:#1}}%
+}
+
+\newcommand{\github}[1]{%
+    \href{https://github.com/#1}{\small\nolinkurl{github:#1}}%
+}
+
+
+\title{%
+    New methods for algorithm evaluation and clustering initialisation with
+    applications to healthcare
+}
+\subtitle{%
+    \rule[0.5ex]{.8\linewidth}{1pt}\\
+    A whistle-stop tour
+}
+\author{\bf\Large Henry Wilde}
+\institute{%
+    \emph{School of Mathematics, Cardiff University}\\[1em]
+    Supervised by Dr Jon Gillard and Dr Vince Knight\\
+    Co-sponsored by Cwm Taf Morgannwg University Health Board
+}
+\date{March 18, 2021}
+
+
+\begin{document}
+
+\begin{frame}
+    \titlepage%
+\end{frame}
+
+\begin{frame}
+    \huge
+    Research should be\\
+    \textbf{straightforward},\\
+    \textbf{reproducible}\\
+    and \textbf{transparent}
+\end{frame}
+
+\begin{frame}{Topics covered}
+    \begin{itemize}
+        \setlength\itemsep{1em}
+        \item \textbf{Algorithm evaluation\\} {\footnotesize%
+                Wilde et al. Evolutionary dataset optimisation: learning
+                algorithm quality through evolution.
+                \emph{Applied Intelligence}, 50(4):1172–1191, 2020.
+                \doi{10.1007/s10489-019-01592-4}
+            }
+        \item \textbf{Clustering\\} {\footnotesize%
+                Wilde et al. A novel initialisation based on hospital-resident
+                assignment for the \(k\)-modes algorithm. \arxiv{2002.02701}
+            }
+        \item \textbf{Healthcare modelling\\} {\footnotesize%
+                Wilde et al. Segmentation analysis and the recovery of queuing
+                parameters via the Wasserstein distance: a study of
+                administrative data for patients with COPD. \arxiv{2008.04295}
+            }
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Algorithm evaluation}
+   \begin{figure}
+       \centering
+       \begin{tcolorbox}[colback=gray!5, boxrule=0.5pt]
+           \centering
+           \resizebox{\linewidth}{!}{%
+               \input{../chapters/edo/paper/tex/diagrams/paradigm}
+           }
+       \end{tcolorbox}
+   \end{figure}
+\end{frame}
+
+\begin{frame}{Clustering}
+    \begin{figure}
+        \centering
+        \begin{tcolorbox}[colback=gray!5, boxrule=0.5pt]
+            \centering
+            \resizebox{\linewidth}{!}{%
+                \input{../appendix/matching/paper/tex/hospital_resident}
+            }
+        \end{tcolorbox}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Healthcare modelling}
+    \begin{figure}
+        \centering
+        \resizebox{\linewidth}{!}{%
+            \input{tex/process}
+        }
+    \end{figure}
+\end{frame}
+        
+\begin{frame}{Other research interests}
+    \begin{itemize}
+        \setlength{\itemsep}{1em}
+        \item \textbf{Game theory\\} {\footnotesize%
+                Wilde et al. Matching: A Python library for solving matching
+                games. \emph{Journal of Open Source Software}, 5(48):2169, 2020.
+                \doi{10.21105/joss.02169}
+            }
+        \item \textbf{Research software development\\[1ex]} {\footnotesize%
+                \texttt{\$ pip install blackbook edo edolab matching}\\
+                \github{daffidwilde/github}
+            }
+        \item \textbf{Extracting value from coarse data}
+        \item \textbf{Ethics in OR, ML and AI}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \huge
+    Research should be\\
+    \textbf{straightforward},\\
+    \textbf{reproducible}\\
+    and \textbf{transparent}
+\end{frame}
+
+
+\end{document}
