@@ -1205,7 +1205,18 @@ modelling and the evaluation of models. As part of this survey, the
 intersections of these topics have been considered, but there appears to be a
 distinct lack of literature covering all three topics simultaneously.
 
-Of the clustering approaches available, this survey confirms that
+In the following chapter, a novel approach to understanding algorithm quality is
+presented. The motivation for this method stems from the literature reviewed in
+Section~\ref{sec:evaluation}. Throughout Chapter~\ref{chp:edo}, there is further
+discussion of the state of algorithm evaluation, particularly in machine
+learning. The focus of this discussion relates to the dangers of being too
+reliant on the confirmation processes reviewed in this chapter. A conformation
+process applies a method to a specific example and quantifies its success using
+some metric. The literature considered in this chapter revealed that this is the
+default approach to algorithm evaluation in machine learning --- clustering
+included.
+
+Of the clustering approaches available, this review confirms that
 centroid-based clustering (\(k\)-means, in particular) continues to be the most
 popular in healthcare applications. This popularity prevails in spite of its
 known limitations such as requiring spherical, evenly sized clusters. In part,
@@ -1214,15 +1225,6 @@ explained design, making it an appealing option when non-technical stakeholders
 are involved in a modelling process. Owing to this, centroid-based clustering
 algorithms are the focus of the clustering approaches used in
 Chapters~\ref{chp:kmodes}~and~\ref{chp:copd}.
-
-Despite the widespread use of clustering in healthcare, the survey for this
-review identified no existing works where clustering was used to inform a
-queuing model. Indeed, clustering has been used to understand and categorise the
-outputs of healthcare queuing models, but does not appear to have been applied
-at the front-end of a model. In Chapter~\ref{chp:copd}, administrative data is
-utilised to profile spells associated with a healthcare population via
-clustering. These profiles are then included as classes in a queue which models
-the population in a hypothetical hospital system.
 
 Beyond healthcare applications, this survey recognises the growing body of work
 into fair machine learning practices, including in clustering. These new
@@ -1235,9 +1237,19 @@ studying fair machine learning practices is to more roundly quantify their
 quality, often from an ethical standpoint where people (and their data) are the
 subject of the algorithms.
 
-Other than these practices, the evaluation of clustering (and other machine
-learning) algorithms appears to rely heavily on confirmation processes. A
-confirmation process applies a method to a specific example and quantifies its
-success using some metric. Chapter~\ref{chp:edo} introduces a novel approach to
-expand on this approach to understanding algorithm quality, and discusses the
-potential dangers of being too reliant on a small number of examples.
+Despite the widespread use of clustering in healthcare, the survey for this
+review identified no existing works where clustering was used to inform a
+queuing model. Indeed, clustering has been used to understand and categorise the
+outputs of healthcare queuing models, but does not appear to have been applied
+at the front-end of a model. In Chapter~\ref{chp:copd}, administrative data is
+utilised to profile spells associated with a healthcare population via
+clustering. These profiles are then included as classes in a queue which models
+the population in a hypothetical hospital system.
+
+The works introduced in Chapters~\ref{chp:edo}~and~\ref{chp:kmodes} are vital in
+producing the model used in Chapter~\ref{chp:copd}. As such, they exist as a
+whole, singular piece of research, forming this thesis. Importantly, each
+chapter provides novel contributions to the literature of their respective
+theme: evaluation, clustering, and healthcare modelling. However, and perhaps
+more importantly, this thesis acts as a substantial and unified contribution to
+the literature at the intersection of these themes, which is so lacking.
