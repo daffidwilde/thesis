@@ -35,25 +35,8 @@ modelling intricate systems, and having access to sufficient data sources. These
 challenges are addressed in this thesis, and the solutions depend on an
 intuitive use of machine learning.
 
-The co-sponsors of this project, the NHS Wales Cwm Taf Morgannwg University
-Health Board (UHB), are seeking to reveal new insights into their patient
-population through the use of machine learning. In particular, \ctmuhb\ are
-concerned with understanding the operational characteristics of their patients
-presenting chronic obstructive pulmonary disease (COPD). COPD is a respiratory
-condition with known links to deprivation, and often presents as a comorbidity,
-i.e. in concurrence with at least one other condition. These affiliations make
-living with and treating COPD inherently difficult, emphasising the importance
-of studying it closely.
-
-This thesis incorporates three seemingly disparate themes related to modern OR:
-the evaluation of algorithms, clustering and segmentation, and operational
-healthcare modelling. The chapters of this thesis provide novel methods for
-evaluating an algorithm's performance and incorporating game theory into an
-existing clustering algorithm. In turn, these methods contribute to a novel
-operational methodology, which addresses the concerns of \ctmuhb\ and their COPD
-population, despite a lack of highly detailed data.
-
-The remainder of this chapter is as follows: Section~\ref{sec:thesis} sets out
+The remainder of this chapter is as follows: Section~\ref{sec:objective} states
+the primary objective of the thesis; Section~\ref{sec:structure} sets out
 the structure of this thesis and its chapters; Section~\ref{sec:novel} outlines
 the novel contributions of the thesis; Section~\ref{sec:dev} provides an
 overview of the best practices used in developing software for the research
@@ -61,7 +44,57 @@ presented in this thesis, as well as signposting the software projects
 themselves.
 
 
-\section{Thesis structure}\label{sec:thesis}
+\section{Thesis objective}\label{sec:objective}
+
+The primary purpose of this thesis is to utilise machine learning to better
+understand a healthcare population. This purpose is achieved through the novel
+methods for clustering initialisation and algorithm evaluation presented herein.
+The co-sponsors of this project, NHS Wales Cwm Taf Morgannwg University
+Health Board (UHB), are seeking to reveal new insights into their patient
+population through the use of machine learning. In the context of machine
+learning, the term `utilisation' typically refers to the application of some
+existing machine learning apparatus to a dataset. This thesis considers a more
+nuanced definition. Here, `utilisation' is considered as the culmination of
+three parts: \emph{creation}, \emph{evaluation}, and \emph{application}. Each of
+these components is essential to properly utilising machine learning, and the
+process is comparable to honing a craft.
+
+First, a tool is fashioned for a particular purpose, as a machine learning
+method would be for a problem --- or class thereof. Once a prototype has been
+created, the tool must be evaluated and adjusted. This process improves both the
+skilled use of the tool and the tool itself. Evaluating a machine
+learning method extensively is analogous to this process. With a refined tool
+and skilled hand, expertise in that craft can be demonstrated by applying it for
+its intended purpose; this is the final (and often only) stage when utilising
+machine learning in the real world.
+
+\ctmuhb\ are particularly concerned with understanding the operational
+characteristics of their patients presenting chronic obstructive pulmonary
+disease (COPD). COPD is a respiratory condition with known links to deprivation,
+and often presents as a comorbidity, i.e. in concurrence with at least one other
+condition. These affiliations make living with and treating COPD inherently
+difficult, emphasising the importance of studying it closely.
+
+This thesis considers how clustering can be utilised to better understand the
+COPD population treated by \ctmuhb. In order to carry this out, this
+thesis incorporates three themes from modern OR: algorithm evaluation,
+clustering and segmentation, and operational healthcare modelling. These
+seemingly disparate themes are presented as a triptych, where each theme
+corresponds to its own chapter. With each themed chapter, there is a clear
+contribution to a component of utilising machine learning.
+
+In Chapter~\ref{chp:kmodes}, an extension to an existing clustering algorithm is
+created. Following its definition, the method is thoroughly evaluated using a
+novel framework for understanding the objective quality of an algorithm. This
+framework is presented in Chapter~\ref{chp:edo}. Through this evaluation, the
+clustering method is identified as an appropriate tool for segmenting the COPD
+population in Chapter~\ref{chp:copd}. In turn, the work in each chapter
+contributes to an effective operational methodology, which addresses the
+concerns of \ctmuhb\ and their COPD population, providing useful and tangible
+insights into the population.
+
+
+\section{Thesis structure}\label{sec:structure}
 
 Including this introduction, this thesis contains six chapters, which together
 cover the research topics of this thesis. A brief summary of each chapter is
