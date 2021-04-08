@@ -128,9 +128,9 @@ regardless of their reliability or diversity --- limits the amount of learning
 one can gain about that method. In particular, it limits the understanding of
 the characteristics which lead to good or bad performance to those attributes
 present in the set of example datasets. Another example from computer
-vision,~\cite{Torralba2011}, shows that Support Vector Machines (SVMs) --- the
+vision~\cite{Torralba2011} shows that Support Vector Machines (SVMs) --- the
 use of which is ubiquitous in classification --- fail to perform well when
-tested on a dataset containing comparable and broadly equivalent items to the
+tested on a dataset containing comparable and broadly equivalent items t} the
 one on which they have been trained. So, despite the abundant use of SVMs, even
 in the then-`best' image classifier, there should be concerns about the
 robustness of the model.
@@ -157,29 +157,39 @@ Otherwise, for scalability, \(k\)-means may be chosen~\cite{Wu2009,Zhao2009}.
 The EDO method belongs to a new paradigm that aims to flip the process described
 here by allowing the data itself to be unfixed. EDO achieves this fluidity by
 generating data for which the algorithm of interest performs well (or better
-than some other) through the use of an evolutionary algorithm. The purpose of
-doing so is not only to create a bank of useful datasets, but rather to allow
-for the subsequent studying of those datasets. Undergoing this study reveals
-the attributes and characteristics which lead to the success (or failure) of the
+than some other) through the use of an evolutionary algorithm (EA). The purpose
+of doing so is not only to create a bank of useful datasets, but rather to allow
+for the subsequent studying of those datasets. Undergoing this study reveals the
+attributes and characteristics which lead to the success (or failure) of the
 algorithm, giving a broader understanding of the algorithm on the whole.
 Figure~\ref{fig:paradigm} provides a diagram of this framework. On the right:
 the current path for selecting some algorithm(s) based on their validity and
 performance for a given dataset; on the left: the proposed flip to better
-understand the space in which `good' datasets exist for an algorithm.
+understand an algorithm by exploring the space in which `good' datasets exist
+for that algorithm.
 
 \inputtikz{paradigm}{%
     A diagram of the current and proposed paradigms for algorithm evaluation
 }
 
-The method described here is just one element of this new paradigm that utilises
-evolution. Evolutionary algorithms (EAs) have been applied successfully to solve
-a wide array of problems --- particularly where the complexity of the problem or
-its domain is significant. These methods are highly adaptive, and their
-population-based construction (displayed in Figure~\ref{fig:flowchart}) allows
-for the efficient solving of problems that are otherwise beyond the scope of
-traditional search and optimisation methods. An EA approach has been chosen here
-as they are simple in design, yet their capabilities encompass the difficulties
-of the flipped paradigm set out above.
+As will be seen later in this chapter, the most substantial limitation of this
+paradigm is in defining a meaningful fitness function for the EA.
+Section~\ref{sec:examples} acts as a tutorial on how to resolve this issue
+using an iterative approach where the fitness function is adjusted so as to
+avoid redundant, trivial or reductive results. Although the case study in that
+section of this chapter focuses on clustering, the generic form of the EA means
+that any method which acts on tabular data is suitable for study using EDO.
+
+It is also important to note that the method described in this chapter is merely
+one element of this new paradigm, and is one that utilises evolution. EAs have
+been applied successfully to solve a wide array of problems --- particularly
+where the complexity of the problem or its domain is significant. These methods
+are highly adaptive, and their population-based construction (displayed in
+Figure~\ref{fig:flowchart}) allows for the efficient solving of problems that
+are otherwise beyond the scope of traditional search and optimisation methods.
+An EA approach has been chosen here as they are uncomplicated in design, yet
+their capabilities encompass the difficulties of the flipped paradigm set out
+above.
 
 \inputtikz{flowchart}{%
     A general schematic for an evolutionary algorithm
@@ -205,7 +215,7 @@ necessarily reliant on any particular framework or agenda.
 Note that there is no necessary restriction on the search space to be of a fixed
 dimension or data type such as the method described in~\cite{Chen2016synthetic}.
 The shape of a dataset is considered a part of the search space itself that can
-be traversed through the evolutionary algorithm.
+be traversed through the EA.
 
 The remainder of this chapter is structured as follows:
 
