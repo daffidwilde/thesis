@@ -1468,7 +1468,16 @@ less helpful solutions (via some penalty, say) and towards previously unexplored
 behaviours. This automatic, iterative application of the proposed method would
 likely reveal more sophisticated insights into a particular algorithm.
 
+This iterative approach in adjusting the fitness function also suggests that
+obtaining an optimal parameter set is less important than in some applications
+of EAs. For instance, the only probability distribution family used in the case
+study was the uniform distribution. However, in the most successful cases, the
+distributions of the individual datasets were not at all uniform; this is a
+direct result of the fitness function being so freely modifiable. By adjusting
+the fitness function appropriately, the EA was able to avoid structural
+properties in the data it was producing, thus transcending the other parameters.
+
 The EDO method is merely a tool that demonstrates the benefit of the flipped
-paradigm set out in this work. The concept of where `good' datasets exist is not
-well-documented in literature, and this thesis established Evolutionary
-Dataset Optimisation as a starting point for further works to come.
+paradigm set out in the beginning of this chapter. The concept of where `good'
+datasets exist is not well-documented in literature, and this thesis established
+Evolutionary Dataset Optimisation as a starting point for further works to come.
