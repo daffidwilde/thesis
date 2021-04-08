@@ -922,7 +922,7 @@ method has the scope to allow for expert or prior knowledge to be included in an
 initial clustering by using some expedient or specific preference list
 mechanism.
 
-\subsection{Artificial datasets}\label{subsec:artificial}
+\subsection{Using the EDO method}\label{subsec:artificial}
 
 All of the results leading up to this point were created using benchmark
 datasets. The discussion at the start of Chapter~\ref{chp:edo} does not condemn
@@ -970,14 +970,22 @@ in the generated datasets will have at least one category but no more than ten.
 
 This process yielded approximately 35,000 unique datasets for each case, and the
 subsequent analysis only considers the top-performing percentile of datasets
-from each. The datasets are available online at~\doi{10.5281/zenodo.3638035}.
-Figure~\ref{fig:fitness} shows the fitness distribution of the top
-percentile in each case. It should be clear from~\eqref{eq:fitness} that large
-negative values are preferable here. With that, and bearing in mind that the
-generation of these datasets was parameterised consistently, it appears that the
-attempt to outperform Cao's method proved somewhat more straightforward than
-the reverse situation; this is indicated by the substantial difference in the
-locations of the fitness distributions.
+from each. The typical runtime for this analysis is in the order of hours and
+potentially days, even when parallelising over multiple cores. This time
+consumption may be reduced by considering a smaller run of EDO --- perhaps by
+reducing the maximum number of iterations or the population size. Such an
+approach can also be useful for determining the efficacy of the fitness function
+and parameter set in reasonable time when applying EDO.
+
+The datasets considered here are available online
+at~\doi{10.5281/zenodo.3638035}. Figure~\ref{fig:fitness} shows the fitness
+distribution of the top percentile in each case. It should be clear
+from~\eqref{eq:fitness} that large negative values are preferable here. With
+that, and bearing in mind that the generation of these datasets was
+parameterised consistently, it appears that the attempt to outperform Cao's
+method proved somewhat more straightforward than the reverse situation; this is
+indicated by the substantial difference in the locations of the fitness
+distributions.
 
 Given the quantity of data available, to understand the patterns that have
 emerged, they must be summarised --- as in Chapter~\ref{chp:edo}. In this case,
