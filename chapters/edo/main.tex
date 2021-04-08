@@ -692,9 +692,16 @@ validation for EDO. These examples also highlight some of the nuances in its
 use. This case study uses the proposed method to reproduce some known results
 about the clustering of data in the absence of any external forces and examines
 how clustering algorithms are typically evaluated. In particular, the focus will
-be on the well-known \(k\)-means (Lloyd's) algorithm. Clustering has been chosen
-as it is a well-understood problem that is easily accessible --- most notably
-when restricted to two dimensions.
+be on the well-known \(k\)-means (Lloyd's) algorithm.
+
+Clustering has been chosen here as it is a well-understood problem that is
+accessible --- most notably when restricted to two dimensions. However, the
+overall approach taken in this case study is generic and would apply to any
+machine learning method. First, choose an algorithm (or set of algorithms) and
+set the initial fitness function to be a metric of interest for that method.
+The remainder of the process is an iterative loop of studying the generated
+datasets and adjusting the fitness function to reveal new insights into the
+algorithms under study.
 
 \subsection{Inertia and \(k\)-means clustering}\label{subsec:inertia}
 
@@ -1352,7 +1359,16 @@ ignore the majority of the data points. Hence, approaches for identifying other
 conditions for the success of DBSCAN should adapt the fitness function to
 mitigate this behaviour, perhaps with a penalty.  
 
-% TODO The end of this section needs revising
+This point concludes the case study into clustering. By following a manual,
+iterative process of running EDO and adjusting the fitness function, several
+known properties of the \(k\)-means and DBSCAN algorithms have been revealed.
+However, to reiterate the beginning of this section: this case study acts as a
+tutorial on how to use EDO to study machine learning tools. A similar study
+could have been conducted on classification, taking an SVM as the algorithm of
+choice, and beginning with accuracy, say. Comparable issues may have come up
+such as the dimension reduction with the non-discounted fitness functions.
+Again, these phenomena could be handled in a similar fashion using penalties on
+correlation, for instance.
 
 \section{Chapter summary}\label{sec:edo:summary}
 
