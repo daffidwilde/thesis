@@ -130,7 +130,7 @@ the characteristics which lead to good or bad performance to those attributes
 present in the set of example datasets. Another example from computer
 vision~\cite{Torralba2011} shows that Support Vector Machines (SVMs) --- the
 use of which is ubiquitous in classification --- fail to perform well when
-tested on a dataset containing comparable and broadly equivalent items t} the
+tested on a dataset containing comparable and broadly equivalent items to the
 one on which they have been trained. So, despite the abundant use of SVMs, even
 in the then-`best' image classifier, there should be concerns about the
 robustness of the model.
@@ -238,11 +238,13 @@ the EDO method is an EA. The EA follows a typical schema with the addition of
 some features that align with the overall objective of artificial data
 generation. With that, there are a number of parameters that are passed to EDO.
 These include the typical parameters of an evolutionary algorithm: a fitness
-function, \(f\), which maps from an individual to a real number, a population
-size, \(N \in \mathbb N\), a maximum number of iterations, \(M \in \mathbb N\),
-a selection parameter, \(b \in [0, 1]\), and a mutation probability, \(p_m\).
+function, \(f\), which maps from an individual to a real number (or some
+quantity which can be ordered), a population size, \(N \in \mathbb N\), a
+maximum number of iterations, \(M \in \mathbb N\), a selection parameter, \(b
+\in [0, 1]\), and a mutation probability, \(p_m\).
 
-In addition to these, EDO takes the following parameters:
+In addition to these, EDO takes a number of parameters which allow the EA to act
+on datasets of varying sizes and forms. The required parameters are as follows:
 
 \begin{itemize}
     \item A set of probability distribution families, \(\mathcal{P}\). Each
@@ -274,10 +276,39 @@ In addition to these, EDO takes the following parameters:
         for each \(j = 1, \ldots, |\mathcal{P}|\). That is, \(C\) defines the
         minimum and maximum number of columns a dataset may have from each
         distribution in \(\mathcal{P}\).
+\end{itemize}
+
+The remaining two parameters are optional, but can be useful for introducing and
+focusing exploration, respectively:
+
+\begin{itemize}
     \item A second selection parameter, \(l \in [0, 1]\), to allow for a
         small proportion of `lucky' individuals to be carried forward.
     \item A shrink factor, \(s \in [0, 1]\), defining the relative size of a
         component of the search space to be retained after adjustment.
+\end{itemize}
+
+Choosing an optimal set of parameters for any given run of EDO is not concrete
+--- as is the case with all EAs --- and some experimentation may be required.
+For the dataset-specific parameters --- like \(\mathcal P\), \(R\), and \(C\)
+--- these decisions are practical in nature for the most part. Large datasets
+(controlled by \(R\) and \(C\)) will require more computational power and
+storage, for instance. For the EA-specific parameters, there are some rules of
+thumb such as:
+
+\begin{itemize}
+    \item Choosing a population size, \(N\) large enough to take a
+        representative sample from the search space. \(N=100\) is a good
+        starting point, but larger populations should provide better samples.
+    \item Setting the selection pressure, \(b\), so as to encourage the
+        preservation of favourable characteristics in the individuals, and not
+        to dilute the next population. Typical values for achieving this with
+        other EAs range between \(0.1\) and \(0.25\).
+    \item Including enough mutation (through \(p_m\)) to force some
+        heterogeneity in the population and to further explore the search space.
+        However, heavy-handed mutation will likely cause the EA to diverge,
+        leading to reductive results. Typical mutation probabilities are between
+        \(0.01\) and \(0.05\).
 \end{itemize}
 
 Algorithm~\ref{alg:edo} provides a high-level description of the EDO algorithm,
@@ -291,8 +322,8 @@ a software implementation is provided.
 \inputalg{new_population}
 
 Note that there are no defined processes for how to stop the algorithm or adjust
-the mutation probability, \(p_m\). This generality is deliberate and is down to
-the particular use case. Some examples include:
+the mutation probability, \(p_m\), in this chapter. This generality is
+deliberate and is down to the particular use case. Some examples include:
 
 \begin{itemize}
     \item Regular decreasing in mutation probability across the available
@@ -577,7 +608,7 @@ Crossover is the operation of combining two individuals in order to create a new
 individual (or individuals). It is also the opportunity to have the favourable
 qualities preserved through selection interact with one another in potentially
 new ways. The term \emph{crossover} originates from its application in genetic
-algorithms where it is quite literal. In genetic algorithms, two bit-strings are
+algorithms where it is quite literal. In genetic algorithms, two bit strings are
 crossed at a point to create two new bit strings.
 
 Another popular method is uniform crossover, where the components of two parents
