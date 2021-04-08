@@ -173,26 +173,28 @@ in~\cite{Cao2012}.
             1, & \text{otherwise.}
         \end{cases}
     \end{equation}
+\end{definition}
 
-    This distance measure satisfies the properties of identity, positivity,
-    symmetry and the triangle inequality, making it a metric on the attribute
-    space. A proof of this can be seen as follows.
+\begin{theorem}\label{thm:distance}
+    Consider a categorical attribute space, \(\mathcal A\). Then the
+    dissimilarity measure given in~\eqref{eq:dissim} is a metric on \(\mathcal
+    A\), i.e. \(d\) satisfies the following properties for all \(A, B, C \in
+    \mathcal A\):
+
+    \begin{enumerate}
+        \item Identity: \(d(A, B) = 0 \iff A = B\)
+        \item Positivity: \(d(A, B) \geq 0\)
+        \item Symmetry: \(d(A, B) = d(B, A)\)
+        \item The triangle inequality: \(d(A, C) \leq d(A, B) + d(B, C)\)
+    \end{enumerate}
 
     \begin{proof}
-        Let \(\mathcal A\) be a categorical attribute space. For \(d\) to be a
-        metric, it must satisfy the following conditions for every \(A, B, C \in
-        \mathcal A\):
+        Let \(\mathcal A\) be a categorical attribute space and consider any 
+        \(A, B, C \in \mathcal A\)
+        
         \begin{enumerate}
-            \item Identity: \(d(A, B) = 0 \iff A = B\)
-            \item Positivity: \(d(A, B) \geq 0\)
-            \item Symmetry: \(d(A, B) = d(B, A)\)
-            \item The triangle inequality: \(d(A, C) \leq d(A, B) + d(B, C)\)
-        \end{enumerate}
-
-        So, consider any \(A, B, C \in \mathcal A\).
-        \begin{enumerate}
-            \item Consider any \(A, B \in \mathcal A\) such that
-                \(d(A, B) = 0\). Then:
+            \item Let \(A, B \in \mathcal A\) be such that \(d(A, B) = 0\).
+                Then:
                 \[
                     \begin{aligned}
                         d(A, B) = 0
@@ -224,7 +226,7 @@ in~\cite{Cao2012}.
 
         Therefore, \(d\) satisfies the required conditions and is a metric.
     \end{proof}
-\end{definition}
+\end{theorem}
 
 With the definition of a categorical distance metric, the notion of a
 representative point of a cluster can be addressed. When considering numeric
@@ -234,7 +236,8 @@ central tendency. This change follows from the concept of dissimilarity defined
 in~\eqref{eq:dissim}. Here, the point that best represents (i.e.\ is closest to)
 those in a cluster is one with the most frequent attribute values of the points
 in the cluster. The following definitions formalise this notion, and
-Theorem~\ref{thm:mode} provides a method to find such a point.
+Theorem~\ref{thm:mode}, which has been adapted from~\cite{Huang1998}, provides a
+method to find such a point.
 
 \begin{definition}\label{def:mode}
     Let \(\mathcal{X} \subset \mathcal{A}\) be a dataset and consider some point
