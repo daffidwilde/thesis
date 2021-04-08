@@ -1287,10 +1287,14 @@ appropriate.
 
 To add to the discussion above, the opposing optimisation should be
 considered,~i.e. using the same parameters to find the datasets for which DBSCAN
-outperforms \(k\)-means with some altered silhouette coefficient. In this case,
-the alteration is to use \(-f\) except with the same penalty of \(-\infty\) for
-the case set out in~(\ref{eq:kmeans_preferable}). This fitness function is
-referred to as the \emph{DBSCAN-preferable} fitness function.
+outperforms \(k\)-means with some altered silhouette coefficient. Given the
+success of the \(k\)-means-preferable fitness function, a sensible starting
+point for the fitness function in this case would be to alter \(f\) slightly. To
+be specific, the objective is the reverse of \(f\) and so the fitness function
+should be \(-f\). However, the same penalty of \(-\infty\) is required for the
+case set out in~\eqref{eq:kmeans_preferable}, where DBSCAN produces only one
+cluster. This altered fitness function is referred to as the
+\emph{DBSCAN-preferable} fitness function.
 
 \begin{figure}[htbp]
     \centering
