@@ -59,34 +59,46 @@ Sections~\ref{sec:model}~and~\ref{sec:scenarios}.
 
 \section{Introduction}\label{sec:copd:intro}
 
-Appendix~\ref{app:data} carries out an exploratory analysis of a large,
-administrative, healthcare dataset, revealing the presence of high variation in
-the population. This variability stifles the possibility of uncovering valuable
-insights about the whole population. However, some benefits are made apparent by
-considering a condition-specific population. This chapter utilises another
-administrative dataset of patients presenting COPD, and demonstrates how
-actionable insights can be identified by thoroughly extracting information from
-the dataset.
+Population health research is increasingly based on data-driven methods for
+patient-centred care --- as opposed to those designed solely by clinical
+experts. This movement is borne from the advent of accessible software and a
+relative abundance of electronic data. However, many such methods rely heavily
+on detailed data about both the healthcare system and its population, which may
+limit research where sophisticated data pipelines are not yet in place.
 
-Population health research is increasingly based on data-driven methods (as
-opposed to those designed solely by clinical experts) for patient-centred care
-through the advent of accessible software and a relative abundance of electronic
-data. However, many such methods rely heavily on detailed data about both the
-healthcare system and its population, which may limit research where
-sophisticated data pipelines are not yet in place.
+The only datasets used in this thesis are administrative hospital records. These
+records offer little detail as to the exact nature of a patient's time in
+hospital other than a surface-level summary. Appendix~\ref{app:data} carries out
+an exploratory analysis of a population-wide administrative dataset, revealing
+the presence of high variation in the population. This variability stifles the
+possibility of uncovering valuable insights about the whole population. However,
+some benefits are made apparent by considering a condition-specific
+population. This chapter utilises another administrative dataset of patients
+presenting COPD, and demonstrates how actionable insights can be identified by
+thoroughly extracting information from the dataset through the use of machine
+learning and operational research techniques.
 
 This chapter demonstrates a method of overcoming this, using routinely gathered,
-administrative hospital data to build a clustering that feeds into a multi-class
-queuing model, allowing for better understanding of the healthcare population
-and the system with which they interact. COPD is a condition of particular
-interest to population health research, and to \ctmuhb, as it is
+administrative hospital data to build a clustering which feeds into a
+multi-class queuing model, allowing for better understanding of the healthcare
+population and the system with which they interact. COPD is a condition of
+particular interest to population health research, and to \ctmuhb, as it is
 known to often present as a comorbidity in patients~\cite{Houben2019},
 increasing the complexity of treatments among those with the condition.
-Moreover, an internal report by NHS Wales found \ctmuhb\ had
-the highest prevalence of the condition across all the Welsh health boards.
+Moreover, an internal report by NHS Wales found \ctmuhb\ had the highest
+prevalence of the condition across all the Welsh health boards.
 
 The research in this chapter draws upon several overlapping sources within
-mathematical research, and this chapter contributes to the literature in three
+mathematical research, and acts as the final stage (application) in utilising
+machine learning for healthcare data --- the primary objective of this thesis.
+In the previous chapter, a method for clustering data was devised and thoroughly
+evaluated using both confirmation processes methods and the novel EDO approach
+introduced in Chapter~\ref{chp:edo}. It is through this latter evaluation that
+the clustering initialisation described in Chapter~\ref{chp:kmodes} can be
+identified as an appropriate candidate when considering the administrative data
+at hand.
+
+Furthermore, this chapter contributes to the literature in three
 ways: to theoretical queuing research by the estimation of missing queuing
 parameters with the Wasserstein distance; to operational healthcare research
 through the weaving together of the combination of methods used in this chapter
@@ -94,7 +106,7 @@ despite data constraints; and to public health research by adding to the growing
 body of mathematical and operational work around a condition that is vital to
 understand operationally, socially and medically.
 
-The chapter is structured as follows:
+The remainder of this chapter is structured as follows:
 
 \begin{itemize}
     \item Section~\ref{sec:copd:intro} provides an overview of the dataset and
@@ -1232,17 +1244,21 @@ hospital spell data from patients presenting COPD from \ctmuhb.
 By considering a variety of attributes present in the data, and engineering
 some, a useful clustering of the spell population is identified that
 successfully feeds into a multi-class \(M/G/c\) queue to model a hypothetical
-COPD ward. With this model, several insights are gained by investigating
-purposeful changes in the parameters of the model that have the potential to
-inform actual public health policy.
+COPD ward. This clustering was generated using the initialisation presented in
+Chapter~\ref{chp:kmodes}, which in turn was most effectively evaluated using the
+EDO method from Chapter~\ref{chp:edo}. The culmination of these three features
+from this thesis fulfill its objective: to utilise machine learning through
+creation, evaluation and, finally, application.
 
-In particular, since neither the resource capacity of the system nor the
-clinical processes of the spells are evident in the data, service times and
-resource levels are not available. However, the length of stay is. Using what is
-available, this chapter assumes that mean service times can be parameterised
-using mean lengths of stay. By using the Wasserstein distance to compare the
-distribution of the simulated lengths of stay data with the observed data, a
-best performing parameter set is found via a parameter sweep.
+With this model, several insights are gained by investigating purposeful changes
+in the parameters of the model that have the potential to inform actual public
+health policy. In particular, since neither the resource capacity of the system
+nor the clinical processes of the spells are evident in the data, service times
+and resource levels are not available. However, the length of stay is. Using
+what is available, this chapter assumes that mean service times can be
+parameterised using mean lengths of stay. By using the Wasserstein distance to
+compare the distribution of the simulated lengths of stay data with the observed
+data, a best performing parameter set is found via a parameter sweep.
 
 This parameterisation ultimately recovers a surrogate for service times for each
 cluster, and a universal number of servers to emulate resource availability. The
