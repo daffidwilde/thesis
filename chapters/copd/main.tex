@@ -1028,7 +1028,13 @@ However, Figure~\ref{fig:lambda_util} shows that the situation for the system's
 resources reaches its worst-case near to the start of that spike in relative
 system times (at \(\sigma \approx 1.3\)). That is, the median server utilisation
 reaches a maximum (this corresponds to constant utilisation) at this point, and
-the variation in server utilisation disappears entirely.
+the variation in server utilisation disappears entirely. The reality of this
+situation is that the system has no slack at all, and all parts of the system
+are under equal load, which is not preferable given the differences in resource
+requirements for the parts of a hospital system. For instance, if surgical
+theatres were in constant use but administrative processing required an
+equivalent amount of resources to continue running, the system would likely
+falter or deteriorate entirely.
 
 
 \subsection{Changes to resource availability}\label{subsec:resources}
