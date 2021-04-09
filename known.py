@@ -196,7 +196,7 @@ words = {
     "subtree(|s)",
     "subtype(|s)",
     "surjective",
-    "svms",
+    "svm(|s)",
     "sys",
     "taf",
     "tertiles",

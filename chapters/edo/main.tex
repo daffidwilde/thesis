@@ -128,7 +128,7 @@ regardless of their reliability or diversity --- limits the amount of learning
 one can gain about that method. In particular, it limits the understanding of
 the characteristics which lead to good or bad performance to those attributes
 present in the set of example datasets. Another example from computer
-vision,~\cite{Torralba2011}, shows that Support Vector Machines (SVMs) --- the
+vision~\cite{Torralba2011} shows that Support Vector Machines (SVMs) --- the
 use of which is ubiquitous in classification --- fail to perform well when
 tested on a dataset containing comparable and broadly equivalent items to the
 one on which they have been trained. So, despite the abundant use of SVMs, even
@@ -157,29 +157,39 @@ Otherwise, for scalability, \(k\)-means may be chosen~\cite{Wu2009,Zhao2009}.
 The EDO method belongs to a new paradigm that aims to flip the process described
 here by allowing the data itself to be unfixed. EDO achieves this fluidity by
 generating data for which the algorithm of interest performs well (or better
-than some other) through the use of an evolutionary algorithm. The purpose of
-doing so is not only to create a bank of useful datasets, but rather to allow
-for the subsequent studying of those datasets. Undergoing this study reveals
-the attributes and characteristics which lead to the success (or failure) of the
+than some other) through the use of an evolutionary algorithm (EA). The purpose
+of doing so is not only to create a bank of useful datasets, but rather to allow
+for the subsequent studying of those datasets. Undergoing this study reveals the
+attributes and characteristics which lead to the success (or failure) of the
 algorithm, giving a broader understanding of the algorithm on the whole.
 Figure~\ref{fig:paradigm} provides a diagram of this framework. On the right:
 the current path for selecting some algorithm(s) based on their validity and
 performance for a given dataset; on the left: the proposed flip to better
-understand the space in which `good' datasets exist for an algorithm.
+understand an algorithm by exploring the space in which `good' datasets exist
+for that algorithm.
 
 \inputtikz{paradigm}{%
     A diagram of the current and proposed paradigms for algorithm evaluation
 }
 
-The method described here is just one element of this new paradigm that utilises
-evolution. Evolutionary algorithms (EAs) have been applied successfully to solve
-a wide array of problems --- particularly where the complexity of the problem or
-its domain is significant. These methods are highly adaptive, and their
-population-based construction (displayed in Figure~\ref{fig:flowchart}) allows
-for the efficient solving of problems that are otherwise beyond the scope of
-traditional search and optimisation methods. An EA approach has been chosen here
-as they are simple in design, yet their capabilities encompass the difficulties
-of the flipped paradigm set out above.
+As will be seen later in this chapter, the most substantial limitation of this
+paradigm is in defining a meaningful fitness function for the EA.
+Section~\ref{sec:examples} acts as a tutorial on how to resolve this issue
+using an iterative approach where the fitness function is adjusted so as to
+avoid redundant, trivial or reductive results. Although the case study in that
+section of this chapter focuses on clustering, the generic form of the EA means
+that any method which acts on tabular data is suitable for study using EDO.
+
+It is also important to note that the method described in this chapter is merely
+one element of this new paradigm, and is one that utilises evolution. EAs have
+been applied successfully to solve a wide array of problems --- particularly
+where the complexity of the problem or its domain is significant. These methods
+are highly adaptive, and their population-based construction (displayed in
+Figure~\ref{fig:flowchart}) allows for the efficient solving of problems that
+are otherwise beyond the scope of traditional search and optimisation methods.
+An EA approach has been chosen here as they are uncomplicated in design, yet
+their capabilities encompass the difficulties of the flipped paradigm set out
+above.
 
 \inputtikz{flowchart}{%
     A general schematic for an evolutionary algorithm
@@ -205,7 +215,7 @@ necessarily reliant on any particular framework or agenda.
 Note that there is no necessary restriction on the search space to be of a fixed
 dimension or data type such as the method described in~\cite{Chen2016synthetic}.
 The shape of a dataset is considered a part of the search space itself that can
-be traversed through the evolutionary algorithm.
+be traversed through the EA.
 
 The remainder of this chapter is structured as follows:
 
@@ -228,11 +238,13 @@ the EDO method is an EA. The EA follows a typical schema with the addition of
 some features that align with the overall objective of artificial data
 generation. With that, there are a number of parameters that are passed to EDO.
 These include the typical parameters of an evolutionary algorithm: a fitness
-function, \(f\), which maps from an individual to a real number, a population
-size, \(N \in \mathbb N\), a maximum number of iterations, \(M \in \mathbb N\),
-a selection parameter, \(b \in [0, 1]\), and a mutation probability, \(p_m\).
+function, \(f\), which maps from an individual to a real number (or some
+quantity which can be ordered), a population size, \(N \in \mathbb N\), a
+maximum number of iterations, \(M \in \mathbb N\), a selection parameter, \(b
+\in [0, 1]\), and a mutation probability, \(p_m\).
 
-In addition to these, EDO takes the following parameters:
+In addition to these, EDO takes a number of parameters which allow the EA to act
+on datasets of varying sizes and forms. The required parameters are as follows:
 
 \begin{itemize}
     \item A set of probability distribution families, \(\mathcal{P}\). Each
@@ -264,10 +276,39 @@ In addition to these, EDO takes the following parameters:
         for each \(j = 1, \ldots, |\mathcal{P}|\). That is, \(C\) defines the
         minimum and maximum number of columns a dataset may have from each
         distribution in \(\mathcal{P}\).
+\end{itemize}
+
+The remaining two parameters are optional, but can be useful for introducing and
+focusing exploration, respectively:
+
+\begin{itemize}
     \item A second selection parameter, \(l \in [0, 1]\), to allow for a
         small proportion of `lucky' individuals to be carried forward.
     \item A shrink factor, \(s \in [0, 1]\), defining the relative size of a
         component of the search space to be retained after adjustment.
+\end{itemize}
+
+Choosing an optimal set of parameters for any given run of EDO is not an objective exercise
+--- as is the case with all EAs --- and some experimentation may be required.
+For the dataset-specific parameters --- like \(\mathcal P\), \(R\), and \(C\)
+--- these decisions are practical in nature for the most part. Large datasets
+(controlled by \(R\) and \(C\)) will require more computational power and
+storage, for instance. For the EA-specific parameters, there are some rules of
+thumb such as:
+
+\begin{itemize}
+    \item Choosing a population size, \(N\) large enough to take a
+        representative sample from the search space. \(N=100\) is a good
+        starting point, but larger populations should provide better samples.
+    \item Setting the selection pressure, \(b\), so as to encourage the
+        preservation of favourable characteristics in the individuals, and not
+        to dilute the next population. Typical values for achieving this with
+        other EAs range between \(0.1\) and \(0.25\).
+    \item Including enough mutation (through \(p_m\)) to force some
+        heterogeneity in the population and to further explore the search space.
+        However, heavy-handed mutation will likely cause the EA to diverge,
+        leading to reductive results. Typical mutation probabilities are between
+        \(0.01\) and \(0.05\).
 \end{itemize}
 
 Algorithm~\ref{alg:edo} provides a high-level description of the EDO algorithm,
@@ -281,8 +322,8 @@ a software implementation is provided.
 \inputalg{new_population}
 
 Note that there are no defined processes for how to stop the algorithm or adjust
-the mutation probability, \(p_m\). This generality is deliberate and is down to
-the particular use case. Some examples include:
+the mutation probability, \(p_m\), in this chapter. This generality is
+deliberate and is down to the particular use case. Some examples include:
 
 \begin{itemize}
     \item Regular decreasing in mutation probability across the available
@@ -521,8 +562,10 @@ A modified truncation selection method is used in EDO, as is illustrated in
 Figure~\ref{fig:selection}. Truncation is perhaps the simplest selection method
 wherein a fixed number, \(n_b = \left\lceil b N\right\rceil\), of the fittest
 individuals in a population are taken forward and used as the \emph{parents} of
-the next generation. Note that this means that an individual could potentially
-be present throughout the entirety of the algorithm.
+the next generation. These parent individuals are also referred to as the `best'
+individuals in their population, as in Figure~\ref{fig:selection}. Note that
+this selection process is `memoryless' in a sense, and an individual could
+potentially be present throughout the entirety of the EA.
 
 Despite its efficiency as a selection operator, truncation selection can lead to
 premature convergence at local optima~\cite{Jebari2013,Motoki2002}. EDO provides
@@ -567,7 +610,7 @@ Crossover is the operation of combining two individuals in order to create a new
 individual (or individuals). It is also the opportunity to have the favourable
 qualities preserved through selection interact with one another in potentially
 new ways. The term \emph{crossover} originates from its application in genetic
-algorithms where it is quite literal. In genetic algorithms, two bit-strings are
+algorithms where it is quite literal. In genetic algorithms, two bit strings are
 crossed at a point to create two new bit strings.
 
 Another popular method is uniform crossover, where the components of two parents
@@ -649,9 +692,16 @@ validation for EDO. These examples also highlight some of the nuances in its
 use. This case study uses the proposed method to reproduce some known results
 about the clustering of data in the absence of any external forces and examines
 how clustering algorithms are typically evaluated. In particular, the focus will
-be on the well-known \(k\)-means (Lloyd's) algorithm. Clustering has been chosen
-as it is a well-understood problem that is easily accessible --- most notably
-when restricted to two dimensions.
+be on the well-known \(k\)-means (Lloyd's) algorithm.
+
+Clustering has been chosen here as it is a well-understood problem that is
+accessible --- most notably when restricted to two dimensions. However, the
+overall approach taken in this case study is generic and would apply to any
+machine learning method. First, choose an algorithm (or set of algorithms) and
+set the initial fitness function to be a metric of interest for that method.
+The remainder of the process is a cycle of studying the generated
+datasets and adjusting the fitness function to reveal new insights into the
+algorithms under study.
 
 \subsection{Inertia and \(k\)-means clustering}\label{subsec:inertia}
 
@@ -845,8 +895,8 @@ promptly getting stuck there.
 Aside from these progressions, a more focused look may be taken at the generated
 datasets. Figure~\ref{fig:kmeans_inertia_inds} shows the individuals with a
 fitness closest to the lowest, median and highest values across the entire
-history after min-max scaling. These individuals correspond to the best,
-most-middling and worst-performing individuals in said history. It should be
+history after min-max scaling. These individuals correspond to the best-,
+most-middling- and worst-performing individuals in said history. It should be
 noted that any individual from any generation may be retrieved and studied with
 this implementation. The summary provided here is one particular way of studying
 the body of datasets that have been generated. This transparency in the history
@@ -1237,10 +1287,14 @@ appropriate.
 
 To add to the discussion above, the opposing optimisation should be
 considered,~i.e. using the same parameters to find the datasets for which DBSCAN
-outperforms \(k\)-means with some altered silhouette coefficient. In this case,
-the alteration is to use \(-f\) except with the same penalty of \(-\infty\) for
-the case set out in~(\ref{eq:kmeans_preferable}). This fitness function is
-referred to as the \emph{DBSCAN-preferable} fitness function.
+outperforms \(k\)-means with some altered silhouette coefficient. Given the
+success of the \(k\)-means-preferable fitness function, a sensible starting
+point for the fitness function in this case would be to alter \(f\) slightly. To
+be specific, the objective is the reverse of \(f\) and so the fitness function
+should be \(-f\). However, the same penalty of \(-\infty\) is required for the
+case set out in~\eqref{eq:kmeans_preferable}, where DBSCAN produces only one
+cluster. This altered fitness function is referred to as the
+\emph{DBSCAN-preferable} fitness function.
 
 \begin{figure}[htbp]
     \centering
@@ -1309,7 +1363,16 @@ ignore the majority of the data points. Hence, approaches for identifying other
 conditions for the success of DBSCAN should adapt the fitness function to
 mitigate this behaviour, perhaps with a penalty.  
 
-% TODO The end of this section needs revising
+This point concludes the case study into clustering. By following a manual,
+iterative process of running EDO and adjusting the fitness function, several
+known properties of the \(k\)-means and DBSCAN algorithms have been revealed.
+However, to reiterate the beginning of this section: this case study acts as a
+tutorial on how to use EDO to study machine learning tools. A similar study
+could have been conducted on classification, taking an SVM as the algorithm of
+choice, and beginning with accuracy, say. Comparable issues may have come up
+such as the dimension reduction with the non-discounted fitness functions.
+Again, these phenomena could be handled in a similar fashion using penalties on
+correlation, for instance.
 
 \section{Chapter summary}\label{sec:edo:summary}
 
@@ -1405,7 +1468,16 @@ less helpful solutions (via some penalty, say) and towards previously unexplored
 behaviours. This automatic, iterative application of the proposed method would
 likely reveal more sophisticated insights into a particular algorithm.
 
+This iterative approach in adjusting the fitness function also suggests that
+obtaining an optimal parameter set is less important than in some applications
+of EAs. For instance, the only probability distribution family used in the case
+study was the uniform distribution. However, in the most successful cases, the
+distributions of the individual datasets were not at all uniform; this is a
+direct result of the fitness function being so freely modifiable. By adjusting
+the fitness function appropriately, the EA was able to avoid structural
+properties in the data it was producing, thus transcending the other parameters.
+
 The EDO method is merely a tool that demonstrates the benefit of the flipped
-paradigm set out in this work. The concept of where `good' datasets exist is not
-well-documented in literature, and this thesis established Evolutionary
-Dataset Optimisation as a starting point for further works to come.
+paradigm set out in the beginning of this chapter. The concept of where `good'
+datasets exist is not well-documented in literature, and this thesis established
+Evolutionary Dataset Optimisation as a starting point for further works to come.
